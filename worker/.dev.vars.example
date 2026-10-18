@@ -1,0 +1,24 @@
+# Copie para .dev.vars (já está no .gitignore) e preencha com credenciais de TESTE.
+# Em produção, cada linha vira: npx wrangler secret put NOME --env production
+
+# Mercado Pago (Suas integrações > aplicação > Credenciais de teste)
+MP_ACCESS_TOKEN=
+# Mercado Pago (Suas integrações > aplicação > Webhooks > assinatura secreta)
+MP_WEBHOOK_SECRET=
+
+# Gere cada um com: openssl rand -base64 32   (nunca reutilize entre ambientes)
+SEGREDO_CHAVE=
+SEGREDO_PASSE=
+SEGREDO_PASSE_VERSAO=1
+SEGREDO_SEMENTE=
+
+# Meta (Gerenciador de Eventos > conjunto de dados > Configurações)
+META_PIXEL_ID=
+META_CAPI_TOKEN=
+# Aba "Testar eventos". Só em desenvolvimento; em produção fica vazio.
+META_TEST_EVENT_CODE=
+
+# Cloudflare Access (Zero Trust > Access > Applications > aplicação do painel)
+ADMIN_EMAILS=
+CF_ACCESS_AUD=
+CF_ACCESS_TEAM_DOMAIN=https://EQUIPE.cloudflareaccess.com

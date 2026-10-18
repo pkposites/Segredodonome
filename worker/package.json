@@ -8,9 +8,12 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "validar-conteudo": "tsx scripts/validar-conteudo.ts",
-    "gerar-conteudo": "tsx scripts/gerar-conteudo.ts",
     "deploy:dev": "wrangler deploy --env dev",
-    "deploy:production": "wrangler deploy --env production"
+    "deploy:production": "wrangler deploy --env production",
+    "gerar-painel": "node scripts/gerar-painel.mjs",
+    "lint-genero": "python3 -I scripts/lint-genero.py ../content/nome",
+    "migrar:local": "wrangler d1 migrations apply segredo-do-nome --local --env dev",
+    "check": "npm run validar-conteudo && npm run typecheck && npm test"
   },
   "dependencies": {
     "jose": "^6.2.12",
