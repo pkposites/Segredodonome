@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Processando</title>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#A39F98}a:hover{color:#F4F1EC}
+@keyframes girar{to{transform:rotate(360deg)}}
+.anel{transform-origin:130px 130px;animation:girar 14s linear infinite}
+@media (prefers-reduced-motion: reduce){.anel{animation:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0D0D10; color: #F4F1EC; font-family: Figtree, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 72px 28px 32px; gap: 36px">
+<svg width="260" height="260" viewBox="0 0 260 260" fill="none" role="img" aria-label="As letras do nome se organizando ao redor da inicial">
+<circle cx="130" cy="130" r="118" stroke="#2B2B31" stroke-width="1"/>
+<g class="anel" stroke="#4A4A52" stroke-width="1.5">
+<path d="M130 6v10M130 244v10M6 130h10M244 130h10M42 42l7 7M211 211l7 7M42 218l7-7M211 49l7-7"/>
+</g>
+<circle cx="130" cy="130" r="86" stroke="#FF7A45" stroke-width="2" stroke-dasharray="200 340" stroke-linecap="round" transform="rotate(-90 130 130)"/>
+<circle cx="130" cy="130" r="46" fill="#2A1810"/>
+<text x="130" y="147" text-anchor="middle" font-family="Newsreader, serif" font-size="48" fill="#FF7A45">B</text>
+<text x="124" y="40" font-family="Newsreader, serif" font-size="22" fill="#CFCAC2">r</text>
+<text x="210" y="124" font-family="Newsreader, serif" font-size="22" fill="#CFCAC2">u</text>
+<text x="168" y="222" font-family="Newsreader, serif" font-size="22" fill="#CFCAC2">n</text>
+<text x="62" y="218" font-family="Newsreader, serif" font-size="22" fill="#CFCAC2">a</text>
+<text x="34" y="122" font-family="Newsreader, serif" font-size="22" fill="#6F6B66">s</text>
+</svg>
+<div style="width: 100%; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: #A39F98"><span style="width: 22px; height: 22px; border-radius: 999px; background: #2A1810; color: #FF7A45; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></span>Lendo as letras do seu nome</div>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: #F4F1EC"><span style="width: 22px; height: 22px; border-radius: 999px; border: 2px solid #FF7A45; box-sizing: border-box"></span>Cruzando com a sua data</div>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: #6F6B66"><span style="width: 22px; height: 22px; border-radius: 999px; border: 2px solid #2B2B31; box-sizing: border-box"></span>Montando o seu resultado</div>
+</div>
+<a href="Resultado.dc.html" style="margin-top: auto; font-size: 14px; font-weight: 600">Pular</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

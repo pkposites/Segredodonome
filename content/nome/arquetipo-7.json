@@ -1,0 +1,161 @@
+{
+  "content_version": "2026-10-a",
+  "numero": 7,
+  "arquetipo": {
+    "nome": "O Farol",
+    "palavras_guia": ["silêncio", "análise", "verdade"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 7. Varia por temperamento.",
+    "essencia": {
+      "magnetico": [
+        [
+          "{primeiro_nome}, você é daquelas pessoas que percebem o que está por trás das palavras. Numa conversa, enquanto os outros respondem rápido, você já notou o tom, a pausa e o que ninguém disse. Por isso tanta gente te procura quando precisa de uma opinião sincera.",
+          "Seu nome tem {qtd_letras} letras, e a letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes. Isso reforça um traço que você talvez já conheça: você precisa de silêncio para entender o que sente, e só fala quando tem certeza. Quem te conhece de verdade sabe que esse silêncio é cuidado, não distância."
+        ],
+        [
+          "{primeiro_nome}, existe uma parte de você que pouca gente conhece, e você gosta que seja assim. Você observa antes de se aproximar, sente antes de explicar e, quando finalmente se abre, é por inteiro. Quem chega até esse lugar descobre uma pessoa leal, atenta e muito mais divertida do que parecia à primeira vista.",
+          "A letra {inicial} abrindo o seu nome combina com esse jeito de quem ilumina sem fazer barulho. Você costuma perceber quando um amigo não está bem antes de ele contar, e muitas vezes acerta o rumo de uma situação só pelo clima da conversa. Não é mágica: é atenção de verdade, coisa rara hoje em dia."
+        ],
+        [
+          "Você tem um radar, {primeiro_nome}. Entra num lugar e em poucos minutos já sabe quem está à vontade, quem está fingindo e quem precisa de ajuda. Esse radar te protege, mas também cansa: você sente tudo o que vê, mesmo quando prefere não demonstrar.",
+          "As {qtd_letras} letras do seu nome desenham alguém que pensa fundo e sente fundo ao mesmo tempo. Você não se contenta com respostas rasas, nem em conversa, nem em relacionamento. Quando algo te toca, você guarda por anos. Quando algo te decepciona, você também guarda, só que em silêncio."
+        ]
+      ],
+      "intenso": [
+        [
+          "{primeiro_nome}, você é profundidade com pressa. Pensa muito, sente muito e, quando algo mexe com você, age na hora. Quem vê a sua calma por fora não imagina o tanto que acontece por dentro: você está sempre lendo as pessoas e tirando conclusões, e raramente erra.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça esse contraste. Você pode passar dias em silêncio sobre um assunto e, de repente, resolver tudo numa conversa só, com uma clareza que surpreende. Quando você decide falar, as pessoas param para ouvir."
+        ],
+        [
+          "Você não suporta superficialidade, {primeiro_nome}. Se a conversa é vazia, você some; se é verdadeira, você fica até de madrugada. Essa intensidade faz com que as suas relações sejam poucas, mas marcantes: quem passa pela sua vida dificilmente esquece.",
+          "Seu nome tem {qtd_letras} letras e uma combinação que costuma aparecer em pessoas de opinião forte e coração exposto. Você defende quem ama com unhas e dentes e não tem paciência para injustiça. O desafio é que, às vezes, você sente antes de entender, e depois precisa de um tempo para organizar o que aconteceu."
+        ],
+        [
+          "{primeiro_nome}, você enxerga longe e sente perto. Percebe detalhes que os outros deixam passar e reage a eles com o coração. É do tipo que muda o rumo de um dia inteiro por causa de uma frase, para o bem ou para o mal.",
+          "A letra {inicial} no começo do seu nome aponta para alguém que não fica em cima do muro. Quando acredita em algo, você vai até o fim; quando deixa de acreditar, também não volta atrás. Essa mistura de faro e coragem é rara, e é ela que faz as pessoas confiarem tanto no que você diz."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você observa como quem estuda o terreno antes de um passo importante. Não gosta de improviso, gosta de entender. E, quando entende, age com uma precisão que deixa os outros se perguntando como você chegou ali tão rápido.",
+          "As {qtd_letras} letras do seu nome mostram alguém que transforma informação em decisão. Você é a pessoa que lê o contrato inteiro, que pesquisa antes de comprar, que nota a contradição no meio da conversa. Pode parecer frieza para quem não te conhece, mas é só o seu jeito de cuidar das coisas direito."
+        ],
+        [
+          "Você tem uma mente que não desliga, {primeiro_nome}. Enquanto todo mundo está reagindo, você já está pensando no próximo passo. Isso faz de você a pessoa a quem os outros recorrem quando a situação aperta: você mantém a cabeça no lugar.",
+          "A letra {letra_mais_repetida}, que aparece {qtd_letra_mais_repetida} vezes no seu nome, reforça esse lado analítico e decidido. Você prefere fatos a promessas e resultado a discurso. Só tome cuidado para não exigir dos outros a mesma clareza que você tem: nem todo mundo enxerga tão longe quanto você."
+        ],
+        [
+          "{primeiro_nome}, você junta duas coisas que raramente andam juntas: profundidade e objetividade. Pensa nas perguntas difíceis, mas não se perde nelas. Quando encontra uma resposta que faz sentido, coloca em prática sem esperar aplauso.",
+          "A letra {inicial} abrindo o seu nome combina com quem ilumina o caminho para os outros. Muita gente já tomou uma decisão melhor depois de uma conversa com você, mesmo que você nem tenha percebido. Seu conselho é direto, às vezes direto demais, mas quase sempre certeiro."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, você é a calma no meio da tempestade. Enquanto os outros se agitam, você observa, pensa e só depois se posiciona. Essa tranquilidade não é desinteresse: é a forma que você encontrou de entender o mundo sem se deixar levar por ele.",
+          "Seu nome tem {qtd_letras} letras e uma estrutura que aparece em quem valoriza silêncio, livros, conversas longas e pouca gente por perto. Você precisa de um tempo só seu para recarregar, e isso não tem nada de errado. É nesse tempo que nascem as suas melhores ideias."
+        ],
+        [
+          "Você confia mais no que observa do que no que te dizem, {primeiro_nome}. Antes de formar uma opinião, quer ver com os próprios olhos, entender as razões e checar os detalhes. Por isso, quando você finalmente diz o que pensa, raramente precisa voltar atrás.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço que reforça paciência e constância. Você é a pessoa que lembra do que foi dito meses atrás, que percebe padrões e que não se impressiona com qualquer coisa. Quem conquista a sua confiança ganha alguém para a vida toda."
+        ],
+        [
+          "{primeiro_nome}, você tem um mundo interior grande e organizado. Gosta de entender como as coisas funcionam, de pensar antes de responder e de ter um canto só seu. As pessoas te veem como alguém de poucas palavras, mas cada palavra sua tem peso.",
+          "A letra {inicial} no começo do seu nome reforça a imagem de quem guia sem precisar levantar a voz. Em grupo, você raramente é quem fala mais alto, mas é quem os outros procuram quando querem uma opinião sensata. Seu jeito tranquilo passa segurança, e isso vale muito."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Lê pessoas com facilidade", "Prefere poucos e bons", "Desconfia do óbvio"],
+      ["Observa antes de agir", "Guarda segredos como ninguém", "Pergunta o porquê de tudo"],
+      ["Intuição afiada", "Leal a quem conquista", "Precisa de tempo só seu"]
+    ],
+    "como_ama": {
+      "magnetico": [
+        "Você ama em silêncio antes de amar em voz alta. Leva tempo para confiar, observa a pessoa por semanas, às vezes meses, e só então deixa alguém entrar de verdade. Quando isso acontece, o seu amor é profundo, atento e leal: você lembra de detalhes, percebe o humor do outro sem que ele diga nada e cuida com gestos, não com discursos.",
+        "O risco é esperar que a outra pessoa adivinhe o que você sente da mesma forma que você adivinha o que ela sente. Nem todo mundo tem o seu radar. Dizer em palavras o que você deseja, o que te magoou e o que te faz bem não diminui a magia: aumenta a confiança. O amor que você procura existe, mas ele precisa saber o caminho até você."
+      ],
+      "intenso": [
+        "No amor, você é tudo ou nada. Pode demorar para se interessar, mas quando se interessa, mergulha de cabeça. Quer conversas que atravessam a madrugada, quer entender a história do outro, quer sentir que a conexão é rara. Relacionamentos mornos não te seguram por muito tempo.",
+        "Essa intensidade é linda, mas pode assustar quem tem outro ritmo, e pode fazer você sofrer mais do que precisava quando algo dá errado. Um bom combinado para fazer com você: antes de decidir qualquer coisa importante numa relação, espere uma noite de sono. Quase sempre, a resposta que vem no dia seguinte é mais sábia e preserva o que vale a pena."
+      ],
+      "estrategico": [
+        "Você ama com a cabeça e com o coração, nessa ordem. Antes de se envolver, avalia se a pessoa é confiável, se os valores combinam e se existe futuro. Pode parecer pouco romântico, mas é justamente isso que faz das suas relações algo sólido: quando você escolhe alguém, escolhe de verdade.",
+        "Você demonstra amor resolvendo problemas, planejando e estando presente nas horas difíceis. O cuidado é lembrar que nem tudo no amor precisa fazer sentido. Às vezes, o outro só quer ouvir que é importante, ganhar um elogio fora de hora ou viver um programa sem planejamento nenhum. Abrir espaço para o imprevisto deixa a relação mais leve e mais divertida."
+      ],
+      "sereno": [
+        "O seu amor é tranquilo, constante e profundo. Você não é de grandes declarações nem de cenas de novela; prefere estar presente, ouvir com atenção e construir confiança aos poucos. Quem está ao seu lado sente que pode descansar, e isso é um dos maiores presentes que alguém pode dar.",
+        "Por outro lado, a sua calma pode ser confundida com falta de interesse por quem precisa de mais demonstração. Se a outra pessoa tem um jeito mais expressivo, vale combinar formas simples de mostrar carinho: uma mensagem no meio do dia, um convite inesperado, um \"senti sua falta\" dito em voz alta. Pequenos gestos fazem o seu amor ser visto como ele é."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "magnetico": [
+        "Você trabalha melhor quando acredita no que faz. Rotina sem propósito te drena, mas um projeto com significado te faz render como ninguém. Funções que pedem escuta, pesquisa, criação, cuidado com pessoas ou análise profunda costumam combinar com você, porque usam a sua capacidade de perceber o que os outros não percebem.",
+        "Com dinheiro, você costuma ter cautela, mas pode gastar por impulso com experiências, livros ou coisas que te emocionam. O ponto de atenção é não aceitar ganhar menos do que vale só porque gosta do que faz. A sua leitura de pessoas é uma habilidade rara, e cobrar por ela de forma justa é parte de respeitar quem você é."
+      ],
+      "intenso": [
+        "Você precisa de trabalho que te desafie. Quando o projeto te empolga, você vira a noite; quando perde o sentido, a motivação vai embora rápido. Áreas em que a sua intuição e a sua coragem fazem diferença, como negócio próprio, comunicação, atendimento a pessoas ou investigação de problemas, tendem a te dar mais satisfação.",
+        "No dinheiro, cuidado com decisões no calor do momento, tanto nas compras quanto nos investimentos. Uma regra simples ajuda muito: tudo acima de um valor que você definir espera 48 horas antes de ser decidido. A sua intuição é ótima, mas fica ainda melhor quando você dá tempo para os números confirmarem o que o seu faro já disse."
+      ],
+      "estrategico": [
+        "No trabalho, você é a pessoa que encontra o problema que ninguém viu e propõe a solução que ninguém pensou. Funções que pedem análise, planejamento, estratégia ou especialização tendem a te valorizar, porque o seu raciocínio é ao mesmo tempo profundo e prático.",
+        "Com dinheiro, você costuma ter método: pesquisa antes de comprar, compara, faz contas. O ponto de atenção é o perfeccionismo, que pode te fazer adiar boas decisões esperando o momento perfeito. Às vezes, uma escolha boa feita hoje vale mais do que a escolha ideal feita tarde demais. Confie mais nas suas análises: elas costumam estar certas."
+      ],
+      "sereno": [
+        "Você rende mais em ambientes calmos, com autonomia e tempo para pensar. Barulho, pressa e reunião demais te cansam; tarefas profundas, que exigem concentração e cuidado, te satisfazem. Áreas técnicas, de pesquisa, escrita, finanças, saúde ou qualquer trabalho de especialista costumam combinar com você.",
+        "No dinheiro, a sua paciência é uma vantagem enorme: você consegue esperar, guardar e construir aos poucos. O cuidado é não se esconder demais. Muitas vezes, você é a pessoa mais competente da sala e a menos lembrada na hora de uma promoção. Mostrar o seu trabalho, com calma e com dados, é o que transforma o seu talento em reconhecimento e em renda."
+      ]
+    },
+    "frase_do_nome": {
+      "magnetico": "Eu vejo o que ninguém vê, e escolho com cuidado o que mostrar.",
+      "intenso": "Eu sinto fundo, enxergo longe e não sei fazer nada pela metade.",
+      "estrategico": "Eu ilumino o caminho antes de dar o primeiro passo.",
+      "sereno": "Minha calma não é ausência: é atenção em silêncio."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 7 aparece em CORAÇÃO (vogais), IMAGEM (consoantes) ou CAMINHO (data), independente do arquétipo principal. Por isso não cita 'O Farol'. 3 redações cada, escolhidas pela semente.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é sentido. Não basta fazer as coisas: você precisa entender por que está fazendo. Um trabalho que paga bem, mas não faz sentido, te esvazia; uma relação confortável, mas rasa, deixa a sensação de que falta alguma coisa. O seu coração pede verdade, e você sente rápido quando ela não está presente.",
+        "Isso explica por que você se cansa de conversas superficiais e por que alguns poucos encontros ficam guardados por anos. Você quer compreensão de verdade, não apenas alguém que escute. O caminho para se sentir em paz passa por escolher menos coisas e mergulhar mais fundo nelas: menos grupos, mais amizades de verdade; menos tarefas, mais propósito em cada uma."
+      ],
+      [
+        "O que move você por dentro é a vontade de entender. Talvez desde cedo você fizesse perguntas que ninguém sabia responder, e essa curiosidade nunca foi embora: só ficou mais silenciosa. Você busca respostas sobre as pessoas, sobre a vida e sobre a sua própria história.",
+        "Quando não encontra, se inquieta. Quando encontra, sente uma paz que pouca coisa consegue dar. Por isso, livros, conversas longas, viagens sem pressa e momentos de silêncio não são luxo para você: são necessidade. Respeitar esse lado é o que te mantém em equilíbrio, mesmo quando o dia a dia empurra tudo para a correria."
+      ],
+      [
+        "O seu coração busca profundidade e confiança. Você não se entrega a qualquer pessoa nem a qualquer projeto; precisa sentir que existe algo verdadeiro ali. Quando sente, se dedica com uma lealdade que pouca gente tem. Quando desconfia, recua sem dar muitas explicações.",
+        "O que você mais deseja, mesmo sem dizer, é encontrar pessoas e lugares onde possa ser quem é sem precisar se defender. Isso não é exigência demais: é sinal de que você conhece o próprio valor. O cuidado é não fechar todas as portas por medo de se decepcionar. Algumas das melhores coisas da sua vida vão chegar justamente quando você baixar um pouco a guarda."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de alguém difícil de decifrar. Há quem leia isso como timidez, quem leia como seriedade e quem leia como charme. A verdade é que você só mostra o que quer mostrar, e as pessoas percebem que existe muito mais por trás.",
+        "Essa imagem tem vantagens: inspira respeito, desperta curiosidade e faz com que a sua opinião pese mais. A desvantagem é que algumas pessoas podem achar que você está distante quando, na verdade, só está prestando atenção. Um sorriso a mais ou uma pergunta sobre a vida do outro já bastam para mostrar o calor que existe por dentro."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa que sabe das coisas. Fala pouco, mas quando fala, parece ter pensado em tudo. No trabalho e entre amigos, é comum te procurarem para uma segunda opinião, uma análise ou um conselho sincero.",
+        "Essa imagem de sabedoria é um presente, mas também pode virar peso: às vezes esperam que você tenha sempre a resposta certa, e você também tem dias de dúvida. Permita que as pessoas próximas vejam esse lado. Mostrar que você também procura respostas te aproxima de quem você ama e deixa as relações mais leves."
+      ],
+      [
+        "As pessoas percebem em você uma calma observadora. Você é quem nota o corte de cabelo novo de alguém, quem lembra o nome do cachorro do colega, quem percebe que o amigo mudou de humor. Isso faz com que os outros se sintam vistos ao seu lado.",
+        "Ao mesmo tempo, quem não te conhece bem pode achar que você está julgando, quando na verdade está só entendendo. Se quiser que a primeira impressão seja mais leve, conte um pouco do que está pensando. Uma frase simples, como \"estou só observando, adoro esse lugar\", muda completamente a forma como as pessoas te leem."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é achar que precisa entender tudo antes de pedir ajuda. Você analisa, pesquisa, pensa de novo e, quando finalmente compartilha um problema, ele já ficou maior do que precisava. Muitas vezes, uma conversa no começo teria poupado semanas de preocupação.",
+        "Esse padrão costuma se repetir em fases diferentes da vida: no trabalho, no amor, na família. Para virar o jogo, experimente o contrário do que é natural para você: fale enquanto as ideias ainda estão confusas. Diga \"estou pensando nisso, me ajuda a enxergar?\". Você vai descobrir que dividir não enfraquece; pelo contrário, traz perspectivas que nem a sua mente tão atenta alcançaria por conta própria."
+      ],
+      [
+        "O seu ponto cego é a desconfiança. Você aprendeu a observar antes de confiar, e isso já te protegeu muitas vezes. Mas às vezes o radar fica sensível demais e você enxerga má intenção onde só havia distração, ou se afasta de alguém antes de dar uma chance real.",
+        "A pergunta que ajuda a virar o jogo é simples: \"que provas eu tenho disso?\". Quando a resposta for \"nenhuma, é só uma sensação\", dê um passo pequeno de confiança e veja o que acontece. Na maioria das vezes, as pessoas vão te surpreender. E, quando não surpreenderem, você terá a confirmação de que precisava, sem ter fechado a porta cedo demais."
+      ],
+      [
+        "O seu ponto cego é se fechar quando está mal. Em vez de pedir colo, você some, organiza tudo por dentro e volta como se nada tivesse acontecido. Por fora, parece força; por dentro, às vezes é solidão. E quem gosta de você fica sem saber como ajudar.",
+        "Para virar o jogo, escolha uma ou duas pessoas de confiança e combine com elas: \"quando eu sumir, me chama\". Também vale criar o hábito de dizer como você está, mesmo que em uma palavra. Você não precisa expor tudo, só deixar uma janela aberta. É por essa janela que entra o apoio que você tantas vezes oferece aos outros."
+      ]
+    ]
+  }
+}

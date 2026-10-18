@@ -1,0 +1,56 @@
+# Textos de consentimento e avisos (versão 2026-10-a)
+
+Cada texto tem um identificador e uma versão; a escolha da pessoa fica registrada só no navegador dela.
+
+## 1. Aviso de cookies (`cookies`) — primeira visita, rodapé
+> Usamos cookies para medir de onde vêm as visitas e melhorar o site. [Saiba mais](/privacidade)
+> **[Aceitar]**  **[Recusar]**
+
+- Os dois botões com o mesmo destaque.
+- Recusar não impede nada: o site funciona normalmente.
+- Sem aceite, o Pixel não carrega.
+- Link "Preferências de cookies" fixo no rodapé para mudar a escolha.
+
+## 2. Antes de calcular o resultado (`termos`) — última tela do quiz
+> Ao continuar, você confirma que tem 18 anos ou mais e concorda com os [Termos de Uso](/termos) e a [Política de Privacidade](/privacidade). Usamos seu nome e sua data de nascimento só para montar o resultado e não guardamos esses dados depois. Este é um conteúdo de entretenimento.
+>
+> ☐ **Li e concordo** (obrigatório)
+
+## 3. Resumo antes de pagar (informação pré-contratual) — caixa de preço
+> **Resultado completo do [NOME FANTASIA] — R$ 11,90**
+> Pagamento único via Pix, sem assinatura. Acesso imediato após a confirmação, por 12 meses, com PDF para baixar.
+> Você pode desistir em até 7 dias e receber o valor de volta. [Política de reembolso](/reembolso)
+> Não enviamos e-mail: guarde o seu link de acesso ou salve o PDF.
+> Conteúdo de entretenimento, sem valor científico ou de previsão.
+> Vendido por [RAZÃO SOCIAL], CNPJ [CNPJ].
+
+## 4. Checkout — e-mail para o Mercado Pago
+> **E-mail para o Pix**
+> Exigido pelo Mercado Pago para gerar o Pix. Não guardamos este e-mail e não enviamos mensagens.
+
+## 4.1 Depois do pagamento — link de acesso
+> **Seu link de acesso** [Copiar link] [QR Code]
+> Abre o seu resultado completo em qualquer aparelho por 12 meses. Guarde o link ou salve o PDF. Quem tiver este link vê o seu resultado.
+
+## 5. Contato para receber o link — FASE FUTURA (WhatsApp), não usar no MVP
+> **Quer guardar seu resultado?** Receba o link no seu WhatsApp.
+> ☐ Quero receber o link do meu resultado (obrigatório para salvar o número)
+> ☐ Quero receber novidades e ofertas (opcional)
+> Você pode sair a qualquer momento respondendo SAIR.
+
+## 6. Interesse na trilha Casal
+> **Quero quando lançar** (botão). Não pedimos contato; o lançamento será divulgado no site e nas redes.
+
+## 7. Comprovante na tela (após o pagamento)
+> **Compra confirmada** · Pagamento nº [NÚMERO] · [DATA E HORA] · R$ 11,90 via Pix
+> Vendido por [RAZÃO SOCIAL], CNPJ [CNPJ] · Pagamento processado pelo Mercado Pago
+> [Salvar comprovante] · Desistência em até 7 dias: [contato]
+
+## 8. Rodapé do site (obrigatório)
+> [RAZÃO SOCIAL] · CNPJ [CNPJ] · [ENDEREÇO] · [E-MAIL DE CONTATO] · WhatsApp [WHATSAPP DE CONTATO]
+> [Termos de Uso](/termos) · [Privacidade](/privacidade) · [Reembolso](/reembolso) · Preferências de cookies
+> Conteúdo de entretenimento.
+
+## 9. Idade (quando a data indicar menos de 18 anos)
+> Este quiz é para maiores de 18 anos. Obrigado pelo interesse!
+(Nada é processado nem salvo.)
