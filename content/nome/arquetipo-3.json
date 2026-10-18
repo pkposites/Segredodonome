@@ -1,0 +1,162 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code a partir de arquetipo-7.json e do GUIA_DE_CONTEUDO.md. Revisão do Rob pendente.",
+  "numero": 3,
+  "arquetipo": {
+    "nome": "A Voz",
+    "palavras_guia": ["alegria", "comunicação", "brilho"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 3. Varia por temperamento.",
+    "essencia": {
+      "intenso": [
+        [
+          "{primeiro_nome}, quando você chega, a conversa muda de volume. Você conta a história com gestos, imita as pessoas, faz todo mundo rir e, no meio da risada, solta uma verdade que ninguém tinha coragem de dizer. A sua alegria é contagiante e sincera.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça esse brilho. Você sente tudo em voz alta: se está feliz, o mundo sabe; se algo te incomoda, também. Essa transparência faz as pessoas confiarem em você, porque com você não existe jogo."
+        ],
+        [
+          "Você transforma qualquer momento em evento, {primeiro_nome}. Um almoço simples vira encontro memorável, uma fila vira conversa, uma viagem curta vira aventura. A vida perto de você tem mais cor.",
+          "A letra {inicial} abrindo o seu nome combina com quem se expressa sem medo. Você fala, canta, escreve, posta, cria. O desafio é que, com tanta coisa para dizer e fazer, às vezes a energia se espalha demais. Escolher onde colocar a sua voz faz ela ecoar ainda mais longe."
+        ],
+        [
+          "{primeiro_nome}, você é paixão em forma de palavra. Quando gosta de algo, convence todo mundo a gostar também. Quando defende uma ideia, defende com o coração, e as pessoas param para ouvir.",
+          "As {qtd_letras} letras do seu nome desenham alguém que precisa se expressar para sentir a vida pulsar por dentro. Guardar o que sente te faz mal. Por isso, ter um canal, seja conversa, arte, escrita ou palco, é parte do que te mantém em equilíbrio."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você sabe usar as palavras a seu favor. Apresenta uma ideia de um jeito que todo mundo entende, convence sem parecer que está convencendo e sabe o momento certo de fazer a piada que destrava a reunião.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse talento de comunicação com propósito. Você é carisma com objetivo: encanta as pessoas e, ao mesmo tempo, faz as coisas andarem. Pouca gente consegue as duas coisas."
+        ],
+        [
+          "Você tem uma criatividade prática, {primeiro_nome}. As suas ideias não ficam no ar: viram projeto, apresentação, post, plano. E você sabe vender o que cria, o que faz toda a diferença.",
+          "A letra {inicial} no começo do seu nome combina com quem brilha e realiza. Você costuma ser a pessoa escolhida para falar em nome do grupo. O cuidado é não usar o humor para escapar de conversas difíceis: a sua voz também tem força quando fica séria."
+        ],
+        [
+          "{primeiro_nome}, você é a pessoa que explica o complicado de um jeito simples. Lê o público, ajusta o tom e entrega a mensagem certa para cada pessoa. É uma habilidade rara e muito valiosa.",
+          "As {qtd_letras} letras do seu nome mostram alguém que pensa rápido e fala bem. Você consegue sair de quase qualquer situação com uma boa conversa. Só lembre que nem tudo precisa de resposta pronta: às vezes, ouvir em silêncio é o que mais aproxima."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, o seu humor é fino e observador. Você não é de fazer barulho, mas quando solta um comentário, a roda inteira ri. As pessoas adoram o seu jeito de enxergar graça onde ninguém viu.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço de quem se expressa com cuidado. Você escolhe as palavras, pensa no efeito delas e raramente se arrepende do que disse. Essa elegância na comunicação desperta muita admiração em quem convive com você."
+        ],
+        [
+          "Você tem um mundo criativo por dentro, {primeiro_nome}. Ideias, histórias, músicas, imagens: muita coisa acontece na sua cabeça, mesmo quando por fora você parece só tranquilidade.",
+          "A letra {inicial} abrindo o seu nome combina com quem se expressa melhor quando tem tempo. Talvez você escreva melhor do que fala, ou crie melhor sem plateia. O cuidado é não esconder demais esse talento: o mundo merece ver o que você faz."
+        ],
+        [
+          "{primeiro_nome}, você é leveza com profundidade. Consegue rir de si, deixa os ambientes mais leves e, ao mesmo tempo, tem opiniões bem pensadas sobre quase tudo. É uma companhia que nunca cansa.",
+          "As {qtd_letras} letras do seu nome desenham alguém que se comunica com calma e graça. Você não precisa dominar a conversa para ficar na memória das pessoas. O desafio é falar mais de si: quem gosta de você quer conhecer também o que você pensa e sente."
+        ]
+      ],
+      "magnetico": [
+        [
+          "{primeiro_nome}, você tem um brilho que não depende de holofote. As pessoas se encantam com o seu jeito de contar as coisas, com o seu olhar sensível e com a sua capacidade de transformar sentimento em palavra, desenho ou música.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse lado artístico. Você sente o mundo com intensidade e precisa expressar isso de algum jeito. Quando encontra o seu canal, cria coisas que tocam os outros de verdade."
+        ],
+        [
+          "Você é uma presença que encanta sem esforço, {primeiro_nome}. Não precisa ser quem fala mais alto: basta uma frase sua, um sorriso, uma história, e as pessoas querem ficar por perto.",
+          "A letra {inicial} no começo do seu nome combina com quem se comunica pela emoção. Você toca as pessoas pelo que sente, não só pelo que diz. O cuidado é não fugir quando o assunto fica sério: a sua sensibilidade é exatamente o que essas conversas precisam."
+        ],
+        [
+          "{primeiro_nome}, você vive muito por dentro e transforma isso em expressão. Um dia ruim pode virar texto; uma alegria pode virar música. A sua criatividade nasce dos seus sentimentos.",
+          "As {qtd_letras} letras do seu nome desenham alguém de alma criativa e coração aberto. Você se emociona com facilidade e emociona os outros também. Respeitar o tempo de criar, sem cobrança, é o que mantém esse brilho aceso."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Faz todo mundo rir", "Conta histórias como ninguém", "Alegria contagiante"],
+      ["Criatividade sem fim", "Fala bem em público", "Transforma tudo em evento"],
+      ["Humor afiado", "Expressão sem medo", "Brilha sem esforço"]
+    ],
+    "como_ama": {
+      "intenso": [
+        "No amor, você é festa e declaração. Gosta de surpreender, de dizer o que sente, de fazer a outra pessoa rir até doer a barriga. Relação com você nunca é monótona: tem programa novo, conversa até tarde, mensagem engraçada no meio do dia. Você ama em voz alta e quer receber amor do mesmo jeito.",
+        "O risco é a montanha-russa. Quando está tudo bem, é maravilhoso; quando algo sai do lugar, o drama pode crescer rápido. Antes de reagir a uma frase que te magoou, pergunte o que a pessoa quis dizer. Muitas brigas nascem de interpretação. A sua leveza é o maior presente que você dá a uma relação; proteja-a."
+      ],
+      "estrategico": [
+        "Você ama com conversa. Gosta de relações em que se pode falar de tudo, combinar, rir junto e planejar. O seu carisma conquista rápido, e o seu senso prático ajuda a relação a funcionar no dia a dia. Você é a pessoa que resolve o mal-entendido com uma piada e um abraço.",
+        "O cuidado é não fugir das conversas que não têm graça. Algumas questões da relação precisam de seriedade, sem humor no meio. Quando a outra pessoa traz algo difícil, segure a vontade de aliviar o clima e apenas ouça. Isso mostra que você leva a relação a sério, além de deixá-la divertida."
+      ],
+      "sereno": [
+        "O seu amor é leve e cúmplice. Você não precisa de grandes gestos: cria intimidade com piadas internas, conversas tranquilas e um jeito único de fazer a outra pessoa se sentir à vontade. Quem está com você sente que pode ser quem é.",
+        "O ponto de atenção é falar do que sente. Você se expressa tão bem sobre tantas coisas, mas sobre o próprio coração às vezes fica em silêncio. Dizer \"eu te amo\", \"fiquei com ciúme\" ou \"senti sua falta\" em voz alta fortalece a relação mais do que você imagina."
+      ],
+      "magnetico": [
+        "Você ama com poesia. Percebe os detalhes da outra pessoa e transforma isso em cuidado, bilhete, playlist, presente pensado. A sua sensibilidade cria momentos que ficam guardados na memória de quem você ama por muito tempo.",
+        "O risco é idealizar. Você imagina a relação como um filme bonito, e a vida real às vezes decepciona. Aceitar as imperfeições do outro, e as suas, deixa o amor mais verdadeiro. E, quando algo te magoar, use o seu dom com as palavras para conversar, em vez de guardar o sentimento só para você."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "intenso": [
+        "Você precisa de trabalho com gente e com palco. Comunicação, vendas, marketing, eventos, arte, ensino, atendimento: áreas em que a sua energia e a sua voz fazem diferença tendem a te dar prazer. Trabalho isolado e repetitivo apaga o seu brilho.",
+        "Com dinheiro, cuidado com os gastos de impulso: a roupa para a festa, a viagem de última hora, o presente caro. Aproveitar a vida é importante para você, e tudo bem. Só vale separar antes, todo mês, uma parte que não se toca. Assim a alegria de hoje não vira preocupação amanhã."
+      ],
+      "estrategico": [
+        "No trabalho, você é a voz que vende, apresenta e convence. Funções de comunicação, negociação, liderança de equipe, conteúdo ou relacionamento com clientes tendem a valorizar o seu talento de unir carisma e resultado.",
+        "Com dinheiro, você costuma ter boas ideias para ganhar mais. O ponto de atenção é a dispersão: muitos projetos ao mesmo tempo podem render pouco cada um. Escolher um ou dois focos e ir até o fim costuma trazer mais retorno do que dez começos. A sua criatividade merece constância."
+      ],
+      "sereno": [
+        "Você rende bem em trabalhos criativos com autonomia. Escrita, design, edição, pesquisa, educação ou qualquer área em que você possa criar no seu ritmo tendem a combinar com você. Ambientes caóticos te cansam; espaço para pensar te inspira.",
+        "Com dinheiro, você tende a lidar com tranquilidade, mas pode se descuidar do planejamento. O cuidado é não subestimar o valor do que você cria. Trabalho criativo também tem preço, e cobrar o justo é parte de levar o seu talento a sério. Mostre o seu portfólio, mesmo que ache que ainda não está pronto."
+      ],
+      "magnetico": [
+        "Você precisa de trabalho que tenha alma. Arte, comunicação com propósito, terapias, educação, causas sociais: quando o que você faz emociona alguém, você se realiza. Trabalhos frios e burocráticos podem te deixar sem cor.",
+        "Com dinheiro, você pode oscilar entre gastar com o que te emociona e se preocupar demais depois. O ponto de atenção é criar uma estrutura simples: uma conta para o essencial, outra para os sonhos. Isso dá liberdade para você criar sem medo, que é quando a sua melhor parte aparece."
+      ]
+    },
+    "frase_do_nome": {
+      "intenso": "Eu falo alto, rio alto e sinto alto: comigo nada é pela metade.",
+      "estrategico": "Minha voz abre portas, e eu sei por quais entrar.",
+      "sereno": "Eu não preciso gritar: meu brilho fala por mim.",
+      "magnetico": "Eu transformo o que sinto em algo que toca os outros."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 3 aparece em CORAÇÃO, IMAGEM ou CAMINHO. Não cita 'A Voz'.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é alegria compartilhada. Você quer rir, criar, celebrar e, principalmente, fazer isso com gente por perto. Uma vida séria demais, sem espaço para brincadeira, te apaga aos poucos.",
+        "Isso explica por que você se anima tanto com encontros e se entristece quando passa muito tempo sem ver os amigos. O caminho para se sentir em paz é proteger os seus momentos de leveza, mesmo nas fases difíceis. Rir não é fuga para você: é o jeito que você encontra de continuar."
+      ],
+      [
+        "O que move você por dentro é a vontade de se expressar. Você tem coisas a dizer, ideias a mostrar, sentimentos a transformar em algo. Quando não encontra espaço para isso, sente um aperto por dentro.",
+        "Quando encontra, floresce. Por isso, ter um canal de expressão, seja escrever, cantar, desenhar, cozinhar, conversar ou criar conteúdo, não é hobby: é necessidade. Reserve um tempo da semana só para isso. Você vai perceber como o resto da vida fica mais leve."
+      ],
+      [
+        "O seu coração busca atenção e escuta. Não por vaidade, mas porque você sente que tem algo bonito para oferecer e quer que isso chegue nas pessoas. Um elogio sincero ao que você fez pode iluminar o seu mês.",
+        "O cuidado é não depender só do aplauso de fora. Aprender a reconhecer o próprio valor, mesmo quando ninguém comenta, te dá liberdade para criar sem medo. A sua luz não precisa de plateia para existir, mas fica ainda mais forte quando você acredita nela."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de alguém simpático e divertido. As pessoas sentem que vai ser fácil conversar com você, e geralmente acertam. Você costuma quebrar o gelo em grupos novos e deixar todo mundo mais à vontade.",
+        "A vantagem é que as portas se abrem com facilidade. A desvantagem é que alguns podem não te levar tão a sério nos assuntos importantes. Mostrar, de vez em quando, o seu lado mais profundo e reflexivo surpreende e faz as pessoas perceberem que existe muito mais por trás do sorriso."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa criativa do grupo. Te procuram para dar ideia de presente, de nome, de festa, de post. No trabalho, é comum te chamarem quando é preciso deixar algo mais interessante.",
+        "Essa imagem é ótima, mas pode virar pressão para ter sempre uma ideia brilhante. Você também tem dias de branco total, e tudo bem. Permita que as pessoas vejam o seu processo, e não só o resultado. Isso aproxima e tira de você o peso de ter que impressionar o tempo todo."
+      ],
+      [
+        "As pessoas percebem em você uma luz própria. Você tem um jeito de falar, de rir e de contar as coisas que fica na memória. Mesmo quem te viu uma vez só costuma lembrar de algum comentário seu.",
+        "Ao mesmo tempo, pessoas mais reservadas podem se intimidar com o seu brilho. Se quiser que todos se sintam à vontade, abra espaço: faça perguntas, deixe o outro contar a história dele. Uma presença que brilha e ainda ilumina os outros é inesquecível."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é a dispersão. Você começa muitas coisas com empolgação, mas a energia vai para a próxima ideia antes de a anterior terminar. Por fora, parece criatividade; por dentro, às vezes vem a frustração de não ver nada concluído.",
+        "Esse padrão costuma se repetir em projetos, cursos, hobbies e até em planos de mudança de vida. Para virar o jogo, experimente a regra do um: só comece algo novo quando terminar ou desistir conscientemente do anterior. Você vai se surpreender com o que consegue realizar quando a sua energia tem um só destino."
+      ],
+      [
+        "O seu ponto cego é fugir de assunto sério com humor. Quando a conversa fica pesada, você faz uma piada, muda de tema ou minimiza. Isso alivia na hora, mas os problemas continuam lá, esperando.",
+        "A pergunta que ajuda a virar o jogo é: \"o que eu estou evitando sentir agora?\". Quando perceber que a piada está vindo para fugir, respire e fique mais um pouco na conversa difícil. Você não perde a leveza por enfrentar o que precisa; ganha relações mais fortes e menos coisas mal resolvidas."
+      ],
+      [
+        "O seu ponto cego é a sensibilidade à crítica. Como você coloca muito de si no que faz e no que diz, um comentário negativo pode doer mais do que deveria. Às vezes, você até deixa de mostrar algo por medo do que vão achar.",
+        "Para virar o jogo, separe a crítica ao que você fez da crítica a quem você é. Pergunte: isso me ajuda a melhorar? Se sim, use. Se não, deixe ir. E lembre que todo mundo que cria algo recebe crítica; só quem não tenta fica a salvo, e você nasceu para tentar."
+      ]
+    ]
+  }
+}

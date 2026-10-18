@@ -1,0 +1,162 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code a partir de arquetipo-7.json e do GUIA_DE_CONTEUDO.md. Revisão do Rob pendente.",
+  "numero": 2,
+  "arquetipo": {
+    "nome": "A Ponte",
+    "palavras_guia": ["sensibilidade", "parceria", "escuta"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 2. Varia por temperamento.",
+    "essencia": {
+      "intenso": [
+        [
+          "{primeiro_nome}, você sente o clima de um lugar antes de qualquer pessoa abrir a boca. E não fica só sentindo: se alguém está mal, você vai até lá; se dois amigos brigaram, você tenta resolver no mesmo dia. Você liga as pessoas com o coração na mão e não sossega enquanto todo mundo não está bem.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça essa sensibilidade em volume alto. Você chora no filme, se emociona com a conquista dos outros e defende quem ama com unhas e dentes. Quem tem você por perto nunca se sente sem companhia."
+        ],
+        [
+          "Você é a cola dos grupos, {primeiro_nome}. É quem cria o grupo de mensagens, organiza o encontro e lembra de chamar quem ficou de fora. Para você, gente é prioridade, e isso aparece em cada gesto.",
+          "A letra {inicial} abrindo o seu nome combina com quem constrói pontes entre pessoas muito diferentes. Você consegue conversar com todo mundo e encontrar o ponto em comum. O desafio é que você sente as dores dos outros como se fossem suas, e às vezes precisa lembrar de voltar para si."
+        ],
+        [
+          "{primeiro_nome}, você ama com pressa e com entrega. Quando gosta de alguém, quer estar junto, quer ajudar, quer fazer parte. Essa vontade de conexão é linda e faz muita gente lembrar de você com carinho.",
+          "As {qtd_letras} letras do seu nome desenham alguém que vive as relações com intensidade. Uma conversa boa ilumina o seu dia; um mal-entendido estraga a semana. Aprender a não levar tudo para o pessoal vai te poupar muito desgaste e deixar a sua sensibilidade ainda mais bonita."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você tem um talento raro: entende o que cada pessoa precisa e encontra o jeito de colocar todo mundo para trabalhar junto. Não é só simpatia, é estratégia de quem sabe que nada grande se faz sem parceria.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse lado diplomático. Numa negociação difícil, é você quem acha o meio-termo que ninguém tinha visto. As pessoas confiam em você porque sabem que você vai agir com justiça com todos os lados."
+        ],
+        [
+          "Você junta gente com propósito, {primeiro_nome}. Sabe quem conversa bem com quem, quem resolve o quê e qual é a hora certa de apresentar duas pessoas. Muita oportunidade na vida dos outros já nasceu de uma ponte que você construiu.",
+          "A letra {inicial} no começo do seu nome combina com quem lidera sem precisar mandar. Você prefere convencer a impor e costuma conseguir. O cuidado é não engolir as suas próprias vontades para manter o acordo: o seu lado também conta na negociação."
+        ],
+        [
+          "{primeiro_nome}, você é a pessoa que acalma a reunião e faz a conversa andar. Ouve com atenção, organiza as opiniões e propõe um caminho que todos aceitam. É uma habilidade que vale ouro em qualquer lugar.",
+          "As {qtd_letras} letras do seu nome mostram alguém que pensa nas relações a longo prazo. Você evita queimar pontes e sabe que hoje alguém pode ser adversário e amanhã parceiro. Essa visão te dá aliados em todo canto, desde que você não esqueça de cuidar de si também."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, a sua presença acalma. Você fala baixo, ouve mais do que fala e tem um jeito de deixar as pessoas à vontade sem fazer esforço. Muita gente já se abriu com você sem planejar, só porque sentiu que ali podia.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço de paciência e cuidado. Você percebe os detalhes, lembra do que te contaram e respeita o tempo de cada um. Essa delicadeza é um presente para quem convive com você."
+        ],
+        [
+          "Você é a escuta que todo mundo procura, {primeiro_nome}. Não julga, não interrompe, não tem pressa. Quando alguém está confuso, uma conversa com você costuma organizar as ideias e trazer paz.",
+          "A letra {inicial} abrindo o seu nome combina com quem constrói relações aos poucos e para durar. Você não tem muitos amigos de ocasião; tem amigos de anos. O cuidado é dizer o que você também precisa, porque quem sempre escuta às vezes esquece de pedir escuta."
+        ],
+        [
+          "{primeiro_nome}, você prefere a harmonia ao conflito, e trabalha com calma para que ela exista. Antes de reagir, pensa em como o outro vai se sentir. Por isso as suas palavras raramente machucam e quase sempre ajudam.",
+          "As {qtd_letras} letras do seu nome desenham alguém de sensibilidade tranquila. Você se sente bem em ambientes em paz e se cansa com gritaria e disputa. Respeitar esse limite não é fraqueza: é saber de onde vem a sua força."
+        ]
+      ],
+      "magnetico": [
+        [
+          "{primeiro_nome}, você sente o que os outros sentem, às vezes antes deles mesmos. Basta um olhar para perceber que alguém não está bem. Essa empatia profunda faz com que as pessoas se sintam compreendidas de verdade ao seu lado.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça essa intuição para gente. Você raramente erra quando diz que alguém está escondendo algo. O desafio é que absorver tanto do ambiente cansa, e você precisa de momentos só seus para se recompor."
+        ],
+        [
+          "Você tem um jeito doce que atrai, {primeiro_nome}. Não precisa chamar atenção: as pessoas chegam perto porque sentem que ali existe cuidado. E, quando você se abre, mostra uma profundidade que pouca gente imagina.",
+          "A letra {inicial} no começo do seu nome combina com quem liga as pessoas pelo afeto. Você é ponte entre amigos, entre família, entre mundos diferentes. O cuidado é não sumir para não incomodar: a sua presença faz falta quando você se esconde."
+        ],
+        [
+          "{primeiro_nome}, você vive as relações por dentro antes de viver por fora. Pensa muito no que os outros sentiram, no que poderia ter dito, no que talvez tenha magoado. Isso mostra um coração enorme.",
+          "As {qtd_letras} letras do seu nome desenham alguém que ama em silêncio e cuida nos detalhes. Você lembra da comida preferida de cada amigo e percebe quando alguém mudou de humor. Só não esqueça de cuidar de si com a mesma atenção que dedica aos outros."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Sente o clima no ar", "Faz as pazes de todo mundo", "Ouve de verdade"],
+      ["Diplomacia natural", "Lembra de cada detalhe", "Parceria para tudo"],
+      ["Empatia afiada", "Acalma o ambiente", "Une quem é diferente"]
+    ],
+    "como_ama": {
+      "intenso": [
+        "No amor, você se entrega por inteiro. Gosta de estar junto, de fazer planos a dois, de mandar mensagem no meio do dia só para dizer que lembrou. Para você, relação é parceria em tudo, e você faz questão de mostrar o quanto a outra pessoa é importante. Quem recebe o seu amor sabe disso todos os dias.",
+        "O risco é a dependência. Quando a relação balança, o seu mundo inteiro balança junto, e você pode aceitar menos do que merece para não perder a conexão. Ter amigos, projetos e momentos só seus não diminui o amor: dá a ele um chão mais firme. Uma relação boa é aquela em que você continua sendo você."
+      ],
+      "estrategico": [
+        "Você ama construindo. Gosta de relações com conversa franca, combinados claros e planos em comum. Sabe ceder quando precisa e sabe pedir quando é importante, e isso faz das suas relações algo maduro e equilibrado. Você é a pessoa que resolve o mal-entendido antes que ele vire briga.",
+        "O cuidado é não transformar o amor numa negociação permanente. Às vezes, o que a relação precisa não é de mais um acordo, mas de um momento leve, sem pauta. Um passeio sem motivo, uma risada boba, um elogio fora de hora. São esses momentos que lembram por que vale a pena negociar todo o resto."
+      ],
+      "sereno": [
+        "O seu amor é calmo, atento e constante. Você demonstra carinho no cuidado do dia a dia: o café pronto, a pergunta sobre como foi o dia, a paciência nos momentos difíceis. Quem está com você sente paz, e isso é raro.",
+        "O ponto de atenção é evitar conflito a qualquer custo. Para manter a harmonia, você pode engolir incômodos que, acumulados, viram distância. Falar do que te incomoda, com a mesma calma que você usa para tudo, não ameaça a relação. Pelo contrário: é o que mantém o amor verdadeiro."
+      ],
+      "magnetico": [
+        "Você ama com profundidade e sensibilidade. Percebe o que o outro sente sem precisar de palavras, cuida nos detalhes e cria uma intimidade que poucas pessoas conseguem. Para você, amor é se sentir em casa com alguém.",
+        "O risco é guardar demais. Você entende tanto o outro que às vezes esquece de se fazer entender. Se algo te magoou, diga. Se você precisa de algo, peça. O seu silêncio pode ser lido como se estivesse tudo bem, quando não está. Quem te ama quer saber, e vai cuidar de você do jeito que você cuida."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "intenso": [
+        "Você brilha em trabalhos com gente. Atendimento, vendas, saúde, educação, eventos, recursos humanos: qualquer área em que conexão faz diferença tende a combinar com você. Quando o ambiente é bom, você rende como ninguém; quando é tóxico, sofre mais do que deveria.",
+        "Com dinheiro, cuidado com a generosidade sem limite: emprestar, pagar a conta de todo mundo, comprar presente caro para agradar. Generosidade é bonita, mas o seu dinheiro também precisa cuidar de você. Definir um valor mensal para mimos e ajudas evita que o carinho vire aperto no fim do mês."
+      ],
+      "estrategico": [
+        "No trabalho, você é a pessoa que faz as equipes funcionarem. Funções de coordenação, negociação, parcerias, relacionamento com clientes ou mediação tendem a valorizar o seu talento de unir pessoas em torno de um objetivo.",
+        "Com dinheiro, você costuma ter equilíbrio e pensar no longo prazo. O ponto de atenção é ter vergonha de negociar o próprio valor. Você negocia muito bem pelos outros, mas trava quando o assunto é o seu salário. Use a mesma habilidade a seu favor: você merece o que pede."
+      ],
+      "sereno": [
+        "Você rende mais em ambientes tranquilos e colaborativos. Pressão constante e competição agressiva te cansam; equipes boas e trabalho com propósito te motivam. Áreas de cuidado, apoio, análise, organização ou atendimento individual costumam combinar com você.",
+        "Com dinheiro, você tende à prudência e não gosta de riscos. Isso é ótimo para construir segurança aos poucos. O cuidado é não aceitar ficar em segundo plano por modéstia. O seu trabalho silencioso sustenta muita coisa; mostrar isso, com calma, é o que transforma dedicação em reconhecimento."
+      ],
+      "magnetico": [
+        "Você precisa sentir que o seu trabalho ajuda alguém. Quando sente, se dedica de corpo e alma. Áreas como psicologia, terapias, arte, educação, cuidado com pessoas ou animais e comunicação tendem a te dar sentido e satisfação.",
+        "Com dinheiro, você pode ter dificuldade de cobrar, principalmente de quem você gosta. O ponto de atenção é lembrar que cobrar o justo também é cuidar: de você e da continuidade do seu trabalho. Quanto mais estável você estiver, mais pessoas vai conseguir ajudar."
+      ]
+    },
+    "frase_do_nome": {
+      "intenso": "Eu ligo as pessoas pelo coração e não solto ninguém pelo caminho.",
+      "estrategico": "Eu encontro o ponto em que todo mundo ganha.",
+      "sereno": "Minha calma é o lugar onde os outros descansam.",
+      "magnetico": "Eu sinto o que ninguém disse, e cuido do que ninguém viu."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 2 aparece em CORAÇÃO, IMAGEM ou CAMINHO. Não cita 'A Ponte'.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é conexão verdadeira. Não basta estar com gente: você quer se sentir em sintonia, sentir compreensão de verdade, ter alguém com quem dividir as pequenas coisas do dia. Uma conversa sincera vale mais para você do que qualquer festa cheia.",
+        "Isso explica por que a solidão pesa tanto e por que um desentendimento com quem você ama tira o seu sono. O caminho para se sentir em paz passa por cultivar poucas relações profundas e cuidar delas com carinho. E também por aprender a ser boa companhia para si nos momentos em que ninguém está por perto."
+      ],
+      [
+        "O que move você por dentro é a vontade de harmonia. Você quer que as pessoas se deem bem, que os ambientes sejam leves, que ninguém saia magoado. Esse desejo te faz ser uma presença que acalma e aproxima.",
+        "Quando o clima está ruim, você sente no corpo. Quando está bom, você floresce. Por isso, escolher ambientes saudáveis, no trabalho, em casa e nas amizades, não é frescura: é necessidade. E lembrar que nem todo conflito é seu para resolver alivia um peso enorme dos seus ombros."
+      ],
+      [
+        "O seu coração busca parceria. Você não sonha com uma vida solitária de sucesso; sonha com conquistas divididas, com alguém do lado na hora de comemorar e na hora de chorar. Para você, tudo fica melhor a dois, ou em grupo.",
+        "O cuidado é não colocar a sua felicidade inteira nas mãos de outra pessoa. Parceria boa é entre dois inteiros, não entre duas metades. Quando você cuida dos seus próprios sonhos com o mesmo carinho com que cuida dos outros, as suas relações ficam ainda mais bonitas."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de alguém gentil e acessível. As pessoas sentem que podem chegar perto, perguntar, pedir ajuda. É comum desconhecidos puxarem conversa com você na fila ou no transporte, porque o seu jeito convida.",
+        "A vantagem é que você faz amizades com facilidade e deixa lembranças carinhosas. A desvantagem é que algumas pessoas podem confundir gentileza com falta de limite. Mostrar com calma o que você aceita e o que não aceita não diminui o carinho que sentem por você: aumenta o respeito."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa que entende. Te procuram para desabafar, para pedir conselho, para mediar uma briga. No trabalho, é comum que te escolham para conversas delicadas, porque sabem que você tem tato.",
+        "Essa imagem de quem sempre escuta é um presente, mas pode virar cobrança: esperam que você esteja sempre disponível. Permita-se dizer \"agora não consigo\" de vez em quando. As pessoas que valem a pena vão entender, e você vai ter mais para oferecer quando estiver bem."
+      ],
+      [
+        "As pessoas percebem em você uma sensibilidade suave. Você nota quando alguém ficou de fora da conversa e puxa essa pessoa para dentro. Lembra de perguntar como foi a consulta, a entrevista, a viagem. Isso faz os outros se sentirem importantes ao seu lado.",
+        "Ao mesmo tempo, quem não te conhece bem pode confundir o seu jeito com timidez ou indecisão, quando na verdade você só está respeitando o espaço de todos. Se quiser mostrar mais firmeza, dê a sua opinião primeiro de vez em quando. Você vai se surpreender com o quanto as pessoas valorizam o que você pensa."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é dizer sim quando queria dizer não. Para não decepcionar, você aceita convites, tarefas e favores que não cabem na sua vida. Por fora, parece generosidade; por dentro, vai acumulando cansaço e, às vezes, até ressentimento.",
+        "Esse padrão costuma se repetir em fases diferentes: no trabalho, com a família, nas amizades. Para virar o jogo, treine um não pequeno por semana, com gentileza e sem justificar demais. Você vai descobrir que as pessoas que gostam de você continuam gostando, e que sobra mais de você para o que realmente importa."
+      ],
+      [
+        "O seu ponto cego é sumir para não incomodar. Quando está mal, você se afasta, acha que vai atrapalhar, que os outros já têm problemas demais. Aí fica sem apoio justamente quando mais precisa, e quem te ama nem fica sabendo.",
+        "Para virar o jogo, lembre que pedir ajuda também é um jeito de se conectar. As pessoas gostam de retribuir o cuidado que recebem de você. Escolha uma ou duas pessoas de confiança e combine: quando eu sumir, me procura. Esse pequeno acordo pode mudar a forma como você atravessa os dias difíceis."
+      ],
+      [
+        "O seu ponto cego é medir o seu valor pela aprovação dos outros. Um elogio te ilumina; uma crítica te derruba por dias. Você se esforça tanto para causar boa impressão que às vezes esquece do que você acha de si.",
+        "A pergunta que ajuda a virar o jogo é: \"se ninguém fosse saber, o que eu escolheria?\". Comece a tomar pequenas decisões a partir dessa resposta. Aos poucos, a sua confiança deixa de depender do humor alheio, e você ganha uma liberdade que nem sabia que estava faltando."
+      ]
+    ]
+  }
+}

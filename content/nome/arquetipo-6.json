@@ -1,0 +1,162 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code a partir de arquetipo-7.json e do GUIA_DE_CONTEUDO.md. Revisão do Rob pendente.",
+  "numero": 6,
+  "arquetipo": {
+    "nome": "O Abrigo",
+    "palavras_guia": ["proteção", "afeto", "compromisso"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 6. Varia por temperamento.",
+    "essencia": {
+      "intenso": [
+        [
+          "{primeiro_nome}, você cuida com o coração inteiro. Se alguém que você ama está passando por um problema, você larga o que está fazendo e vai. Leva comida, oferece a sua casa, liga todo dia. Para você, amor se mostra com presença.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça esse instinto de proteção. Você defende a sua família e os seus amigos como se fosse uma questão pessoal, e é. Quem mexe com quem você ama mexe com você."
+        ],
+        [
+          "Você é o colo que todo mundo procura, {primeiro_nome}. A sua casa costuma ser o ponto de encontro, a sua mesa está sempre cheia e as suas palavras acalmam. As pessoas se sentem em casa ao seu lado, mesmo longe de casa.",
+          "A letra {inicial} abrindo o seu nome combina com quem acolhe sem medir esforço. O desafio é que, de tanto cuidar, você pode se sentir sem reconhecimento quando ninguém percebe o tanto que faz. Pedir carinho de volta não é egoísmo: é equilíbrio."
+        ],
+        [
+          "{primeiro_nome}, você sente as dores dos outros como se fossem suas e não consegue ficar sem agir diante de uma injustiça. O seu senso de responsabilidade é enorme, e faz de você uma pessoa em quem todo mundo confia.",
+          "As {qtd_letras} letras do seu nome desenham alguém que ama de forma ativa e intensa. Você não é de prometer: é de fazer. Só lembre que nem todo problema é seu para resolver, e que algumas pessoas precisam aprender sozinhas."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você cuida com método. Organiza a agenda da família, lembra dos aniversários, planeja as finanças da casa e garante que nada falte para quem você ama. O seu cuidado é prático e eficiente.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse senso de responsabilidade. Você é a pessoa que todo mundo chama quando precisa resolver algo sério. E, quase sempre, você resolve."
+        ],
+        [
+          "Você protege planejando, {primeiro_nome}. Pensa no futuro, prevê os problemas e se antecipa. Para você, amar é garantir que as pessoas estejam seguras e bem, hoje e amanhã.",
+          "A letra {inicial} no começo do seu nome combina com quem assume a liderança da família ou do grupo sem que ninguém peça. O cuidado é não querer controlar tudo: deixar os outros errarem e aprenderem também é uma forma de cuidar."
+        ],
+        [
+          "{primeiro_nome}, você é compromisso em pessoa. Quando assume uma responsabilidade, vai até o fim, com dedicação e competência. As pessoas sabem que podem contar com você.",
+          "As {qtd_letras} letras do seu nome mostram alguém que equilibra afeto e objetividade. Você cuida bem e resolve rápido. Só cuide para não se esquecer de si no meio de tantas obrigações: você também precisa de alguém que cuide de você."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, a sua presença é paz. Você cuida sem alarde, com gestos pequenos e constantes: o chá na hora certa, a mensagem perguntando se chegou bem, a paciência para ouvir a mesma história pela terceira vez.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço de quem cuida com calma e constância. Você não precisa de reconhecimento para continuar fazendo o bem. Essa generosidade tranquila é rara e preciosa."
+        ],
+        [
+          "Você cria ambientes acolhedores, {primeiro_nome}. A sua casa, o seu jeito, a sua voz: tudo convida as pessoas a ficar. Muita gente encontra em você um lugar seguro para descansar das turbulências da vida.",
+          "A letra {inicial} abrindo o seu nome combina com quem é abrigo nos dias difíceis. Você raramente reclama do peso que carrega. O cuidado é deixar que os outros também te acolham: você merece receber o mesmo carinho que oferece."
+        ],
+        [
+          "{primeiro_nome}, você ama com paciência. Não cobra, não pressiona, não exige. Espera o tempo de cada um e está sempre ali quando precisam. Essa constância faz de você uma referência de afeto para muita gente.",
+          "As {qtd_letras} letras do seu nome desenham alguém que valoriza a família, os amigos e a harmonia do lar. Você se sente bem quando os outros estão bem. Só não esqueça de cuidar dos seus próprios sonhos com a mesma dedicação."
+        ]
+      ],
+      "magnetico": [
+        [
+          "{primeiro_nome}, você percebe quando alguém precisa de cuidado antes mesmo de a pessoa perceber. Basta um olhar, um tom de voz diferente, e você já sabe. Essa sensibilidade faz de você um porto seguro para quem ama.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse lado acolhedor e intuitivo. Você cuida não só do corpo, mas da alma das pessoas. Uma conversa com você tem o poder de curar um dia ruim."
+        ],
+        [
+          "Você tem um jeito de amar que envolve, {primeiro_nome}. As pessoas se sentem únicas ao seu lado, porque você presta atenção nelas de verdade. Lembra dos detalhes, das dores e das alegrias de cada um.",
+          "A letra {inicial} no começo do seu nome combina com quem transforma qualquer lugar num refúgio. O cuidado é não carregar as emoções de todo mundo: você sente tanto que às vezes fica com um peso que não é seu. Separar o que é seu do que é do outro te protege."
+        ],
+        [
+          "{primeiro_nome}, você vive o amor com profundidade. Não basta cuidar por fora: você quer que as pessoas se sintam amadas por dentro. Por isso, os seus gestos têm sempre algo de especial, de pensado, de único.",
+          "As {qtd_letras} letras do seu nome desenham alguém de coração generoso e sensível. Você se doa muito e, às vezes, espera em silêncio que alguém perceba. Dizer do que você precisa é um ato de amor próprio, e as pessoas que te amam vão adorar retribuir."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Cuida de todo mundo", "Casa sempre cheia", "Coração enorme"],
+      ["Protege quem ama", "Responsabilidade de sobra", "Colo para qualquer hora"],
+      ["Acolhe sem julgar", "Lembra de todos os detalhes", "Família em primeiro lugar"]
+    ],
+    "como_ama": {
+      "intenso": [
+        "No amor, você se doa por inteiro. Cuida, protege, faz planos, se preocupa. Quer que a pessoa amada tenha tudo de bom e faz o possível para isso acontecer. Quem recebe o seu amor sente que encontrou um lar.",
+        "O risco é se perder na relação. De tanto cuidar do outro, você pode esquecer das suas próprias necessidades e acabar se sentindo sem valor quando o carinho não volta na mesma medida. Lembre que amor saudável é troca. Pedir atenção, carinho e cuidado não é cobrança: é parte de uma relação equilibrada."
+      ],
+      "estrategico": [
+        "Você ama construindo uma vida segura a dois. Pensa no futuro, nas contas, na casa, nos filhos ou nos planos em comum. Demonstra amor garantindo que nada falte e que a relação tenha uma base sólida.",
+        "O cuidado é não transformar o parceiro em mais uma responsabilidade. Romance precisa de leveza, de momentos sem planejamento, de diversão. Reserve tempo para simplesmente aproveitar a companhia um do outro, sem pauta e sem lista. É nesses momentos que o amor se renova."
+      ],
+      "sereno": [
+        "O seu amor é tranquilo, constante e acolhedor. Você não faz grandes declarações, mas cuida todos os dias, com paciência e dedicação. Quem está com você sente segurança e paz.",
+        "O ponto de atenção é aceitar tudo para manter a harmonia. Você pode engolir incômodos para não criar conflito, e isso vai pesando com o tempo. Falar com calma sobre o que te incomoda protege a relação. A paz verdadeira não é ausência de conversa difícil: é a capacidade de ter essas conversas com respeito."
+      ],
+      "magnetico": [
+        "Você ama com profundidade e delicadeza. Percebe o que o outro precisa antes de ele dizer, cuida nos detalhes e cria uma intimidade que faz a pessoa se sentir única. Amar, para você, é um ato de cuidado constante.",
+        "O risco é esperar que o outro adivinhe o que você precisa. Você tem tanta facilidade para perceber os outros que pode achar que todo mundo tem esse dom, e não tem. Diga o que você sente, o que precisa e o que te magoa. Quem te ama quer cuidar de você também, só precisa saber como."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "intenso": [
+        "Você precisa de trabalho que ajude pessoas. Saúde, educação, assistência social, gastronomia, hotelaria, cuidado com crianças, idosos ou animais: quando o que você faz melhora a vida de alguém, você se realiza. Ambientes frios e competitivos te desgastam.",
+        "Com dinheiro, cuidado com a generosidade excessiva. Você ajuda a família, empresta para amigos, paga a conta de todos. É bonito, mas pode comprometer a sua segurança. Defina um limite mensal para ajudar os outros e respeite esse limite. Cuidar de si também é cuidar de quem depende de você."
+      ],
+      "estrategico": [
+        "No trabalho, você é a pessoa que cuida da equipe e dos resultados ao mesmo tempo. Funções de gestão de pessoas, recursos humanos, coordenação, saúde, educação ou administração tendem a valorizar o seu talento de unir responsabilidade e cuidado.",
+        "Com dinheiro, você costuma ter organização e pensar na segurança da família. O ponto de atenção é sentir culpa ao gastar consigo. Você trabalha muito e merece aproveitar. Separar uma parte para o seu prazer, sem justificativa, é tão importante quanto pagar as contas."
+      ],
+      "sereno": [
+        "Você rende bem em ambientes acolhedores e estáveis. Trabalhos de cuidado, atendimento, ensino, saúde, administração ou qualquer função em que você possa ajudar sem pressão excessiva tendem a combinar com você.",
+        "Com dinheiro, você tende a ser prudente e a pensar nos outros antes de pensar em si. O cuidado é não aceitar ganhar menos por achar que pedir aumento é ingratidão. O seu trabalho tem valor, e o reconhecimento financeiro também é uma forma de cuidado com você."
+      ],
+      "magnetico": [
+        "Você precisa de trabalho com sentido e afeto. Terapias, psicologia, enfermagem, arte, educação infantil, cuidados paliativos ou qualquer área em que a sua sensibilidade faça diferença tendem a te dar propósito.",
+        "Com dinheiro, você pode ter dificuldade de cobrar por algo que faz com amor. O ponto de atenção é lembrar que cobrar o justo permite que você continue cuidando dos outros por muito tempo. Sem estabilidade, o cuidado vira sacrifício. Com ela, vira vocação."
+      ]
+    },
+    "frase_do_nome": {
+      "intenso": "Eu cuido com tudo o que tenho, e não solto quem amo.",
+      "estrategico": "Eu protejo hoje pensando em amanhã.",
+      "sereno": "Comigo, quem eu amo encontra paz.",
+      "magnetico": "Eu sinto o que o outro precisa, e cuido antes que ele peça."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 6 aparece em CORAÇÃO, IMAGEM ou CAMINHO. Não cita 'O Abrigo'.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é pertencer. Você quer um lugar para chamar de seu, pessoas que sejam a sua família, de sangue ou de escolha, e a certeza de que é importante para alguém. Sentir-se em casa é o que te traz paz.",
+        "Isso explica por que você se dedica tanto às relações e por que se sente mal quando há conflito em casa. O caminho para se sentir em paz passa por cultivar um lar, físico e emocional, onde você possa ser quem é. E também por lembrar que você pode ser casa para si nos momentos de solidão."
+      ],
+      [
+        "O que move você por dentro é a vontade de cuidar. Ver alguém que você ama bem, feliz e seguro te dá uma satisfação que poucas coisas conseguem dar. Você sente utilidade e realização quando faz a diferença na vida de alguém.",
+        "Quando não pode ajudar, se sente impotente. Por isso, é importante lembrar que você não precisa resolver tudo para os outros. Às vezes, estar presente já é o maior cuidado possível. E cuidar de si com o mesmo carinho é o que permite continuar cuidando de todo mundo."
+      ],
+      [
+        "O seu coração busca harmonia e afeto. Você quer relações em que todos se respeitem, se ajudem e se amem. Ambientes de briga, frieza ou indiferença machucam você mais do que deixa transparecer.",
+        "O cuidado é não assumir a responsabilidade pela harmonia de todos. Você pode contribuir, mas não pode controlar o que os outros sentem ou fazem. Aceitar isso alivia um peso enorme e deixa você mais livre para aproveitar as relações que já são boas."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de uma pessoa acolhedora e confiável. As pessoas sentem que podem contar com você, que você vai ouvir sem julgar. É comum que pessoas que acabou de conhecer já se abram com você.",
+        "A vantagem é que você cria laços rapidamente. A desvantagem é que algumas pessoas podem abusar dessa disponibilidade. Mostrar, com gentileza, que você também tem limites não diminui o seu calor: aumenta o respeito que os outros têm por você."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa responsável do grupo. A que lembra dos compromissos, organiza as coisas e garante que todo mundo esteja bem. No trabalho, é comum te verem como alguém que cuida da equipe.",
+        "Essa imagem é linda, mas pode virar peso: esperam que você esteja sempre disponível e nunca falhe. Você também precisa de descanso e de cuidado. Permita que as pessoas próximas vejam isso e ofereçam ajuda. Receber também é uma forma de fortalecer as relações."
+      ],
+      [
+        "As pessoas percebem em você um calor humano especial. Você sorri com os olhos, lembra do nome das pessoas e faz perguntas que mostram interesse real. Isso faz com que todos se sintam bem-vindos perto de você.",
+        "Ao mesmo tempo, quem não te conhece bem pode achar que você se envolve demais na vida dos outros, quando na verdade só está demonstrando carinho. Se quiser equilibrar essa impressão, respeite o tempo de cada um para se abrir. O seu cuidado chega melhor quando é convidado."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é carregar o mundo nas costas. Você assume os problemas de todos, resolve, ajuda, se preocupa, e só percebe que está no limite quando o corpo ou a mente reclamam. Muitas vezes, ninguém pediu tanto: você que se ofereceu.",
+        "Esse padrão costuma se repetir na família, no trabalho e nas amizades. Para virar o jogo, experimente perguntar antes de ajudar: \"você quer a minha ajuda?\". Às vezes, a resposta vai ser não, e tudo bem. Deixar os outros resolverem os próprios problemas também é uma forma de amor e de respeito."
+      ],
+      [
+        "O seu ponto cego é cobrar demais de si. Você se sente responsável pela felicidade de todo mundo e, quando algo dá errado, a culpa vem forte. Mesmo quando fez tudo o que podia, sente que deveria ter feito mais.",
+        "A pergunta que ajuda a virar o jogo é: \"eu diria isso para alguém que eu amo?\". Se a resposta for não, pare de dizer para si. Trate-se com a mesma gentileza que oferece aos outros. Você não precisa de perfeição para fazer o bem, e já faz muito bem a quem convive com você."
+      ],
+      [
+        "O seu ponto cego é esquecer de si. De tanto pensar nos outros, os seus sonhos, as suas vontades e até a sua saúde ficam para depois. E o depois, às vezes, não chega.",
+        "Para virar o jogo, reserve um tempo fixo na semana só para você, sem culpa e sem desculpa. Pode ser uma hora, uma tarde, uma atividade que te faz bem. Cuidar de si não é egoísmo: é o que permite que você continue cuidando dos outros por muito tempo, com alegria e não com cansaço."
+      ]
+    ]
+  }
+}

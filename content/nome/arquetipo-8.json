@@ -1,0 +1,162 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code a partir de arquetipo-7.json e do GUIA_DE_CONTEUDO.md. Revisão do Rob pendente.",
+  "numero": 8,
+  "arquetipo": {
+    "nome": "O Leme",
+    "palavras_guia": ["força", "conquista", "comando"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 8. Varia por temperamento.",
+    "essencia": {
+      "intenso": [
+        [
+          "{primeiro_nome}, você tem fome de conquista. Quando decide que quer algo, coloca toda a sua energia nisso e não descansa até chegar lá. As pessoas admiram a sua garra e, às vezes, se assustam com ela.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça essa força interna. Você não aceita menos do que acha que merece, nem para você, nem para quem ama. Quando você entra numa disputa, entra para ganhar."
+        ],
+        [
+          "Você sente o poder de mudar as coisas, {primeiro_nome}. Não fica esperando a vida melhorar: vai lá e faz acontecer. Essa energia de comando aparece no trabalho, na família e até na forma como você organiza um passeio de fim de semana.",
+          "A letra {inicial} abrindo o seu nome combina com quem assume o leme quando o barco balança. As pessoas confiam em você nas crises. O desafio é que a sua intensidade pode parecer dureza: um pouco de suavidade nas palavras faz a sua força chegar mais longe."
+        ],
+        [
+          "{primeiro_nome}, você vive com ambição e paixão. Os seus sonhos são grandes, e você trabalha duro para realizá-los. Não é do tipo que se contenta com o básico.",
+          "As {qtd_letras} letras do seu nome desenham alguém que nasceu para liderar e conquistar. Você inspira as pessoas pela determinação. Só lembre que o sucesso também precisa de pausas, e que as pessoas ao seu lado querem a sua presença, não só as suas vitórias."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você é visão com execução. Sabe aonde quer chegar, traça o caminho e segue com disciplina. Enquanto os outros ainda estão sonhando, você já está no terceiro passo do plano.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse talento para resultado. Você enxerga números, oportunidades e riscos com uma clareza impressionante. É o tipo de pessoa que transforma ideia em negócio."
+        ],
+        [
+          "Você nasceu para dar direção, {primeiro_nome}. Em qualquer grupo, as pessoas acabam olhando para você na hora de decidir. Não é por acaso: você pensa com objetividade e assume a responsabilidade pelas escolhas.",
+          "A letra {inicial} no começo do seu nome combina com quem comanda com estratégia. Você sabe delegar, cobrar e entregar. O cuidado é não medir tudo pelo resultado: algumas das coisas mais valiosas da vida não cabem numa planilha."
+        ],
+        [
+          "{primeiro_nome}, você tem uma cabeça de quem constrói impérios, grandes ou pequenos. Pensa no longo prazo, investe, planeja e não se distrai com o que não leva a lugar nenhum.",
+          "As {qtd_letras} letras do seu nome mostram alguém que valoriza competência e eficiência. Você respeita quem trabalha bem e se irrita com quem enrola. Só cuide para que a exigência não afaste as pessoas que poderiam crescer ao seu lado."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, a sua força é tranquila. Você não precisa gritar para impor respeito: a sua presença já impõe. Quando fala, as pessoas ouvem, porque sabem que você pensou antes.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço de autoridade serena. Você conquista as coisas com paciência e consistência, sem pressa e sem desespero. Essa calma é uma das suas maiores armas."
+        ],
+        [
+          "Você constrói o seu caminho com cuidado, {primeiro_nome}. Não é de arriscar à toa, mas também não fica parado. Cada passo é pensado, e por isso você raramente precisa voltar atrás.",
+          "A letra {inicial} abrindo o seu nome combina com quem lidera pelo exemplo. As pessoas confiam em você porque você é coerente. O cuidado é não guardar a ambição só para si: dividir os seus sonhos com quem você confia pode abrir portas inesperadas."
+        ],
+        [
+          "{primeiro_nome}, você tem um controle admirável sobre as próprias emoções. Mesmo sob pressão, mantém a calma e pensa com clareza. Isso faz de você a pessoa certa para decisões difíceis.",
+          "As {qtd_letras} letras do seu nome desenham alguém que sabe esperar o momento certo. Você não desperdiça energia com o que não importa. Só lembre de mostrar o que sente às pessoas que ama: elas também querem conhecer o seu lado mais suave."
+        ]
+      ],
+      "magnetico": [
+        [
+          "{primeiro_nome}, você tem uma presença que impressiona sem esforço. Há algo no seu olhar e no seu jeito que transmite força e mistério ao mesmo tempo. As pessoas querem saber mais sobre você.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse poder silencioso. Você sente as situações profundamente e usa essa percepção para tomar decisões certeiras. A sua intuição para pessoas e oportunidades é rara."
+        ],
+        [
+          "Você é ambição com alma, {primeiro_nome}. Não quer conquistar qualquer coisa: quer conquistar o que tem significado. Quando encontra um propósito, se dedica com uma força que surpreende.",
+          "A letra {inicial} no começo do seu nome combina com quem lidera pela inspiração. As pessoas seguem você porque sentem que você acredita no que faz. O cuidado é não carregar tudo em silêncio: mostrar as suas dúvidas também humaniza a sua liderança."
+        ],
+        [
+          "{primeiro_nome}, você tem uma força emocional enorme. Sente muito, mas não se deixa derrubar. Transforma dor em aprendizado e obstáculo em degrau.",
+          "As {qtd_letras} letras do seu nome desenham alguém de vontade forte e coração profundo. Você protege quem ama com tudo o que tem. Só cuide para que o desejo de controlar não sufoque as relações: confiar também é uma forma de poder."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Nasceu para liderar", "Foco no resultado", "Não desiste fácil"],
+      ["Visão de longo prazo", "Força nas crises", "Exigência alta"],
+      ["Presença marcante", "Decide sob pressão", "Ambição sem vergonha"]
+    ],
+    "como_ama": {
+      "intenso": [
+        "No amor, você é intensidade e proteção. Quando ama, quer dar o melhor para a pessoa: conforto, segurança, experiências incríveis. Demonstra amor com atitudes grandes e com uma lealdade feroz. Quem está com você sente que tem uma pessoa poderosa ao lado.",
+        "O risco é o controle. Por querer proteger, você pode tentar decidir pelo outro ou ficar com ciúme quando sente que está perdendo o comando. Lembre que amor não é posse. Dar liberdade e confiar na outra pessoa fortalece a relação muito mais do que qualquer controle."
+      ],
+      "estrategico": [
+        "Você ama construindo um futuro. Pensa em casa, patrimônio, viagens, conquistas a dois. Quer uma pessoa ao lado que tenha ambição também, para crescerem juntos. Demonstra amor garantindo estabilidade e oferecendo o melhor que pode.",
+        "O cuidado é não colocar o trabalho acima da relação. Quando a agenda está cheia, o amor pode ficar para depois, e o outro sente. Reserve tempo de qualidade, sem celular e sem pauta de trabalho. Estar presente de verdade é o investimento mais importante que você pode fazer na relação."
+      ],
+      "sereno": [
+        "O seu amor é firme e estável. Você não é de grandes declarações, mas está sempre presente, resolvendo, protegendo, garantindo que tudo esteja em ordem. Quem está com você sente segurança, porque sabe que pode contar com você.",
+        "O ponto de atenção é a frieza aparente. Por controlar tão bem as emoções, você pode parecer distante para quem precisa de mais demonstração. Pequenos gestos de carinho, como um abraço sem motivo, um elogio ou uma mensagem no meio do dia, mostram o quanto você se importa."
+      ],
+      "magnetico": [
+        "Você ama de um jeito intenso e reservado ao mesmo tempo. Demora a se entregar, mas, quando se entrega, é com tudo. A sua forma de amar envolve proteção, lealdade e uma conexão profunda que poucas pessoas conseguem alcançar.",
+        "O risco é guardar os sentimentos para manter o controle. Mostrar vulnerabilidade pode parecer perigoso para você, mas é o que aprofunda a intimidade. Deixe que a pessoa amada veja os seus medos e as suas dúvidas. Isso não diminui a sua força: mostra que ela é real."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "intenso": [
+        "Você precisa de desafios grandes e de autonomia para decidir. Liderança, negócio próprio, vendas, mercado financeiro, direito, política ou qualquer área com metas ambiciosas tendem a combinar com você. Trabalho sem perspectiva de crescimento te frustra.",
+        "Com dinheiro, você tem coragem para arriscar e visão para ganhar. O cuidado é não arriscar demais no calor da empolgação. Defina limites antes de entrar em qualquer investimento ou negócio, e respeite esses limites. A sua ambição merece uma estratégia que a proteja."
+      ],
+      "estrategico": [
+        "No trabalho, você é a pessoa que entrega resultado. Funções de direção, gestão, finanças, empreendedorismo, consultoria ou qualquer área estratégica tendem a valorizar a sua visão e a sua capacidade de execução.",
+        "Com dinheiro, você costuma ter disciplina, metas e planejamento. O ponto de atenção é deixar o trabalho tomar conta de tudo. Dinheiro é ferramenta, não fim. Lembre de usar o que conquista para viver bem, com as pessoas que importam. Sucesso sem tempo para aproveitar não é sucesso completo."
+      ],
+      "sereno": [
+        "Você rende bem em posições de responsabilidade, com autonomia e tempo para pensar. Funções de gestão, análise, investimentos, direito, engenharia ou carreiras de longo prazo combinam com o seu jeito constante e estratégico.",
+        "Com dinheiro, a sua paciência é um trunfo enorme: você sabe investir, esperar e colher. O cuidado é não ser tão conservador a ponto de perder boas oportunidades. Avalie riscos com a mesma calma com que avalia tudo, mas não deixe de agir quando os números mostram que vale a pena."
+      ],
+      "magnetico": [
+        "Você precisa de trabalho com poder e propósito. Quando acredita na causa, lidera com uma força que inspira. Áreas como empreendedorismo social, liderança de projetos, psicologia organizacional, direito ou qualquer posição em que possa transformar algo tendem a te realizar.",
+        "Com dinheiro, você pode oscilar entre a ambição e o desapego. O ponto de atenção é alinhar ganhos com valores. Quando o dinheiro vem de algo que faz sentido para você, a satisfação é muito maior. Não tenha vergonha de querer prosperar: prosperidade com propósito é força dobrada."
+      ]
+    },
+    "frase_do_nome": {
+      "intenso": "Eu não espero o vento mudar: eu mudo a direção.",
+      "estrategico": "Eu sei aonde vou, e chego.",
+      "sereno": "Minha força não precisa de barulho para comandar.",
+      "magnetico": "Eu conduzo com o coração, e ninguém me tira do rumo."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 8 aparece em CORAÇÃO, IMAGEM ou CAMINHO. Não cita 'O Leme'.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é realização. Você quer olhar para trás e sentir orgulho do que construiu. Não basta viver: você quer deixar algo concreto, uma conquista, um patrimônio, uma marca no mundo.",
+        "Isso explica por que você se cobra tanto e por que a sensação de estar parado incomoda tanto. O caminho para se sentir em paz passa por definir com clareza o que é sucesso para você, e não para os outros. Quando você sabe o que quer de verdade, a busca fica mais leve e mais gostosa."
+      ],
+      [
+        "O que move você por dentro é a vontade de ter controle sobre a própria vida. Você quer independência financeira, liberdade para escolher e a segurança de não depender de ninguém. Sentir que está no comando te dá paz.",
+        "Quando as coisas fogem do seu controle, bate uma inquietação e às vezes até ansiedade. Por isso, é importante lembrar que nem tudo depende de você, e está tudo bem. Aceitar a incerteza, sem largar o leme, é a forma mais madura de estar no comando da própria vida."
+      ],
+      [
+        "O seu coração busca reconhecimento. Você trabalha duro e quer que esse esforço seja visto e valorizado. Um elogio sincero de alguém que você admira pode te motivar por meses.",
+        "O cuidado é não depender só da validação externa. Aprender a reconhecer as próprias conquistas, mesmo as pequenas, te dá uma força que não depende do humor dos outros. Você já sabe o quanto vale; só precisa acreditar nisso nos dias em que ninguém aplaude."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de uma pessoa forte e bem-sucedida. As pessoas sentem que você sabe o que está fazendo e que tem tudo sob controle. É comum que te peçam conselhos sobre carreira e dinheiro.",
+        "A vantagem é o respeito imediato. A desvantagem é que alguns podem sentir intimidação ou distância no seu jeito. Mostrar o seu lado mais humano, com uma risada, uma história engraçada ou um momento de vulnerabilidade, aproxima as pessoas e revela quem você é por trás da força."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa que vai longe. As pessoas apostam no seu sucesso e esperam grandes coisas de você. No trabalho, é comum te verem como futura liderança.",
+        "Essa imagem é motivadora, mas pode virar pressão. Você também tem dias de dúvida e cansaço, e tudo bem. Permita que as pessoas próximas vejam isso. Mostrar que você também precisa de apoio não diminui a admiração: aumenta a conexão."
+      ],
+      [
+        "As pessoas percebem em você uma autoridade natural. Você fala com segurança, toma decisões com firmeza e não se intimida fácil. Isso faz com que os outros te sigam e confiem nas suas escolhas.",
+        "Ao mesmo tempo, pessoas mais sensíveis podem sentir pressão diante da sua intensidade. Se quiser que a primeira impressão seja mais acolhedora, faça perguntas e ouça com atenção. Uma liderança que escuta é muito mais forte do que uma que só comanda."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é querer controlar tudo. Você sente mais segurança quando as coisas estão nas suas mãos, e por isso tem dificuldade de delegar, de confiar e de deixar o outro fazer do jeito dele. Isso te sobrecarrega e às vezes afasta pessoas.",
+        "Esse padrão costuma se repetir no trabalho, em casa e nas relações. Para virar o jogo, escolha uma tarefa por semana para delegar de verdade, sem interferir. Observe o que acontece. Você vai descobrir que outras pessoas também são capazes, e vai ganhar tempo e energia para o que só você pode fazer."
+      ],
+      [
+        "O seu ponto cego é colocar o trabalho acima de tudo. Quando há uma meta a cumprir, a família, os amigos, a saúde e até o descanso ficam para depois. Por fora, parece dedicação; por dentro, às vezes é medo de não ser suficiente.",
+        "A pergunta que ajuda a virar o jogo é: \"daqui a dez anos, do que vou me lembrar?\". Provavelmente não dos relatórios, mas dos momentos com quem ama. Reserve horários sagrados para a vida fora do trabalho. O sucesso fica mais bonito quando você tem com quem comemorar."
+      ],
+      [
+        "O seu ponto cego é a dificuldade de mostrar fraqueza. Você aprendeu que precisa ser forte, e por isso esconde o cansaço, o medo e a dúvida. Por fora, parece que você aguenta tudo; por dentro, às vezes está no limite.",
+        "Para virar o jogo, escolha uma pessoa de confiança e pratique dizer como você está de verdade. Comece com algo pequeno, como \"hoje está difícil\". Você vai perceber que mostrar vulnerabilidade não te enfraquece: te conecta. E a sua força fica ainda maior quando você não precisa carregá-la sem apoio."
+      ]
+    ]
+  }
+}

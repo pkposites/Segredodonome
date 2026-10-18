@@ -1,0 +1,241 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code para revisão do Rob. Mesmo tom de arquetipo-7.json.",
+  "frases_temperamento": {
+    "intenso": {
+      "acao_reflexao": [
+        "Quando algo dá errado, você resolve na hora, no calor do momento. Esse impulso de agir com o coração na mão aparece em tudo o que vem a seguir.",
+        "Quando algo dá errado, você faz um plano e já parte para a solução. Junto com a emoção forte das outras respostas, isso mostra alguém que sente muito e não fica parado.",
+        "Quando algo dá errado, você disse que precisa de um tempo para sentir tudo primeiro. Mesmo assim, no conjunto das respostas, a ação ganhou por pouco: você sente fundo e, quando decide, vai.",
+        "Quando algo dá errado, você para e analisa a causa. Ainda assim, no conjunto, a ação ganhou por pouco: você pensa rápido, sente forte e não costuma esperar muito para agir."
+      ],
+      "emocao_razao": [
+        "Numa decisão importante, quem fala mais alto é o seu coração, e na hora. Essa intensidade aparece em tudo o que vem a seguir.",
+        "Numa decisão importante, você disse que vai pelos fatos e decide rápido. Mesmo assim, no conjunto das respostas, a emoção ganhou por pouco: você age rápido e sente tudo o que faz.",
+        "Numa decisão importante, o coração fala mais alto, mesmo depois de pensar muito. Somado à sua pressa de agir, isso mostra alguém que sente fundo e vai até o fim.",
+        "Numa decisão importante, você disse que prefere a lista de prós e contras. Ainda assim, no conjunto, a emoção ganhou por pouco: você sente forte, mas sabe frear quando o assunto é sério."
+      ]
+    },
+    "estrategico": {
+      "acao_reflexao": [
+        "Quando algo dá errado, você resolve na hora. Somado ao seu lado racional, isso mostra alguém que não perde tempo e quase sempre acerta o próximo passo.",
+        "Quando algo dá errado, você faz um plano e já parte para a solução. Esse jeito de pensar e agir ao mesmo tempo aparece em tudo o que vem a seguir.",
+        "Quando algo dá errado, você disse que precisa de um tempo para sentir primeiro. Mesmo assim, no conjunto das respostas, a ação ganhou por pouco: depois de sentir, você resolve com método.",
+        "Quando algo dá errado, você para e analisa a causa. No conjunto, a ação ganhou por pouco: você entende o problema rápido e logo parte para resolver."
+      ],
+      "emocao_razao": [
+        "Numa decisão importante, você disse que o coração fala mais alto, na hora. Ainda assim, no conjunto das respostas, a razão ganhou por pouco: você sente, mas decide com a cabeça.",
+        "Numa decisão importante, quem fala mais alto são os fatos, e você decide rápido. Esse jeito objetivo aparece em tudo o que vem a seguir.",
+        "Numa decisão importante, você disse que ouve o coração depois de pensar muito. Mesmo assim, no conjunto, a razão ganhou por pouco: a emoção entra na conta, mas não manda sozinha.",
+        "Numa decisão importante, você vai pela lista de prós e contras. Junto com a sua disposição para agir, isso mostra alguém que planeja bem e executa melhor ainda."
+      ]
+    },
+    "sereno": {
+      "acao_reflexao": [
+        "Quando algo dá errado, você disse que resolve na hora. Mesmo assim, no conjunto das respostas, a reflexão ganhou por pouco: você reage rápido no susto, mas costuma decidir com calma.",
+        "Quando algo dá errado, você faz um plano e parte para a solução. No conjunto, a reflexão ganhou por pouco: o plano vem primeiro, e é ele que te dá segurança para agir.",
+        "Quando algo dá errado, você precisa de um tempo para sentir tudo primeiro. Somado ao seu lado racional, isso mostra alguém que digere com calma e depois decide bem.",
+        "Quando algo dá errado, você para e analisa o que causou aquilo. Essa calma de quem observa antes de agir aparece em tudo o que vem a seguir."
+      ],
+      "emocao_razao": [
+        "Numa decisão importante, você disse que o coração fala mais alto, na hora. Ainda assim, no conjunto das respostas, a razão ganhou por pouco: você sente, mas confia mais no que observa.",
+        "Numa decisão importante, quem fala mais alto são os fatos. Junto com o seu jeito de pensar antes de agir, isso mostra alguém difícil de enganar.",
+        "Numa decisão importante, você disse que ouve o coração depois de pensar muito. No conjunto, a razão ganhou por pouco: a emoção conta, mas a última palavra é da sua cabeça.",
+        "Numa decisão importante, você vai pela lista de prós e contras, sem pressa. Essa calma racional aparece em tudo o que vem a seguir."
+      ]
+    },
+    "magnetico": {
+      "acao_reflexao": [
+        "Quando algo dá errado, você disse que resolve na hora, no calor do momento. Mesmo assim, no conjunto das respostas, a reflexão ganhou por pouco: o susto te move, mas o que você sente pede tempo.",
+        "Quando algo dá errado, você faz um plano e parte para a solução. No conjunto, a reflexão ganhou por pouco: você age quando precisa, mas o seu lugar natural é sentir e entender primeiro.",
+        "Quando algo dá errado, você precisa de um tempo para sentir tudo primeiro. Esse jeito de mergulhar antes de reagir aparece em tudo o que vem a seguir.",
+        "Quando algo dá errado, você para e analisa o que causou aquilo. Somado ao seu lado emotivo, isso mostra alguém que sente fundo e quer entender o porquê de cada sentimento."
+      ],
+      "emocao_razao": [
+        "Numa decisão importante, quem fala mais alto é o coração, na hora. Junto com o seu jeito de observar antes de agir, isso mostra alguém de intuição rápida e reação calma.",
+        "Numa decisão importante, você disse que vai pelos fatos. Ainda assim, no conjunto das respostas, a emoção ganhou por pouco: os fatos importam, mas é o que você sente que dá a palavra final.",
+        "Na hora de decidir, você ouve o coração, mas depois de pensar muito. Isso aparece em tudo o que vem a seguir.",
+        "Numa decisão importante, você disse que prefere a lista de prós e contras. Mesmo assim, no conjunto, a emoção ganhou por pouco: você organiza tudo na cabeça, mas decide pelo que sente."
+      ]
+    }
+  },
+  "como_chegamos": [
+    "Este resultado é uma interpretação lúdica. Cada letra do seu nome recebe um número de 1 a 9, e a soma de todas elas aponta o seu arquétipo. Sua data de nascimento e as suas respostas ajustam o tom e os exemplos. Não é ciência nem previsão: é um jeito divertido de olhar para você por um ângulo novo.",
+    "Montamos o seu resultado a partir de três coisas: as letras do seu nome (que viram números e somam o seu arquétipo), a sua data de nascimento e as cinco respostas que você deu. Os textos foram escritos por pessoas, para entreter e fazer pensar. Não é avaliação psicológica nem previsão do futuro.",
+    "Usamos uma brincadeira antiga: dar um número a cada letra do nome e somar tudo até sobrar um algarismo de 1 a 9. Esse número escolhe o seu arquétipo. As suas respostas definem o seu jeito, e a sua data muda algumas seções. É entretenimento, sem valor científico: leve o que fizer sentido para você."
+  ],
+  "micro_revelacoes": [
+    "Interessante… a letra {inicial} no começo do seu nome costuma aparecer em quem puxa a frente.",
+    "Seu nome tem {qtd_letras} letras. Isso já diz bastante.",
+    "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome. Guarda essa informação.",
+    "Seu nome começa com {comeca_com_vogal}. Isso muda o jeito como as pessoas te percebem de primeira.",
+    "Quem nasceu em {mes_aniversario} costuma ter uma parte da resposta que ainda vai aparecer.",
+    "Até aqui, as suas respostas estão desenhando um jeito bem claro. Falta pouco.",
+    "{primeiro_nome}, o seu sobrenome está mudando mais coisa do que você imagina.",
+    "As {qtd_letras} letras do seu nome já formaram um número. Ainda não vamos contar qual.",
+    "A letra {inicial} abre o seu nome e vai ganhar uma seção só dela.",
+    "Suas respostas estão pesando para um dos lados. Continue com sinceridade."
+  ],
+  "ciclo_2027": {
+    "1": [
+      "O ano começa com cara de recomeço. É um bom trimestre para tirar do papel aquela ideia que você vem adiando e dar o primeiro passo, mesmo pequeno.",
+      "O que começou ganha forma. Pode bater a vontade de fazer tudo por conta própria; aceitar uma ajuda pontual deixa o caminho mais leve sem tirar o mérito de ninguém.",
+      "Fase de coragem. Situações novas pedem decisão rápida, e você tende a se sair bem quando confia no próprio instinto.",
+      "Hora de olhar para trás e ver o quanto você andou. O fim do ano favorece escolher, com calma, qual vai ser o próximo começo."
+    ],
+    "2": [
+      "O ano pede paciência no começo. As coisas andam no ritmo dos outros, e isso não é atraso: é tempo de ouvir e entender o terreno.",
+      "Parcerias ganham destaque. Uma conversa sincera, no trabalho ou no amor, tende a resolver algo que estava travado há meses.",
+      "Trimestre de detalhes. Pequenos gestos e cuidados fazem mais diferença do que grandes anúncios. Vale cuidar de quem está perto.",
+      "O ano fecha com a sensação de pertencer. Bom momento para fortalecer os laços que valeram a pena e soltar os que só pesaram."
+    ],
+    "3": [
+      "O ano começa com vontade de se mostrar. Bom momento para falar, criar, postar, propor. A sua voz tende a ser ouvida.",
+      "Agenda cheia e muitos convites. Cuidado para não se espalhar demais: escolher duas ou três prioridades deixa o trimestre muito mais leve.",
+      "Fase criativa. Ideias aparecem em lugares inesperados; anote tudo, porque algumas delas podem render bem mais tarde.",
+      "Fim de ano de celebração. Encontros, risadas e conversas boas recarregam você para o que vem a seguir."
+    ],
+    "4": [
+      "O ano começa pedindo organização. Arrumar as contas, a rotina e a casa agora vai poupar muita dor de cabeça lá na frente.",
+      "Trimestre de esforço constante. Nem sempre é empolgante, mas o que você constrói agora tende a durar.",
+      "O trabalho do primeiro semestre começa a aparecer. É hora de manter o ritmo e não abandonar o método justo agora.",
+      "O ano termina com chão firme. Bom momento para planejar 2028 com base no que deu certo, sem pressa."
+    ],
+    "5": [
+      "O ano começa agitado. Mudanças de plano, viagens ou novidades podem aparecer; quanto mais flexível você estiver, melhor.",
+      "Vontade de liberdade em alta. Experimentar algo diferente faz bem, desde que você não largue no meio o que já estava funcionando.",
+      "Trimestre de movimento. Conhecer gente nova e sair da rotina tende a abrir portas que você nem sabia que existiam.",
+      "O fim do ano pede escolha. Das novidades que chegaram, fique com as que fazem sentido de verdade e solte o resto."
+    ],
+    "6": [
+      "O ano começa com foco em casa e família. Bom momento para resolver pendências com quem você ama e deixar o ambiente mais acolhedor.",
+      "Responsabilidades aumentam. Cuidar dos outros é bonito, mas lembre de dividir as tarefas em vez de carregar tudo sem ajuda.",
+      "Trimestre de afeto. Relações ficam mais próximas, e um gesto seu pode ser exatamente o que alguém precisava.",
+      "O ano termina pedindo cuidado com você mesmo. Descanso e prazer também são responsabilidade, não luxo."
+    ],
+    "7": [
+      "O ano começa mais silencioso. Bom momento para estudar, ler, pensar e entender o que você quer de verdade antes de agir.",
+      "Trimestre de perguntas. Algumas respostas não chegam rápido, e tudo bem: o tempo de reflexão agora evita decisões erradas depois.",
+      "Fase de aprofundar. Um curso, um projeto pessoal ou uma conversa longa podem mudar a forma como você enxerga um assunto importante.",
+      "O ano fecha com clareza. O que estava confuso em janeiro tende a fazer sentido, e você termina sabendo melhor o próximo passo."
+    ],
+    "8": [
+      "O ano começa com cara de trabalho. Metas claras e foco no resultado tendem a render mais do que esperar o momento certo.",
+      "Trimestre de negociação. Bom momento para pedir o que você merece, rever preços, propor acordos e organizar o dinheiro.",
+      "O esforço começa a aparecer. Reconhecimento e oportunidades podem chegar; cuidado só para não deixar o trabalho engolir todo o resto.",
+      "O ano termina com sensação de colheita. Vale comemorar o que conquistou e separar uma parte para o que vem pela frente."
+    ],
+    "9": [
+      "O ano começa com faxina. Bom momento para encerrar o que já não faz sentido: projetos parados, hábitos antigos, conversas pendentes.",
+      "Trimestre de generosidade. Ajudar alguém ou se envolver em algo maior que você tende a trazer uma satisfação inesperada.",
+      "Fase de despedidas leves. Algumas coisas vão sair da sua vida para abrir espaço; não force a permanência do que já terminou.",
+      "O ano fecha um ciclo. Você chega ao fim de 2027 mais leve, com espaço livre para começar algo novo em 2028."
+    ]
+  },
+  "iniciais": {
+    "a": [
+      "A letra A abrindo o seu nome costuma aparecer em quem gosta de estar na frente. Você tende a ser a pessoa que propõe o plano, escolhe o restaurante ou puxa o assunto quando o silêncio fica constrangedor. Não é vontade de mandar: é que, para você, começar é mais fácil do que esperar.",
+      "O cuidado é perceber quando o seu ritmo atropela o dos outros. Nem todo mundo decide tão rápido, e um \"o que você acha?\" antes de bater o martelo faz as pessoas se sentirem parte da decisão. Quando você combina iniciativa com escuta, vira o tipo de liderança que todo grupo quer por perto."
+    ],
+    "b": [
+      "O B no começo do seu nome aponta para alguém que valoriza o vínculo. Você tende a lembrar de aniversários, a perceber quando um amigo sumiu e a ser a pessoa que manda mensagem só para saber como o outro está. Para você, relação boa se constrói com presença, não com promessa.",
+      "O ponto de atenção é não esperar que todo mundo cuide do vínculo do mesmo jeito. Algumas pessoas demonstram afeto de formas mais discretas, e isso não quer dizer que gostam menos. Quando você aceita os jeitos diferentes de amar, as suas relações ficam mais leves e muito menos cansativas."
+    ],
+    "c": [
+      "A letra C abrindo o seu nome combina com quem se comunica bem. Você costuma encontrar as palavras certas para acalmar alguém, convencer um grupo ou contar uma história de um jeito que prende a atenção. Muita gente se aproxima de você por causa dessa facilidade.",
+      "O cuidado é não usar o talento com as palavras para fugir de assuntos difíceis. Às vezes, uma piada ou uma mudança de assunto evita uma conversa que precisava acontecer. Quando você usa a mesma habilidade para falar do que sente de verdade, as suas relações ganham uma profundidade nova."
+    ],
+    "d": [
+      "O D no começo do seu nome costuma aparecer em quem tem os pés no chão. Você tende a desconfiar de promessas fáceis, prefere ver para crer e gosta de saber exatamente onde está pisando. Isso faz de você alguém em quem os outros confiam quando precisam de uma opinião sensata.",
+      "O ponto de atenção é a rigidez. Nem toda mudança é ameaça, e nem todo plano precisa estar fechado para começar. Experimentar algo novo sem ter todas as respostas pode ser justamente o que destrava uma fase em que você sente que está andando em círculos."
+    ],
+    "e": [
+      "A letra E abrindo o seu nome aponta para muita curiosidade, gosto por novidade e de gente diferente. Você costuma se dar bem em ambientes variados, conversa com todo tipo de pessoa e se entedia rápido com rotina demais. A sua presença costuma deixar os lugares mais leves.",
+      "O cuidado é não pular de uma coisa para a outra antes de terminar a primeira. A curiosidade é uma força, mas ganha muito mais valor quando você escolhe algumas coisas para ir até o fim. Quando isso acontece, o resultado costuma surpreender até você."
+    ],
+    "f": [
+      "O F no começo do seu nome costuma aparecer em quem cuida. Você tende a ser a pessoa que oferece carona, lembra do remédio de alguém e organiza a festa surpresa. Os outros se sentem em casa perto de você, e isso não é pouca coisa.",
+      "O ponto de atenção é o cansaço que vem de cuidar de todo mundo e esquecer de si. Dizer não de vez em quando não faz de você uma pessoa menos generosa. Pelo contrário: quem se cuida tem mais para oferecer, e as pessoas que gostam de você querem te ver bem também."
+    ],
+    "g": [
+      "A letra G abrindo o seu nome combina com quem pensa antes de falar. Você tende a observar o ambiente, entender o que está em jogo e só então se posicionar. Por isso, quando você dá uma opinião, ela costuma ter peso.",
+      "O cuidado é não guardar tudo para si. Pensar muito antes de falar é uma qualidade, mas às vezes as pessoas ao seu redor ficam sem saber o que você sente. Compartilhar um pouco do que passa pela sua cabeça, mesmo antes de ter certeza, aproxima você de quem importa."
+    ],
+    "h": [
+      "O H no começo do seu nome costuma aparecer em quem tem ambição e sabe aonde quer chegar. Você tende a enxergar oportunidades onde outros veem problema e a se organizar para alcançar o que deseja. Determinação é uma palavra que combina com você.",
+      "O ponto de atenção é o equilíbrio. Correr atrás das metas é ótimo, mas a vida também acontece fora da lista de tarefas. Reservar um tempo para descansar e estar com quem você ama não atrasa as suas conquistas: dá sentido a elas."
+    ],
+    "i": [
+      "A letra I abrindo o seu nome aponta para alguém sensível e idealista. Você tende a se importar com causas, a sofrer com injustiças e a enxergar o lado bom das pessoas mesmo quando ninguém mais enxerga. Essa sensibilidade é rara e valiosa.",
+      "O cuidado é não idealizar demais. Pessoas e situações nem sempre correspondem à imagem que você criou, e isso pode doer. Ver o outro como ele é, com qualidades e defeitos, protege você de decepções e deixa espaço para relações mais verdadeiras."
+    ],
+    "j": [
+      "O J no começo do seu nome costuma aparecer em quem tem iniciativa e senso de justiça. Você tende a defender quem está em desvantagem e a se incomodar com regras que não fazem sentido. As pessoas sabem que podem contar com você numa hora difícil.",
+      "O ponto de atenção é a impaciência. Nem todo mundo reage na mesma velocidade, e nem toda batalha precisa ser comprada. Escolher as brigas que realmente valem a pena guarda a sua força para quando ela faz diferença de verdade."
+    ],
+    "k": [
+      "A letra K abrindo o seu nome combina com quem tem uma intuição forte. Você costuma sentir quando algo não está certo antes de conseguir explicar o porquê, e muitas vezes acerta. Há algo de marcante no seu jeito, que faz as pessoas lembrarem de você.",
+      "O cuidado é a tensão interna. Sentir tudo com tanta intensidade cansa, e às vezes você carrega preocupações que não são suas. Criar momentos de pausa, longe do barulho, ajuda a separar o que é seu do que é do ambiente."
+    ],
+    "l": [
+      "O L no começo do seu nome costuma aparecer em quem é leve e sociável. Você tende a fazer amigos com facilidade, a gostar de conversa boa e a se dar bem em grupo. As pessoas se sentem bem-vindas perto de você.",
+      "O ponto de atenção é a dificuldade de decidir quando há gente demais opinando. Ouvir todo mundo é bonito, mas no fim a escolha precisa ser sua. Confiar mais no seu próprio julgamento evita que você se perca tentando agradar a todos."
+    ],
+    "m": [
+      "A letra M abrindo o seu nome aponta para muita dedicação ao trabalho e às pessoas. Você tende a cumprir o que promete, a se esforçar mais do que pedem e a ser a base de muita gente ao seu redor. Família e lar costumam ter um peso grande na sua vida.",
+      "O cuidado é não transformar dedicação em obrigação. Você não precisa provar o seu valor o tempo todo. Permitir-se descansar, pedir ajuda e aproveitar o que já foi conquistado é tão importante quanto continuar construindo."
+    ],
+    "n": [
+      "O N no começo do seu nome costuma aparecer em quem tem imaginação e originalidade. Você tende a pensar de um jeito diferente, a ter ideias que surpreendem e a não gostar de seguir a manada. Isso faz de você uma pessoa interessante de conversar.",
+      "O ponto de atenção é a inquietação. Às vezes, a vontade de fazer diferente faz você mudar de rumo antes de ver o resultado do caminho anterior. Dar tempo para as ideias amadurecerem transforma a sua criatividade em algo concreto."
+    ],
+    "o": [
+      "A letra O abrindo o seu nome combina com quem protege e assume responsabilidades. Você tende a acolher, a se preocupar com o bem-estar dos outros e a manter a palavra. As pessoas se sentem seguras ao seu lado.",
+      "O cuidado é o ciúme e a vontade de controlar para proteger. Querer o bem de quem você ama não significa decidir por elas. Confiar que cada pessoa encontra o próprio caminho alivia você e fortalece as relações."
+    ],
+    "p": [
+      "O P no começo do seu nome costuma aparecer em quem tem uma mente curiosa e uma boa dose de conhecimento. Você tende a pesquisar antes de decidir, a gostar de entender os detalhes e a ter opiniões bem fundamentadas. Muita gente pede o seu conselho.",
+      "O ponto de atenção é a exigência. Você costuma esperar muito de si e dos outros, e isso pode gerar frustração. Aceitar que nem tudo precisa ser perfeito para ser bom libera tempo e energia para aproveitar mais a vida."
+    ],
+    "q": [
+      "A letra Q abrindo o seu nome é rara e combina com quem tem um jeito próprio de ver as coisas. Você tende a ter determinação, talento para liderar e a não se intimidar com desafios. Você chama atenção sem precisar fazer esforço.",
+      "O cuidado é a teimosia. Ter opinião forte é uma qualidade, mas às vezes vale ouvir até o fim antes de defender o seu ponto. Mudar de ideia diante de um bom argumento não é fraqueza: é sabedoria."
+    ],
+    "r": [
+      "O R no começo do seu nome costuma aparecer em quem tem coragem e muita disposição. Você tende a enfrentar problemas de frente, a se recuperar rápido de quedas e a inspirar os outros pelo exemplo. Quando você decide, poucos conseguem te parar.",
+      "O ponto de atenção é a pressa. Agir rápido resolve muita coisa, mas algumas situações pedem pausa. Contar até dez antes de responder num momento tenso evita arrependimentos e mostra uma força ainda maior: a de se controlar."
+    ],
+    "s": [
+      "A letra S abrindo o seu nome aponta para alguém de presença marcante e coração sensível. Você tende a sentir as coisas com intensidade, a ter uma boa intuição e a atrair as pessoas pelo seu jeito. Há um charme natural em você.",
+      "O cuidado é a montanha-russa emocional. Sentir muito é bonito, mas decisões importantes ficam melhores quando tomadas com a cabeça fria. Esperar a emoção baixar antes de agir ajuda você a escolher o que quer de verdade."
+    ],
+    "t": [
+      "O T no começo do seu nome costuma aparecer em quem gosta de parceria e de colaborar. Você tende a trabalhar bem em equipe, a mediar conflitos e a buscar o equilíbrio entre as pessoas. Muita coisa só dá certo porque você estava lá.",
+      "O ponto de atenção é engolir o que incomoda para manter a paz. Evitar conflito o tempo todo pode fazer você acumular mágoas. Dizer o que pensa com calma, na hora certa, protege as relações mais do que o silêncio."
+    ],
+    "u": [
+      "A letra U abrindo o seu nome combina com quem acolhe e cria. Você tende a ter uma visão ampla, a gostar de juntar pessoas e a encontrar soluções que agradam a todos. Há uma generosidade natural no seu jeito.",
+      "O cuidado é a indecisão. Querer considerar todos os lados é uma qualidade, mas às vezes você fica parado esperando a opção perfeita. Escolher a melhor opção possível hoje costuma ser melhor do que esperar a ideal amanhã."
+    ],
+    "v": [
+      "O V no começo do seu nome costuma aparecer em quem tem visão e pensa grande. Você tende a enxergar longe, a planejar com ambição e a transformar ideias em projetos concretos. As pessoas confiam na sua capacidade de fazer acontecer.",
+      "O ponto de atenção é a cobrança. Mirar alto é ótimo, mas a distância entre onde você está e onde quer chegar pode gerar ansiedade. Comemorar os pequenos passos no caminho mantém a motivação e deixa a jornada mais gostosa."
+    ],
+    "w": [
+      "A letra W abrindo o seu nome é rara e combina com quem se expressa bem e tem muitas ideias. Você tende a gostar de se comunicar, de viver experiências novas e de conhecer pessoas diferentes. Dificilmente alguém fica indiferente a você.",
+      "O cuidado é a dispersão. Com tantas ideias e interesses, fica difícil escolher onde colocar o foco. Definir uma ou duas prioridades por vez ajuda você a ver os resultados que tanto deseja."
+    ],
+    "x": [
+      "O X no começo do seu nome é raro e costuma aparecer em quem tem personalidade forte e um olhar único. Você tende a não se encaixar em padrões, a questionar o que todo mundo aceita e a seguir o próprio caminho. Isso faz de você alguém memorável.",
+      "O ponto de atenção é o isolamento. Ser diferente é uma força, mas às vezes você sente que ninguém entende e se afasta. Encontrar pessoas que admiram o seu jeito, em vez de tentar agradar quem não entende, faz toda a diferença."
+    ],
+    "y": [
+      "A letra Y abrindo o seu nome combina com quem preza a independência e a reflexão. Você tende a gostar de liberdade, a pensar por conta própria e a buscar respostas profundas. Há algo de misterioso e interessante no seu jeito.",
+      "O cuidado é a dificuldade de se abrir. Você costuma resolver tudo por dentro e pode parecer distante. Deixar que algumas pessoas conheçam o seu mundo interior não tira a sua liberdade: cria laços que sustentam você nos dias difíceis."
+    ],
+    "z": [
+      "O Z no começo do seu nome é raro e costuma aparecer em quem tem uma determinação silenciosa. Você tende a ir até o fim no que começa, a resistir à pressão e a ter um senso de humor que surpreende quem acha que você é só seriedade.",
+      "O ponto de atenção é carregar tudo sem reclamar. Você aguenta muita coisa, mas isso não significa que precisa. Pedir ajuda e falar das suas dificuldades deixa a caminhada mais leve e mostra às pessoas o quanto elas podem fazer por você."
+    ]
+  }
+}

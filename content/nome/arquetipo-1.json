@@ -1,0 +1,162 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code a partir de arquetipo-7.json e do GUIA_DE_CONTEUDO.md. Revisão do Rob pendente.",
+  "numero": 1,
+  "arquetipo": {
+    "nome": "A Chama",
+    "palavras_guia": ["iniciativa", "coragem", "primeiro passo"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 1. Varia por temperamento.",
+    "essencia": {
+      "intenso": [
+        [
+          "{primeiro_nome}, você é de quem começa. Enquanto os outros ainda estão discutindo se vale a pena, você já mandou a mensagem, marcou a reunião ou comprou a passagem. Essa coragem de dar o primeiro passo é o que mais chama atenção em você, e muita coisa boa na sua vida só aconteceu porque você não esperou.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça esse fogo. Quando algo te empolga, você mergulha de cabeça; quando algo te irrita, todo mundo percebe. Você não sabe fingir, e as pessoas que gostam de você valorizam justamente essa sinceridade."
+        ],
+        [
+          "Você sente tudo em volume alto, {primeiro_nome}. Alegria, raiva, paixão, vontade de mudar: nada em você é morno. Essa intensidade puxa as pessoas para perto, porque ao seu lado a vida parece andar mais rápido e com mais cor.",
+          "A letra {inicial} abrindo o seu nome combina com quem acende o ambiente. Numa roda de amigos, é você quem propõe o plano maluco que acaba virando a melhor história do ano. O desafio é lembrar que nem todo mundo tem o seu fôlego, e que esperar um pouco não apaga a chama."
+        ],
+        [
+          "{primeiro_nome}, você decide com o coração e age na mesma hora. Para você, pensar demais é perder a chance. Por isso tanta gente te admira: você faz o que muitos só têm coragem de imaginar.",
+          "As {qtd_letras} letras do seu nome desenham alguém que não gosta de esperar a vida acontecer. Você prefere errar tentando do que se arrepender de não ter tentado. Esse jeito te leva longe, desde que você aprenda a respirar antes das decisões que não têm volta."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você junta coragem com cabeça fria. Gosta de liderar, mas não sai correndo sem saber para onde. Quando decide um objetivo, monta o caminho rápido e começa no mesmo dia, enquanto os outros ainda estão pensando.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse lado decidido. Você é a pessoa a quem o grupo recorre quando ninguém sabe o que fazer: em poucos minutos, você já dividiu as tarefas e marcou o prazo."
+        ],
+        [
+          "Você nasceu para abrir caminho, {primeiro_nome}. Não gosta de depender de ninguém para fazer as coisas andarem e se incomoda com quem enrola. Quando vê um problema, a primeira pergunta que vem é: qual é a solução mais rápida?",
+          "A letra {inicial} no começo do seu nome combina com quem toma a frente sem pedir licença, mas com um plano na mão. Você costuma enxergar a oportunidade antes dos outros. O cuidado é não confundir independência com fazer tudo sem ajuda: dividir o peso também é estratégia."
+        ],
+        [
+          "{primeiro_nome}, você é iniciativa com método. Tem ideias, mas não fica só nelas: transforma em lista, em meta, em ação. Quem trabalha com você sabe que, se você disse que vai fazer, vai.",
+          "As {qtd_letras} letras do seu nome mostram alguém que gosta de resultado e de autonomia. Você rende mais quando pode decidir o próprio ritmo. Só lembre que nem tudo na vida é corrida: algumas das melhores coisas chegam quando você para de olhar o relógio."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, a sua coragem é silenciosa. Você não precisa fazer barulho para tomar a frente: observa, entende e, quando decide, vai até o fim com uma firmeza que surpreende quem achava que você era só tranquilidade.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço de quem sabe o que quer. Você não muda de opinião por pressão, só por bons argumentos. Essa calma decidida passa muita segurança para quem está ao seu lado."
+        ],
+        [
+          "Você é do tipo que começa sem alarde, {primeiro_nome}. Enquanto os outros anunciam planos, você já está fazendo. Para quem não te conhece, pode parecer só reserva, mas quem convive sabe que existe muita vontade de conquistar por trás dessa calma.",
+          "A letra {inicial} abrindo o seu nome combina com quem lidera pelo exemplo, não pelo discurso. Você prefere mostrar do que prometer. O cuidado é não esperar demais pela certeza total: às vezes, o primeiro passo precisa vir antes de todas as respostas."
+        ],
+        [
+          "{primeiro_nome}, você tem uma independência tranquila. Gosta de resolver as coisas do seu jeito, no seu tempo, e raramente pede ajuda. Isso te fez aprender muito por conta própria, e te deu uma confiança que poucos têm.",
+          "As {qtd_letras} letras do seu nome desenham alguém que pensa antes de agir, mas não fica parado. Você escolhe bem as suas batalhas e, quando entra numa, entra para ganhar. Só tome cuidado para não carregar tudo em silêncio: contar com alguém também é força."
+        ]
+      ],
+      "magnetico": [
+        [
+          "{primeiro_nome}, você tem uma força que as pessoas sentem antes de entender. Não é de falar muito sobre si, mas quando decide algo, vai com tudo. Existe um fogo por dentro que aparece nas horas certas e pega todo mundo de surpresa.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça essa mistura de intuição e coragem. Você costuma sentir qual é o caminho antes de conseguir explicar, e muitas vezes acerta. Quando confia nesse faro, você vai longe."
+        ],
+        [
+          "Você é de iniciativas que nascem do coração, {primeiro_nome}. Não começa nada por obrigação: precisa sentir que faz sentido. Mas, quando sente, ninguém te segura. As pessoas se encantam com essa paixão discreta que vira ação.",
+          "A letra {inicial} no começo do seu nome combina com quem acende algo nos outros sem perceber. Muita gente já mudou de ideia ou criou coragem depois de uma conversa com você. O cuidado é não guardar tanto para si: dizer o que você quer também abre portas."
+        ],
+        [
+          "{primeiro_nome}, você pensa fundo e sente fundo antes de dar um passo, mas o passo vem. Pode demorar mais que os outros para começar, só que, quando começa, é com uma convicção que poucos têm.",
+          "As {qtd_letras} letras do seu nome desenham alguém que segue o próprio caminho, mesmo quando ninguém entende. Você prefere ser fiel ao que sente do que agradar. Essa autenticidade atrai as pessoas certas, desde que você deixe que elas cheguem perto."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Dá o primeiro passo", "Decide rápido", "Não espera permissão"],
+      ["Coragem de sobra", "Odeia enrolação", "Lidera sem perceber"],
+      ["Independência forte", "Começa o que ninguém começa", "Sinceridade até demais"]
+    ],
+    "como_ama": {
+      "intenso": [
+        "No amor, você não sabe ficar em cima do muro. Quando se interessa, demonstra; quando quer, chama para sair; quando ama, diz. Gosta de paixão, de surpresa, de sentir que a relação está viva. Rotina demais tira o seu sossego, e você costuma ser quem propõe a viagem, o programa novo, o próximo passo do casal.",
+        "O risco é a impaciência. Nem toda pessoa responde no seu ritmo, e uma demora não significa falta de interesse. Também vale cuidar das reações no calor da briga: uma frase dita na raiva pode ficar mais tempo do que a própria briga. Quando você une a sua coragem de amar com um pouco de calma, vira a parceria que todo mundo sonha ter."
+      ],
+      "estrategico": [
+        "Você ama com atitude. Demonstra carinho resolvendo, planejando, fazendo acontecer. Quem está com você sente que tem alguém para contar nas horas difíceis, porque você não foge de problema: encara e procura saída. Você gosta de relações em que os dois crescem juntos e têm objetivos parecidos.",
+        "O cuidado é lembrar que amor não é projeto. Às vezes, a outra pessoa não quer solução, só quer ser ouvida. Antes de propor o plano, pergunte: você quer conselho ou quer colo? Essa pergunta simples evita muitos desencontros e mostra que você enxerga o outro além do problema que ele trouxe."
+      ],
+      "sereno": [
+        "O seu amor é firme e direto. Você não faz grandes cenas, mas quando escolhe alguém, escolhe de verdade e protege essa escolha. Gosta de ter espaço próprio dentro da relação e respeita o espaço do outro. Para você, confiança vale mais do que declarações bonitas.",
+        "O ponto de atenção é a independência excessiva. Por gostar de resolver tudo por conta própria, você pode deixar a outra pessoa sem saber como participar da sua vida. Compartilhar as suas preocupações, os seus planos e até as suas dúvidas não diminui a sua força: faz o outro se sentir importante e aproxima vocês."
+      ],
+      "magnetico": [
+        "Você ama com uma intensidade que nem sempre aparece por fora. Observa antes, sente muito e, quando decide se entregar, é por inteiro. Gosta de conexões verdadeiras, em que você pode ser quem é. Pessoas rasas não te prendem; pessoas autênticas te conquistam.",
+        "O risco é esperar que o outro adivinhe o que você quer. Você toma iniciativa em tanta coisa, mas no amor às vezes trava e espera. Dizer o que sente, mesmo com medo da resposta, é o tipo de coragem que mais combina com você. Quem merece estar ao seu lado vai valorizar essa sinceridade."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "intenso": [
+        "Você precisa de trabalho com desafio e movimento. Rotina parada te drena; projetos novos te dão energia. Áreas em que você pode tomar decisões, liderar, vender, empreender ou resolver emergências costumam combinar com você, porque usam a sua coragem e a sua rapidez.",
+        "Com dinheiro, cuidado com as decisões por impulso: a compra no calor da emoção, o investimento que parece imperdível, o pedido de demissão num dia ruim. Uma regra simples ajuda muito: tudo o que for grande espera uma noite de sono. A sua coragem é um patrimônio; a pausa só garante que ela trabalhe a seu favor."
+      ],
+      "estrategico": [
+        "No trabalho, você é a pessoa que pega uma ideia e transforma em resultado. Funções de liderança, gestão, negócio próprio ou qualquer área em que você tenha autonomia tendem a te valorizar. Você rende mais quando tem metas claras e liberdade para escolher o caminho.",
+        "Com dinheiro, você costuma ter visão e coragem para arriscar com cálculo. O ponto de atenção é querer controlar tudo e não delegar: crescer exige confiar em outras pessoas. Também vale reservar uma parte do que ganha para o descanso. Quem trabalha no seu ritmo precisa de pausas planejadas, não só de metas."
+      ],
+      "sereno": [
+        "Você trabalha melhor com autonomia e responsabilidade clara. Não gosta de microgerenciamento e rende muito quando confiam em você. Áreas técnicas, de especialista, de gestão de projetos ou de trabalho independente costumam combinar com o seu jeito decidido e tranquilo.",
+        "Com dinheiro, você tende a ser prudente e a construir aos poucos, sem depender de ninguém. O cuidado é não deixar oportunidades passarem por excesso de cautela ou por não querer pedir ajuda. Às vezes, uma conversa com alguém de confiança abre portas que você levaria anos para abrir sem apoio."
+      ],
+      "magnetico": [
+        "Você precisa acreditar no que faz. Quando o trabalho tem significado, você vira uma força da natureza; quando não tem, a motivação some. Áreas criativas, de atendimento a pessoas, de causas ou de negócio próprio com propósito tendem a te dar mais satisfação.",
+        "Com dinheiro, você pode oscilar entre a cautela e o impulso, dependendo do que está sentindo. O ponto de atenção é não cobrar menos do que vale por vergonha de pedir. A sua iniciativa e a sua intuição têm valor de mercado. Aprender a negociar com a mesma coragem que você usa para começar coisas é um divisor de águas."
+      ]
+    },
+    "frase_do_nome": {
+      "intenso": "Eu não espero a coragem chegar: eu começo, e ela vem junto.",
+      "estrategico": "Eu abro o caminho e já sei aonde ele vai dar.",
+      "sereno": "Minha força não faz barulho, mas nunca para.",
+      "magnetico": "Eu sigo o que sinto, e é isso que me leva longe."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 1 aparece em CORAÇÃO, IMAGEM ou CAMINHO. Não cita 'A Chama'.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é liberdade para ser quem é. Você quer decidir os próprios passos, escolher os próprios caminhos e não depender da aprovação de ninguém. Quando sente controle ou limitação sobre a sua vida, algo por dentro se apaga, e você só volta a brilhar quando recupera a autonomia.",
+        "Isso explica por que você se incomoda tanto com regras sem sentido e com gente que quer decidir por você. O caminho para se sentir em paz é construir uma vida em que você tenha espaço para começar coisas novas, errar, tentar de novo. Liberdade, para você, não é luxo: é o ar que você respira."
+      ],
+      [
+        "O que move você por dentro é a vontade de conquistar algo seu. Não basta participar: você quer deixar uma marca, criar, ser a pessoa que fez acontecer. Esse desejo pode aparecer no trabalho, num projeto pessoal ou até na forma como você cuida da sua casa.",
+        "Quando consegue, sente um orgulho que alimenta por muito tempo. Quando fica parado, se inquieta. Por isso, respeitar esse lado é importante: tenha sempre algum projeto que seja só seu, mesmo que pequeno. Ele vai ser o motor que te levanta nos dias em que tudo parece cinza."
+      ],
+      [
+        "O seu coração busca coragem, a sua e a dos outros. Você admira quem se arrisca, quem fala o que pensa, quem tenta. E, mesmo quando sente medo, quer ser essa pessoa também. É um desejo bonito, que te empurra para frente.",
+        "O cuidado é não se cobrar coragem o tempo todo. Ter medo faz parte, e pedir ajuda também é um ato corajoso. Quando você aceita que pode ser forte e vulnerável ao mesmo tempo, a pressão diminui e as conquistas ficam mais gostosas de viver."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de alguém decidido. As pessoas sentem que você sabe o que quer, mesmo quando por dentro existem dúvidas. Essa impressão de segurança faz com que te procurem para liderar, opinar e resolver.",
+        "A vantagem é o respeito que você conquista rápido. A desvantagem é que alguns podem ver dureza no seu jeito ou achar que você não precisa de ninguém. Mostrar um pouco do seu lado mais leve, com uma risada, um pedido de opinião ou uma confissão de dúvida, deixa as pessoas mais à vontade perto de você."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa que faz acontecer. É comum que te vejam como alguém que não tem medo, que chega e já toma conta da situação. No trabalho e entre amigos, o seu nome costuma ser o primeiro lembrado quando é preciso começar algo.",
+        "Essa imagem é um presente, mas pode virar peso: esperam de você sempre a mesma energia, mesmo nos dias em que você não tem. Permita que as pessoas próximas vejam que você também cansa. Isso não diminui a admiração; pelo contrário, mostra o seu lado mais humano e deixa você mais fácil de amar."
+      ],
+      [
+        "As pessoas percebem em você uma energia de começo. Você chega e o ambiente muda um pouco: as conversas aceleram, as ideias aparecem, alguém se anima a fazer o que estava adiando. É uma presença que movimenta.",
+        "Ao mesmo tempo, quem é mais calmo pode se sentir atropelado pelo seu ritmo. Se quiser que a primeira impressão seja ainda melhor, faça uma pergunta antes de propor. Um simples \"e você, o que acha?\" mostra que a sua energia também sabe ouvir."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é achar que precisa fazer tudo sem ajuda. Você começa, carrega, resolve e só percebe a sobrecarga quando o cansaço já tomou conta. Muitas vezes, alguém estava ali disposto a ajudar, mas você nem pensou em pedir.",
+        "Esse padrão costuma se repetir no trabalho, em casa e nas amizades. Para virar o jogo, experimente o contrário do que é natural para você: peça ajuda antes de precisar. Divida uma tarefa, aceite uma oferta, conte um problema. Você vai descobrir que ser independente não significa estar sem companhia."
+      ],
+      [
+        "O seu ponto cego é a pressa. Você decide rápido, e isso já te salvou muitas vezes. Mas, em algumas situações, a pressa faz você pular etapas, atropelar pessoas ou largar um caminho antes de ele dar resultado.",
+        "A pergunta que ajuda a virar o jogo é simples: \"o que eu perco se esperar um dia?\". Quando a resposta for \"quase nada\", espere. Na maioria das vezes, a decisão continua a mesma, só que mais segura. E, quando mudar, você vai agradecer por ter dado esse tempo a si."
+      ],
+      [
+        "O seu ponto cego é a dificuldade de ouvir um não. Quando algo não sai como você queria, a frustração vem forte e rápida, e às vezes você reage antes de entender o que aconteceu. Por fora parece raiva; por dentro, quase sempre é medo de perder o controle.",
+        "Para virar o jogo, crie um pequeno ritual para os momentos de frustração: respirar fundo, sair um pouco, escrever o que sente antes de responder. Também vale lembrar que um não de hoje não é um não para sempre. Muitas das suas maiores conquistas vieram depois de um não bem digerido."
+      ]
+    ]
+  }
+}

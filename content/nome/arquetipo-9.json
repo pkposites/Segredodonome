@@ -1,0 +1,162 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code a partir de arquetipo-7.json e do GUIA_DE_CONTEUDO.md. Revisão do Rob pendente.",
+  "numero": 9,
+  "arquetipo": {
+    "nome": "O Horizonte",
+    "palavras_guia": ["entrega", "sabedoria", "fechamento de ciclos"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 9. Varia por temperamento.",
+    "essencia": {
+      "intenso": [
+        [
+          "{primeiro_nome}, você sente o mundo de um jeito grande. Uma injustiça na rua, uma notícia triste, a dor de um amigo: tudo te toca, e você não consegue ficar de braços cruzados. Você é do tipo que se mobiliza, que ajuda, que se envolve.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça essa generosidade intensa. Você dá o que tem e, às vezes, o que não tem. Quem recebe o seu cuidado nunca esquece, porque ele vem com uma entrega rara."
+        ],
+        [
+          "Você vive com o coração aberto, {primeiro_nome}. Ama muito, sente muito, chora fácil e ri alto. Para você, a vida é para ser sentida por inteiro, com todas as suas cores.",
+          "A letra {inicial} abrindo o seu nome combina com quem enxerga longe e sente fundo. Você tem sonhos grandes, não só para você, mas para o mundo. O desafio é não se frustrar quando a realidade não acompanha o seu ideal: cada pequeno passo também transforma."
+        ],
+        [
+          "{primeiro_nome}, você é paixão por causas e por pessoas. Quando acredita em algo, defende com todas as forças. Quando ama alguém, faz tudo por essa pessoa. A sua intensidade é generosa.",
+          "As {qtd_letras} letras do seu nome desenham alguém que vive para além de si. Você quer deixar o mundo um pouco melhor do que encontrou. Só lembre de deixar um pouco de energia para você, porque quem dá tudo também precisa receber."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você une visão ampla com capacidade de execução. Enxerga o quadro inteiro, entende como as peças se encaixam e sabe o que precisa ser feito para mudar as coisas. Você não só sonha com um mundo melhor: planeja como chegar lá.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse talento para enxergar longe. Você costuma perceber tendências antes dos outros e pensar em soluções que beneficiam muita gente. É uma liderança com propósito."
+        ],
+        [
+          "Você pensa no coletivo, {primeiro_nome}. Quando toma uma decisão, considera o impacto nas pessoas ao redor, no grupo, na comunidade. Isso faz de você uma pessoa justa e muito respeitada.",
+          "A letra {inicial} no começo do seu nome combina com quem lidera por valores. As pessoas confiam em você porque sabem que você vai fazer o certo. O cuidado é não esquecer das suas próprias necessidades no meio de tanta preocupação com os outros."
+        ],
+        [
+          "{primeiro_nome}, você tem uma sabedoria prática. Aprende com as experiências, tira lições dos erros e usa isso para orientar os outros. Muita gente já tomou uma decisão melhor depois de conversar com você.",
+          "As {qtd_letras} letras do seu nome mostram alguém que sabe fechar ciclos com maturidade. Você entende quando algo terminou e segue em frente sem drama. Só lembre que fechar ciclos também é se despedir, e que tudo bem sentir saudade."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, você tem uma calma que vem de quem já entendeu muita coisa sobre a vida. Não se desespera fácil, não julga rápido e enxerga o lado de cada pessoa. A sua presença transmite sabedoria.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço de compreensão e paciência. Você aceita as pessoas como elas são, com qualidades e defeitos. Essa tolerância é um presente raro em tempos de tanta pressa."
+        ],
+        [
+          "Você é um bom conselho em forma de pessoa, {primeiro_nome}. Ouve com atenção, pensa antes de responder e costuma dizer exatamente o que o outro precisava ouvir. Muitas pessoas te procuram nos momentos de dúvida.",
+          "A letra {inicial} abrindo o seu nome combina com quem enxerga além do imediato. Você pensa no sentido das coisas, no porquê da vida. O cuidado é não se distanciar demais das pessoas: a sua sabedoria fica ainda mais bonita quando compartilhada de perto."
+        ],
+        [
+          "{primeiro_nome}, você vive com uma generosidade tranquila. Ajuda sem alarde, oferece sem esperar retorno e perdoa com facilidade. As pessoas se sentem bem e em paz perto de você.",
+          "As {qtd_letras} letras do seu nome desenham alguém que valoriza o essencial. Você não se impressiona com aparências e sabe o que realmente importa. Só cuide para não aceitar tudo dos outros em nome da paz: você também tem direito de dizer não."
+        ]
+      ],
+      "magnetico": [
+        [
+          "{primeiro_nome}, você sente o mundo com uma profundidade que poucas pessoas alcançam. Percebe a dor nos olhos de um desconhecido, se emociona com uma música, entende sem precisar de explicação. A sua sensibilidade é imensa.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça essa empatia profunda. Você tem um jeito de acolher que faz as pessoas se sentirem compreendidas de verdade. Muita gente encontra conforto em você sem que você nem perceba."
+        ],
+        [
+          "Você é um coração enorme num mundo apressado, {primeiro_nome}. Tem compaixão, paciência e uma vontade sincera de ver todos bem. As pessoas se encantam com o seu jeito de olhar para a vida.",
+          "A letra {inicial} no começo do seu nome combina com quem inspira pela bondade. Você não precisa fazer discurso: o seu exemplo fala. O cuidado é não absorver o sofrimento de todo mundo, porque você sente demais. Proteger o seu coração é uma forma de continuar ajudando."
+        ],
+        [
+          "{primeiro_nome}, você vive com os olhos no horizonte. Sonha, imagina, busca sentido em tudo. Tem uma conexão com as coisas que vão além do dia a dia, e isso te faz uma pessoa fascinante.",
+          "As {qtd_letras} letras do seu nome desenham alguém de alma generosa e sensível. Você se doa muito e sente muito. Só lembre de olhar também para perto, para os seus próprios sonhos e necessidades, porque você também merece o cuidado que oferece."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Generosidade enorme", "Pensa no coletivo", "Perdoa fácil"],
+      ["Visão de longe", "Conselho certeiro", "Fecha ciclos com sabedoria"],
+      ["Empatia profunda", "Sonha grande", "Acolhe todo mundo"]
+    ],
+    "como_ama": {
+      "intenso": [
+        "No amor, você se entrega de corpo e alma. Ama com intensidade, demonstra sem medo e faz tudo pela pessoa amada. Para você, o amor é uma das coisas mais bonitas da vida, e você vive cada relação como se fosse única.",
+        "O risco é idealizar demais. Você pode enxergar no outro mais do que ele é, e se decepcionar quando a realidade aparece. Amar a pessoa real, com defeitos e limites, deixa o amor mais forte e mais duradouro. E lembre: você merece receber a mesma entrega que oferece."
+      ],
+      "estrategico": [
+        "Você ama com maturidade. Pensa na relação como uma parceria em que os dois crescem e contribuem para algo maior. Gosta de compartilhar valores, sonhos e propósitos. Quem está com você sente que faz parte de algo significativo.",
+        "O cuidado é não colocar as causas e os outros sempre na frente da relação. Às vezes, a pessoa amada só quer a sua atenção, sem dividir com o mundo. Reserve momentos só para vocês, longe das preocupações coletivas. O amor também precisa de espaço próprio para florescer."
+      ],
+      "sereno": [
+        "O seu amor é compreensivo e sereno. Você aceita a outra pessoa como ela é, dá espaço, perdoa e acolhe. Quem está com você sente uma paz rara, a sensação de receber amor sem precisar mudar.",
+        "O ponto de atenção é aceitar demais. Por ter tanta compreensão, você pode tolerar comportamentos que não deveria. Amar não significa aceitar tudo. Colocar limites com calma protege a relação e mostra que você também se respeita."
+      ],
+      "magnetico": [
+        "Você ama com uma profundidade quase espiritual, no sentido de conexão verdadeira. Busca alguém com quem possa compartilhar a alma, os sonhos e as dores. A sua forma de amar é sensível, generosa e cheia de significado.",
+        "O risco é se perder no outro. De tanto sentir e se doar, você pode esquecer de si. Uma relação saudável é feita de dois inteiros. Cuide dos seus próprios sonhos, dos seus amigos e do seu espaço, e veja como o amor fica ainda mais bonito quando você está bem."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "intenso": [
+        "Você precisa de trabalho que faça diferença no mundo. Causas sociais, saúde, educação, meio ambiente, arte com mensagem ou qualquer área em que você sinta que está contribuindo para algo maior tendem a te realizar. Trabalho sem propósito te esvazia.",
+        "Com dinheiro, cuidado com a generosidade sem limite. Você pode doar, emprestar e ajudar além do que pode. Ajudar é lindo, mas o seu dinheiro também precisa cuidar de você. Defina uma parte fixa para ajudar os outros e respeite esse limite. Assim você ajuda sempre, sem se prejudicar."
+      ],
+      "estrategico": [
+        "No trabalho, você é a pessoa que pensa no impacto. Funções de gestão de projetos sociais, consultoria, educação, saúde pública, sustentabilidade ou liderança com propósito tendem a valorizar a sua visão ampla e a sua capacidade de organizar.",
+        "Com dinheiro, você costuma equilibrar razão e valores. O ponto de atenção é sentir culpa ao prosperar. Ganhar bem não é contraditório com fazer o bem; pelo contrário, permite ajudar mais. Não tenha vergonha de cobrar o justo pelo seu trabalho."
+      ],
+      "sereno": [
+        "Você rende bem em trabalhos com sentido e ambiente harmonioso. Educação, aconselhamento, pesquisa, saúde, trabalho voluntário remunerado ou qualquer função em que a sua sabedoria seja valorizada tendem a combinar com você.",
+        "Com dinheiro, você tende ao desapego e à tranquilidade. O cuidado é não deixar o desapego virar descuido. Ter uma reserva e um planejamento simples não contradiz os seus valores: dá a você liberdade para seguir o que acredita sem preocupação."
+      ],
+      "magnetico": [
+        "Você precisa de trabalho com alma. Terapias, arte, espiritualidade no sentido amplo, cuidado com pessoas, escrita ou qualquer área em que a sua sensibilidade toque os outros tendem a te dar sentido profundo.",
+        "Com dinheiro, você pode ter uma relação complicada: sente que não deveria se importar tanto, mas precisa dele como todo mundo. O ponto de atenção é fazer as pazes com o dinheiro. Ele é uma ferramenta para realizar o bem que você quer fazer. Cuidar dele é cuidar dos seus sonhos."
+      ]
+    },
+    "frase_do_nome": {
+      "intenso": "Eu sinto o mundo inteiro, e quero deixá-lo melhor.",
+      "estrategico": "Eu enxergo longe e caminho para que todos cheguem.",
+      "sereno": "Minha calma vem de entender que tudo tem o seu tempo.",
+      "magnetico": "Eu acolho o mundo, e o mundo me ensina."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 9 aparece em CORAÇÃO, IMAGEM ou CAMINHO. Não cita 'O Horizonte'.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é fazer a diferença. Você quer sentir que a sua vida importou, que você ajudou alguém, que deixou uma marca de bondade no mundo. Uma vida voltada só para si não te satisfaz.",
+        "Isso explica por que você se envolve tanto com causas e com as dores dos outros. O caminho para se sentir em paz passa por encontrar formas concretas de contribuir, mesmo pequenas. E também por lembrar que cuidar de si é parte de cuidar do mundo, porque você também faz parte dele."
+      ],
+      [
+        "O que move você por dentro é a compaixão. Você sente o sofrimento dos outros e quer aliviá-lo. Essa sensibilidade te faz uma pessoa generosa, mas também pode trazer cansaço de tanto sentir.",
+        "Quando consegue ajudar, sente uma alegria profunda. Quando não consegue, se sente impotente. Por isso, é importante aceitar que você não pode salvar todo mundo. Fazer a sua parte, com amor, já é muito. E descansar também faz parte da missão."
+      ],
+      [
+        "O seu coração busca sentido. Você quer entender o propósito das coisas, por que as pessoas são como são, por que a vida acontece desse jeito. Essa busca te dá profundidade e uma visão única sobre o mundo.",
+        "O cuidado é não se perder nas grandes questões e esquecer de viver o presente. O sentido também está nas coisas simples: um café com um amigo, um pôr do sol, uma conversa leve. Aprender a encontrar significado no cotidiano traz uma paz que nenhuma resposta filosófica consegue dar."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de uma pessoa bondosa e compreensiva. As pessoas sentem que podem confiar em você, que você não vai julgar. É comum desconhecidos contarem a vida para você em poucos minutos.",
+        "A vantagem é que você cria conexões profundas com facilidade. A desvantagem é que algumas pessoas podem se aproveitar da sua generosidade. Mostrar, com gentileza, que você tem limites protege você e faz as relações ficarem mais equilibradas."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa sábia do grupo. Te procuram para conselhos, para opiniões sobre decisões difíceis, para entender situações complicadas. No trabalho, é comum te verem como alguém que pensa no bem de todos.",
+        "Essa imagem é um elogio, mas pode virar peso: esperam que você sempre tenha a resposta certa e nunca perca a calma. Você também tem dias difíceis. Permita que as pessoas próximas vejam isso. Mostrar a sua humanidade aproxima ainda mais quem te admira."
+      ],
+      [
+        "As pessoas percebem em você uma generosidade que transborda. Você oferece ajuda antes de pedirem, divide o que tem e se alegra com a felicidade dos outros. Isso faz com que todos se sintam bem perto de você.",
+        "Ao mesmo tempo, quem não te conhece bem pode confundir isso com ingenuidade, quando na verdade você só escolhe acreditar no melhor das pessoas. Se quiser mostrar outra faceta, deixe aparecer também a sua firmeza nos momentos certos. Bondade com firmeza é uma combinação poderosa."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é esquecer de si. Você coloca tanto foco em ajudar os outros que as suas próprias necessidades ficam sempre para depois. Por fora, parece generosidade; por dentro, às vezes é uma forma de não olhar para as próprias dores.",
+        "Esse padrão costuma se repetir na família, no trabalho e nas relações. Para virar o jogo, pergunte-se todos os dias: \"o que eu preciso hoje?\". E faça pelo menos uma coisa por você. Você vai perceber que, quando está bem, a sua ajuda aos outros fica ainda mais forte e mais leve."
+      ],
+      [
+        "O seu ponto cego é idealizar. Você enxerga o potencial das pessoas e das situações, e às vezes se apega mais ao que poderia ser do que ao que realmente é. Isso pode te fazer insistir em relações ou projetos que já deram o que tinham que dar.",
+        "A pergunta que ajuda a virar o jogo é: \"estou vendo o que existe ou o que eu queria que existisse?\". Quando a resposta for a segunda, respire e aceite a realidade. Fechar um ciclo que já terminou não é desistir: é abrir espaço para algo que realmente combine com você."
+      ],
+      [
+        "O seu ponto cego é a dificuldade de dizer adeus. Você se apega às pessoas, às memórias e às fases da vida, mesmo quando elas já não te fazem bem. Soltar dói, e por isso você adia.",
+        "Para virar o jogo, crie pequenos rituais de despedida: escrever uma carta que não vai enviar, guardar uma lembrança, agradecer pelo que foi vivido. Fechar ciclos com carinho permite que você siga em frente sem culpa. Cada fim bem vivido é o começo de algo novo."
+      ]
+    ]
+  }
+}

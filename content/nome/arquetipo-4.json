@@ -1,0 +1,162 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code a partir de arquetipo-7.json e do GUIA_DE_CONTEUDO.md. Revisão do Rob pendente.",
+  "numero": 4,
+  "arquetipo": {
+    "nome": "A Raiz",
+    "palavras_guia": ["estrutura", "lealdade", "base"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 4. Varia por temperamento.",
+    "essencia": {
+      "intenso": [
+        [
+          "{primeiro_nome}, você é firmeza com coração quente. Quando abraça uma causa, uma pessoa ou um projeto, não larga mais. Defende o que acredita com garra e não aceita injustiça em silêncio. Quem tem você ao lado sabe que tem uma rocha.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça essa lealdade intensa. Você lembra de quem te ajudou há anos e também de quem te decepcionou. O seu amor é constante, e a sua confiança, quando quebrada, demora a voltar."
+        ],
+        [
+          "Você constrói com paixão, {primeiro_nome}. Não é de fazer as coisas pela metade: se vai reformar a casa, organizar uma festa ou começar um curso, faz direito, do começo ao fim, e se envolve de corpo e alma.",
+          "A letra {inicial} abrindo o seu nome combina com quem é base para os outros. Muita gente se apoia em você nas horas difíceis. O desafio é que, quando as coisas saem do planejado, a frustração vem forte. Aprender a dobrar sem quebrar te deixa ainda mais forte."
+        ],
+        [
+          "{primeiro_nome}, você sente fundo e trabalha duro. As suas emoções são intensas, mas você não se deixa levar: transforma o que sente em ação concreta, em esforço, em cuidado prático com quem ama.",
+          "As {qtd_letras} letras do seu nome desenham alguém que leva a vida a sério e as pessoas mais a sério ainda. Você é de palavra e espera o mesmo dos outros. Esse jeito te dá relações sólidas, desde que você lembre que nem todo mundo funciona no seu ritmo."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você é a pessoa que faz as coisas funcionarem. Enquanto os outros têm ideias, você monta a planilha, define o prazo e garante que tudo saia do papel. Sem gente como você, muitos sonhos não passariam de conversa.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse talento para estrutura. Você enxerga o passo a passo de qualquer coisa e não se perde no meio do caminho. Eficiência é quase um sobrenome seu."
+        ],
+        [
+          "Você constrói para durar, {primeiro_nome}. Não acredita em atalho nem em sorte: acredita em método, constância e trabalho bem feito. E os resultados que você colhe mostram que esse caminho funciona.",
+          "A letra {inicial} no começo do seu nome combina com quem lidera pela organização. As pessoas confiam em você para cuidar do que é importante. O cuidado é não exigir de todos o mesmo nível de detalhe: algumas pessoas brilham no improviso, e isso também tem valor."
+        ],
+        [
+          "{primeiro_nome}, você junta disciplina com visão prática. Sabe o que precisa ser feito, em que ordem e com quais recursos. Quando assume uma responsabilidade, pode ter certeza de que ela será cumprida.",
+          "As {qtd_letras} letras do seu nome mostram alguém que valoriza segurança e resultado. Você prefere uma conquista sólida a dez promessas brilhantes. Só lembre de comemorar as vitórias pelo caminho: você trabalha tanto que às vezes esquece de aproveitar."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, você é a calma que sustenta. Não faz alarde, não reclama à toa e segue firme no que precisa ser feito. Em meio ao caos, as pessoas olham para você e se sentem mais seguras.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço de constância e paciência. Você gosta de rotina, de saber onde as coisas estão e de cumprir o que combinou. Essa previsibilidade é um porto seguro para quem vive ao seu redor."
+        ],
+        [
+          "Você valoriza o que é verdadeiro e duradouro, {primeiro_nome}. Amizades antigas, tradições de família, um lugar favorito, um jeito de fazer as coisas que funciona há anos. Você não troca o certo pelo novo só porque é novidade.",
+          "A letra {inicial} abrindo o seu nome combina com quem cria raízes onde passa. As pessoas sabem que podem voltar para você. O cuidado é não fechar a porta para mudanças que poderiam ser boas: experimentar algo diferente não arranca as suas raízes, só aumenta a sua copa."
+        ],
+        [
+          "{primeiro_nome}, você é do tipo que pensa, planeja e executa com tranquilidade. Não se apressa, não se desespera e raramente erra por descuido. A sua paciência é uma vantagem que pouca gente tem.",
+          "As {qtd_letras} letras do seu nome desenham alguém de confiança absoluta. Quando você diz que vai fazer, faz; quando diz que vai estar, está. O desafio é não esconder o que sente atrás da serenidade: as pessoas também querem saber como você está por dentro."
+        ]
+      ],
+      "magnetico": [
+        [
+          "{primeiro_nome}, você tem uma força silenciosa que as pessoas sentem. Não é de falar muito sobre si, mas está sempre ali, presente, firme, cuidando sem fazer barulho. Quem te conhece de verdade sabe o quanto você é importante.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça essa lealdade profunda. Você sente muito, mas demonstra com atos, não com palavras. Um favor feito em silêncio diz mais sobre você do que qualquer declaração."
+        ],
+        [
+          "Você constrói afeto aos poucos, {primeiro_nome}. Não se entrega de primeira, observa, sente, e só depois deixa alguém entrar. Mas quem entra encontra uma pessoa leal para a vida inteira.",
+          "A letra {inicial} no começo do seu nome combina com quem é abrigo e chão ao mesmo tempo. Você dá estabilidade emocional para quem ama. O cuidado é não guardar mágoas por tanto tempo: soltar o que já passou também é uma forma de se manter de pé."
+        ],
+        [
+          "{primeiro_nome}, você é profundidade com os pés no chão. Sente as coisas com intensidade, mas sabe que a vida pede trabalho, rotina e responsabilidade. Essa mistura te faz uma pessoa madura e muito confiável.",
+          "As {qtd_letras} letras do seu nome desenham alguém que cuida do que importa com dedicação silenciosa. Você planta hoje pensando no amanhã. Só não esqueça de dizer, de vez em quando, o quanto as pessoas são importantes: elas precisam ouvir isso de você."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Palavra que vale ouro", "Organiza qualquer caos", "Constância admirável"],
+      ["Base para os outros", "Faz bem feito", "Lealdade para a vida"],
+      ["Paciência de sobra", "Pés no chão", "Cumpre o combinado"]
+    ],
+    "como_ama": {
+      "intenso": [
+        "No amor, você é compromisso e paixão. Quando escolhe alguém, escolhe para valer, e mostra isso com presença, cuidado e muita dedicação. Você não gosta de relações pela metade nem de joguinhos. Quer clareza, lealdade e um futuro construído a dois.",
+        "O risco é o ciúme e a rigidez. Por amar com tanta intensidade, você pode sentir medo de perder, e esse medo às vezes vira controle. Confiar, dar espaço e aceitar que a outra pessoa tem um jeito diferente de demonstrar amor deixa a relação mais leve. A sua lealdade é um presente; a confiança é o que faz ela florescer."
+      ],
+      "estrategico": [
+        "Você ama planejando. Pensa no futuro da relação, nas contas, na casa, nos sonhos em comum. Demonstra carinho resolvendo problemas e garantindo que o outro tenha segurança. Quem está com você sabe que pode contar com estabilidade.",
+        "O cuidado é não transformar o amor numa lista de tarefas. Romance também precisa de espontaneidade: um programa sem planejamento, uma surpresa, uma conversa sem objetivo. Abrir espaço para o imprevisto mostra que, além de cuidar da relação, você também sabe aproveitar a pessoa que está ao seu lado."
+      ],
+      "sereno": [
+        "O seu amor é tranquilo e duradouro. Você não faz grandes declarações, mas está presente todos os dias, do mesmo jeito, com a mesma dedicação. Para você, amor é construir uma vida juntos, tijolo por tijolo, sem pressa.",
+        "O ponto de atenção é a rotina. Ela te traz segurança, mas pode deixar a relação morna para quem precisa de novidade. Pequenas mudanças, como um passeio diferente ou uma viagem curta, renovam o encanto sem tirar a estabilidade que vocês construíram."
+      ],
+      "magnetico": [
+        "Você ama de um jeito profundo e silencioso. Demora a se abrir, mas, quando se abre, é para sempre. Demonstra amor em gestos concretos: estar presente, cuidar, lembrar, proteger. A sua forma de amar transmite uma segurança rara.",
+        "O risco é esperar que o outro entenda sem você dizer. Você sente muito, mas fala pouco sobre isso. Aprender a colocar em palavras o que sente, mesmo que de forma simples, fortalece a conexão. Um \"você é importante para mim\" dito em voz alta pode significar mais do que mil gestos silenciosos."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "intenso": [
+        "Você é a pessoa que veste a camisa. Quando acredita no trabalho, dá tudo de si e se envolve emocionalmente com os resultados. Áreas de gestão, construção, engenharia, saúde, segurança ou qualquer função que exija responsabilidade combinam com você.",
+        "Com dinheiro, você tende a ser responsável, mas pode se estressar muito com imprevistos. O cuidado é criar uma reserva para emergências: ela não só protege as suas finanças, como acalma a sua mente. Saber que existe um colchão financeiro deixa você trabalhar com mais tranquilidade e menos medo."
+      ],
+      "estrategico": [
+        "No trabalho, você é a estrutura que sustenta tudo. Funções de gestão, finanças, logística, planejamento, administração ou qualquer área técnica que exija precisão tendem a valorizar o seu talento para organizar e executar.",
+        "Com dinheiro, você costuma ter controle, planilha e metas claras. O ponto de atenção é o excesso de cautela, que pode fazer você perder boas oportunidades. Às vezes, um risco calculado é o que leva ao próximo nível. Use a sua capacidade de análise para avaliar, e não só para evitar."
+      ],
+      "sereno": [
+        "Você rende muito em ambientes estáveis, com processos claros e tempo para fazer bem feito. Mudanças bruscas e improviso constante te cansam. Áreas técnicas, contábeis, de pesquisa, de manutenção ou de especialista costumam combinar com o seu jeito constante.",
+        "Com dinheiro, a sua paciência é uma vantagem: você sabe esperar, poupar e investir no longo prazo. O cuidado é não se acomodar num lugar que já não te valoriza só porque é seguro. Às vezes, mudar dá medo, mas abre espaço para crescer. Avalie com calma, mas avalie."
+      ],
+      "magnetico": [
+        "Você precisa de um trabalho que tenha sentido e estabilidade ao mesmo tempo. Quando encontra isso, se dedica por anos. Áreas de cuidado, educação, saúde, artesanato, gastronomia ou qualquer ofício que una dedicação e propósito tendem a te realizar.",
+        "Com dinheiro, você costuma ter cuidado, mas pode ter dificuldade de gastar consigo. O ponto de atenção é lembrar que você também merece aproveitar o que conquistou. Separar uma parte para o prazer, sem culpa, é tão importante quanto separar uma parte para o futuro."
+      ]
+    },
+    "frase_do_nome": {
+      "intenso": "Eu não largo o que amo, e defendo o que construí.",
+      "estrategico": "Eu transformo planos em chão firme.",
+      "sereno": "Minha constância é a minha força.",
+      "magnetico": "Eu cuido em silêncio, e fico para sempre."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 4 aparece em CORAÇÃO, IMAGEM ou CAMINHO. Não cita 'A Raiz'.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é segurança. Não necessariamente dinheiro, mas a sensação de chão firme: saber que as pessoas vão estar ali, que a casa vai estar em ordem, que o futuro tem algum plano. Quando tudo está incerto, você sente uma inquietação difícil de explicar.",
+        "Isso explica por que você valoriza tanto a rotina, as relações antigas e as coisas bem feitas. O caminho para se sentir em paz passa por construir uma base sólida, com reserva, rotina saudável e gente de confiança. E também por aceitar que um pouco de incerteza faz parte, e não destrói o que você construiu."
+      ],
+      [
+        "O que move você por dentro é a vontade de construir algo que dure. Uma família, uma carreira, uma casa, um patrimônio, uma amizade de décadas. Você não se contenta com o passageiro: quer deixar raízes.",
+        "Quando vê o resultado do seu esforço, sente um orgulho tranquilo e profundo. Por isso, respeitar esse lado significa dar tempo às coisas. Nem tudo cresce rápido, e está tudo bem. O que você planta com paciência costuma florescer mais forte e durar mais do que qualquer conquista apressada."
+      ],
+      [
+        "O seu coração busca lealdade. Você quer pessoas que cumpram o que prometem, que estejam presentes nas horas difíceis e que não mudem de lado conforme o vento. É o que você oferece, e é o que espera receber.",
+        "O cuidado é não fechar o coração na primeira decepção. As pessoas erram, e nem todo erro é traição. Dar uma segunda chance, quando faz sentido, pode salvar relações valiosas. A sua lealdade fica ainda mais bonita quando vem acompanhada de compreensão."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de alguém de seriedade e confiança. As pessoas sentem que podem te entregar uma responsabilidade e dormir tranquilas. No trabalho, é comum te verem como a pessoa que resolve.",
+        "A vantagem é o respeito que você conquista. A desvantagem é que alguns podem ver rigidez no seu jeito. Mostrar o seu lado mais leve, com uma risada, um comentário engraçado ou uma conversa sobre algo que você ama, revela a pessoa calorosa que existe por trás da seriedade."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa que tem tudo sob controle. A sua organização impressiona: agenda em dia, compromissos cumpridos, casa arrumada. É comum te pedirem ajuda para planejar uma viagem, uma mudança ou um projeto.",
+        "Essa imagem é um elogio, mas pode virar peso: esperam que você nunca falhe. Você também tem dias de bagunça, e tudo bem. Permita que as pessoas próximas vejam isso. Mostrar que você também precisa de apoio aproxima e tira de você a obrigação de nunca errar."
+      ],
+      [
+        "As pessoas percebem em você uma presença firme e tranquila. Você não muda de humor à toa, não faz drama e sabe manter a calma quando as coisas apertam. Isso faz com que os outros se sintam seguros ao seu lado.",
+        "Ao mesmo tempo, quem é mais agitado pode confundir a sua calma com lentidão ou resistência a mudanças. Se quiser mostrar outra faceta, experimente topar uma ideia nova de vez em quando, sem pensar demais. Você vai surpreender as pessoas e talvez até você."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é a rigidez. Você encontrou um jeito de fazer as coisas que funciona e tem dificuldade de aceitar outros caminhos. Quando alguém sugere mudança, a primeira reação é resistir, mesmo antes de ouvir a proposta inteira.",
+        "Esse padrão costuma se repetir no trabalho, em casa e nas relações. Para virar o jogo, experimente uma pergunta simples antes de dizer não: \"o que pode dar certo se eu tentar?\". Nem toda mudança é ameaça. Algumas são exatamente o que você precisava para sair de um lugar onde já não cabe."
+      ],
+      [
+        "O seu ponto cego é o medo de mudar. Mesmo quando algo não está bom, você prefere o desconforto conhecido ao risco do novo. Isso já te protegeu de decisões ruins, mas também já te fez ficar tempo demais onde não devia.",
+        "A pergunta que ajuda a virar o jogo é: \"daqui a cinco anos, vou me arrepender mais de ter tentado ou de não ter tentado?\". Quando a resposta for clara, dê um passo pequeno. Você não precisa mudar tudo de uma vez; só precisa começar. A sua capacidade de construir funciona em qualquer terreno."
+      ],
+      [
+        "O seu ponto cego é carregar responsabilidades demais. Como você é confiável, todo mundo te entrega coisas, e você aceita, porque não gosta de deixar ninguém na mão. Por fora, parece força; por dentro, às vezes é exaustão.",
+        "Para virar o jogo, faça uma lista de tudo o que está sob a sua responsabilidade e pergunte: o que é mesmo meu? O que posso delegar, dividir ou largar? Você não precisa sustentar o mundo inteiro. Ser a base de alguém é bonito, mas a base também precisa de apoio para não rachar."
+      ]
+    ]
+  }
+}

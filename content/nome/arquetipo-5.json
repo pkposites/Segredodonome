@@ -1,0 +1,162 @@
+{
+  "content_version": "2026-10-a",
+  "_status": "RASCUNHO escrito pelo Claude Code a partir de arquetipo-7.json e do GUIA_DE_CONTEUDO.md. Revisão do Rob pendente.",
+  "numero": 5,
+  "arquetipo": {
+    "nome": "O Vento",
+    "palavras_guia": ["movimento", "novidade", "leveza"]
+  },
+  "do_arquetipo": {
+    "_nota": "Usado quando a EXPRESSÃO (nome inteiro) = 5. Varia por temperamento.",
+    "essencia": {
+      "intenso": [
+        [
+          "{primeiro_nome}, você não nasceu para ficar parado. Quando a vida fica igual por muito tempo, algo por dentro começa a coçar: vontade de viajar, de mudar o cabelo, de trocar de emprego, de conhecer gente nova. Você precisa de movimento como precisa de ar.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome e reforça essa sede de experiência. Você topa o convite de última hora, aprende rápido qualquer coisa nova e se adapta a quase tudo. A sua vida rende boas histórias, e você tem muitas para contar."
+        ],
+        [
+          "Você vive com intensidade e liberdade, {primeiro_nome}. Não gosta de regras sem sentido nem de gente que tenta te prender. Quando sente que está numa jaula, a sua reação é imediata: vai embora, muda, rompe.",
+          "A letra {inicial} abrindo o seu nome combina com quem traz ar fresco aonde chega. As pessoas se sentem mais vivas perto de você. O desafio é que nem tudo que dá vontade de largar deve ser largado: algumas coisas só mostram o valor depois que a empolgação inicial passa."
+        ],
+        [
+          "{primeiro_nome}, você é curiosidade em movimento. Quer provar tudo, entender tudo, viver tudo. Essa fome de mundo te faz uma companhia divertida e cheia de surpresas.",
+          "As {qtd_letras} letras do seu nome desenham alguém que se reinventa várias vezes na vida. Você não tem medo de recomeçar, e isso é uma força rara. Só lembre que, entre um começo e outro, vale a pena aproveitar um pouco o que você conquistou."
+        ]
+      ],
+      "estrategico": [
+        [
+          "{primeiro_nome}, você é adaptação com inteligência. Muda de plano rápido quando percebe que o atual não funciona, encontra saídas criativas e não se prende ao que já não serve. Em tempos de mudança, você é quem sai na frente.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça esse lado versátil. Você consegue fazer várias coisas bem e aprende o que for preciso. Muita gente se impressiona com a facilidade com que você transita entre mundos diferentes."
+        ],
+        [
+          "Você enxerga oportunidade no movimento, {primeiro_nome}. Enquanto os outros temem a mudança, você calcula como tirar proveito dela. Viagem, mudança de carreira, negócio novo: você vê caminhos onde os outros veem riscos.",
+          "A letra {inicial} no começo do seu nome combina com quem gosta de autonomia e liberdade para decidir. Você rende mais quando ninguém está em cima. O cuidado é não pular de projeto em projeto antes de colher o resultado: a constância também é estratégica."
+        ],
+        [
+          "{primeiro_nome}, você tem uma mente inquieta e prática. Gosta de testar, comparar, experimentar e escolher o melhor. Não se apega a jeitos antigos de fazer as coisas só por costume.",
+          "As {qtd_letras} letras do seu nome mostram alguém que valoriza liberdade e resultado ao mesmo tempo. Você quer viver bem e não abre mão disso. Esse equilíbrio é raro, desde que você não se sobrecarregue com mil opções e acabe sem escolher nenhuma."
+        ]
+      ],
+      "sereno": [
+        [
+          "{primeiro_nome}, a sua liberdade é tranquila. Você não precisa de grandes aventuras para se sentir livre: basta poder escolher o próprio caminho, no próprio ritmo. Você observa o mundo com curiosidade e sem pressa.",
+          "A letra {letra_mais_repetida} aparece {qtd_letra_mais_repetida} vezes no seu nome, um traço de quem se adapta com calma. Você muda quando precisa, sem drama, e encontra o seu lugar em quase qualquer ambiente. Essa leveza encanta quem convive com você."
+        ],
+        [
+          "Você é de mudanças pensadas, {primeiro_nome}. Gosta de novidade, mas não sai correndo atrás dela. Primeiro observa, pesquisa, entende. Depois, quando decide, muda com segurança.",
+          "A letra {inicial} abrindo o seu nome combina com quem gosta de horizontes abertos. Você precisa sentir que tem opções. O cuidado é não ficar tanto tempo avaliando que a oportunidade passe: às vezes, a melhor viagem é a que começa sem roteiro fechado."
+        ],
+        [
+          "{primeiro_nome}, você tem uma curiosidade silenciosa. Lê sobre lugares que quer conhecer, aprende coisas por conta própria e coleciona interesses variados. Por dentro, você é um mundo em movimento.",
+          "As {qtd_letras} letras do seu nome desenham alguém que valoriza o próprio espaço e a própria liberdade. Você não gosta de se sentir em dívida nem de depender de ninguém. Só lembre que se aproximar das pessoas também pode ser uma aventura."
+        ]
+      ],
+      "magnetico": [
+        [
+          "{primeiro_nome}, você tem um espírito livre que as pessoas sentem de longe. Há algo de imprevisível e encantador no seu jeito, como se você sempre soubesse de um lugar ou de uma ideia que ninguém conhece ainda.",
+          "A letra {letra_mais_repetida} se repete {qtd_letra_mais_repetida} vezes no seu nome e reforça essa sensibilidade inquieta. Você sente quando um lugar ou uma relação deixou de fazer sentido, e não consegue ficar só por obrigação. Seguir o que sente é parte de quem você é."
+        ],
+        [
+          "Você é leveza com profundidade, {primeiro_nome}. Gosta de mudança, mas não de qualquer mudança: quer experiências que mexam por dentro, que transformem o seu jeito de ver a vida.",
+          "A letra {inicial} no começo do seu nome combina com quem atrai pela liberdade. As pessoas se encantam com a sua forma de viver sem se prender ao óbvio. O cuidado é não fugir quando as relações ficam profundas: ficar também pode ser uma forma de liberdade."
+        ],
+        [
+          "{primeiro_nome}, você sonha com lugares, pessoas e vidas diferentes. A sua imaginação viaja longe, e muitas vezes o seu corpo vai atrás. Essa vontade de descobrir te deixa interessante para quem convive com você.",
+          "As {qtd_letras} letras do seu nome desenham alguém que sente o mundo com intensidade e precisa de espaço para respirar. Você se renova com novidade. Só cuide para que essa busca venha da vontade de viver, e não do medo de ficar."
+        ]
+      ]
+    },
+    "caracteristicas": [
+      ["Topa qualquer aventura", "Adapta-se a tudo", "Curiosidade infinita"],
+      ["Liberdade acima de tudo", "Aprende rápido", "Odeia rotina"],
+      ["Leveza contagiante", "Sempre tem novidade", "Recomeça sem medo"]
+    ],
+    "como_ama": {
+      "intenso": [
+        "No amor, você é paixão e aventura. Gosta de relações com novidade, viagens, risadas e surpresas. Quando se interessa, mergulha de cabeça e faz a outra pessoa sentir que viver ao seu lado é uma grande história. Rotina sem graça é o que mais te afasta.",
+        "O risco é largar quando a fase da empolgação passa. Toda relação tem momentos mais calmos, e isso não significa que o amor acabou. Antes de decidir ir embora, pergunte se você está fugindo da relação ou da rotina. Às vezes, o que precisa mudar é o programa do fim de semana, não a pessoa ao seu lado."
+      ],
+      "estrategico": [
+        "Você ama com liberdade e parceria. Gosta de relações em que cada um tem o seu espaço, os seus projetos e os seus amigos, mas que se encontram para planejar aventuras juntos. Você é a pessoa que propõe a viagem, pesquisa o roteiro e faz a experiência acontecer.",
+        "O cuidado é não tratar o compromisso como uma prisão. Estar numa relação não tira a sua liberdade; escolher ficar também é uma escolha livre. Combinar com clareza o que cada um precisa, em espaço e em presença, evita mal-entendidos e deixa o amor mais leve para os dois."
+      ],
+      "sereno": [
+        "O seu amor é leve e respeitoso. Você não sufoca nem gosta de ficar sem ar. Valoriza relações em que existe confiança suficiente para cada um viver a própria vida, sem cobrança excessiva. Quem está com você sente que pode respirar.",
+        "O ponto de atenção é parecer distante. Por dar tanto espaço, você pode passar a impressão de que não se importa tanto. Pequenos gestos de presença, como uma mensagem, um convite inesperado ou um \"pensei em você hoje\", mostram que a sua liberdade inclui a outra pessoa."
+      ],
+      "magnetico": [
+        "Você ama de um jeito livre e profundo ao mesmo tempo. Busca alguém com quem possa ser quem é, sem máscaras, e que também tenha vontade de descobrir o mundo. A sua forma de amar é intensa, mas precisa de ar.",
+        "O risco é fugir quando a conexão fica forte demais. A intimidade pode assustar quem valoriza tanto a liberdade. Lembre que deixar alguém te conhecer de verdade não é perder a liberdade: é ganhar companhia para as próximas aventuras. Ficar, quando faz sentido, também é coragem."
+      ]
+    },
+    "dinheiro_trabalho": {
+      "intenso": [
+        "Você precisa de trabalho com variedade e movimento. Funções com viagens, vendas, eventos, turismo, comunicação, empreendedorismo ou projetos diferentes a cada mês tendem a manter a sua motivação. Escritório parado e tarefa repetitiva tiram o seu sossego.",
+        "Com dinheiro, cuidado com os gastos por impulso, principalmente com experiências e viagens. Viver bem é importante para você, mas vale criar uma reserva para os recomeços que inevitavelmente vão acontecer. Assim, quando bater a vontade de mudar, você vai ter liberdade de verdade para isso."
+      ],
+      "estrategico": [
+        "No trabalho, você é a pessoa que se adapta a qualquer cenário. Funções de inovação, projetos, consultoria, negócios digitais ou qualquer área em constante mudança tendem a valorizar a sua versatilidade e a sua velocidade para aprender.",
+        "Com dinheiro, você costuma enxergar oportunidades novas. O ponto de atenção é diversificar demais e não acompanhar nada de perto. Escolha poucos investimentos e projetos e cuide bem deles. A sua capacidade de mudar é um trunfo; a capacidade de esperar o resultado é o que transforma esse trunfo em patrimônio."
+      ],
+      "sereno": [
+        "Você rende bem com autonomia e flexibilidade. Trabalho remoto, horários livres, projetos independentes ou funções que permitem variar as tarefas combinam com você. Chefe controlador e rotina rígida tiram o seu brilho.",
+        "Com dinheiro, você tende a lidar com tranquilidade e a não se apegar demais a bens. O cuidado é não deixar a falta de planejamento te limitar no futuro. Uma reserva simples, automática, garante a liberdade que você tanto valoriza. Liberdade financeira é a forma mais concreta de liberdade."
+      ],
+      "magnetico": [
+        "Você precisa de trabalho que inspire. Quando o que você faz te emociona e te faz crescer, você se dedica de verdade. Áreas criativas, viagens, fotografia, escrita, ensino, terapias ou projetos com causa tendem a te dar sentido.",
+        "Com dinheiro, você pode viver ciclos de muito e de pouco. O ponto de atenção é não deixar a vontade de liberdade virar instabilidade. Ter uma fonte de renda mais estável, mesmo que pequena, enquanto explora outros caminhos, te dá segurança para seguir os seus sonhos sem medo."
+      ]
+    },
+    "frase_do_nome": {
+      "intenso": "Eu vou aonde a vida me chama, e volto com histórias.",
+      "estrategico": "Eu mudo de rota sem perder o destino.",
+      "sereno": "Minha liberdade é tranquila, mas inegociável.",
+      "magnetico": "Eu sigo o vento que sinto por dentro."
+    }
+  },
+  "do_numero": {
+    "_nota": "Usado quando o número 5 aparece em CORAÇÃO, IMAGEM ou CAMINHO. Não cita 'O Vento'.",
+    "coracao": [
+      [
+        "Lá no fundo, o que você busca é liberdade. Você quer sentir que pode escolher, mudar, ir e voltar. Quando a vida fica previsível demais, ou quando alguém tenta decidir por você, surge uma vontade enorme de fugir.",
+        "Isso explica por que você se incomoda tanto com controle e por que precisa de novidade de tempos em tempos. O caminho para se sentir em paz passa por construir uma vida com espaço para escolhas: um dia livre na semana, uma viagem no ano, um projeto que seja só seu. Liberdade, para você, é saúde."
+      ],
+      [
+        "O que move você por dentro é a curiosidade. Você quer conhecer, experimentar, entender como os outros vivem. Cada lugar novo, cada pessoa diferente, cada ideia que você ainda não conhecia é um combustível para você.",
+        "Quando passa muito tempo sem aprender nada novo, você sente o seu brilho apagar por dentro. Por isso, alimentar essa curiosidade não é luxo: é necessidade. Um curso, um livro, um bairro diferente, uma receita nova. Pequenas aventuras do dia a dia mantêm você em equilíbrio."
+      ],
+      [
+        "O seu coração busca experiências que marquem. Você não quer só passar pela vida: quer sentir que viveu de verdade. Por isso, as suas melhores lembranças costumam ser de momentos inesperados, fora do roteiro.",
+        "O cuidado é não buscar intensidade o tempo todo e acabar se cansando. Também existe beleza no simples, no repetido, no dia comum. Aprender a encontrar novidade nas coisas pequenas te dá a sensação de aventura mesmo nas semanas mais tranquilas."
+      ]
+    ],
+    "imagem": [
+      [
+        "À primeira vista, você passa a imagem de alguém de leveza e abertura. As pessoas sentem que podem te chamar para qualquer programa e que você vai topar. Você costuma passar uma impressão de juventude e liberdade.",
+        "A vantagem é que você faz amigos com facilidade e o seu nome é sempre lembrado para as aventuras. A desvantagem é que alguns podem achar que você não leva as coisas a sério. Mostrar, de vez em quando, o seu compromisso com algo importante surpreende e conquista a confiança de quem ainda tinha dúvida."
+      ],
+      [
+        "Para quem está de fora, você é a pessoa interessante do grupo. Sempre tem uma história nova, uma dica de lugar, um assunto diferente. As pessoas se divertem ouvindo você contar o que viveu.",
+        "Essa imagem é ótima, mas pode virar expectativa de que você esteja sempre fazendo algo incrível. Você também tem fases calmas, e tudo bem. Permita que as pessoas te vejam nos momentos simples. Isso aproxima e mostra que você não precisa de aventura para ter valor."
+      ],
+      [
+        "As pessoas percebem em você uma energia de movimento. Você fala rápido, pensa rápido e muda de assunto com facilidade. Ao seu lado, a conversa nunca fica parada.",
+        "Ao mesmo tempo, pessoas mais calmas podem achar que você se dispersa ou não está prestando atenção. Se quiser que a primeira impressão seja ainda melhor, pratique ficar em um assunto por mais tempo e fazer perguntas sobre o outro. Isso mostra que a sua curiosidade também é para as pessoas."
+      ]
+    ],
+    "ponto_cego": [
+      [
+        "O seu ponto cego é largar no meio. Você começa com empolgação, mas quando a novidade passa e aparece a parte repetitiva, a vontade de partir para outra coisa fica forte demais. Isso já te fez abandonar projetos que poderiam ter dado muito certo.",
+        "Esse padrão costuma se repetir em cursos, empregos, academias e até relações. Para virar o jogo, defina antes de começar até onde você vai, mesmo sem vontade. Por exemplo: três meses, aconteça o que acontecer. Depois, avalie com calma. Muitas vezes, a recompensa está logo depois da fase chata."
+      ],
+      [
+        "O seu ponto cego é a inquietação. Mesmo quando está tudo bem, você sente que deveria estar em outro lugar, fazendo outra coisa. Essa sensação pode te impedir de aproveitar o presente e de perceber o quanto você já conquistou.",
+        "A pergunta que ajuda a virar o jogo é: \"o que está bom agora, exatamente aqui?\". Faça esse exercício por alguns dias. Você vai perceber que a felicidade não está sempre no próximo lugar. Às vezes, ela já chegou e só precisa que você pare um pouco para notá-la."
+      ],
+      [
+        "O seu ponto cego é fugir quando as coisas ficam difíceis. Em vez de enfrentar o conflito, você muda de assunto, de lugar, de rumo. Por fora, parece leveza; por dentro, às vezes é medo de ficar e se machucar.",
+        "Para virar o jogo, experimente ficar um pouco mais em situações desconfortáveis antes de decidir ir embora. Converse, tente entender, dê uma chance. Você não perde a sua liberdade por enfrentar algo difícil; ganha a certeza de que pode escolher ficar ou partir por vontade, e não por medo."
+      ]
+    ]
+  }
+}
