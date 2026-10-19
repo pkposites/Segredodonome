@@ -20,7 +20,7 @@ export interface Env {
   META_PIXEL_ID?: string;
   META_CAPI_TOKEN?: string;
   META_TEST_EVENT_CODE?: string;
-  /** Versão da Graph API (ex.: v24.0). Confirmar a vigente na documentação da Meta. */
+  /** Versão da Graph API (ex.: v26.0). Confirmar a vigente na documentação da Meta. */
   META_GRAPH_VERSION?: string;
 
   ADMIN_EMAILS: string;

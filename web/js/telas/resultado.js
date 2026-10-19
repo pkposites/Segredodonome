@@ -159,23 +159,18 @@ function gratis(tela, r, { ir, entradas }) {
         h(
           "div",
           { class: "preco" },
-          h("div", { class: "preco-linha" }, h("span", {}, "Resultado completo"), h("span", { class: "preco-valor" }, "R$ 11,90")),
+          // Texto de legal/TEXTOS_DE_CONSENTIMENTO.md, 3 (informação pré-contratual).
+          h("div", { class: "preco-linha" }, h("strong", {}, "Resultado completo do Segredo do Nome"), h("span", { class: "preco-valor" }, "R$ 11,90")),
           h(
             "ul",
             {},
-            h("li", {}, "Pagamento único no Pix, sem assinatura"),
-            h("li", {}, "Acesso imediato, link válido por 12 meses, com PDF"),
-            h("li", {}, "7 dias para desistir e receber o valor de volta"),
-            h("li", {}, "Não enviamos e-mail: guarde o link ou salve o PDF"),
+            h("li", {}, "Pagamento único via Pix, sem assinatura. Acesso imediato após a confirmação, por 12 meses, com PDF para baixar."),
+            h("li", {}, "Você pode desistir em até 7 dias e receber o valor de volta. ", h("a", { href: "/reembolso" }, "Política de reembolso")),
+            h("li", {}, "Não enviamos e-mail: guarde o seu link de acesso ou salve o PDF."),
+            h("li", {}, "Conteúdo de entretenimento, sem valor científico ou de previsão."),
           ),
           h("button", { class: `botao botao-principal${movimentoReduzido() ? "" : " tremer"}`, type: "button", onclick: comprar }, "Liberar resultado completo — R$ 11,90"),
-          h(
-            "p",
-            { class: "mini" },
-            "Conteúdo de entretenimento, sem valor científico ou de previsão. ",
-            h("a", { href: "/reembolso" }, "Política de reembolso"),
-            `. Vendido por ${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}.`,
-          ),
+          h("p", { class: "mini" }, `Vendido por ${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}.`),
         ),
       )
     : null;
@@ -313,7 +308,7 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
       h("p", { class: "link-acesso" }, link),
       copiarLink,
       h("div", { class: "qr", "aria-label": "QR Code do link de acesso", role: "img" }, qrSvg(link)),
-      h("p", { class: "pequeno apoio" }, "Abre o seu resultado completo em qualquer aparelho por 12 meses. Guarde o link ou salve o PDF. Quem tiver este link vê o seu resultado. Não enviamos e-mail."),
+      h("p", { class: "pequeno apoio" }, "Abre o seu resultado completo em qualquer aparelho por 12 meses. Guarde o link ou salve o PDF. Quem tiver este link vê o seu resultado."),
       salvarPdf,
     ),
     h(

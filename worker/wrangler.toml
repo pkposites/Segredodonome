@@ -11,7 +11,7 @@ crons = ["0 6 * * *"]
 # ---------- desenvolvimento ----------
 [env.dev]
 name = "segredo-do-nome-dev"
-vars = { PUBLIC_BASE_URL = "http://localhost:8788", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v24.0" }
+vars = { PUBLIC_BASE_URL = "http://localhost:8788", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v26.0" }
 
 [[env.dev.d1_databases]]
 binding = "DB"
@@ -30,7 +30,7 @@ crons = ["0 6 * * *"]
 # ---------- produção ----------
 [env.production]
 name = "segredo-do-nome"
-vars = { AMBIENTE = "production", PUBLIC_BASE_URL = "https://PREENCHER_DOMINIO", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v24.0" }
+vars = { AMBIENTE = "production", PUBLIC_BASE_URL = "https://PREENCHER_DOMINIO", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v26.0" }
 
 [[env.production.d1_databases]]
 binding = "DB"

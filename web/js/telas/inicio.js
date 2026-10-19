@@ -149,10 +149,10 @@ function telaEscolha(tela, { ir, nome }) {
       onclick: () => {
         evento("casal_interesse");
         botaoCasal.disabled = true;
-        avisoCasal.textContent = "Anotado! O lançamento será divulgado no site e nas redes. Não pedimos contato.";
+        avisoCasal.textContent = "Anotado! Não pedimos contato; o lançamento será divulgado no site e nas redes.";
       },
     },
-    "Me avise quando lançar",
+    "Quero quando lançar",
   );
   trocar(
     tela,

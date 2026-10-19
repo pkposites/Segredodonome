@@ -19,7 +19,7 @@ export interface Servicos {
   depois: (p: Promise<unknown>) => void;
 }
 
-export const GRAPH_PADRAO = "v24.0";
+export const GRAPH_PADRAO = "v26.0";
 
 export function chavesDoEnv(env: Env): ChavesPasse {
   const atual = Number(env.SEGREDO_PASSE_VERSAO ?? "1");

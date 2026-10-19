@@ -63,7 +63,9 @@ function lerCookie(nome) {
 /** fbp, fbc e sessão, só com cookies aceitos. fbc montado do fbclid quando o _fbc não existe. */
 export function identificadores() {
   if (!cookiesAceitos()) return { cookies_aceitos: false };
-  const clique = local.ler("fbclid");
+  const guardado = local.ler("fbclid");
+  // Mesmo prazo do cookie _fbc informado na política de privacidade: 90 dias.
+  const clique = guardado && Date.now() - guardado.em < 90 * 86400_000 ? guardado : null;
   const fbc = lerCookie("_fbc") ?? (clique ? `fb.1.${clique.em}.${clique.valor}` : undefined);
   return { cookies_aceitos: true, fbp: lerCookie("_fbp"), fbc, sessao_id: sessao.ler("id") ?? undefined };
 }

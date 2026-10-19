@@ -59,6 +59,21 @@ Os textos de `legal/` são a fonte das páginas `/termos`, `/privacidade`, `/ree
 - Acessibilidade: contraste AA, foco visível, `prefers-reduced-motion` respeitado, toda animação pode ser pulada.
 - Mobile primeiro (360–430px).
 
-## Comandos (a definir na Fase 1)
+## Comandos
 
-Documente aqui, quando existirem: instalar, rodar local, testar, deploy do Worker, deploy do front, migração.
+Worker (`cd worker`):
+- Instalar: `npm install` · segredos locais: `cp .dev.vars.example .dev.vars`
+- Testar tudo: `npm run check` (validação do conteúdo + tipos + Vitest)
+- Só testes: `npm test` · conteúdo: `npm run validar-conteudo` · gênero gramatical dos textos: `npm run lint-genero`
+- Rodar local: `npm run migrar:local` e depois `NO_PROXY=localhost npx wrangler dev --env dev --port 8799`
+- Mercado Pago simulado (sem credenciais): `node scripts/mp-simulado.mjs` + `MP_API_BASE=http://localhost:8790` no `.dev.vars`
+- Depois de editar `web/painel/index.html`: `npm run gerar-painel`
+- Deploy (só com aprovação): `npm run deploy:dev` / `npm run deploy:production`
+- Migração remota (só com aprovação): `npx wrangler d1 migrations apply <banco> --remote --env <ambiente>`
+
+Front (`web/`, sem build):
+- Site local: `node web/scripts/servidor-local.mjs` → http://localhost:8788 (mesmas reescritas e CSP do Netlify)
+- Depois de mudar `legal/` ou `content/nome/comum.json`: `node web/scripts/gerar.mjs`
+- Deploy: Netlify publica `web/` (ver `netlify.toml`)
+
+Estado e decisões pendentes: `docs/FASE_0_AUDITORIA.md`.
