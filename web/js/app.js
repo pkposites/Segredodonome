@@ -2,6 +2,7 @@
 // PageView, RASTREAMENTO_META.md, 2). Páginas legais são arquivos HTML separados.
 import { CONFIG } from "./config.js";
 import { h, trocar } from "./dom.js";
+import { MODO_DEMO } from "./api.js";
 import { capturarChegada, carregarPixel, definirCookies, escolhaCookies, evento } from "./rastreio.js";
 import { telaInicio } from "./telas/inicio.js";
 import { telaQuiz } from "./telas/quiz.js";
@@ -82,6 +83,12 @@ document.addEventListener("click", (e) => {
 window.addEventListener("popstate", renderizar);
 // PDF: seções recolhíveis saem abertas na impressão.
 window.addEventListener("beforeprint", () => document.querySelectorAll("details").forEach((d) => (d.open = true)));
+
+if (MODO_DEMO) {
+  document.body.prepend(
+    h("div", { class: "faixa-demo", role: "note" }, "DEMONSTRAÇÃO · resultado simulado no navegador · nenhum pagamento é real · ", h("a", { href: "/?demo=0" }, "sair")),
+  );
+}
 
 capturarChegada();
 carregarPixel();

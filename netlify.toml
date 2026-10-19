@@ -1,4 +1,10 @@
-# Front estático, sem build: os arquivos gerados (web/scripts/gerar.mjs) ficam no repositório.
+# Produção: front estático, sem build. Os arquivos gerados (web/scripts/gerar.mjs) ficam no repositório.
 [build]
   publish = "web"
   command = ""
+
+# Prévia (site segredo-do-nome-previa): neste branch o Netlify monta web/ + modo demonstração
+# (?demo=1). O pacote da demonstração contém os textos pagos e NUNCA vai para a produção.
+[context."claude/new-session-8to67l"]
+  command = "cd worker && npm ci && node scripts/gerar-previa.mjs ../previa"
+  publish = "previa"

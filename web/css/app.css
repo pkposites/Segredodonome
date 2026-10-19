@@ -289,3 +289,7 @@ details p { padding-bottom: 14px; color: var(--texto-2); font-size: 14px; }
 .barra-fixa.oculta { display: none; }
 main:focus { outline: none; }
 .resumo .valor { white-space: nowrap; }
+.faixa-demo { position: sticky; top: 0; z-index: 60; background: var(--exemplo); color: var(--nome-texto-sobre); text-align: center; font-size: 12px; font-weight: 700; padding: 6px 12px; }
+.faixa-demo a { color: inherit; }
+@media print { .faixa-demo { display: none; } }
+.preco-valor { white-space: nowrap; }
