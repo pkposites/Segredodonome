@@ -76,12 +76,12 @@ Mostrador circular + letras do nome se reorganizando em torno da inicial; 3 fras
 3. "Sua essência": 2 parágrafos.
 4. 3 características em chips.
 5. "Como chegamos nisso" (recolhível).
-6. Bloco de curiosidade: "Ainda tem muito sobre você aqui" + contador "1 de 6 partes aberta" + lista das partes fechadas. Só fatos reais do resultado dela.
+6. Bloco de curiosidade: "Ainda tem muito sobre você aqui" + contador "1 de 8 partes aberta" + lista das partes fechadas. Só fatos reais do resultado dela.
 7. *(Depois do MVP, se aprovado)* notificação de **compra real** recente ("{Primeiro nome real} acabou de liberar…"), alimentada por pagamentos aprovados de verdade, só primeiro nome, com opção do comprador de não aparecer. **Nunca pessoas ou avaliações inventadas.**
 8. "Apagar meus dados deste aparelho" (limpa o `localStorage`), discreto no fim.
 
 ## 6. Oferta — `06-oferta.html`
-1. "Quer ir mais fundo, {Nome}?" → as 6 seções pagas com título personalizado e **primeira frase real** (vinda da API); o resto é texto genérico de enchimento local desfocado (`filter: blur(5px)`). O texto pago real nunca vai ao front antes do pagamento.
+1. "Quer ir mais fundo, {Nome}?" → as 7 seções pagas com título personalizado e **primeira frase real** (vinda da API); o resto é texto genérico de enchimento local desfocado (`filter: blur(5px)`). O texto pago real nunca vai ao front antes do pagamento.
 2. Caixa de preço: "R$ 11,90 · pagamento único no Pix · acesso imediato · link válido por 12 meses · 7 dias para desistir · conteúdo de entretenimento".
 3. Botão "Liberar resultado completo — R$ 11,90" (dispara `AddToCart`). Barra fixa com o botão depois que a pessoa passa do item 5 do resultado.
 4. Sem cronômetro, sem preço riscado, sem escassez.

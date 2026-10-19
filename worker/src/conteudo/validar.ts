@@ -75,7 +75,7 @@ class Validador {
 
   tamanhoPago(onde: string, r: Redacao) {
     const n = tamanho(r);
-    if (n < 700 || n > 1100) this.avisos.push(`${onde}: ${n} caracteres (guia: 700–1.100)`);
+    if (n < 550 || n > 1100) this.avisos.push(`${onde}: ${n} caracteres (guia: 550–1.100)`);
   }
 }
 
@@ -98,7 +98,7 @@ function validarArquetipo(v: Validador, n: number, a: ArquivoArquetipo | undefin
       da.essencia?.[t]?.forEach((r, i) =>
         r.forEach((p, j) => {
           const len = formas(p)[0]!.length;
-          if (len < 220 || len > 550) v.avisos.push(`${base}.essencia.${t}[${i}][${j}]: ${len} caracteres (guia: 220–550)`);
+          if (len < 140 || len > 550) v.avisos.push(`${base}.essencia.${t}[${i}][${j}]: ${len} caracteres (guia: 140–550)`);
         }),
       );
       if (da.essencia?.[t]?.some((r) => r.length !== 2)) v.erros.push(`${base}.essencia.${t}: cada redação tem 2 parágrafos`);

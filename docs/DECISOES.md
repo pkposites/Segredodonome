@@ -40,6 +40,18 @@
 | Logs de acesso | 30–90 dias | 30–90 dias | **6 meses** | Obrigação do Marco Civil da Internet, art. 15 |
 | Teste de demanda | R$ 50/dia × 3 dias | Até R$ 150 se couber no caixa | **Até R$ 150, se couber no caixa** | Igual nas duas |
 
+## Decisões de 19/10/2026 (respostas à Fase 0)
+
+| Tema | Decisão | Onde está no código |
+|---|---|---|
+| Seções pagas | **7** (força da inicial, o que busca, como te enxergam, como ama, dinheiro e trabalho, ponto cego, 2027) + a frase do nome | `worker/src/conteudo/montar.ts`; especificação e `TELAS.md` atualizadas |
+| `utm_campaign` no `metadata` do Mercado Pago | **Aprovado** (permite "Pagaram" por campanha no painel) | `worker/src/rotas/pagamento.ts` |
+| Tamanho dos textos | Guia ajustado ao tamanho real de O Farol: grátis 140–550, pago 550–1.100. Abaixo disso é aviso, não erro | `content/GUIA_DE_CONTEUDO.md`, `worker/src/conteudo/validar.ts` |
+| Login do painel | Cloudflare Access com código por e-mail, sem Google/duas etapas; texto da privacidade ajustado (versão 2026-10-c) | `legal/POLITICA_DE_PRIVACIDADE.md` |
+| Validade do Pix | **30 minutos** | `PIX_VALIDADE_MINUTOS` em `worker/wrangler.toml` |
+| Conteúdo | Rascunhos dos arquétipos 1–6, 8, 9 e `comum.json` **adotados como padrão**, sem revisão de tom | `content/nome/` |
+| Empresa | Razão social provisória **QVN ADS**; contato qvnads@gmail.com; WhatsApp (11) 99191-2707; vigência 19/10/2026. Faltam CNPJ, endereço e domínio | `legal/`, `web/js/config.js` |
+
 ## Pendências humanas (o Rob decide)
 
 Travam a Fase 1:

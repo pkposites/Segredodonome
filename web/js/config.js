@@ -7,14 +7,14 @@ export const CONFIG = {
   // Mesmo valor da variável PIXEL_EXIGE_CONSENTIMENTO do Worker: o Pixel só carrega com aceite.
   PIXEL_EXIGE_CONSENTIMENTO: true,
   VENDEDOR: {
-    razao_social: "[RAZÃO SOCIAL]",
+    razao_social: "QVN ADS",
     cnpj: "[CNPJ]",
     endereco: "[ENDEREÇO]",
-    email: "[E-MAIL DE CONTATO]",
-    whatsapp: "[WHATSAPP DE CONTATO]",
+    email: "qvnads@gmail.com",
+    whatsapp: "(11) 99191-2707",
   },
   // Espelho do catálogo do servidor, só para o Pixel (o preço cobrado vem sempre do Worker).
   PRODUTO: { id: "nome_completo_v1", nome: "Segredo do Nome", valor: 11.9, moeda: "BRL" },
-  VERSAO_TERMOS: "2026-10-b",
+  VERSAO_TERMOS: "2026-10-c",
   VERSAO_COOKIES: "2026-10-a",
 };

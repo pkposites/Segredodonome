@@ -100,10 +100,10 @@ writeFileSync(
     `<h1>Contato</h1>
 <p>Dúvidas, reclamações, pedidos de reembolso e pedidos sobre dados pessoais.</p>
 <ul>
-<li><strong>E-mail:</strong> [E-MAIL DE CONTATO]</li>
-<li><strong>WhatsApp:</strong> [WHATSAPP DE CONTATO]</li>
-<li><strong>Privacidade (encarregado):</strong> [E-MAIL DO ENCARREGADO]</li>
-<li><strong>Empresa:</strong> [RAZÃO SOCIAL] · CNPJ [CNPJ] · [ENDEREÇO]</li>
+<li><strong>E-mail:</strong> qvnads@gmail.com</li>
+<li><strong>WhatsApp:</strong> (11) 99191-2707</li>
+<li><strong>Privacidade (encarregado):</strong> qvnads@gmail.com</li>
+<li><strong>Empresa:</strong> QVN ADS · CNPJ [CNPJ] · [ENDEREÇO]</li>
 </ul>
 <p>Para reembolso, informe o número do pagamento que aparece no comprovante na tela (ou no comprovante do Pix no seu banco). Respondemos em até 5 dias úteis.</p>`,
   ),

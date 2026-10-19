@@ -39,7 +39,9 @@ Regra do `CLAUDE.md`: a especificação vence; o conflito é apontado em vez de 
 4. **Data de nascimento:** "descartada depois; guardamos só o resultado". Na v0.4 nada é guardado no servidor, nem o resultado. Segui a v0.4.
 5. **Chave para refazer:** "token aleatório para acesso". Na v0.4 o acesso é o passe criptografado. O `RASTREAMENTO_META.md`, 2.1, também diz "o token do resultado é aleatório"; o passe fica depois do `#`, então o efeito desejado (nada pessoal na URL enviada) se mantém.
 
-### 2.2 Conflitos que exigiram escolha no código (**precisam da sua confirmação**)
+### 2.2 Conflitos que exigiram escolha no código
+
+> **Resolvidos em 19/10/2026:** itens 6 (7 seções), 8 (`utm_campaign` aprovado), 15 (guia ajustado) e 19 (texto da privacidade ajustado). Ver `DECISOES.md`.
 6. **Quantas seções pagas: 6 ou 7?** A especificação (seção 1, "mais 6 seções"), a tela de oferta ("Mais 6 partes") e o `TELAS.md` ("1 de 6 partes aberta") dizem 6. A tabela da seção 5 da especificação lista **7**: força da inicial, o que você busca, como te enxergam, como você ama, dinheiro e trabalho, ponto cego e 2027 (mais a frase do nome). **Implementei as 7 da tabela**; o texto da oferta conta as seções automaticamente. Se a decisão for 6, basta dizer qual sai.
 7. **Resposta citada no "Seu jeito".** Especificação 4.5: "pergunta de maior peso para o eixo vencedor". O guia (4): "pergunta do eixo com placar mais apertado; empate de aperto → pergunta 3". Como todas as perguntas têm o mesmo peso, a regra da especificação não define uma pergunta. **Implementei a regra do guia**, que é testável.
 8. **`metadata` do pagamento.** A especificação diz "só `fbp`, `fbc` e `event_id`". Mas o webhook (que conta "Pagaram" no painel) não tem outra fonte para a campanha, e o painel tem filtro por `utm_campaign`. **Incluí `utm_campaign`** no `metadata` (é o ID numérico da campanha, não é dado pessoal). Se preferir não incluir, "Pagaram" por campanha fica sempre em "(sem)".

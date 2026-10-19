@@ -1,12 +1,12 @@
-# Política de Privacidade — [NOME FANTASIA]
+# Política de Privacidade — Segredo do Nome
 
-Versão 2026-10-b · Vigente desde [DATA DE VIGÊNCIA]
+Versão 2026-10-c · Vigente desde 19/10/2026
 
-Esta política explica quais dados pessoais o [NOME FANTASIA] trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
+Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
 
 ## 1. Controlador e encarregado
-- **Controlador:** [RAZÃO SOCIAL], CNPJ [CNPJ], [ENDEREÇO].
-- **Encarregado (contato de privacidade):** [E-MAIL DO ENCARREGADO].
+- **Controlador:** QVN ADS, CNPJ [CNPJ], [ENDEREÇO].
+- **Encarregado (contato de privacidade):** qvnads@gmail.com.
 
 ## 2. Resumo
 - **Não guardamos os seus dados nos nossos servidores.** Seu nome, sua data de nascimento e suas respostas ficam no seu próprio aparelho.
@@ -46,13 +46,13 @@ Alguns desses fornecedores processam dados fora do Brasil, para a execução do 
 O link de acesso guarda os dados do seu resultado de forma criptografada: só o nosso sistema consegue lê-lo. **Quem tiver o link consegue ver o seu resultado.** Compartilhe só com quem quiser.
 
 ## 7. Segurança
-Conexão criptografada (HTTPS), link de acesso criptografado, nenhum dado de cliente em banco de dados, chaves guardadas em ambiente protegido e acesso administrativo com verificação em duas etapas. Se houver um incidente que possa trazer risco a você, comunicaremos conforme a lei.
+Conexão criptografada (HTTPS), link de acesso criptografado, nenhum dado de cliente em banco de dados, chaves guardadas em ambiente protegido e acesso administrativo restrito ao responsável, com login por código enviado ao e-mail dele. Se houver um incidente que possa trazer risco a você, comunicaremos conforme a lei.
 
 ## 8. Seus direitos
 Você pode pedir confirmação de tratamento, acesso, correção, exclusão, portabilidade, informação sobre compartilhamento e revogação de consentimento (art. 18 da LGPD).
 - **Dados no seu aparelho:** apague a qualquer momento pelo botão "Apagar meus dados deste aparelho" no resultado, ou limpando os dados do navegador.
 - **Cookies:** mude sua escolha em "Preferências de cookies", no rodapé.
-- **Dados do pagamento:** fale com a gente em [E-MAIL DO ENCARREGADO]; quando necessário, encaminhamos ao Mercado Pago.
+- **Dados do pagamento:** fale com a gente em qvnads@gmail.com; quando necessário, encaminhamos ao Mercado Pago.
 - **Registros de acesso:** são mantidos por 6 meses por obrigação legal e apagados em seguida.
 
 Respondemos em até 15 dias.
@@ -64,4 +64,4 @@ O serviço é para maiores de 18 anos. Não processamos o quiz quando a data de 
 Esta política pode ser atualizada. A versão vigente fica nesta página, com a data.
 
 ## 11. Contato
-[E-MAIL DO ENCARREGADO] · [WHATSAPP DE CONTATO] · [ENDEREÇO]
+qvnads@gmail.com · (11) 99191-2707 · [ENDEREÇO]

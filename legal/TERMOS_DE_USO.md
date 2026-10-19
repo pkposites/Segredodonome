@@ -1,14 +1,14 @@
-# Termos de Uso — [NOME FANTASIA]
+# Termos de Uso — Segredo do Nome
 
-Versão 2026-10-b · Vigente desde [DATA DE VIGÊNCIA]
+Versão 2026-10-b · Vigente desde 19/10/2026
 
 ## 1. Quem somos
-O site [DOMÍNIO] ("Site") é operado por [RAZÃO SOCIAL], CNPJ [CNPJ], com endereço em [ENDEREÇO], e-mail [E-MAIL DE CONTATO] e WhatsApp [WHATSAPP DE CONTATO] ("nós").
+O site [DOMÍNIO] ("Site") é operado por QVN ADS, CNPJ [CNPJ], com endereço em [ENDEREÇO], e-mail qvnads@gmail.com e WhatsApp (11) 99191-2707 ("nós").
 
 Ao usar o Site, você concorda com estes Termos e com a nossa [Política de Privacidade](/privacidade).
 
 ## 2. O que é o serviço
-O [NOME FANTASIA] é um **quiz de entretenimento**. A partir das letras do seu nome, da sua data de nascimento e das suas respostas, o Site monta uma interpretação lúdica sobre você, chamada de "resultado".
+O Segredo do Nome é um **quiz de entretenimento**. A partir das letras do seu nome, da sua data de nascimento e das suas respostas, o Site monta uma interpretação lúdica sobre você, chamada de "resultado".
 
 **O resultado é entretenimento.** Ele não é avaliação psicológica, diagnóstico, aconselhamento profissional, previsão do futuro nem tem validade científica. Não tome decisões importantes (de saúde, financeiras, jurídicas ou de relacionamento) com base nele.
 
@@ -42,11 +42,11 @@ Você se compromete a:
 O link do seu resultado é pessoal. Quem tiver o link consegue ver o resultado. Compartilhe só com quem quiser.
 
 ## 8. Propriedade intelectual
-Os textos, a marca, o layout e os demais conteúdos do Site pertencem a [RAZÃO SOCIAL]. Você pode guardar o seu resultado e compartilhá-lo para uso pessoal, citando o Site. Não é permitido revender, reproduzir em escala ou usar o conteúdo comercialmente.
+Os textos, a marca, o layout e os demais conteúdos do Site pertencem a QVN ADS. Você pode guardar o seu resultado e compartilhá-lo para uso pessoal, citando o Site. Não é permitido revender, reproduzir em escala ou usar o conteúdo comercialmente.
 
 ## 9. Disponibilidade e responsabilidade
 - Fazemos o possível para manter o Site no ar e funcionando, mas podem ocorrer interrupções para manutenção ou por falhas de terceiros (hospedagem, pagamento, internet).
-- Se você pagou e não recebeu o acesso, fale com a gente em [E-MAIL DE CONTATO]: resolvemos liberando o acesso ou devolvendo o valor.
+- Se você pagou e não recebeu o acesso, fale com a gente em qvnads@gmail.com: resolvemos liberando o acesso ou devolvendo o valor.
 - Por ser entretenimento, não respondemos por decisões tomadas com base no resultado.
 
 ## 10. Comunicações
@@ -56,6 +56,6 @@ Não enviamos e-mails nem mensagens. O atendimento acontece pelos nossos canais 
 Podemos atualizar estes Termos. A versão vigente fica sempre nesta página, com a data. Compras já feitas seguem as condições do momento da compra.
 
 ## 12. Atendimento e foro
-Dúvidas, reclamações e pedidos: [E-MAIL DE CONTATO] ou [WHATSAPP DE CONTATO]. Respondemos em até 5 dias úteis.
+Dúvidas, reclamações e pedidos: qvnads@gmail.com ou (11) 99191-2707. Respondemos em até 5 dias úteis.
 
 Fica eleito o foro do domicílio do consumidor, conforme o Código de Defesa do Consumidor.

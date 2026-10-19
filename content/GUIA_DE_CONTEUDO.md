@@ -10,7 +10,7 @@ A biblioteca de textos é o produto. O código só escolhe e monta. Este guia de
 - Específico > genérico: cada parágrafo tem pelo menos um exemplo do dia a dia.
 - Equilíbrio: toda seção tem um ponto forte e um cuidado. Nada humilhante ou assustador.
 - Primeira frase de cada seção paga precisa funcionar sozinha como prévia (ela aparece antes da compra).
-- Tamanhos: parágrafo grátis 220–550 caracteres; seção paga 700–1.100 caracteres; característica até 40 caracteres; frase do nome até 110 caracteres.
+- Tamanhos: parágrafo grátis 140–550 caracteres; seção paga 550–1.100 caracteres (ajustado em 19/10/2026 ao tamanho de O Farol); característica até 40 caracteres; frase do nome até 110 caracteres.
 
 ## 2. Arquétipos
 

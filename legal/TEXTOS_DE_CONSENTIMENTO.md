@@ -17,12 +17,12 @@ Cada texto tem um identificador e uma versão; a escolha da pessoa fica registra
 > ☐ **Li e concordo** (obrigatório)
 
 ## 3. Resumo antes de pagar (informação pré-contratual) — caixa de preço
-> **Resultado completo do [NOME FANTASIA] — R$ 11,90**
+> **Resultado completo do Segredo do Nome — R$ 11,90**
 > Pagamento único via Pix, sem assinatura. Acesso imediato após a confirmação, por 12 meses, com PDF para baixar.
 > Você pode desistir em até 7 dias e receber o valor de volta. [Política de reembolso](/reembolso)
 > Não enviamos e-mail: guarde o seu link de acesso ou salve o PDF.
 > Conteúdo de entretenimento, sem valor científico ou de previsão.
-> Vendido por [RAZÃO SOCIAL], CNPJ [CNPJ].
+> Vendido por QVN ADS, CNPJ [CNPJ].
 
 ## 4. Checkout — e-mail para o Mercado Pago
 > **E-mail para o Pix**
@@ -43,11 +43,11 @@ Cada texto tem um identificador e uma versão; a escolha da pessoa fica registra
 
 ## 7. Comprovante na tela (após o pagamento)
 > **Compra confirmada** · Pagamento nº [NÚMERO] · [DATA E HORA] · R$ 11,90 via Pix
-> Vendido por [RAZÃO SOCIAL], CNPJ [CNPJ] · Pagamento processado pelo Mercado Pago
+> Vendido por QVN ADS, CNPJ [CNPJ] · Pagamento processado pelo Mercado Pago
 > [Salvar comprovante] · Desistência em até 7 dias: [contato]
 
 ## 8. Rodapé do site (obrigatório)
-> [RAZÃO SOCIAL] · CNPJ [CNPJ] · [ENDEREÇO] · [E-MAIL DE CONTATO] · WhatsApp [WHATSAPP DE CONTATO]
+> QVN ADS · CNPJ [CNPJ] · [ENDEREÇO] · qvnads@gmail.com · WhatsApp (11) 99191-2707
 > [Termos de Uso](/termos) · [Privacidade](/privacidade) · [Reembolso](/reembolso) · Preferências de cookies
 > Conteúdo de entretenimento.
 

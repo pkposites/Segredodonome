@@ -9,7 +9,7 @@ Base: pré-documentação v0.1 (Claude) + especificação v0.2 (revisão externa
 
 ## 1. Produto
 
-**O que é:** um quiz de entretenimento. A pessoa digita o nome, a data de nascimento e responde 5 perguntas rápidas. Recebe de graça o seu arquétipo com uma análise completa. Se quiser, paga R$ 11,90 no Pix e libera o resultado expandido, com mais 6 seções, PDF e link de acesso válido por 12 meses.
+**O que é:** um quiz de entretenimento. A pessoa digita o nome, a data de nascimento e responde 5 perguntas rápidas. Recebe de graça o seu arquétipo com uma análise completa. Se quiser, paga R$ 11,90 no Pix e libera o resultado expandido, com mais 7 seções, PDF e link de acesso válido por 12 meses.
 
 **Para quem:** adultos de 18 a 45 anos, maioria mulheres, que consomem conteúdo de autoconhecimento e relacionamento no Instagram. Compram por curiosidade e diversão.
 
@@ -60,7 +60,7 @@ Especificação visual de cada tela em `web/TELAS.md`.
    - "Como chegamos nisso" (1 parágrafo honesto e lúdico).
 6. **Oferta do resultado expandido** (logo abaixo, sem interromper o grátis):
    - Título "Quer ir mais fundo, {Nome}?".
-   - Lista das 6 seções extras com título personalizado ("Como a {Nome} ama", "O ponto cego da {Nome}"...).
+   - Lista das 7 seções extras com título personalizado ("Como a {Nome} ama", "O ponto cego da {Nome}"...).
    - Para cada seção, **a primeira frase real** do texto pago visível e o restante desfocado. O texto existe e já está calculado; nada de texto falso por baixo.
    - Prévia real: miniatura da capa do PDF com o nome dela.
    - Preço total: **R$ 11,90**, pagamento único no Pix, acesso imediato, acesso ao link por 12 meses, natureza de entretenimento, política de reembolso de 7 dias.

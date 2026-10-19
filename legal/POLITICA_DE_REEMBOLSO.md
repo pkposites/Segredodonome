@@ -1,12 +1,12 @@
-# Política de Reembolso — [NOME FANTASIA]
+# Política de Reembolso — Segredo do Nome
 
-Versão 2026-10-b · Vigente desde [DATA DE VIGÊNCIA]
+Versão 2026-10-b · Vigente desde 19/10/2026
 
 ## Direito de arrependimento (7 dias)
 Você pode desistir da compra do resultado completo em até **7 (sete) dias corridos** contados da data do pagamento, **sem precisar justificar** (art. 49 do Código de Defesa do Consumidor e Decreto 7.962/2013).
 
 ## Como pedir
-- Pelo e-mail [E-MAIL DE CONTATO] ou WhatsApp [WHATSAPP DE CONTATO], informando o **número do pagamento** que aparece no comprovante na tela (ou no comprovante do Pix no seu banco).
+- Pelo e-mail qvnads@gmail.com ou WhatsApp (11) 99191-2707, informando o **número do pagamento** que aparece no comprovante na tela (ou no comprovante do Pix no seu banco).
 - Confirmamos o recebimento do pedido em até 2 dias úteis.
 
 ## Como o dinheiro volta
