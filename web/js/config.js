@@ -4,8 +4,8 @@ export const CONFIG = {
   API_BASE_URL: location.hostname === "localhost" || location.hostname === "127.0.0.1" ? "http://localhost:8799" : "https://segredo-api.relatoriorda.com.br",
   // Vazio = Pixel desligado.
   META_PIXEL_ID: "2132885950950048",
-  // O Pixel só carrega no domínio oficial: prévia, demonstração e testes locais não enviam nada à Meta.
-  PIXEL_DOMINIOS: ["segredo.relatoriorda.com.br"],
+  // Domínio oficial: só nele o Pixel carrega e só nele a demonstração (?demo=1) fica desligada.
+  DOMINIOS_OFICIAIS: ["segredo.relatoriorda.com.br"],
   // Mesmo valor da variável PIXEL_EXIGE_CONSENTIMENTO do Worker: o Pixel só carrega com aceite.
   PIXEL_EXIGE_CONSENTIMENTO: true,
   VENDEDOR: {

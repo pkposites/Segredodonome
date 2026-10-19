@@ -1,10 +1,7 @@
-# Produção: front estático, sem build. Os arquivos gerados (web/scripts/gerar.mjs) ficam no repositório.
+# Dois sites no Netlify a partir deste repositório (worker/scripts/montar-netlify.mjs):
+#  - segredo-do-nome-previa: web/ + modo demonstração (?demo=1). O pacote da demonstração
+#    contém os textos pagos e nunca vai para o site oficial.
+#  - site oficial (segredo.relatoriorda.com.br): só web/.
 [build]
-  publish = "web"
-  command = ""
-
-# Prévia (site segredo-do-nome-previa): neste branch o Netlify monta web/ + modo demonstração
-# (?demo=1). O pacote da demonstração contém os textos pagos e NUNCA vai para a produção.
-[context."claude/new-session-8to67l"]
-  command = "cd worker && npm ci && node scripts/gerar-previa.mjs ../previa"
-  publish = "previa"
+  command = "cd worker && npm ci && node scripts/montar-netlify.mjs"
+  publish = "publicar"

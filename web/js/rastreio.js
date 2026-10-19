@@ -81,7 +81,7 @@ export const utmCampaign = () => local.ler("utm")?.utm_campaign;
 let pixelCarregado = false;
 
 export function carregarPixel() {
-  if (pixelCarregado || !CONFIG.META_PIXEL_ID || !CONFIG.PIXEL_DOMINIOS.includes(location.hostname)) return;
+  if (pixelCarregado || !CONFIG.META_PIXEL_ID || !CONFIG.DOMINIOS_OFICIAIS.includes(location.hostname)) return;
   if (CONFIG.PIXEL_EXIGE_CONSENTIMENTO && !cookiesAceitos()) return;
   pixelCarregado = true;
   /* eslint-disable */

@@ -18,6 +18,7 @@ try {
   if (parametro === "0") localStorage.removeItem("sdn_demo");
 } catch {}
 export const MODO_DEMO = (() => {
+  if (CONFIG.DOMINIOS_OFICIAIS.includes(location.hostname)) return false;
   try {
     return localStorage.getItem("sdn_demo") === "1";
   } catch {
