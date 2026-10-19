@@ -11,7 +11,7 @@ crons = ["0 6 * * *"]
 # ---------- desenvolvimento ----------
 [env.dev]
 name = "segredo-do-nome-dev"
-vars = { PUBLIC_BASE_URL = "http://localhost:8788", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v26.0" }
+vars = { AMBIENTE = "dev", PUBLIC_BASE_URL = "http://localhost:8788", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v26.0" }
 
 [[env.dev.d1_databases]]
 binding = "DB"
@@ -29,11 +29,10 @@ crons = ["0 6 * * *"]
 
 # ---------- produção ----------
 [env.production]
-name = "segredo-do-nome"
-vars = { AMBIENTE = "production", PUBLIC_BASE_URL = "https://segredo.relatoriorda.com.br", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v26.0", META_PIXEL_ID = "2132885950950048" }
-# O Worker responde no subdomínio próprio (o domínio relatoriorda.com.br precisa estar na mesma conta Cloudflare).
-# Um nível só de subdomínio: o certificado gratuito da Cloudflare não cobre api.segredo.relatoriorda.com.br.
-routes = [{ pattern = "segredo-api.relatoriorda.com.br", custom_domain = true }]
+# Mesmo nome do Worker criado no painel: responde em segredodonome.robson-oc96.workers.dev.
+# As variáveis de produção já são o padrão do código (src/padroes.ts).
+name = "segredodonome"
+workers_dev = true
 
 [[env.production.d1_databases]]
 binding = "DB"

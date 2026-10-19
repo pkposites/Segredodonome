@@ -2,12 +2,15 @@
 // `.dev.vars` (local). Nomes conforme docs/SEGURANCA_E_LGPD.md, 3.
 
 export interface Env {
-  DB: D1Database;
+  /** Opcional: sem ele o site funciona, mas sem registro de acesso, contadores e painel. */
+  DB?: D1Database;
   /** Rate limit por IP (binding `ratelimits`, janela de 60 s). Opcional em dev. */
   LIMITE?: RateLimit;
 
   MP_ACCESS_TOKEN: string;
   MP_WEBHOOK_SECRET: string;
+  /** Segredo único: as três chaves abaixo são derivadas dele quando não cadastradas (padroes.ts). */
+  SEGREDO?: string;
   SEGREDO_CHAVE: string;
   SEGREDO_PASSE: string;
   /** Versão (1–255) da chave atual do passe. Padrão 1. */

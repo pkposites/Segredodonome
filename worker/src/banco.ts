@@ -150,3 +150,31 @@ export class BancoD1 implements Banco {
     ]);
   }
 }
+
+/** Sem banco ligado (binding DB ausente): o site funciona, mas nada é contado nem registrado. */
+export class BancoNulo implements Banco {
+  async registrarAcesso() {}
+  /** Sem como contar tentativas, a recuperação fica fechada (nunca sem limite). */
+  async contarAcessos() {
+    return Number.MAX_SAFE_INTEGER;
+  }
+  async incrementar() {}
+  async marcarPagamentoContado() {
+    return true;
+  }
+  async contadores() {
+    return zerado();
+  }
+  async porVariante() {
+    return {};
+  }
+  async gastos() {
+    return [];
+  }
+  async salvarGasto() {}
+  async lerConfig() {
+    return { ...CONFIG_PADRAO };
+  }
+  async salvarConfig() {}
+  async limpar() {}
+}

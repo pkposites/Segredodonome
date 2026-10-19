@@ -1,7 +1,7 @@
 // Configuração pública do front (nada aqui é segredo). Preencher antes de publicar.
 export const CONFIG = {
   // URL do Worker. Em desenvolvimento: http://localhost:8799 (npx wrangler dev --env dev --port 8799)
-  API_BASE_URL: location.hostname === "localhost" || location.hostname === "127.0.0.1" ? "http://localhost:8799" : "https://segredo-api.relatoriorda.com.br",
+  API_BASE_URL: location.hostname === "localhost" || location.hostname === "127.0.0.1" ? "http://localhost:8799" : "https://segredodonome.robson-oc96.workers.dev",
   // Vazio = Pixel desligado.
   META_PIXEL_ID: "2132885950950048",
   // Domínio oficial: só nele o Pixel carrega e só nele a demonstração (?demo=1) fica desligada.
