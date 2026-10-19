@@ -21,10 +21,10 @@ function blocos(alvo, texto, animar) {
 export function telaInicio(tela, { ir }) {
   const salvo = local.ler("passe") || local.ler("entradas");
   const nomeSalvo = local.ler("primeiro_nome");
-  const letras = h("div", { class: "letras", "aria-hidden": "true" });
-  const seloExemplo = h("span", { class: "selo selo-exemplo" }, "Exemplo");
+  const letras = h("div", { class: "letras letras-hero", "aria-hidden": "true" });
+  const seloExemplo = h("span", { class: "selo selo-exemplo" }, "exemplo");
   const campo = h("input", {
-    id: "primeiro-nome", class: "campo", name: "primeiro-nome", placeholder: "Ex.: Bruna",
+    id: "primeiro-nome", class: "campo campo-hero", name: "primeiro-nome", placeholder: "Ex.: Bruna",
     autocomplete: "given-name", autocapitalize: "words", maxlength: "40", enterkeyhint: "next",
     value: sessao.ler("primeiro_nome") ?? "",
   });
@@ -82,11 +82,12 @@ export function telaInicio(tela, { ir }) {
 
   const form = h(
     "form",
-    { class: "pilha", onsubmit: continuar, novalidate: true },
-    h("label", { class: "campo-rotulo", for: "primeiro-nome" }, "Qual é o seu primeiro nome?"),
+    { class: "hero-form", onsubmit: continuar, novalidate: true },
+    h("label", { class: "hero-rotulo", for: "primeiro-nome" }, "Qual é o seu primeiro nome?"),
     campo,
     erro,
-    h("button", { class: "botao botao-claro", type: "submit" }, "Continuar", svg(ICONES.seta)),
+    h("button", { class: "botao botao-principal botao-hero", type: "submit" }, "Descobrir meu segredo", svg(ICONES.seta)),
+    h("p", { class: "hero-confianca" }, "Grátis pra começar · Sem cadastro · Seus dados ficam no seu aparelho"),
   );
 
   trocar(
@@ -94,21 +95,29 @@ export function telaInicio(tela, { ir }) {
     salvo && nomeSalvo
       ? h("a", { class: "faixa-salvo", href: "/r", "data-link": true }, h("span", {}, `${nomeSalvo}, seu resultado está salvo`), h("strong", {}, "abrir →"))
       : null,
+    // Primeira dobra: headline → letras (que reagem ao que a pessoa digita) → campo → botão.
+    h(
+      "section",
+      { class: "hero", "aria-labelledby": "hero-titulo" },
+      h("span", { class: "hero-selo" }, "Quiz grátis · 2 minutos"),
+      h("h1", { class: "hero-titulo", id: "hero-titulo" }, "Seu nome guarda um segredo."),
+      h("p", { class: "hero-sub" }, "Digite seu primeiro nome e descubra o que as letras dele dizem sobre você."),
+      h("div", { class: "hero-letras" }, letras, h("div", { class: "hero-controles" }, seloExemplo, botaoPausa)),
+      form,
+    ),
     h(
       "div",
       { class: "card" },
-      h("div", { class: "card-cabeca" }, h("span", { class: "rotulo" }, "Prévia de resultado"), h("div", { class: "linha" }, botaoPausa, seloExemplo)),
+      h("span", { class: "rotulo" }, "Exemplo de resultado"),
       h(
         "div",
         { class: "linha" },
         h("div", { class: "emblema-caixa" }, svg(emblema(7, 56))),
-        h("div", { class: "pilha-8" }, letras, h("span", { class: "arq-mini" }, "O Farol"), h("span", { class: "mini" }, "Jeito magnético · 1 de 9 arquétipos")),
+        h("div", { class: "pilha-8" }, h("span", { class: "arq-mini" }, "O Farol"), h("span", { class: "mini" }, "Jeito magnético · 1 de 9 arquétipos")),
       ),
       h("hr", { class: "divisor" }),
       h("span", { class: "pequeno texto-2" }, "“Você percebe o que está por trás das palavras e só fala quando tem certeza.”"),
     ),
-    h("div", { class: "pilha-8" }, h("h1", { class: "titulo-grande" }, "Seu nome guarda um segredo"), h("p", { class: "apoio" }, "Responda, descubra e revele em 2 minutos.")),
-    form,
     h(
       "section",
       { id: "como", class: "pilha", "aria-labelledby": "como-titulo" },
@@ -164,7 +173,8 @@ function telaEscolha(tela, { ir, nome }) {
       h("h2", {}, "Segredo do nome"),
       h("p", { class: "apoio pequeno" }, "O que as letras do seu nome revelam sobre o seu jeito, o amor, o dinheiro e o seu próximo ano."),
       h("div", { class: "chips" }, h("span", { class: "chip" }, "Seu arquétipo"), h("span", { class: "chip" }, "Amor e dinheiro"), h("span", { class: "chip" }, "Seu 2027")),
-      h("div", { class: "trilha-rodape" }, h("span", {}, "2 min · grátis pra começar"), h("strong", {}, "Começar →")),
+      h("span", { class: "botao botao-principal" }, "Começar grátis", svg(ICONES.seta)),
+      h("span", { class: "mini" }, "2 minutos · 5 perguntas rápidas"),
     ),
     h(
       "div",

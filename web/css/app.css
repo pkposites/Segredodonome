@@ -293,3 +293,32 @@ main:focus { outline: none; }
 .faixa-demo a { color: inherit; }
 @media print { .faixa-demo { display: none; } }
 .preco-valor { white-space: nowrap; }
+
+/* ---------- primeira dobra da landing ---------- */
+.hero { display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
+.hero-selo { align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: .4px; color: var(--nome-claro); background: var(--nome-fundo); border: 1px solid #4a2a1a; border-radius: 999px; padding: 5px 12px; }
+.hero-titulo { font-family: var(--serifa); font-size: 42px; line-height: 1.02; letter-spacing: -0.6px; }
+.hero-sub { color: var(--texto-2); font-size: 17px; line-height: 1.45; }
+.hero-letras { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; }
+.letras-hero { gap: 6px; }
+.letras-hero .letra { min-width: 38px; height: 46px; font-size: 26px; border-radius: 10px; background: var(--nome-fundo); border-color: #4a2a1a; color: var(--nome-claro); }
+.hero-controles { display: flex; align-items: center; gap: 2px; }
+.hero-controles .selo { font-size: 10px; text-transform: uppercase; letter-spacing: .6px; }
+.hero-controles .icone-botao { width: 36px; height: 36px; }
+.hero-form { display: flex; flex-direction: column; gap: 10px; }
+.hero-rotulo { font-size: 15px; font-weight: 600; color: var(--texto); }
+.campo-hero { height: 60px; font-size: 20px; border: 2px solid var(--nome); background: #1b1512; box-shadow: 0 0 0 4px rgba(255,122,69,.12); }
+.campo-hero::placeholder { color: #8c7a70; }
+.campo-hero:placeholder-shown { animation: chamar 2.4s ease-in-out infinite; }
+.campo-hero:focus { animation: none; box-shadow: 0 0 0 4px rgba(255,122,69,.3); }
+@keyframes chamar { 0%, 100% { box-shadow: 0 0 0 4px rgba(255,122,69,.12); } 50% { box-shadow: 0 0 0 8px rgba(255,122,69,.22); } }
+.botao-hero { min-height: 58px; font-size: 17px; box-shadow: 0 8px 24px rgba(255,122,69,.25); }
+.hero-confianca { font-size: 12px; color: var(--apoio); text-align: center; }
+.trilha .botao { margin-top: 4px; }
+/* aviso de cookies mais baixo, para não cobrir o botão da primeira dobra */
+.cookies { flex-direction: row; align-items: center; gap: 10px; padding: 10px 12px; font-size: 12.5px; line-height: 1.35; }
+.cookies p { flex: 1; }
+.cookies .linha { flex-direction: column; gap: 6px; flex-shrink: 0; }
+.cookies .botao { min-height: 36px; font-size: 13px; padding: 0 14px; width: 100px; }
+[hidden] { display: none !important; }
+.selo { white-space: nowrap; }
