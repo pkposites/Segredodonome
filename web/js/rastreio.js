@@ -27,6 +27,11 @@ const TIPO_PARA_META = {
   comprar_toque: "AddToCart",
   pix_copiado: "AddPaymentInfo",
   pdf_salvo: null,
+  // Só contadores do painel (nenhum evento novo para a Meta):
+  escolha_nome: null,
+  oferta_vista: null,
+  pago_entregue: null,
+  ...Object.fromEntries([1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => [`quiz_passo_${n}`, null])),
   casal_interesse: "AddToWishlist",
 };
 
@@ -114,7 +119,7 @@ export function evento(tipo) {
   const eventId = uuid();
   const meta = TIPO_PARA_META[tipo];
   if (meta) pixel(meta, eventId);
-  post("/evento", { tipo, event_id: eventId, utm_campaign: utmCampaign(), ...identificadores() }, { keepalive: true }).catch(() => {});
+  post("/evento", { tipo, event_id: eventId, utm_campaign: utmCampaign(), variante: CONFIG.VARIANTE, ...identificadores() }, { keepalive: true }).catch(() => {});
 }
 
 /** InitiateCheckout: o servidor já mandou; o Pixel repete com o mesmo event_id. */

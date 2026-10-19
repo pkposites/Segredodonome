@@ -54,6 +54,7 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text
       <label>De <input type="date" id="de"></label>
       <label>Até <input type="date" id="ate"></label>
       <label>Campanha (utm_campaign) <input id="campanha" placeholder="todas" maxlength="100"></label>
+      <label>Versão da experiência <select id="variante"><option value="">todas</option></select></label>
       <button class="principal" type="button" id="aplicar">Atualizar</button>
     </div>
   </section>
@@ -62,6 +63,18 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text
   <section class="cartoes" id="cartoes" aria-label="Resumo"></section>
 
   <section class="caixa"><h2>Funil</h2><div class="funil" id="funil"></div><p class="mini" id="nota-funil"></p></section>
+
+  <section class="caixa">
+    <h2>Etapas do quiz (onde as pessoas desistem)</h2>
+    <p class="mini">Quantas pessoas concluíram cada etapa, em % de quem iniciou o quiz.</p>
+    <div class="funil" id="etapas"></div>
+  </section>
+
+  <section class="caixa">
+    <h2>Comparar versões da experiência</h2>
+    <p class="mini">Conclusão = terminaram o quiz ÷ iniciaram · Oferta = viram a oferta ÷ viram o resultado · Compra = pagaram ÷ viram o resultado. * menos de 30 vendas: leia com cuidado.</p>
+    <table><thead><tr><th>Versão</th><th>Iniciaram</th><th>Conclusão</th><th>Oferta</th><th>Compra</th><th>Pagaram</th></tr></thead><tbody id="variantes"></tbody></table>
+  </section>
 
   <div class="grade">
     <section class="caixa">
@@ -118,12 +131,24 @@ function definirPeriodo(p) {
 function qs() {
   const q = new URLSearchParams({ de: $("de").value, ate: $("ate").value });
   if ($("campanha").value.trim()) q.set("utm_campaign", $("campanha").value.trim());
+  if ($("variante").value) q.set("variante", $("variante").value);
   return q;
 }
 async function carregar() {
   $("erro").textContent = "";
   try {
-    const [p, g] = await Promise.all([api("/admin/painel?" + qs()), api("/admin/gasto?" + new URLSearchParams({ de: $("de").value, ate: $("ate").value }))]);
+    const periodoQs = new URLSearchParams({ de: $("de").value, ate: $("ate").value });
+    const [p, g, v] = await Promise.all([api("/admin/painel?" + qs()), api("/admin/gasto?" + periodoQs), api("/admin/variantes?" + periodoQs)]);
+    const escolhida = $("variante").value;
+    $("variante").replaceChildren(el("option", { value: "" }, "todas"), ...v.variantes.map((x) => el("option", { value: x.variante }, x.variante)));
+    $("variante").value = escolhida;
+    $("variantes").replaceChildren(...v.variantes.map((x) => el("tr", {}, el("td", {}, x.variante), el("td", {}, x.iniciaram), el("td", {}, pct(x.taxa_conclusao)), el("td", {}, pct(x.taxa_oferta)), el("td", {}, pct(x.taxa_compra) + (x.dados_insuficientes ? " *" : "")), el("td", {}, x.pagaram))));
+    const rotulosEtapa = ["Nome", "Data", "Tratamento", "Escolha 1", "Escolha 2", "Escolha 3", "Escolha 4", "Escolha 5", "Aceite e revelar"];
+    $("etapas").replaceChildren(...p.quiz_etapas.map((e) => {
+      const barra = el("div", { class: "barra" }, el("i"), el("b", {}, String(e.total), el("em", {}, `${pct(e.pct_inicio)} de quem iniciou`)));
+      barra.firstChild.style.width = `${(e.pct_inicio ?? 0) * 100}%`;
+      return el("div", { class: "etapa" }, el("span", {}, `${e.passo}. ${rotulosEtapa[e.passo - 1]}`), barra);
+    }));
     const cartoes = [
       ["Gasto", reais(p.gasto_cents)],
       ["Vendas", p.vendas],
@@ -151,6 +176,7 @@ async function carregar() {
 }
 document.querySelectorAll("[data-periodo]").forEach((b) => b.addEventListener("click", () => definirPeriodo(b.dataset.periodo)));
 $("aplicar").addEventListener("click", carregar);
+$("variante").addEventListener("change", carregar);
 $("g-salvar").addEventListener("click", async () => {
   const valor = num($("g-valor").value);
   if (!$("g-dia").value || !(valor >= 0)) return ($("erro").textContent = "Informe o dia e o gasto.");

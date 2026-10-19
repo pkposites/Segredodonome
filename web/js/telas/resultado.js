@@ -4,7 +4,9 @@ import { h, svg, trocar, ICONES, movimentoReduzido, esperar } from "../dom.js";
 import { apagarTudo, local, sessao } from "../armazenamento.js";
 import { post } from "../api.js";
 import { CONFIG } from "../config.js";
-import { emblema, grafico2x2 } from "../emblemas.js";
+import { emblema, grafico2x2, TEMAS } from "../emblemas.js";
+import { revelarNoFundo } from "../fundo.js";
+import { mostrarPista } from "../pistas.js";
 import { evento, pixelCompra } from "../rastreio.js";
 import { abrirCheckout } from "./checkout.js";
 import qrcode from "../vendor/qrcode.js";
@@ -84,15 +86,49 @@ async function recuperarEmSegundoPlano(tela, entradas) {
   }
 }
 
-function cabecalhoArquetipo(g) {
-  return h(
+/**
+ * A carta do arquétipo. Com `animar`, ela aparece de costas e vira (só na primeira revelação
+ * desta sessão e sem "reduzir movimento"); nas outras aberturas já vem de frente.
+ */
+function cartaArquetipo(g, { animar = false } = {}) {
+  const n = g.arquetipo.numero;
+  revelarNoFundo(n, TEMAS[n] ?? TEMAS[7]);
+  const guia = (g.arquetipo.palavras_guia ?? []).map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(" · ");
+  const carta = h(
     "div",
-    { class: "revelacao" },
-    h("span", { class: "selo-inicial", "aria-hidden": "true" }, g.inicial),
-    svg(emblema(g.arquetipo.numero, 150, 2.2)),
-    h("span", { class: "chamada" }, `${g.primeiro_nome}, seu arquétipo é`),
-    h("h1", {}, g.arquetipo.nome),
-    g.arquetipo.palavras_guia ? h("span", { class: "guia" }, g.arquetipo.palavras_guia.map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(" · ")) : null,
+    { class: `carta-arquetipo${animar ? "" : " sem-virar"}`, role: "img", "aria-label": `Carta do arquétipo ${g.arquetipo.nome}, número ${n} de 9` },
+    h("div", { class: "face verso", "aria-hidden": "true" }),
+    h(
+      "div",
+      { class: "face frente", "aria-hidden": "true" },
+      h("div", { class: "topo-carta" }, h("span", {}, `Nº ${n} de 9`), h("span", { class: "selo-inicial" }, g.inicial)),
+      h("div", { class: "emblema-carta" }, svg(emblema(n, 132, 2))),
+      h("div", { class: "pilha-8" }, h("span", { class: "nome-carta" }, g.arquetipo.nome), guia ? h("span", { class: "guia-carta" }, guia) : null),
+      h("div", { class: "rodape-carta" }, h("span", {}, `Letra ${g.inicial}`), h("span", {}, `Jeito ${g.temperamento.nome}`)),
+    ),
+  );
+  if (animar) setTimeout(() => carta.classList.add("virar"), 700);
+
+  const compartilhar = h("button", { class: "botao botao-contorno nao-imprimir", type: "button" }, svg(ICONES.compartilhar), "Compartilhar minha carta");
+  compartilhar.addEventListener("click", async () => {
+    // Só o arquétipo e o endereço do site: nada pessoal no texto nem no link.
+    const texto = `Minha carta no Segredo do Nome é ${g.arquetipo.nome}. Descubra a sua:`;
+    try {
+      if (navigator.share) return await navigator.share({ title: "Segredo do Nome", text: texto, url: location.origin });
+      await navigator.clipboard.writeText(`${texto} ${location.origin}`);
+      mostrarPista("Texto copiado. É só colar onde quiser.");
+    } catch {
+      // compartilhamento cancelado
+    }
+  });
+
+  return h(
+    "section",
+    { class: "revelacao-cena", "aria-labelledby": "titulo-arquetipo" },
+    h("h1", { class: "chamada-revelacao", id: "titulo-arquetipo" }, `${g.primeiro_nome}, esta é a sua carta: `, h("strong", { class: "dourado" }, g.arquetipo.nome)),
+    // A entrada anima o invólucro; o giro fica só na carta (as duas animações não brigam pelo transform).
+    h("div", { class: animar ? "carta-entrando" : "" }, carta),
+    h("div", { class: "acoes-carta" }, compartilhar),
   );
 }
 
@@ -100,7 +136,7 @@ function partesGratis(g) {
   return [
     h(
       "div",
-      { class: "card jeito" },
+      { class: "carta carta-suave jeito" },
       svg(grafico2x2(g.temperamento.placar)),
       h("div", { class: "pilha-8" }, h("span", { class: "rotulo" }, "Seu jeito"), h("span", { class: "nome-jeito" }, g.temperamento.nome), h("span", { class: "pequeno texto-2" }, g.temperamento.frase_resposta)),
     ),
@@ -137,22 +173,29 @@ function gratis(tela, r, { ir, entradas }) {
     abrirCheckout({ entradas, gratis: g, aoAprovar: (resp) => aoAprovar(tela, resp) });
   };
 
+  const total = r.oferta ? r.oferta.secoes.length : 0;
+  const ctaTexto = `Revelar os ${total} capítulos — R$ 11,90`;
   const oferta = r.oferta
     ? h(
         "section",
         { class: "pilha", "aria-labelledby": "oferta-titulo" },
-        h("span", { class: "rotulo" }, "Resultado completo"),
-        h("h2", { class: "titulo", id: "oferta-titulo" }, `Quer ir mais fundo, ${g.primeiro_nome}?`),
-        h("p", { class: "apoio" }, `Mais ${r.oferta.secoes.length} partes escritas para a combinação do seu nome, da sua data e do seu jeito, além da frase do seu nome e do PDF.`),
+        h("span", { class: "rotulo" }, "Continue a sua descoberta"),
+        h("h2", { class: "titulo", id: "oferta-titulo" }, `Sua carta tem mais ${total} capítulos, ${g.primeiro_nome}`),
+        h("p", { class: "apoio" }, "Escritos para a combinação do seu nome, da sua data e do seu jeito, além da frase do seu nome e do PDF. A primeira frase de cada um já está à vista:"),
         h(
           "div",
-          { class: "fechadas" },
-          r.oferta.secoes.map((s) =>
+          { class: "capitulos" },
+          r.oferta.secoes.map((s, k) =>
             h(
               "div",
-              { class: "fechada" },
-              h("span", { class: "cadeado" }, svg(ICONES.cadeado)),
-              h("div", { class: "pilha-8" }, h("span", { class: "fechada-titulo" }, s.titulo), h("span", { class: "fechada-texto" }, `${s.primeira_frase} `, h("span", { class: "desfocado", "aria-hidden": "true" }, ENCHIMENTO))),
+              { class: "capitulo" },
+              h("span", { class: "num", "aria-hidden": "true" }, String(k + 1), svg(ICONES.cadeado)),
+              h(
+                "div",
+                { class: "pilha-8" },
+                h("span", { class: "capitulo-titulo" }, h("span", { class: "sr-only" }, `Capítulo ${k + 1}, trancado: `), s.titulo),
+                h("span", { class: "capitulo-texto" }, `${s.primeira_frase} `, h("span", { class: "desfocado", "aria-hidden": "true" }, ENCHIMENTO)),
+              ),
             ),
           ),
         ),
@@ -169,32 +212,49 @@ function gratis(tela, r, { ir, entradas }) {
             h("li", {}, "Não enviamos e-mail: guarde o seu link de acesso ou salve o PDF."),
             h("li", {}, "Conteúdo de entretenimento, sem valor científico ou de previsão."),
           ),
-          h("button", { class: `botao botao-principal${movimentoReduzido() ? "" : " tremer"}`, type: "button", onclick: comprar }, "Liberar resultado completo — R$ 11,90"),
+          h("button", { class: `botao botao-principal${movimentoReduzido() ? "" : " tremer"}`, type: "button", onclick: comprar }, ctaTexto),
           h("p", { class: "mini" }, `Vendido por ${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}.`),
         ),
       )
     : null;
 
-  const barra = h("div", { class: "barra-fixa nao-imprimir" }, h("button", { class: "botao botao-principal", type: "button", onclick: comprar }, "Liberar resultado completo — R$ 11,90"));
+  const barra = h("div", { class: "barra-fixa nao-imprimir" }, h("button", { class: "botao botao-principal", type: "button", onclick: comprar }, ctaTexto));
   document.querySelector(".barra-fixa")?.remove();
 
+  // A carta vira só na primeira revelação desta sessão (vinda do quiz).
+  const animar = Boolean(sessao.ler("revelar")) && !movimentoReduzido();
+  sessao.gravar("revelar", null);
   trocar(
     tela,
     aviso,
-    cabecalhoArquetipo(g),
-    partesGratis(g),
-    sentinela,
-    r.oferta
-      ? h(
-          "div",
-          { class: "card" },
-          h("span", { class: "rotulo" }, "Ainda tem muito sobre você aqui"),
-          h("div", { class: "contador-partes" }, h("i", { class: "aberta" }), r.oferta.secoes.map(() => h("i")), h("span", {}, `1 de ${r.oferta.secoes.length + 1} partes aberta`)),
-        )
-      : null,
-    oferta,
-    botaoApagar(),
+    cartaArquetipo(g, { animar }),
+    h(
+      "div",
+      { class: `depois-da-carta${animar ? " chegando" : ""}` },
+      partesGratis(g),
+      sentinela,
+      r.oferta
+        ? h(
+            "div",
+            { class: "carta carta-suave" },
+            h("span", { class: "rotulo" }, "Capítulos da sua carta"),
+            h("div", { class: "contador-partes" }, h("i", { class: "aberta" }), r.oferta.secoes.map(() => h("i")), h("span", {}, `1 de ${total + 1} aberto`)),
+          )
+        : null,
+      oferta,
+      botaoApagar(),
+    ),
   );
+  if (oferta) {
+    // Conta "viu a oferta" quando a seção entra na tela (contador anônimo do painel).
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        evento("oferta_vista");
+        obs.disconnect();
+      }
+    }, { threshold: 0.25 });
+    obs.observe(oferta);
+  }
   if (r.oferta) {
     document.body.append(barra);
     // Barra fixa só depois que a pessoa passa do resultado grátis.
@@ -242,7 +302,7 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
   const blocoComprovante = comprovante
     ? h(
         "section",
-        { class: "card comprovante", "aria-labelledby": "comp-titulo" },
+        { class: "carta carta-suave comprovante", "aria-labelledby": "comp-titulo" },
         h("h2", { class: "rotulo", id: "comp-titulo" }, "Compra confirmada"),
         h(
           "dl",
@@ -269,10 +329,12 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
       )
     : null;
 
-  const secoes = r.completo.secoes.map((s) =>
+  evento("pago_entregue");
+  const secoes = r.completo.secoes.map((s, k) =>
     h(
       "section",
       { class: "secao-paga texto-longo" },
+      h("span", { class: "rotulo" }, `Capítulo ${k + 1}`),
       h("h2", {}, s.titulo),
       s.paragrafos.map((p) => h("p", {}, p)),
       (s.trimestres ?? []).map((t) => h("div", { class: "trimestre" }, h("b", {}, t.rotulo), h("p", {}, t.texto))),
@@ -290,7 +352,7 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
       h("span", {}, `Letra ${g.inicial} · Jeito ${g.temperamento.nome}`),
     ),
     blocoComprovante,
-    cabecalhoArquetipo(g),
+    cartaArquetipo(g),
     partesGratis(g),
     secoes,
     h(
@@ -303,7 +365,7 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
     ),
     h(
       "section",
-      { class: "card nao-imprimir", "aria-labelledby": "link-titulo" },
+      { class: "carta carta-suave nao-imprimir", "aria-labelledby": "link-titulo" },
       h("h2", { class: "rotulo", id: "link-titulo" }, "Seu link de acesso"),
       h("p", { class: "link-acesso" }, link),
       copiarLink,

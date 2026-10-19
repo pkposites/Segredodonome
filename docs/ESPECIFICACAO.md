@@ -204,6 +204,8 @@ Mesmo formato do painel do teste vocacional do Rob: quantas pessoas chegaram e a
 
 Guardados no D1 por dia, etapa e `utm_campaign`, sem nenhum identificador de pessoa nem de sessão. O Worker soma 1 a cada etapa percebida: `visita`, `quiz_inicio`, `quiz_metade`, `resultado_visto`, `comprar_toque`, `pix_gerado`, `pix_pago`, `pdf_salvo`, `casal_interesse`.
 
+Desde o redesign v2 (19/10/2026, migração `0003_contadores_variante.sql`): também `escolha_nome`, `quiz_passo_1` a `quiz_passo_9` (cada etapa concluída), `oferta_vista`, `pix_copiado` e `pago_entregue`, e uma coluna `variante` (nome curto da versão da experiência, ex.: `jogo-v2`) para comparar versões no painel. Continua sem pessoa e sem sessão, e nenhuma dessas etapas novas vira evento da Meta.
+
 ## 10. Economia unitária
 
 - Ticket MVP: R$ 11,90 (sem bump).

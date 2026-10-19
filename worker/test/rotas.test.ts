@@ -296,6 +296,29 @@ describe("POST /evento", () => {
   });
 });
 
+describe("contadores do redesign (variante e etapas do quiz)", () => {
+  it("etapas novas só contam no painel, sem evento para a Meta", async () => {
+    const a = ambiente();
+    for (const tipo of ["escolha_nome", "quiz_passo_1", "quiz_passo_9", "oferta_vista", "pago_entregue"]) {
+      expect((await a.chamar("/evento", { tipo, event_id: `evt-${tipo}-0001`, variante: "jogo-v2" })).status).toBe(204);
+    }
+    expect(a.banco.totalVariante("quiz_passo_9", "jogo-v2")).toBe(1);
+    expect(a.meta.eventos).toEqual([]);
+  });
+
+  it("variante inválida vira v1; a do checkout segue até o Pix pago", async () => {
+    const a = ambiente();
+    await a.chamar("/evento", { tipo: "visita", event_id: "evt-12345678", variante: "<script>" });
+    expect(a.banco.totalVariante("visita", "v1")).toBe(1);
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, email: EMAIL, idempotency_key: UUID, variante: "jogo-v2" });
+    expect(a.mp.criados[0]!.metadata.variante).toBe("jogo-v2");
+    a.mp.aprovar(c.corpo.pagamento_id);
+    await webhook(a, c.corpo.pagamento_id);
+    expect(a.banco.totalVariante("pix_gerado", "jogo-v2")).toBe(1);
+    expect(a.banco.totalVariante("pix_pago", "jogo-v2")).toBe(1);
+  });
+});
+
 describe("registro de acesso (Marco Civil)", () => {
   it("guarda só IP, data/hora, método, rota sem query string e status", async () => {
     const a = ambiente();
@@ -353,6 +376,18 @@ describe("/admin e /painel", () => {
     expect(p.lucro_cents).toBe(4760 - 48 - 286 - 2000);
     expect(p.custo_por_venda_cents).toBe(500);
     expect(p.dados_insuficientes).toBe(true);
+
+    expect(p.quiz_etapas).toHaveLength(9);
+
+    // Comparação de versões: duas variantes lado a lado
+    for (let i = 0; i < 10; i++) await a.banco.incrementar("2026-10-18", "quiz_inicio", "(sem)", "jogo-v2");
+    for (let i = 0; i < 6; i++) await a.banco.incrementar("2026-10-18", "quiz_passo_9", "(sem)", "jogo-v2");
+    const v = await a.chamar("/admin/variantes?de=2026-10-18&ate=2026-10-18", undefined, { method: "GET", headers: h });
+    const v2 = v.corpo.variantes.find((x: { variante: string }) => x.variante === "jogo-v2");
+    expect(v2).toMatchObject({ iniciaram: 10, concluiram_quiz: 6, taxa_conclusao: 0.6 });
+    expect(v.corpo.variantes.find((x: { variante: string }) => x.variante === "v1").iniciaram).toBe(40);
+    const soV2 = await a.chamar("/admin/painel?de=2026-10-18&ate=2026-10-18&variante=jogo-v2", undefined, { method: "GET", headers: h });
+    expect(soV2.corpo.funil[1].total).toBe(10);
 
     const html = await a.chamar("/painel", undefined, { method: "GET", headers: h });
     expect(html.status).toBe(200);

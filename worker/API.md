@@ -65,6 +65,7 @@ Busca no Mercado Pago pagamentos aprovados com `external_reference = sdn1-{chave
 ### `POST /evento`
 Entrada: `{ "tipo": "visita | quiz_inicio | quiz_metade | resultado_visto | comprar_toque | pix_copiado | pdf_salvo | casal_interesse", "utm_campaign": "...", "event_id": "uuid", "cookies_aceitos": true, "fbp": "...", "fbc": "..." }`
 Soma 1 no contador anônimo do dia e envia o evento Meta padrão correspondente (`PageView`, `ViewContent`, `AddToCart`, `AddPaymentInfo`, `AddToWishlist`) com o mesmo `event_id` do Pixel. Ignora robôs de pré-visualização.
+Redesign v2: tipos só de painel (sem evento Meta): `escolha_nome`, `quiz_passo_1`…`quiz_passo_9`, `oferta_vista`, `pago_entregue`. Campos opcionais: `variante` (ex.: `jogo-v2`; inválida vira `v1`) e `sessao_id` (UUID aleatório da sessão, só com cookies aceitos, vira `external_id` em SHA-256). `/checkout` também aceita `variante`, que vai no `metadata` do pagamento para o `pix_pago` do webhook.
 
 ## Admin (`/admin/*`)
 Protegidos pelo **Cloudflare Access**: o Worker valida o cabeçalho `Cf-Access-Jwt-Assertion` e o e-mail em `ADMIN_EMAILS`.
@@ -75,6 +76,7 @@ Protegidos pelo **Cloudflare Access**: o Worker valida o cabeçalho `Cf-Access-J
 | `GET /admin/vendas-mp?de=&ate=` | Total de vendas aprovadas lido da API do Mercado Pago, para conferência |
 | `GET/PUT /admin/gasto` | Gasto digitado por dia (total ou por campanha) |
 | `GET/PUT /admin/config` | Taxa do Pix e imposto estimado |
+| `GET /admin/variantes?de=&ate=` | Comparação das versões da experiência: iniciaram, conclusão do quiz, oferta vista, compra (redesign v2) |
 
 ## Agendados (Cron Triggers)
 - Diário 03:00 (America/Sao_Paulo): apagar registros de acesso com mais de 6 meses e `pagamentos_contados` com mais de 7 dias.

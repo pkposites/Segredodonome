@@ -1,8 +1,11 @@
 // Acesso ao D1. Só as tabelas de worker/migrations/: nenhum dado de cliente.
 
 export const ETAPAS = [
-  "visita", "quiz_inicio", "quiz_metade", "resultado_visto", "comprar_toque",
-  "pix_gerado", "pix_copiado", "pix_pago", "pdf_salvo", "casal_interesse",
+  "visita", "escolha_nome", "quiz_inicio", "quiz_metade",
+  "quiz_passo_1", "quiz_passo_2", "quiz_passo_3", "quiz_passo_4", "quiz_passo_5",
+  "quiz_passo_6", "quiz_passo_7", "quiz_passo_8", "quiz_passo_9",
+  "resultado_visto", "oferta_vista", "comprar_toque",
+  "pix_gerado", "pix_copiado", "pix_pago", "pago_entregue", "pdf_salvo", "casal_interesse",
 ] as const;
 export type Etapa = (typeof ETAPAS)[number];
 
@@ -16,10 +19,12 @@ export const CONFIG_PADRAO: Config = { taxa_pix_pct: 0, imposto_pct: 0 };
 export interface Banco {
   registrarAcesso(ip: string, metodo: string, rota: string, status: number, quando: Date): Promise<void>;
   contarAcessos(ip: string, rota: string, desde: Date): Promise<number>;
-  incrementar(dia: string, etapa: Etapa, utmCampaign: string): Promise<void>;
+  incrementar(dia: string, etapa: Etapa, utmCampaign: string, variante?: string): Promise<void>;
   /** true se o pagamento ainda não tinha sido contado. */
   marcarPagamentoContado(pagamentoId: string, quando: Date): Promise<boolean>;
-  contadores(de: string, ate: string, utmCampaign?: string): Promise<Record<Etapa, number>>;
+  contadores(de: string, ate: string, utmCampaign?: string, variante?: string): Promise<Record<Etapa, number>>;
+  /** Totais por variante da experiência, para comparar versões no painel. */
+  porVariante(de: string, ate: string): Promise<Record<string, Record<Etapa, number>>>;
   gastos(de: string, ate: string): Promise<{ dia: string; campanha: string; gasto_cents: number }[]>;
   salvarGasto(dia: string, campanha: string, gastoCents: number, quando: Date): Promise<void>;
   lerConfig(): Promise<Config>;
@@ -31,6 +36,15 @@ export interface Banco {
 export function diaSaoPaulo(d: Date): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(d);
 }
+
+export const VARIANTE_PADRAO = "v1";
+
+/** Nome curto da versão da experiência (ex.: "jogo-v2"); qualquer outra coisa vira "v1". */
+export function normalizarVariante(v: unknown): string {
+  return typeof v === "string" && /^[a-z0-9][a-z0-9.-]{0,31}$/.test(v) ? v : VARIANTE_PADRAO;
+}
+
+const zerado = () => Object.fromEntries(ETAPAS.map((e) => [e, 0])) as Record<Etapa, number>;
 
 export function normalizarCampanha(utm: unknown): string {
   if (typeof utm !== "string") return "(sem)";
@@ -57,13 +71,13 @@ export class BancoD1 implements Banco {
     return r?.n ?? 0;
   }
 
-  async incrementar(dia: string, etapa: Etapa, utmCampaign: string) {
+  async incrementar(dia: string, etapa: Etapa, utmCampaign: string, variante = VARIANTE_PADRAO) {
     await this.db
       .prepare(
-        `INSERT INTO contadores (dia, etapa, utm_campaign, total) VALUES (?, ?, ?, 1)
-         ON CONFLICT (dia, etapa, utm_campaign) DO UPDATE SET total = total + 1`,
+        `INSERT INTO contadores (dia, etapa, utm_campaign, variante, total) VALUES (?, ?, ?, ?, 1)
+         ON CONFLICT (dia, etapa, utm_campaign, variante) DO UPDATE SET total = total + 1`,
       )
-      .bind(dia, etapa, utmCampaign)
+      .bind(dia, etapa, utmCampaign, variante)
       .run();
   }
 
@@ -75,14 +89,24 @@ export class BancoD1 implements Banco {
     return (r.meta.changes ?? 0) > 0;
   }
 
-  async contadores(de: string, ate: string, utmCampaign?: string) {
-    const sql = utmCampaign
-      ? "SELECT etapa, SUM(total) AS n FROM contadores WHERE dia BETWEEN ? AND ? AND utm_campaign = ? GROUP BY etapa"
-      : "SELECT etapa, SUM(total) AS n FROM contadores WHERE dia BETWEEN ? AND ? GROUP BY etapa";
-    const stmt = utmCampaign ? this.db.prepare(sql).bind(de, ate, utmCampaign) : this.db.prepare(sql).bind(de, ate);
-    const { results } = await stmt.all<{ etapa: Etapa; n: number }>();
-    const saida = Object.fromEntries(ETAPAS.map((e) => [e, 0])) as Record<Etapa, number>;
+  async contadores(de: string, ate: string, utmCampaign?: string, variante?: string) {
+    let sql = "SELECT etapa, SUM(total) AS n FROM contadores WHERE dia BETWEEN ? AND ?";
+    const args: string[] = [de, ate];
+    if (utmCampaign) (sql += " AND utm_campaign = ?"), args.push(utmCampaign);
+    if (variante) (sql += " AND variante = ?"), args.push(variante);
+    const { results } = await this.db.prepare(`${sql} GROUP BY etapa`).bind(...args).all<{ etapa: Etapa; n: number }>();
+    const saida = zerado();
     for (const r of results) saida[r.etapa] = r.n;
+    return saida;
+  }
+
+  async porVariante(de: string, ate: string) {
+    const { results } = await this.db
+      .prepare("SELECT variante, etapa, SUM(total) AS n FROM contadores WHERE dia BETWEEN ? AND ? GROUP BY variante, etapa")
+      .bind(de, ate)
+      .all<{ variante: string; etapa: Etapa; n: number }>();
+    const saida: Record<string, Record<Etapa, number>> = {};
+    for (const r of results) (saida[r.variante] ??= zerado())[r.etapa] = r.n;
     return saida;
   }
 

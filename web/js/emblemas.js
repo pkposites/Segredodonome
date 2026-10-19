@@ -30,5 +30,31 @@ export function grafico2x2(placar) {
     <rect x="${qx}" y="${qy}" width="52" height="52" fill="var(--nome-fundo)"/>
     <path d="M60 8V112M8 60H112" stroke="var(--borda)"/>
     <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7" fill="var(--nome)"/>
+    <g font-family="Figtree, sans-serif" font-size="8" fill="var(--apoio)" aria-hidden="true">
+      <text x="10" y="17">ação</text><text x="110" y="17" text-anchor="end">reflexão</text>
+      <text x="10" y="56">emoção</text><text x="10" y="108">razão</text>
+    </g>
   </svg>`;
 }
+
+/** Cor de cada arquétipo na carta (só brilho e símbolo; o texto usa as cores normais). */
+export const TEMAS = {
+  1: "#ff7a59", 2: "#7fd4c8", 3: "#ffb547", 4: "#d9b38c", 5: "#9fd0f2",
+  6: "#f5a3bd", 7: "#f2c879", 8: "#b9a2ff", 9: "#ffa585",
+};
+
+/** Ilustração da carta "Segredo do nome": fechadura com letras e brilhos. */
+export const ARTE_NOME = `<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M60 18c-15 0-26 11-26 26 0 9 4 16 11 21l-5 33h40l-5-33c7-5 11-12 11-21 0-15-11-26-26-26z" stroke-width="2.5"/>
+  <circle cx="60" cy="44" r="8" stroke-width="2.5"/><path d="M60 52v14" stroke-width="2.5"/>
+  <path d="M22 30l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="currentColor" stroke="none" opacity=".8"/>
+  <path d="M98 64l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z" fill="currentColor" stroke="none" opacity=".7"/>
+  <text x="20" y="96" font-family="Georgia, serif" font-size="14" fill="currentColor" stroke="none" opacity=".55">A</text>
+  <text x="92" y="38" font-family="Georgia, serif" font-size="12" fill="currentColor" stroke="none" opacity=".45">N</text>
+  <text x="96" y="104" font-family="Georgia, serif" font-size="16" fill="currentColor" stroke="none" opacity=".5">S</text>
+</svg>`;
+
+export const ARTE_CASAL = `<svg viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+  <rect x="30" y="34" width="26" height="22" rx="4"/><path d="M35 34v-6a8 8 0 0 1 16 0v6"/>
+  <path d="M74 30c4-6 14-4 14 4 0 8-14 16-14 16s-14-8-14-16c0-8 10-10 14-4z" opacity=".7"/>
+</svg>`;

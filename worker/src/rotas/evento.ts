@@ -1,5 +1,5 @@
 // POST /evento: contador anônimo do funil + evento padrão da Meta com o mesmo event_id do Pixel.
-import { diaSaoPaulo, normalizarCampanha, type Etapa } from "../banco";
+import { diaSaoPaulo, normalizarCampanha, normalizarVariante, type Etapa } from "../banco";
 import { ErroHttp, json, lerJson } from "../http";
 import { customDataProduto, ehRoboDePreVisualizacao, type NomeEventoMeta } from "../meta";
 import { dadosUsuario, type Servicos } from "../servicos";
@@ -14,6 +14,13 @@ const MAPA: Record<string, { etapa: Etapa; meta?: NomeEventoMeta; caminho: strin
   comprar_toque: { etapa: "comprar_toque", meta: "AddToCart", caminho: "/r" },
   pix_copiado: { etapa: "pix_copiado", meta: "AddPaymentInfo", caminho: "/r" },
   pdf_salvo: { etapa: "pdf_salvo", caminho: "/r" },
+  // Etapas só do painel (nenhum evento novo para a Meta):
+  escolha_nome: { etapa: "escolha_nome", caminho: "/" },
+  oferta_vista: { etapa: "oferta_vista", caminho: "/r" },
+  pago_entregue: { etapa: "pago_entregue", caminho: "/r" },
+  ...Object.fromEntries(
+    [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => [`quiz_passo_${n}`, { etapa: `quiz_passo_${n}` as Etapa, caminho: "/quiz" }]),
+  ),
   casal_interesse: { etapa: "casal_interesse", meta: "AddToWishlist", caminho: "/" },
 };
 
@@ -26,7 +33,7 @@ export async function postEvento(req: Request, s: Servicos): Promise<Response> {
   if (!eventId) throw new ErroHttp(400, "event_id_invalido", "Evento sem identificador.");
 
   const agora = s.agora();
-  await s.banco.incrementar(diaSaoPaulo(agora), def.etapa, normalizarCampanha(corpo.utm_campaign));
+  await s.banco.incrementar(diaSaoPaulo(agora), def.etapa, normalizarCampanha(corpo.utm_campaign), normalizarVariante(corpo.variante));
   if (def.meta) {
     s.depois(
       s.meta.enviar({

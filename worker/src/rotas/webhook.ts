@@ -1,6 +1,6 @@
 // POST /webhook/mercadopago (ARQUITETURA.md, 3.3). Não grava dado de cliente: só o ID do
 // pagamento em pagamentos_contados, para o painel não contar a mesma venda duas vezes.
-import { diaSaoPaulo, normalizarCampanha } from "../banco";
+import { diaSaoPaulo, normalizarCampanha, normalizarVariante } from "../banco";
 import { centavos, PRODUTO_NOME } from "../catalogo";
 import { json } from "../http";
 import { assinaturaWebhookValida } from "../mercadopago";
@@ -41,7 +41,12 @@ export async function postWebhook(req: Request, s: Servicos): Promise<Response> 
   const aprovado = new Date(p.aprovado_em ?? p.criado_em);
   const agora = s.agora();
   if (await s.banco.marcarPagamentoContado(p.id, agora)) {
-    await s.banco.incrementar(diaSaoPaulo(aprovado), "pix_pago", normalizarCampanha(p.metadata.utm_campaign));
+    await s.banco.incrementar(
+      diaSaoPaulo(aprovado),
+      "pix_pago",
+      normalizarCampanha(p.metadata.utm_campaign),
+      normalizarVariante(p.metadata.variante),
+    );
   }
   // Reenvio do webhook gera o mesmo event_id; a Meta deduplica.
   s.depois(

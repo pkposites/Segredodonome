@@ -3,6 +3,16 @@
 Referência visual aprovada: `web/referencia-visual/` (8 telas em 390 × 844, abrir no navegador). São protótipos estáticos com estilo inline: servem de **guia de aparência e ordem dos elementos**, não de código a copiar. Em conflito com este arquivo, este arquivo vence; em conflito com `docs/ESPECIFICACAO.md`, a especificação vence.
 
 ## Direção visual
+
+> **Atualizado em 19/10/2026 (redesign v2, pedido do Rob): "misticismo lúdico".** Substitui a regra anterior que proibia roxo, brilho, estrelas e dourado. Detalhes, motivos e o que foi testado em `docs/REDESIGN_V2.md`. Vale agora:
+> - Fundo preto-ameixa com névoas violeta e coral, poucas estrelas e letras translúcidas subindo devagar, sempre atrás do conteúdo e desligáveis (botão "Efeitos" e "reduzir movimento").
+> - Destaques coral/laranja, dourado suave e pêssego; cartas com borda em gradiente.
+> - Quiz como jogo: cartas grandes com ícone por eixo (raio, alvo, lua, lupa), avanço automático, trilha de pistas.
+> - Revelação: carta do arquétipo que vira. Oferta como "capítulos" da carta.
+> - Continuam proibidos: zodíaco, olhos, cristais, cara de cassino, emojis no lugar de ícones, escassez ou prova social falsa.
+> - Os tokens abaixo são da v1; os vigentes estão no topo de `web/css/app.css`.
+
+Regra anterior (v1, mantida para histórico):
 - Cara de app profissional, escura, limpa. Nada de "cara de IA": sem gradiente roxo, sem brilho, sem emojis decorativos, sem estrelas, cristais, olhos, zodíaco ou dourado.
 - Elementos gráficos que contextualizam: as letras do nome em blocos, o emblema do arquétipo (ex.: farol em SVG para O Farol), gráfico 2×2 do temperamento, mostrador de processamento.
 - Uma cor de destaque por trilha. A tela neutra (landing) usa o destaque da trilha Nome de forma discreta.

@@ -1,6 +1,6 @@
 // POST /checkout, POST /pagamento/status e POST /recuperar (worker/API.md).
 import { z } from "zod";
-import { diaSaoPaulo, normalizarCampanha } from "../banco";
+import { diaSaoPaulo, normalizarCampanha, normalizarVariante } from "../banco";
 import { DESCRICAO_PIX } from "../catalogo";
 import { erroGenerico404, ErroHttp, json, lerJson } from "../http";
 import { centavos, PRODUTO_NOME } from "../catalogo";
@@ -32,6 +32,7 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
   const eventId = crypto.randomUUID();
   const usuario = await dadosUsuario(req, corpo);
   const utm = normalizarCampanha(corpo.utm_campaign);
+  const variante = normalizarVariante(corpo.variante);
   const validadeMin = Number(s.env.PIX_VALIDADE_MINUTOS ?? "30");
 
   let pagamento;
@@ -41,7 +42,7 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
       externalReference: referencia,
       descricao: DESCRICAO_PIX,
       metadata: Object.fromEntries(
-        Object.entries({ fbp: usuario.fbp, fbc: usuario.fbc, event_id: eventId, utm_campaign: utm }).filter(
+        Object.entries({ fbp: usuario.fbp, fbc: usuario.fbc, event_id: eventId, utm_campaign: utm, variante }).filter(
           ([, v]) => typeof v === "string",
         ),
       ) as Record<string, string>,
@@ -54,7 +55,7 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
   }
 
   const agora = s.agora();
-  s.depois(s.banco.incrementar(diaSaoPaulo(agora), "pix_gerado", utm));
+  s.depois(s.banco.incrementar(diaSaoPaulo(agora), "pix_gerado", utm, variante));
   s.depois(
     s.meta.enviar({
       event_name: "InitiateCheckout",

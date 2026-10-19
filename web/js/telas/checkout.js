@@ -59,7 +59,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
       botao.disabled = true;
       botao.textContent = "Gerando…";
       try {
-        const r = await post("/checkout", { entradas, email, idempotency_key: chave, utm_campaign: utmCampaign(), ...identificadores() });
+        const r = await post("/checkout", { entradas, email, idempotency_key: chave, utm_campaign: utmCampaign(), variante: CONFIG.VARIANTE, ...identificadores() });
         pixelCheckout(r.event_id_checkout);
         const pix = { pagamento_id: r.pagamento_id, copia_e_cola: r.copia_e_cola, qr_code_base64: r.qr_code_base64, expira_em: r.expira_em };
         local.gravar("pix", pix); // sem e-mail

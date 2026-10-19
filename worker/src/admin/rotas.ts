@@ -1,6 +1,6 @@
 // /admin/* (worker/API.md). Só depois de autorizarAdmin.
 import { z } from "zod";
-import { ETAPAS, normalizarCampanha, type Banco, type Config, type Etapa } from "../banco";
+import { ETAPAS, normalizarCampanha, normalizarVariante, type Banco, type Config, type Etapa } from "../banco";
 import { centavos, PRODUTO_NOME } from "../catalogo";
 import { ErroHttp, json, lerJson } from "../http";
 import { PREFIXO_REFERENCIA } from "../motor/semente";
@@ -27,7 +27,9 @@ function periodo(url: URL) {
 }
 
 export interface Painel {
-  periodo: { de: string; ate: string; utm_campaign: string | null };
+  periodo: { de: string; ate: string; utm_campaign: string | null; variante: string | null };
+  /** Etapas concluídas do quiz (1–9), para ver onde as pessoas desistem. */
+  quiz_etapas: { passo: number; total: number; pct_inicio: number | null }[];
   funil: { etapa: Etapa; rotulo: string; total: number; pct_anterior: number | null; pct_visitas: number | null; custo_cents: number | null }[];
   extras: Record<Etapa, number>;
   gasto_cents: number;
@@ -43,8 +45,12 @@ export interface Painel {
   config: Config;
 }
 
-export async function calcularPainel(banco: Banco, de: string, ate: string, utm: string | null): Promise<Painel> {
-  const [cont, gastos, config] = await Promise.all([banco.contadores(de, ate, utm ?? undefined), banco.gastos(de, ate), banco.lerConfig()]);
+export async function calcularPainel(banco: Banco, de: string, ate: string, utm: string | null, variante: string | null = null): Promise<Painel> {
+  const [cont, gastos, config] = await Promise.all([
+    banco.contadores(de, ate, utm ?? undefined, variante ?? undefined),
+    banco.gastos(de, ate),
+    banco.lerConfig(),
+  ]);
   // Com filtro de campanha, usa o gasto daquela campanha; sem filtro, soma tudo.
   const gasto = gastos.filter((g) => !utm || g.campanha === utm).reduce((s, g) => s + g.gasto_cents, 0);
   const visitas = cont.visita;
@@ -65,7 +71,11 @@ export async function calcularPainel(banco: Banco, de: string, ate: string, utm:
   const imposto = Math.round((bruta * config.imposto_pct) / 100);
   const liquida = bruta - taxa - imposto;
   return {
-    periodo: { de, ate, utm_campaign: utm },
+    periodo: { de, ate, utm_campaign: utm, variante },
+    quiz_etapas: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => {
+      const total = cont[`quiz_passo_${n}` as Etapa];
+      return { passo: n, total, pct_inicio: cont.quiz_inicio ? total / cont.quiz_inicio : null };
+    }),
     funil,
     extras: cont,
     gasto_cents: gasto,
@@ -82,6 +92,28 @@ export async function calcularPainel(banco: Banco, de: string, ate: string, utm:
   };
 }
 
+const taxa = (a: number, b: number) => (b ? a / b : null);
+
+/** Comparação de versões da experiência: conclusão do quiz, oferta vista e conversão. */
+export function compararVariantes(dados: Record<string, Record<Etapa, number>>) {
+  return Object.entries(dados)
+    .map(([variante, c]) => ({
+      variante,
+      visitas: c.visita,
+      iniciaram: c.quiz_inicio,
+      concluiram_quiz: c.quiz_passo_9,
+      viram_resultado: c.resultado_visto,
+      viram_oferta: c.oferta_vista,
+      geraram_pix: c.pix_gerado,
+      pagaram: c.pix_pago,
+      taxa_conclusao: taxa(c.quiz_passo_9, c.quiz_inicio),
+      taxa_oferta: taxa(c.oferta_vista, c.resultado_visto),
+      taxa_compra: taxa(c.pix_pago, c.resultado_visto),
+      dados_insuficientes: c.pix_pago < MINIMO_VENDAS_CONFIAVEL,
+    }))
+    .sort((a, b) => a.variante.localeCompare(b.variante));
+}
+
 const esquemaGasto = z.object({ dia, campanha: z.string().optional(), gasto_cents: z.number().int().min(0).max(100_000_000) });
 const esquemaConfig = z.object({ taxa_pix_pct: z.number().min(0).max(100), imposto_pct: z.number().min(0).max(100) });
 
@@ -90,7 +122,12 @@ export async function rotaAdmin(req: Request, s: Servicos, caminho: string): Pro
   if (caminho === "/admin/painel" && req.method === "GET") {
     const { de, ate } = periodo(url);
     const utm = url.searchParams.get("utm_campaign");
-    return json(await calcularPainel(s.banco, de, ate, utm ? normalizarCampanha(utm) : null));
+    const variante = url.searchParams.get("variante");
+    return json(await calcularPainel(s.banco, de, ate, utm ? normalizarCampanha(utm) : null, variante ? normalizarVariante(variante) : null));
+  }
+  if (caminho === "/admin/variantes" && req.method === "GET") {
+    const { de, ate } = periodo(url);
+    return json({ variantes: compararVariantes(await s.banco.porVariante(de, ate)) });
   }
   if (caminho === "/admin/vendas-mp" && req.method === "GET") {
     const { de, ate } = periodo(url);

@@ -20,8 +20,8 @@ export class BancoMemoria implements Banco {
   async contarAcessos(ip: string, rota: string, desde: Date) {
     return this.acessos.filter((a) => a.ip === ip && a.rota === rota && a.quando >= desde.toISOString()).length;
   }
-  async incrementar(dia: string, etapa: Etapa, utm: string) {
-    const k = `${dia}|${etapa}|${utm}`;
+  async incrementar(dia: string, etapa: Etapa, utm: string, variante = "v1") {
+    const k = `${dia}|${etapa}|${utm}|${variante}`;
     this.cont.set(k, (this.cont.get(k) ?? 0) + 1);
   }
   async marcarPagamentoContado(id: string) {
@@ -29,13 +29,27 @@ export class BancoMemoria implements Banco {
     this.contados.add(id);
     return true;
   }
-  async contadores(de: string, ate: string, utm?: string) {
+  async contadores(de: string, ate: string, utm?: string, variante?: string) {
     const out = Object.fromEntries(ETAPAS.map((e) => [e, 0])) as Record<Etapa, number>;
     for (const [k, n] of this.cont) {
-      const [dia, etapa, u] = k.split("|") as [string, Etapa, string];
-      if (dia >= de && dia <= ate && (!utm || u === utm)) out[etapa] += n;
+      const [dia, etapa, u, v] = k.split("|") as [string, Etapa, string, string];
+      if (dia >= de && dia <= ate && (!utm || u === utm) && (!variante || v === variante)) out[etapa] += n;
     }
     return out;
+  }
+  async porVariante(de: string, ate: string) {
+    const out: Record<string, Record<Etapa, number>> = {};
+    for (const [k, n] of this.cont) {
+      const [dia, etapa, , v] = k.split("|") as [string, Etapa, string, string];
+      if (dia < de || dia > ate) continue;
+      (out[v] ??= Object.fromEntries(ETAPAS.map((e) => [e, 0])) as Record<Etapa, number>)[etapa] += n;
+    }
+    return out;
+  }
+  totalVariante(etapa: Etapa, variante: string) {
+    let n = 0;
+    for (const [k, v] of this.cont) if (k.split("|")[1] === etapa && k.split("|")[3] === variante) n += v;
+    return n;
   }
   async gastos(de: string, ate: string) {
     return [...this.gastosSalvos]

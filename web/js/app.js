@@ -4,6 +4,7 @@ import { CONFIG } from "./config.js";
 import { h, trocar } from "./dom.js";
 import { MODO_DEMO } from "./api.js";
 import { capturarChegada, carregarPixel, definirCookies, escolhaCookies, evento } from "./rastreio.js";
+import { montarFundo, botaoEfeitos, limparRevelacao } from "./fundo.js";
 import { telaInicio } from "./telas/inicio.js";
 import { telaQuiz } from "./telas/quiz.js";
 import { telaResultado } from "./telas/resultado.js";
@@ -23,6 +24,7 @@ function renderizar() {
   const tela = document.getElementById("tela");
   if (PAGEVIEW[caminho]) evento(PAGEVIEW[caminho]);
   document.getElementById("topo").hidden = caminho.startsWith("/quiz");
+  if (caminho !== "/r") limparRevelacao();
   if (caminho === "/quiz" || caminho === "/quiz/parte-2") telaQuiz(tela, { ir, parte2: caminho === "/quiz/parte-2" });
   else if (caminho === "/r") telaResultado(tela, { ir });
   else telaInicio(tela, { ir });
@@ -90,6 +92,8 @@ if (MODO_DEMO) {
   );
 }
 
+montarFundo();
+document.getElementById("topo-acoes").prepend(botaoEfeitos());
 capturarChegada();
 carregarPixel();
 rodape();
