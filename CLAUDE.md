@@ -76,4 +76,4 @@ Front (`web/`, sem build):
 - Depois de mudar `legal/` ou `content/nome/comum.json`: `node web/scripts/gerar.mjs`
 - Deploy: Netlify publica `web/` (ver `netlify.toml`)
 
-Estado e decisões pendentes: `docs/FASE_0_AUDITORIA.md`.
+Estado e decisões pendentes: `docs/FASE_0_AUDITORIA.md`. Publicar o Worker: `docs/PUBLICAR_WORKER.md`.

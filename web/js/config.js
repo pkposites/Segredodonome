@@ -1,15 +1,17 @@
 // Configuração pública do front (nada aqui é segredo). Preencher antes de publicar.
 export const CONFIG = {
   // URL do Worker. Em desenvolvimento: http://localhost:8799 (npx wrangler dev --env dev --port 8799)
-  API_BASE_URL: location.hostname === "localhost" || location.hostname === "127.0.0.1" ? "http://localhost:8799" : "https://api.PREENCHER_DOMINIO",
+  API_BASE_URL: location.hostname === "localhost" || location.hostname === "127.0.0.1" ? "http://localhost:8799" : "https://segredo-api.relatoriorda.com.br",
   // Vazio = Pixel desligado.
-  META_PIXEL_ID: "",
+  META_PIXEL_ID: "2132885950950048",
+  // O Pixel só carrega no domínio oficial: prévia, demonstração e testes locais não enviam nada à Meta.
+  PIXEL_DOMINIOS: ["segredo.relatoriorda.com.br"],
   // Mesmo valor da variável PIXEL_EXIGE_CONSENTIMENTO do Worker: o Pixel só carrega com aceite.
   PIXEL_EXIGE_CONSENTIMENTO: true,
   VENDEDOR: {
     razao_social: "QVN ADS",
-    cnpj: "[CNPJ]",
-    endereco: "[ENDEREÇO]",
+    cnpj: "31.535.502/0001-40",
+    endereco: "Rua Galeno de Castro, São Paulo/SP",
     email: "qvnads@gmail.com",
     whatsapp: "(11) 99191-2707",
   },

@@ -5,7 +5,7 @@ Versão 2026-10-c · Vigente desde 19/10/2026
 Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
 
 ## 1. Controlador e encarregado
-- **Controlador:** QVN ADS, CNPJ [CNPJ], [ENDEREÇO].
+- **Controlador:** QVN ADS, CNPJ 31.535.502/0001-40, Rua Galeno de Castro, São Paulo/SP.
 - **Encarregado (contato de privacidade):** qvnads@gmail.com.
 
 ## 2. Resumo
@@ -64,4 +64,4 @@ O serviço é para maiores de 18 anos. Não processamos o quiz quando a data de 
 Esta política pode ser atualizada. A versão vigente fica nesta página, com a data.
 
 ## 11. Contato
-qvnads@gmail.com · (11) 99191-2707 · [ENDEREÇO]
+qvnads@gmail.com · (11) 99191-2707 · Rua Galeno de Castro, São Paulo/SP

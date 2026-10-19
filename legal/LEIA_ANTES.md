@@ -32,3 +32,7 @@ Cada texto tem uma versão (ex.: `2026-10-b`). A versão aceita fica registrada 
 Preenchidos a pedido do Rob: razão social = **QVN ADS** (nome fantasia da empresa, até chegar o nome empresarial do cartão do CNPJ), nome fantasia do produto = Segredo do Nome, e-mail de contato e do encarregado = qvnads@gmail.com, WhatsApp = (11) 99191-2707, vigência = 19/10/2026 (atualizar para a data de publicação).
 **Faltam:** `[CNPJ]`, `[ENDEREÇO]` e `[DOMÍNIO]`. O Decreto 7.962/2013 pede o **nome empresarial** e o CNPJ: quando o CNPJ chegar, trocar "QVN ADS" pela razão social exatamente como está no cartão do CNPJ.
 Privacidade passou para a versão 2026-10-c: "verificação em duas etapas" trocado pela descrição do login real do painel (código por e-mail), por decisão do Rob.
+
+## Preenchimento (19/10/2026, segunda parte)
+CNPJ 31.535.502/0001-40; endereço "Rua Galeno de Castro, São Paulo/SP"; domínio segredo.relatoriorda.com.br.
+**Ainda falta:** o **número** (e o CEP) do endereço, que o Decreto 7.962/2013 exige como endereço físico completo, e a razão social exatamente como no cartão do CNPJ (hoje está "QVN ADS").

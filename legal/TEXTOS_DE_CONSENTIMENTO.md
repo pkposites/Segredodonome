@@ -22,7 +22,7 @@ Cada texto tem um identificador e uma versão; a escolha da pessoa fica registra
 > Você pode desistir em até 7 dias e receber o valor de volta. [Política de reembolso](/reembolso)
 > Não enviamos e-mail: guarde o seu link de acesso ou salve o PDF.
 > Conteúdo de entretenimento, sem valor científico ou de previsão.
-> Vendido por QVN ADS, CNPJ [CNPJ].
+> Vendido por QVN ADS, CNPJ 31.535.502/0001-40.
 
 ## 4. Checkout — e-mail para o Mercado Pago
 > **E-mail para o Pix**
@@ -43,11 +43,11 @@ Cada texto tem um identificador e uma versão; a escolha da pessoa fica registra
 
 ## 7. Comprovante na tela (após o pagamento)
 > **Compra confirmada** · Pagamento nº [NÚMERO] · [DATA E HORA] · R$ 11,90 via Pix
-> Vendido por QVN ADS, CNPJ [CNPJ] · Pagamento processado pelo Mercado Pago
+> Vendido por QVN ADS, CNPJ 31.535.502/0001-40 · Pagamento processado pelo Mercado Pago
 > [Salvar comprovante] · Desistência em até 7 dias: [contato]
 
 ## 8. Rodapé do site (obrigatório)
-> QVN ADS · CNPJ [CNPJ] · [ENDEREÇO] · qvnads@gmail.com · WhatsApp (11) 99191-2707
+> QVN ADS · CNPJ 31.535.502/0001-40 · Rua Galeno de Castro, São Paulo/SP · qvnads@gmail.com · WhatsApp (11) 99191-2707
 > [Termos de Uso](/termos) · [Privacidade](/privacidade) · [Reembolso](/reembolso) · Preferências de cookies
 > Conteúdo de entretenimento.
 

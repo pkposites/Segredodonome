@@ -13,7 +13,7 @@ const REESCRITAS = { "/": "/index.html", "/quiz": "/index.html", "/r": "/index.h
 // Mesma CSP do _headers, com a API local no lugar do domínio do Worker.
 const CSP = (await readFile(join(RAIZ, "_headers"), "utf8"))
   .match(/Content-Security-Policy: (.*)/)[1]
-  .replace("https://api.PREENCHER_DOMINIO", "http://localhost:8799");
+  .replace("https://segredo-api.relatoriorda.com.br", "http://localhost:8799");
 const BLOQUEADOS = /^\/(referencia-visual|scripts|painel)\/|^\/TELAS\.md$/;
 
 createServer(async (req, res) => {

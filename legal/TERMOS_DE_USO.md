@@ -3,7 +3,7 @@
 Versão 2026-10-b · Vigente desde 19/10/2026
 
 ## 1. Quem somos
-O site [DOMÍNIO] ("Site") é operado por QVN ADS, CNPJ [CNPJ], com endereço em [ENDEREÇO], e-mail qvnads@gmail.com e WhatsApp (11) 99191-2707 ("nós").
+O site segredo.relatoriorda.com.br ("Site") é operado por QVN ADS, CNPJ 31.535.502/0001-40, com endereço em Rua Galeno de Castro, São Paulo/SP, e-mail qvnads@gmail.com e WhatsApp (11) 99191-2707 ("nós").
 
 Ao usar o Site, você concorda com estes Termos e com a nossa [Política de Privacidade](/privacidade).
 

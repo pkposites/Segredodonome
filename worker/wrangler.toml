@@ -30,7 +30,10 @@ crons = ["0 6 * * *"]
 # ---------- produção ----------
 [env.production]
 name = "segredo-do-nome"
-vars = { AMBIENTE = "production", PUBLIC_BASE_URL = "https://PREENCHER_DOMINIO", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v26.0" }
+vars = { AMBIENTE = "production", PUBLIC_BASE_URL = "https://segredo.relatoriorda.com.br", PIX_VALIDADE_MINUTOS = "30", META_GRAPH_VERSION = "v26.0", META_PIXEL_ID = "2132885950950048" }
+# O Worker responde no subdomínio próprio (o domínio relatoriorda.com.br precisa estar na mesma conta Cloudflare).
+# Um nível só de subdomínio: o certificado gratuito da Cloudflare não cobre api.segredo.relatoriorda.com.br.
+routes = [{ pattern = "segredo-api.relatoriorda.com.br", custom_domain = true }]
 
 [[env.production.d1_databases]]
 binding = "DB"

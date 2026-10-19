@@ -103,7 +103,7 @@ writeFileSync(
 <li><strong>E-mail:</strong> qvnads@gmail.com</li>
 <li><strong>WhatsApp:</strong> (11) 99191-2707</li>
 <li><strong>Privacidade (encarregado):</strong> qvnads@gmail.com</li>
-<li><strong>Empresa:</strong> QVN ADS · CNPJ [CNPJ] · [ENDEREÇO]</li>
+<li><strong>Empresa:</strong> QVN ADS · CNPJ 31.535.502/0001-40 · Rua Galeno de Castro, São Paulo/SP</li>
 </ul>
 <p>Para reembolso, informe o número do pagamento que aparece no comprovante na tela (ou no comprovante do Pix no seu banco). Respondemos em até 5 dias úteis.</p>`,
   ),
