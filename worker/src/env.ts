@@ -30,6 +30,10 @@ export interface Env {
 
   /** Origem do front, ex.: https://segredodonome.com.br (CORS e event_source_url). */
   PUBLIC_BASE_URL: string;
+  /** SÓ DESENVOLVIMENTO: aponta para o simulador local (scripts/mp-simulado.mjs). Ignorado em produção. */
+  MP_API_BASE?: string;
+  /** "production" desliga MP_API_BASE. */
+  AMBIENTE?: string;
   /** Validade do Pix em minutos. Padrão 30. */
   PIX_VALIDADE_MINUTOS?: string;
 }

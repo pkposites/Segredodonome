@@ -22,3 +22,7 @@ META_TEST_EVENT_CODE=
 ADMIN_EMAILS=
 CF_ACCESS_AUD=
 CF_ACCESS_TEAM_DOMAIN=https://EQUIPE.cloudflareaccess.com
+
+# SÓ DESENVOLVIMENTO, opcional: usar o simulador local (node scripts/mp-simulado.mjs)
+# em vez do Mercado Pago. Ignorado quando AMBIENTE=production.
+# MP_API_BASE=http://localhost:8790

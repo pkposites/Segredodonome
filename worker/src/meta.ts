@@ -75,7 +75,8 @@ export class MetaCapi implements Meta {
     private readonly token: string | undefined,
     private readonly versao: string,
     private readonly testEventCode: string | undefined,
-    private readonly fetcher: typeof fetch = fetch,
+    // fetch nunca pode ser chamado como método de outro objeto no Workers ("Illegal invocation").
+    private readonly fetcher: typeof fetch = (input, init) => fetch(input, init),
     private readonly esperar: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
   ) {}
 

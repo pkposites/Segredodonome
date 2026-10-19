@@ -3,7 +3,7 @@
 import { hmacSha256, iguaisTempoConstante, paraHex } from "./cripto/hmac";
 import { centavos, PRODUTO_NOME } from "./catalogo";
 
-const API = "https://api.mercadopago.com";
+export const API_MERCADO_PAGO = "https://api.mercadopago.com";
 
 export interface Pagamento {
   id: string;
@@ -74,11 +74,13 @@ export function formatarDataMP(d: Date): string {
 export class MercadoPagoApi implements MercadoPago {
   constructor(
     private readonly token: string,
-    private readonly fetcher: typeof fetch = fetch,
+    // fetch nunca pode ser chamado como método de outro objeto no Workers ("Illegal invocation").
+    private readonly fetcher: typeof fetch = (input, init) => fetch(input, init),
+    private readonly base: string = API_MERCADO_PAGO,
   ) {}
 
   private async chamar(caminho: string, init: RequestInit = {}): Promise<Bruto | null> {
-    const resp = await this.fetcher(`${API}${caminho}`, {
+    const resp = await this.fetcher(`${this.base}${caminho}`, {
       ...init,
       headers: { authorization: `Bearer ${this.token}`, "content-type": "application/json", ...(init.headers ?? {}) },
     });

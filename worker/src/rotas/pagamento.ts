@@ -16,7 +16,9 @@ const esquemaCheckout = z.object({
 
 export const LIMITE_RECUPERAR_POR_HORA = 10;
 
-function indisponivel(): never {
+function indisponivel(e?: unknown): never {
+  // Só a mensagem técnica (status HTTP ou falha de rede); nunca o corpo da requisição.
+  console.warn("Mercado Pago indisponível:", e instanceof Error ? e.message.slice(0, 120) : "erro");
   throw new ErroHttp(502, "pagamento_indisponivel", "O Mercado Pago não respondeu. Tente de novo em instantes.");
 }
 
@@ -47,8 +49,8 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
       expiraEm: new Date(s.agora().getTime() + validadeMin * 60_000),
       notificationUrl: new URL("/webhook/mercadopago", req.url).toString(),
     });
-  } catch {
-    indisponivel();
+  } catch (e) {
+    indisponivel(e);
   }
 
   const agora = s.agora();
@@ -85,8 +87,8 @@ export async function postStatus(req: Request, s: Servicos): Promise<Response> {
   let p;
   try {
     p = await s.mp.obter(id);
-  } catch {
-    indisponivel();
+  } catch (e) {
+    indisponivel(e);
   }
   const referencia = await referenciaDe(entradas, s);
   if (!p || p.external_reference !== referencia || centavos(p.valor) !== PRODUTO_NOME.precoCentavos) {
@@ -121,8 +123,8 @@ export async function postRecuperar(req: Request, s: Servicos): Promise<Response
   let lista;
   try {
     lista = await s.mp.buscarAprovadosPorReferencia(referencia, 365);
-  } catch {
-    indisponivel();
+  } catch (e) {
+    indisponivel(e);
   }
   const limite = s.agora().getTime() - 365 * 86400_000;
   const p = lista.find((x) => pagamentoLibera(x, referencia) && Date.parse(x.aprovado_em ?? x.criado_em) >= limite);

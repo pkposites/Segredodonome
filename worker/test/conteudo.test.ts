@@ -34,7 +34,7 @@ describe("montagem", () => {
 
   it("grátis de Camila Costa: O Farol, magnético, texto preenchido", async () => {
     const g = montarGratis(biblioteca()!, await calcularPerfil(camila, SEGREDO));
-    expect(g.arquetipo).toEqual({ numero: 7, nome: "O Farol" });
+    expect(g.arquetipo).toEqual({ numero: 7, nome: "O Farol", palavras_guia: ["silêncio", "análise", "verdade"] });
     expect(g.primeiro_nome).toBe("Camila");
     expect(g.inicial).toBe("C");
     expect(g.temperamento.id).toBe("magnetico");

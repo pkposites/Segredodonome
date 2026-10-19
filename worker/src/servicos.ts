@@ -1,7 +1,7 @@
 // Dependências de cada requisição, montadas a partir do Env. Os testes trocam por dublês.
 import type { Env } from "./env";
 import { BancoD1, type Banco } from "./banco";
-import { MercadoPagoApi, type MercadoPago } from "./mercadopago";
+import { API_MERCADO_PAGO, MercadoPagoApi, type MercadoPago } from "./mercadopago";
 import { MetaCapi, type DadosUsuario, type Meta } from "./meta";
 import type { ChavesPasse } from "./cripto/passe";
 import { sha256Hex } from "./cripto/hmac";
@@ -33,7 +33,11 @@ export function chavesDoEnv(env: Env): ChavesPasse {
 export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
   return {
     env,
-    mp: new MercadoPagoApi(env.MP_ACCESS_TOKEN),
+    mp: new MercadoPagoApi(
+      env.MP_ACCESS_TOKEN,
+      undefined,
+      env.AMBIENTE !== "production" && env.MP_API_BASE ? env.MP_API_BASE : API_MERCADO_PAGO,
+    ),
     meta: new MetaCapi(env.META_PIXEL_ID, env.META_CAPI_TOKEN, env.META_GRAPH_VERSION || GRAPH_PADRAO, env.META_TEST_EVENT_CODE),
     banco: new BancoD1(env.DB),
     chavesPasse: chavesDoEnv(env),

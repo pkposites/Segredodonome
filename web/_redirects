@@ -1,0 +1,13 @@
+# Netlify. Rotas da página única (cada uma é uma URL real para o PageView e os públicos).
+/quiz            /index.html   200
+/quiz/*          /index.html   200
+/r               /index.html   200
+/termos          /termos.html  200
+/privacidade     /privacidade.html  200
+/reembolso       /reembolso.html    200
+/contato         /contato.html      200
+# Material de trabalho que não deve ser publicado
+/referencia-visual/*  /index.html  404
+/scripts/*            /index.html  404
+/painel/*             /index.html  404
+/TELAS.md             /index.html  404

@@ -1,1 +1,180 @@
-<!doctype html><title>Painel</title>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel · Segredo do Nome</title>
+<!-- Servido pelo Worker em /painel, atrás do Cloudflare Access. Sem Pixel, sem fontes externas.
+     Depois de editar: cd worker && npm run gerar-painel -->
+<style>
+:root { --bg:#0D0D10; --sup:#17171B; --sup2:#1F1F24; --borda:#2B2B31; --texto:#F4F1EC; --texto2:#CFCAC2; --apoio:#A39F98; --nome:#FF7A45; --nomefundo:#2A1810; --ok:#9EE6B8; --erro:#FFB4A6; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--texto); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1040px; margin: 0 auto; padding: 20px 16px 60px; display: flex; flex-direction: column; gap: 20px; }
+h1 { font-size: 22px; margin: 0; } h2 { font-size: 13px; letter-spacing: .8px; text-transform: uppercase; color: var(--apoio); margin: 0 0 10px; }
+.cabeca { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+.mini { font-size: 12px; color: var(--apoio); }
+.caixa { background: var(--sup); border: 1px solid var(--borda); border-radius: 16px; padding: 16px; }
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
+.filtros label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--apoio); }
+input, select, button { font: inherit; color: var(--texto); background: var(--sup2); border: 1px solid var(--borda); border-radius: 10px; min-height: 40px; padding: 0 10px; }
+button { cursor: pointer; } button.principal { background: var(--nome); color: #1A0D06; border: 0; font-weight: 700; }
+button[aria-pressed="true"] { border-color: var(--nome); color: var(--nome); }
+:focus-visible { outline: 3px solid #FFB58F; outline-offset: 2px; }
+.cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.cartao { background: var(--sup); border: 1px solid var(--borda); border-radius: 14px; padding: 12px 14px; }
+.cartao span { display: block; font-size: 12px; color: var(--apoio); } .cartao strong { font-size: 22px; }
+.negativo { color: var(--erro); } .positivo { color: var(--ok); }
+.funil { display: flex; flex-direction: column; gap: 10px; }
+.etapa { display: grid; grid-template-columns: 170px 1fr; gap: 10px; align-items: center; }
+.barra { position: relative; height: 34px; background: var(--sup2); border-radius: 8px; overflow: hidden; }
+.barra i { position: absolute; inset: 0 auto 0 0; background: var(--nomefundo); border-right: 3px solid var(--nome); }
+.barra b { position: relative; display: flex; gap: 14px; align-items: center; height: 100%; padding: 0 10px; font-weight: 500; font-size: 13px; white-space: nowrap; overflow: hidden; }
+.barra b em { font-style: normal; color: var(--apoio); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--borda); }
+.grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.linha { display: flex; gap: 8px; flex-wrap: wrap; align-items: end; }
+.aviso { color: #FFD8A8; font-size: 13px; }
+@media (max-width: 560px) { .etapa { grid-template-columns: 1fr; gap: 4px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="cabeca"><h1>Painel · Segredo do Nome</h1><span class="mini" id="atualizado"></span></div>
+
+  <section class="caixa" aria-label="Filtros">
+    <div class="filtros" id="filtros">
+      <div class="linha" role="group" aria-label="Período">
+        <button type="button" data-periodo="hoje">Hoje</button>
+        <button type="button" data-periodo="ontem">Ontem</button>
+        <button type="button" data-periodo="7">7 dias</button>
+        <button type="button" data-periodo="30">30 dias</button>
+      </div>
+      <label>De <input type="date" id="de"></label>
+      <label>Até <input type="date" id="ate"></label>
+      <label>Campanha (utm_campaign) <input id="campanha" placeholder="todas" maxlength="100"></label>
+      <button class="principal" type="button" id="aplicar">Atualizar</button>
+    </div>
+  </section>
+
+  <p class="aviso" id="erro" role="alert"></p>
+  <section class="cartoes" id="cartoes" aria-label="Resumo"></section>
+
+  <section class="caixa"><h2>Funil</h2><div class="funil" id="funil"></div><p class="mini" id="nota-funil"></p></section>
+
+  <div class="grade">
+    <section class="caixa">
+      <h2>Gasto da Meta</h2>
+      <div class="linha">
+        <label class="mini">Dia <input type="date" id="g-dia"></label>
+        <label class="mini">Campanha (vazio = total) <input id="g-campanha" maxlength="100"></label>
+        <label class="mini">Gasto (R$) <input id="g-valor" inputmode="decimal" placeholder="0,00"></label>
+        <button type="button" id="g-salvar">Salvar</button>
+      </div>
+      <table><thead><tr><th>Dia</th><th>Campanha</th><th>Gasto</th></tr></thead><tbody id="gastos"></tbody></table>
+    </section>
+
+    <section class="caixa">
+      <h2>Conferência com o Mercado Pago</h2>
+      <p class="mini">Vendas aprovadas lidas da API do Mercado Pago no mesmo período, para comparar com "Pagaram".</p>
+      <button type="button" id="conferir">Conferir agora</button>
+      <p id="conferencia"></p>
+      <h2>Configurações</h2>
+      <div class="linha">
+        <label class="mini">Taxa do Pix (%) <input id="c-taxa" inputmode="decimal"></label>
+        <label class="mini">Imposto estimado (%) <input id="c-imposto" inputmode="decimal"></label>
+        <button type="button" id="c-salvar">Salvar</button>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const reais = (c) => (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const pct = (x) => (x === null || x === undefined ? "—" : (x * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "%");
+const num = (s) => Number(String(s).replace(/\./g, "").replace(",", "."));
+const hojeSP = (desloc = 0) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date(Date.now() - desloc * 86400000));
+function el(tag, props, ...filhos) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(props || {})) if (v != null) k === "class" ? (e.className = v) : e.setAttribute(k, v);
+  for (const f of filhos) if (f != null) e.append(f instanceof Node ? f : String(f));
+  return e;
+}
+async function api(caminho, init) {
+  const r = await fetch(caminho, { credentials: "same-origin", headers: { "content-type": "application/json" }, ...init });
+  const d = await r.json().catch(() => null);
+  if (!r.ok) throw new Error(d?.mensagem || `Erro ${r.status}`);
+  return d;
+}
+function definirPeriodo(p) {
+  const fim = p === "ontem" ? hojeSP(1) : hojeSP();
+  const ini = p === "hoje" ? hojeSP() : p === "ontem" ? hojeSP(1) : hojeSP(Number(p) - 1);
+  $("de").value = ini; $("ate").value = fim;
+  document.querySelectorAll("[data-periodo]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.periodo === p)));
+  carregar();
+}
+function qs() {
+  const q = new URLSearchParams({ de: $("de").value, ate: $("ate").value });
+  if ($("campanha").value.trim()) q.set("utm_campaign", $("campanha").value.trim());
+  return q;
+}
+async function carregar() {
+  $("erro").textContent = "";
+  try {
+    const [p, g] = await Promise.all([api("/admin/painel?" + qs()), api("/admin/gasto?" + new URLSearchParams({ de: $("de").value, ate: $("ate").value }))]);
+    const cartoes = [
+      ["Gasto", reais(p.gasto_cents)],
+      ["Vendas", p.vendas],
+      ["Receita líquida", reais(p.receita_liquida_cents)],
+      ["Lucro estimado", reais(p.lucro_cents), p.lucro_cents < 0 ? "negativo" : "positivo"],
+      ["ROAS", p.roas === null ? "—" : p.roas.toLocaleString("pt-BR", { maximumFractionDigits: 2 })],
+      ["Custo por venda", p.custo_por_venda_cents === null ? "—" : reais(p.custo_por_venda_cents)],
+    ];
+    $("cartoes").replaceChildren(...cartoes.map(([t, v, c]) => el("div", { class: "cartao" }, el("span", {}, t), el("strong", { class: c }, v))));
+    const max = Math.max(1, ...p.funil.map((f) => f.total));
+    $("funil").replaceChildren(...p.funil.map((f) => {
+      const barra = el("div", { class: "barra" }, el("i"), el("b", {}, String(f.total), el("em", {}, `${pct(f.pct_anterior)} da etapa anterior`), el("em", {}, `${pct(f.pct_visitas)} das visitas`), el("em", {}, f.custo_cents === null ? "custo —" : `custo ${reais(f.custo_cents)}`)));
+      barra.firstChild.style.width = `${(f.total / max) * 100}%`;
+      return el("div", { class: "etapa" }, el("span", {}, f.rotulo), barra);
+    }));
+    $("nota-funil").textContent = (p.dados_insuficientes ? "Dados insuficientes: menos de 30 vendas no recorte; leia os percentuais com cuidado. " : "") +
+      `Também no período: ${p.extras.pix_copiado} copiaram o código Pix, ${p.extras.pdf_salvo} salvaram o PDF, ${p.extras.casal_interesse} querem a trilha Casal.`;
+    $("gastos").replaceChildren(...g.gastos.map((x) => el("tr", {}, el("td", {}, x.dia), el("td", {}, x.campanha), el("td", {}, reais(x.gasto_cents)))));
+    $("c-taxa").value = String(p.config.taxa_pix_pct).replace(".", ",");
+    $("c-imposto").value = String(p.config.imposto_pct).replace(".", ",");
+    $("atualizado").textContent = "Atualizado às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+  } catch (e) {
+    $("erro").textContent = e.message;
+  }
+}
+document.querySelectorAll("[data-periodo]").forEach((b) => b.addEventListener("click", () => definirPeriodo(b.dataset.periodo)));
+$("aplicar").addEventListener("click", carregar);
+$("g-salvar").addEventListener("click", async () => {
+  const valor = num($("g-valor").value);
+  if (!$("g-dia").value || !(valor >= 0)) return ($("erro").textContent = "Informe o dia e o gasto.");
+  try {
+    await api("/admin/gasto", { method: "PUT", body: JSON.stringify({ dia: $("g-dia").value, campanha: $("g-campanha").value.trim() || undefined, gasto_cents: Math.round(valor * 100) }) });
+    $("g-valor").value = "";
+    carregar();
+  } catch (e) { $("erro").textContent = e.message; }
+});
+$("c-salvar").addEventListener("click", async () => {
+  try {
+    await api("/admin/config", { method: "PUT", body: JSON.stringify({ taxa_pix_pct: num($("c-taxa").value), imposto_pct: num($("c-imposto").value) }) });
+    carregar();
+  } catch (e) { $("erro").textContent = e.message; }
+});
+$("conferir").addEventListener("click", async () => {
+  $("conferencia").textContent = "Consultando…";
+  try {
+    const r = await api("/admin/vendas-mp?" + new URLSearchParams({ de: $("de").value, ate: $("ate").value }));
+    $("conferencia").textContent = `Mercado Pago: ${r.vendas} vendas aprovadas (${reais(r.receita_bruta_cents)}), das quais ${r.reembolsadas} com reembolso.`;
+  } catch (e) { $("conferencia").textContent = e.message; }
+});
+$("g-dia").value = hojeSP();
+definirPeriodo("7");
+</script>
+</body>
+</html>

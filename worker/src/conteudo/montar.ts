@@ -8,7 +8,7 @@ import type { Biblioteca, Redacao, Texto } from "./tipos";
 
 export interface ResultadoGratis {
   primeiro_nome: string;
-  arquetipo: { numero: number; nome: string };
+  arquetipo: { numero: number; nome: string; palavras_guia: string[] };
   inicial: string;
   temperamento: {
     id: string;
@@ -112,7 +112,7 @@ class Montador {
     const caracteristicas = conjuntos[this.p.semente.escolher("caracteristicas", conjuntos.length)]!;
     return {
       primeiro_nome: this.p.variaveis.primeiro_nome,
-      arquetipo: { numero: numeros.expressao, nome: a.arquetipo.nome },
+      arquetipo: { numero: numeros.expressao, nome: a.arquetipo.nome, palavras_guia: a.arquetipo.palavras_guia },
       inicial: this.p.variaveis.inicial,
       temperamento: {
         id: t.id,

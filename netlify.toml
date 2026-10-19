@@ -1,0 +1,4 @@
+# Front estático, sem build: os arquivos gerados (web/scripts/gerar.mjs) ficam no repositório.
+[build]
+  publish = "web"
+  command = ""

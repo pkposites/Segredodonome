@@ -1,0 +1,90 @@
+// Roteador da página única: /, /quiz, /quiz/parte-2 e /r são URLs reais (cada troca é um
+// PageView, RASTREAMENTO_META.md, 2). Páginas legais são arquivos HTML separados.
+import { CONFIG } from "./config.js";
+import { h, trocar } from "./dom.js";
+import { capturarChegada, carregarPixel, definirCookies, escolhaCookies, evento } from "./rastreio.js";
+import { telaInicio } from "./telas/inicio.js";
+import { telaQuiz } from "./telas/quiz.js";
+import { telaResultado } from "./telas/resultado.js";
+
+const PAGEVIEW = { "/": "visita", "/quiz": "quiz_inicio", "/quiz/parte-2": "quiz_metade" };
+
+export function ir(caminho, { substituir = false, hash = "" } = {}) {
+  const destino = caminho + hash;
+  if (location.pathname + location.hash !== destino) {
+    history[substituir ? "replaceState" : "pushState"](null, "", destino);
+  }
+  renderizar();
+}
+
+function renderizar() {
+  const caminho = location.pathname.replace(/\/+$/, "") || "/";
+  const tela = document.getElementById("tela");
+  if (PAGEVIEW[caminho]) evento(PAGEVIEW[caminho]);
+  document.getElementById("topo").hidden = caminho.startsWith("/quiz");
+  if (caminho === "/quiz" || caminho === "/quiz/parte-2") telaQuiz(tela, { ir, parte2: caminho === "/quiz/parte-2" });
+  else if (caminho === "/r") telaResultado(tela, { ir });
+  else telaInicio(tela, { ir });
+  if (!location.hash.startsWith("#como")) window.scrollTo(0, 0);
+  tela.focus({ preventScroll: true });
+}
+
+function rodape() {
+  const v = CONFIG.VENDEDOR;
+  trocar(
+    document.getElementById("rodape"),
+    h("p", {}, `${v.razao_social} · CNPJ ${v.cnpj} · ${v.endereco}`),
+    h("p", {}, `${v.email} · WhatsApp ${v.whatsapp}`),
+    h(
+      "nav",
+      { "aria-label": "Documentos" },
+      h("a", { href: "/termos" }, "Termos de Uso"),
+      h("a", { href: "/privacidade" }, "Privacidade"),
+      h("a", { href: "/reembolso" }, "Reembolso"),
+      h("a", { href: "/contato" }, "Contato"),
+      h("button", { type: "button", onclick: () => bannerCookies(true) }, "Preferências de cookies"),
+    ),
+    h("p", {}, "Conteúdo de entretenimento. Não é avaliação psicológica, ciência nem previsão do futuro."),
+  );
+}
+
+/** Aviso de cookies (legal/TEXTOS_DE_CONSENTIMENTO.md, 1): Aceitar e Recusar com o mesmo destaque. */
+export function bannerCookies(forcar = false) {
+  if (!forcar && escolhaCookies()) return;
+  document.querySelector(".cookies")?.remove();
+  const fechar = (valor) => {
+    definirCookies(valor);
+    caixa.remove();
+  };
+  const caixa = h(
+    "div",
+    { class: "cookies", role: "dialog", "aria-label": "Aviso de cookies" },
+    h("p", {}, "Usamos cookies para medir de onde vêm as visitas e melhorar o site. ", h("a", { href: "/privacidade" }, "Saiba mais")),
+    h(
+      "div",
+      { class: "linha" },
+      h("button", { class: "botao botao-contorno", type: "button", onclick: () => fechar("recusado") }, "Recusar"),
+      h("button", { class: "botao botao-contorno", type: "button", onclick: () => fechar("aceito") }, "Aceitar"),
+    ),
+  );
+  document.body.append(caixa);
+}
+
+document.addEventListener("click", (e) => {
+  const a = e.target.closest?.("a[data-link]");
+  if (!a || e.metaKey || e.ctrlKey || e.shiftKey || a.target) return;
+  const url = new URL(a.href);
+  if (url.origin !== location.origin) return;
+  e.preventDefault();
+  ir(url.pathname, { hash: url.hash });
+});
+
+window.addEventListener("popstate", renderizar);
+// PDF: seções recolhíveis saem abertas na impressão.
+window.addEventListener("beforeprint", () => document.querySelectorAll("details").forEach((d) => (d.open = true)));
+
+capturarChegada();
+carregarPixel();
+rodape();
+renderizar();
+bannerCookies();

@@ -1,0 +1,20 @@
+// Configuração pública do front (nada aqui é segredo). Preencher antes de publicar.
+export const CONFIG = {
+  // URL do Worker. Em desenvolvimento: http://localhost:8799 (npx wrangler dev --env dev --port 8799)
+  API_BASE_URL: location.hostname === "localhost" || location.hostname === "127.0.0.1" ? "http://localhost:8799" : "https://api.PREENCHER_DOMINIO",
+  // Vazio = Pixel desligado.
+  META_PIXEL_ID: "",
+  // Mesmo valor da variável PIXEL_EXIGE_CONSENTIMENTO do Worker: o Pixel só carrega com aceite.
+  PIXEL_EXIGE_CONSENTIMENTO: true,
+  VENDEDOR: {
+    razao_social: "[RAZÃO SOCIAL]",
+    cnpj: "[CNPJ]",
+    endereco: "[ENDEREÇO]",
+    email: "[E-MAIL DE CONTATO]",
+    whatsapp: "[WHATSAPP DE CONTATO]",
+  },
+  // Espelho do catálogo do servidor, só para o Pixel (o preço cobrado vem sempre do Worker).
+  PRODUTO: { id: "nome_completo_v1", nome: "Segredo do Nome", valor: 11.9, moeda: "BRL" },
+  VERSAO_TERMOS: "2026-10-b",
+  VERSAO_COOKIES: "2026-10-a",
+};
