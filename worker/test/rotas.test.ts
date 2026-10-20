@@ -41,6 +41,15 @@ describe("POST /resultado", () => {
     }
   });
 
+  it("erro interno (ex.: segredo ausente) → 500 com CORS, para o site mostrar a mensagem", async () => {
+    const a = ambiente();
+    (a.env as { SEGREDO_SEMENTE?: string }).SEGREDO_SEMENTE = undefined;
+    const r = await a.chamar("/resultado", { entradas: ENTRADAS });
+    expect(r.status).toBe(500);
+    expect(r.headers.get("access-control-allow-origin")).toBe(ORIGEM);
+    expect(r.corpo.erro).toBe("interno");
+  });
+
   it("menor de 18 anos: nada é processado", async () => {
     const a = ambiente();
     const r = await a.chamar("/resultado", { entradas: { ...ENTRADAS, data_nascimento: "2010-01-01" } });

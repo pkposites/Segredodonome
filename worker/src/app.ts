@@ -42,7 +42,8 @@ export async function tratar(req: Request, s: Servicos, limite?: RateLimit): Pro
     else {
       // Sem detalhes da requisição no log: pode haver dado pessoal no corpo.
       console.error("erro interno em", caminho, e instanceof Error ? e.name : "desconhecido");
-      resp = json({ erro: "interno", mensagem: "Algo deu errado. Tente de novo." }, 500);
+      // Com CORS: sem ele o navegador esconde o 500 e o site mostra "Sem conexão".
+      resp = comCors(json({ erro: "interno", mensagem: "Algo deu errado. Tente de novo." }, 500), origem);
     }
   }
   for (const [k, v] of Object.entries(SEGURANCA)) if (!resp.headers.has(k)) resp.headers.set(k, v);

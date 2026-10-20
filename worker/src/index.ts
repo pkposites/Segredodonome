@@ -8,6 +8,9 @@ import { criarServicos } from "./servicos";
 export default {
   async fetch(req: Request, bruto: Env, ctx: ExecutionContext): Promise<Response> {
     const env = completarEnv(bruto);
+    if (!env.SEGREDO_CHAVE || !env.SEGREDO_PASSE || !env.SEGREDO_SEMENTE) {
+      console.error("falta o Secret SEGREDO (Settings → Variables and Secrets)");
+    }
     if (env.DB) {
       try {
         await garantirEsquema(env.DB);
