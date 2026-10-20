@@ -1,92 +1,31 @@
-# Publicar o Worker (servidor) — passo a passo para o Rob
+# Publicar o Worker (servidor) — versão simples, pelo painel da Cloudflare
 
-Endereços escolhidos (o nome do produto continua "Segredo do Nome"):
-- Site: `https://segredo.relatoriorda.com.br` (Netlify)
-- Servidor: `https://segredo-api.relatoriorda.com.br` (Cloudflare Worker)
+- Servidor: `https://segredodonome.robson-oc96.workers.dev` (Worker `segredodonome`)
+- Site: `https://segredo.relatoriorda.com.br` (domínio configurado só no Netlify)
 
-Tempo estimado: 20 a 30 minutos. O Mercado Pago entra por último (passo 7); até lá o quiz e o resultado grátis funcionam e o botão de pagar mostra "O Mercado Pago não respondeu".
+Variáveis de texto, domínio próprio para o servidor, SQL e cron **não são necessários**: os valores de produção já estão no código (`worker/src/padroes.ts`), as tabelas são criadas sozinhas e a limpeza diária roda sem cron.
 
-## 0. Antes de começar
-- **Node.js 20 ou mais novo** instalado (nodejs.org → versão LTS). Para conferir: `node -v`.
-- **O domínio `relatoriorda.com.br` precisa estar na sua conta Cloudflare** (aparece em "Websites" no painel). Se ele ainda estiver só no Registro.br ou em outro DNS:
-  1. Cloudflare → *Add a domain* → `relatoriorda.com.br` → plano Free.
-  2. Confira se a Cloudflare importou **todos** os registros que já existem (site atual, e-mail/MX, etc.) **antes** de trocar os servidores DNS. Se faltar algum, o que já funciona no domínio pode parar.
-  3. No Registro.br, troque os servidores DNS pelos dois que a Cloudflare mostrar. Pode levar algumas horas.
+## 1. Colar o código
+Workers & Pages → `segredodonome` → **Edit code** → apague tudo → cole o `worker.js` que enviei → **Deploy**.
 
-## 1. Baixar o código
-Use o arquivo `segredo-do-nome-worker.zip` que enviei, ou baixe o branch `claude/new-session-8to67l` do GitHub (Code → Download ZIP). Descompacte e abra um terminal **dentro da pasta `worker`**.
+## 2. Segredos (Settings → Variables and Secrets → Add → tipo **Secret**)
+| Nome | Valor | Quando |
+|---|---|---|
+| `SEGREDO` | um código aleatório longo (gerador de senhas, 40+ caracteres). **Guarde num lugar seguro**: se for perdido, os links de acesso já vendidos param de abrir | agora |
+| `META_CAPI_TOKEN` | Gerenciador de Eventos → "Segredo" → Configurações → API de Conversões → Gerar token | agora |
+| `MP_ACCESS_TOKEN` | Mercado Pago → Suas integrações → aplicação → Credenciais (comece pelo de teste) | por último |
+| `MP_WEBHOOK_SECRET` | Mesma aplicação → Webhooks → URL `https://segredodonome.robson-oc96.workers.dev/webhook/mercadopago`, evento Pagamentos → assinatura secreta | por último |
 
-```bash
-npm install
-npx wrangler login          # abre o navegador para você entrar na Cloudflare
-```
+## 3. Banco (obrigatório antes de rodar anúncio)
+Storage & Databases → D1 → **Create** → nome `segredo-do-nome-prod`. Depois, no Worker: Settings → **Bindings** → Add → D1 database → nome da variável `DB` → banco `segredo-do-nome-prod`. As tabelas aparecem sozinhas na primeira visita.
 
-## 2. Criar o banco (D1)
-```bash
-npx wrangler d1 create segredo-do-nome-prod
-```
-A resposta mostra um `database_id` (um código com traços). **Copie esse código** e:
-- cole no arquivo `wrangler.toml`, na linha `database_id = "PREENCHER_DEPOIS_DE_CRIAR_O_D1"` que fica **abaixo de `[[env.production.d1_databases]]`**; ou
-- me mande o código (ele não é secreto) que eu atualizo no repositório.
+Sem o banco o site funciona, mas sem o registro de acesso exigido pelo Marco Civil (art. 15, 6 meses), sem contadores no painel e com a recuperação de compra desligada.
 
-Depois, criar as tabelas:
-```bash
-npx wrangler d1 migrations apply segredo-do-nome-prod --remote --env production
-```
-Responda `y` quando perguntar. Devem aparecer 3 migrações com ✅.
+## 4. Conferir
+Abra `https://segredodonome.robson-oc96.workers.dev/teste` → deve aparecer `{"erro":"nao_encontrado",...}`.
 
-## 3. Gerar e cadastrar os segredos internos
-Gere três códigos diferentes (rode três vezes):
-```bash
-openssl rand -base64 32
-```
-(No Windows sem openssl: `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`.)
+## Painel (depois)
+Exige Cloudflare Access (`ADMIN_EMAILS`, `CF_ACCESS_AUD`, `CF_ACCESS_TEAM_DOMAIN`). Fica para quando o site estiver vendendo.
 
-Cadastre um em cada comando abaixo. O terminal pede o valor; cole e aperte Enter:
-```bash
-npx wrangler secret put SEGREDO_CHAVE --env production
-npx wrangler secret put SEGREDO_PASSE --env production
-npx wrangler secret put SEGREDO_SEMENTE --env production
-```
-**Guarde os três num lugar seguro** (gerenciador de senhas). Se `SEGREDO_PASSE` for perdido, os links de acesso já vendidos param de abrir; se `SEGREDO_CHAVE` for perdido, a recuperação "refazendo o quiz" das compras antigas para de funcionar.
-
-## 4. Meta (API de Conversões)
-O ID do Pixel (`2132885950950048`) já está no código. Falta só o token:
-```bash
-npx wrangler secret put META_CAPI_TOKEN --env production
-```
-(Gerenciador de Eventos → conjunto de dados "Segredo" → Configurações → API de Conversões → Gerar token de acesso.)
-
-## 5. Publicar
-```bash
-npm run deploy:production
-```
-No fim aparece `segredo-api.relatoriorda.com.br (custom domain)`. Para conferir, abra no navegador `https://segredo-api.relatoriorda.com.br/teste`: deve aparecer `{"erro":"nao_encontrado",...}`. Isso é o esperado: o servidor está no ar e respondendo.
-
-## 6. Me avisar
-Me diga "Worker no ar". Aí eu:
-- ligo o site `segredo.relatoriorda.com.br` no Netlify a esse servidor (precisa de um registro DNS que eu te passo);
-- faço uma rodada de teste do quiz e do resultado grátis contra o servidor real.
-
-## 7. Mercado Pago (por último)
-Quando for a hora:
-```bash
-npx wrangler secret put MP_ACCESS_TOKEN --env production       # comece com o token de TESTE
-npx wrangler secret put MP_WEBHOOK_SECRET --env production
-```
-No Mercado Pago (Suas integrações → aplicação → Webhooks): URL `https://segredo-api.relatoriorda.com.br/webhook/mercadopago`, evento **Pagamentos**. A assinatura secreta mostrada lá é o `MP_WEBHOOK_SECRET`.
-
-## 8. Painel (Cloudflare Access) — pode ser depois
-Zero Trust → Access → Applications → *Add an application* → Self-hosted → domínio `segredo-api.relatoriorda.com.br`, caminhos `painel` e `admin/*`, política "Emails" com o seu e-mail. Depois:
-```bash
-npx wrangler secret put ADMIN_EMAILS --env production           # o seu e-mail de login
-npx wrangler secret put CF_ACCESS_AUD --env production          # "Application Audience (AUD) Tag" da aplicação
-npx wrangler secret put CF_ACCESS_TEAM_DOMAIN --env production  # https://SUA-EQUIPE.cloudflareaccess.com
-```
-Painel: `https://segredo-api.relatoriorda.com.br/painel`.
-
-## Se algo der errado
-- `Authentication error` → rode `npx wrangler login` de novo.
-- `zone not found` / erro no domínio → o `relatoriorda.com.br` ainda não está na mesma conta Cloudflare (passo 0).
-- `database_id` inválido → confira se colou no bloco de **production** (o segundo), não no de dev.
-- Para desfazer a publicação: Cloudflare → Workers & Pages → `segredo-do-nome` → Settings → Delete. O banco D1 fica em Storage & Databases → D1.
+## Desfazer
+Workers & Pages → `segredodonome` → Deployments → escolher a versão anterior → Rollback.
