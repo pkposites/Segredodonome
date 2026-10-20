@@ -83,6 +83,24 @@ describe("POST /resultado", () => {
 });
 
 describe("compra completa", () => {
+  it("status aprovado manda Purchase do servidor com navegador e IP (cookies aceitos), mesmo event_id do Pixel", async () => {
+    const a = ambiente();
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, cookies_aceitos: true, fbp: "fb.1.1.1" });
+    a.mp.aprovar(c.corpo.pagamento_id);
+    const ok = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS, cookies_aceitos: true, fbp: "fb.1.1.1" });
+    const compra = a.meta.eventos.find((e) => e.event_name === "Purchase")!;
+    expect(compra.event_id).toBe(ok.corpo.event_id_purchase);
+    expect(compra.action_source).toBe("website");
+    expect(compra.user_data).toMatchObject({ client_user_agent: expect.any(String), client_ip_address: "203.0.113.7", fbp: "fb.1.1.1" });
+    expect(compra.custom_data).toMatchObject({ value: 11.9, currency: "BRL" });
+    // Sem cookies aceitos: o evento sai sem identificadores do navegador.
+    const b = ambiente();
+    const c2 = await b.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID });
+    b.mp.aprovar(c2.corpo.pagamento_id);
+    await b.chamar("/pagamento/status", { pagamento_id: c2.corpo.pagamento_id, entradas: ENTRADAS });
+    expect(b.meta.eventos.find((e) => e.event_name === "Purchase")!.user_data).toEqual({});
+  });
+
   it("checkout → pendente → aprovado com passe, comprovante e completo", async () => {
     const a = ambiente();
     const c = await a.chamar("/checkout", { entradas: ENTRADAS, email: EMAIL, idempotency_key: UUID, cookies_aceitos: true, fbp: "fb.1.1.1", utm_campaign: "120210" });
@@ -247,6 +265,7 @@ describe("POST /webhook/mercadopago", () => {
   it("assinatura inválida → 401, sem consultar nada", async () => {
     const a = ambiente();
     const { pagamentoId } = await comprar(a);
+    a.meta.eventos.length = 0; // só o que o webhook enviar
     expect((await webhook(a, pagamentoId, "segredo-errado")).status).toBe(401);
     expect(a.meta.eventos.some((e) => e.event_name === "Purchase")).toBe(false);
   });
@@ -254,6 +273,7 @@ describe("POST /webhook/mercadopago", () => {
   it("aprovado → Purchase do servidor; repetido → mesmo event_id e conta uma vez", async () => {
     const a = ambiente();
     const { pagamentoId } = await comprar(a);
+    a.meta.eventos.length = 0; // só o que o webhook enviar
     expect((await webhook(a, pagamentoId)).status).toBe(200);
     expect((await webhook(a, pagamentoId)).status).toBe(200);
     const compras = a.meta.eventos.filter((e) => e.event_name === "Purchase");

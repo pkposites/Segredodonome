@@ -145,7 +145,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
     if (!ativo || !pixAtual) return;
     clearTimeout(timer);
     try {
-      const r = await post("/pagamento/status", { pagamento_id: pixAtual.pagamento_id, entradas });
+      const r = await post("/pagamento/status", { pagamento_id: pixAtual.pagamento_id, entradas, ...identificadores() });
       if (!ativo) return;
       if (r.status === "approved") {
         local.gravar("pix", null);

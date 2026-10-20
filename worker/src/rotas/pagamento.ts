@@ -104,6 +104,21 @@ export async function postStatus(req: Request, s: Servicos): Promise<Response> {
   const status = statusPublico(p, s.agora());
   if (status !== "approved" || !pagamentoLibera(p, referencia)) return json({ status });
 
+  // Purchase também daqui: esta requisição vem do navegador (IP e navegador, com cookies aceitos),
+  // que a Meta exige em eventos de site. Mesmo event_id do webhook e do Pixel: a Meta deduplica.
+  const aprovado = new Date(p.aprovado_em ?? p.criado_em);
+  s.depois(
+    s.meta.enviar({
+      event_name: "Purchase",
+      event_id: `compra-${p.id}`,
+      event_time: Math.floor(aprovado.getTime() / 1000),
+      event_source_url: urlDoSite(s, "/r"),
+      action_source: "website",
+      user_data: await dadosUsuario(req, corpo),
+      custom_data: customDataProduto("Purchase", p.id),
+    }),
+  );
+
   const resposta = await montarResposta(entradas, s, { completo: true });
   return json({
     status,
