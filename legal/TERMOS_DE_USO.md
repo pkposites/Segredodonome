@@ -1,6 +1,6 @@
 # Termos de Uso — Segredo do Nome
 
-Versão 2026-10-b · Vigente desde 19/10/2026
+Versão 2026-10-c · Vigente desde 20/10/2026
 
 ## 1. Quem somos
 O site segredo.relatoriorda.com.br ("Site") é operado por QVN ADS, CNPJ 31.535.502/0001-40, com endereço em Rua Galeno de Castro, São Paulo/SP, e-mail qvnads@gmail.com e WhatsApp (11) 99191-2707 ("nós").
@@ -23,7 +23,7 @@ O serviço é destinado a pessoas com **18 anos ou mais**. Se a data de nascimen
 
 ## 5. Pagamento
 - O pagamento é feito por Pix, processado pelo Mercado Pago. Não recebemos nem armazenamos dados bancários.
-- O Mercado Pago exige um e-mail para gerar o Pix. Esse e-mail vai direto ao Mercado Pago; não o guardamos e não enviamos mensagens.
+- O Pix pode ser pago pelo app de qualquer banco; não é preciso ter conta no Mercado Pago nem informar e-mail.
 - O acesso é liberado automaticamente após a confirmação do pagamento pelo Mercado Pago. Normalmente leva poucos segundos.
 - Cada código Pix tem prazo de validade, informado na tela. Se expirar, você pode gerar outro.
 - A confirmação da compra e o comprovante aparecem na tela logo após o pagamento, com opção de salvar. **Não enviamos e-mail.**

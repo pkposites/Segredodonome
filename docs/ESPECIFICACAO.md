@@ -66,7 +66,7 @@ Especificação visual de cada tela em `web/TELAS.md`.
    - Preço total: **R$ 11,90**, pagamento único no Pix, acesso imediato, acesso ao link por 12 meses, natureza de entretenimento, política de reembolso de 7 dias.
    - Botão "Liberar resultado completo — R$ 11,90". Pode ter um leve movimento a cada poucos segundos (desligado com `prefers-reduced-motion`).
    - Barra fixa no rodapé com o botão, que aparece depois que a pessoa passa do resultado grátis.
-7. **Checkout (na mesma página):** campo de e-mail com o aviso "Exigido pelo Mercado Pago para gerar o Pix. Não guardamos nem enviamos mensagens"; botão "Gerar Pix" → QR Code + copia e cola + expiração real informada pelo Mercado Pago + verificação automática a cada 4 s + botão "Já paguei". Pix expirado mostra o estado real e oferece "Gerar novo Pix".
+7. **Checkout (na mesma página):** sem campo de e-mail (decisão de 20/10/2026: o Worker manda ao Mercado Pago um endereço técnico `pix-…@relatoriorda.com.br`); botão "Gerar Pix" → QR Code + copia e cola + expiração real informada pelo Mercado Pago + verificação automática a cada 4 s + botão "Já paguei". Pix expirado mostra o estado real e oferece "Gerar novo Pix".
 8. **Liberação:** o Worker confirma no Mercado Pago → a página desbloqueia as seções com animação de cadeado → comprovante na tela (nº do pagamento, data, valor, vendedor e CNPJ) → **link de acesso** com "Copiar link" e QR Code → "Salvar em PDF" (impressão do navegador, com o link e o QR Code impressos).
 9. **Recuperação (MVP):** remarketing na Meta por etapa + recuperação na própria tela (seção 6.1). Sem e-mail e sem WhatsApp. Especificação em `RECUPERACAO.md`.
 
@@ -156,7 +156,7 @@ Variáveis usadas nos textos: `{primeiro_nome}`, `{inicial}`, `{qtd_letras}`, `{
 
 Fluxo completo em `ARQUITETURA.md`. Regras:
 - Produto no catálogo do servidor: `nome_completo_v1`, R$ 11,90, BRL. O front nunca envia preço.
-- Criação do Pix com `external_reference = sdn1-{chave}`, descrição genérica ("Segredo do Nome - resultado completo"), e-mail do pagador repassado (exigência do Mercado Pago), `metadata` só com `fbp`, `fbc` e `event_id`, cabeçalho de idempotência com a `idempotency_key` do front. Nenhum nome, CPF ou data vai ao Mercado Pago.
+- Criação do Pix com `external_reference = sdn1-{chave}`, descrição genérica ("Segredo do Nome - resultado completo"), e-mail técnico do site no lugar do e-mail do pagador (exigência do Mercado Pago), `metadata` só com `fbp`, `fbc` e `event_id`, cabeçalho de idempotência com a `idempotency_key` do front. Nenhum nome, CPF ou data vai ao Mercado Pago.
 - Liberação só quando a API do Mercado Pago responde aprovado, com valor 11,90 BRL e `external_reference` igual à `chave` das entradas enviadas.
 - Webhook valida a assinatura, consulta o pagamento e envia o `Purchase` à Meta. Não grava nada.
 - Estorno, reembolso ou contestação no Mercado Pago → o pago deixa de abrir (checagem a cada abertura).

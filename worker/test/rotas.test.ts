@@ -106,7 +106,7 @@ describe("compra completa", () => {
     expect(ok.corpo.passe).toMatch(/^[A-Za-z0-9_-]+$/);
   });
 
-  it("o e-mail do checkout não vai para banco, Meta, metadados nem log", async () => {
+  it("o Pix não pede e-mail: vai um endereço técnico, e nada pessoal sai para banco, Meta, metadados ou log", async () => {
     const a = ambiente();
     const logs: string[] = [];
     const espiões = (["log", "warn", "error", "info"] as const).map((m) =>
@@ -119,8 +119,8 @@ describe("compra completa", () => {
     expect(tudo).not.toContain(EMAIL);
     expect(tudo).not.toContain("Camila");
     expect(tudo).not.toContain("1994-03-17");
-    // Só o Mercado Pago recebe o e-mail
-    expect(a.mp.criados[0]!.email).toBe(EMAIL);
+    // E-mail enviado pelo navegador é ignorado; o Mercado Pago recebe só o endereço técnico.
+    expect(a.mp.criados[0]!.email).toMatch(/^pix-[0-9a-f]{8}@relatoriorda\.com\.br$/);
   });
 
   it("mesma idempotency_key duas vezes → um único pagamento", async () => {

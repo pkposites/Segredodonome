@@ -1,5 +1,5 @@
-// Checkout Pix em painel deslizante (web/TELAS.md, 7). O e-mail vai direto ao Worker, que
-// repassa ao Mercado Pago e descarta; aqui ele não é guardado em lugar nenhum.
+// Checkout Pix em painel deslizante (web/TELAS.md, 7). Sem e-mail: um toque em "Gerar Pix"
+// e o Worker cria o Pix com um endereço técnico do site.
 import { h, svg, trocar, ICONES } from "../dom.js";
 import { local, uuid } from "../armazenamento.js";
 import { post } from "../api.js";
@@ -47,22 +47,21 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
   const rodapeFolha = () =>
     h("p", { class: "mini" }, `Pagamento processado pelo Mercado Pago · 7 dias para desistir · ${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}`);
 
-  function telaEmail(mensagem) {
-    const campo = h("input", { id: "email-pix", class: "campo", type: "email", inputmode: "email", autocomplete: "email", maxlength: "254", placeholder: "voce@email.com" });
+  function telaGerar(mensagem) {
     const erro = h("p", { class: "erro", role: "alert" }, mensagem ?? "");
     const botao = h("button", { class: "botao botao-principal", type: "submit" }, "Gerar Pix");
     let chave = uuid(); // mesma chave em toques repetidos = um único Pix
     const enviar = async (ev) => {
       ev.preventDefault();
-      const email = campo.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return void (erro.textContent = "Confira o e-mail para o Pix.");
       botao.disabled = true;
       botao.textContent = "Gerando…";
       try {
+        // Endereço técnico só para Workers anteriores, que ainda exigem o campo; o atual o ignora.
+        const email = `pix-${chave.slice(0, 8)}@relatoriorda.com.br`;
         const r = await post("/checkout", { entradas, email, idempotency_key: chave, utm_campaign: utmCampaign(), variante: CONFIG.VARIANTE, ...identificadores() });
         pixelCheckout(r.event_id_checkout);
         const pix = { pagamento_id: r.pagamento_id, copia_e_cola: r.copia_e_cola, qr_code_base64: r.qr_code_base64, expira_em: r.expira_em };
-        local.gravar("pix", pix); // sem e-mail
+        local.gravar("pix", pix);
         telaPix(pix);
       } catch (e) {
         erro.textContent = e.message;
@@ -77,15 +76,13 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
       h(
         "form",
         { class: "pilha", onsubmit: enviar, novalidate: true },
-        h("label", { class: "campo-rotulo", for: "email-pix" }, "E-mail para o Pix"),
-        campo,
-        h("p", { class: "mini" }, "Exigido pelo Mercado Pago para gerar o Pix. Não guardamos este e-mail e não enviamos mensagens."),
+        h("p", { class: "mini" }, "Pague com o app de qualquer banco. Não precisa ter conta no Mercado Pago."),
         erro,
         botao,
       ),
       rodapeFolha(),
     );
-    campo.focus();
+    botao.focus();
   }
 
   function telaPix(pix) {
@@ -132,7 +129,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
       folha,
       cabeca(),
       h("p", { class: "aviso" }, "Este Pix expirou ou foi cancelado. Nenhum valor foi cobrado."),
-      h("button", { class: "botao botao-principal", type: "button", onclick: () => telaEmail() }, "Gerar novo Pix"),
+      h("button", { class: "botao botao-principal", type: "button", onclick: () => telaGerar() }, "Gerar novo Pix"),
       rodapeFolha(),
     );
   }
@@ -173,7 +170,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
   if (pendente && (!pendente.expira_em || Date.parse(pendente.expira_em) > Date.now())) telaPix(pendente);
   else {
     local.gravar("pix", null);
-    telaEmail();
+    telaGerar();
   }
   return { fechar };
 }

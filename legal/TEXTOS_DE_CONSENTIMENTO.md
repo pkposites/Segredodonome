@@ -24,9 +24,8 @@ Cada texto tem um identificador e uma versão; a escolha da pessoa fica registra
 > Conteúdo de entretenimento, sem valor científico ou de previsão.
 > Vendido por QVN ADS, CNPJ 31.535.502/0001-40.
 
-## 4. Checkout — e-mail para o Mercado Pago
-> **E-mail para o Pix**
-> Exigido pelo Mercado Pago para gerar o Pix. Não guardamos este e-mail e não enviamos mensagens.
+## 4. Checkout — sem e-mail
+> Pague com o app de qualquer banco. Não precisa ter conta no Mercado Pago.
 
 ## 4.1 Depois do pagamento — link de acesso
 > **Seu link de acesso** [Copiar link] [QR Code]

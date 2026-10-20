@@ -1,6 +1,6 @@
 # Política de Privacidade — Segredo do Nome
 
-Versão 2026-10-c · Vigente desde 19/10/2026
+Versão 2026-10-d · Vigente desde 20/10/2026
 
 Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
 
@@ -11,7 +11,7 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 ## 2. Resumo
 - **Não guardamos os seus dados nos nossos servidores.** Seu nome, sua data de nascimento e suas respostas ficam no seu próprio aparelho.
 - Nosso sistema usa esses dados só no instante de montar o resultado e depois os descarta.
-- O pagamento é feito pelo Mercado Pago, que exige um e-mail para gerar o Pix. Esse e-mail vai direto para o Mercado Pago; nós não o guardamos e não enviamos mensagens.
+- O pagamento é feito pelo Mercado Pago, por Pix. Não pedimos seu e-mail nem o seu CPF: o Mercado Pago exige um e-mail no Pix, e usamos um endereço técnico do próprio site, sem nenhum dado seu.
 - Por obrigação legal, guardamos por 6 meses os registros de acesso ao site (endereço IP, data e hora).
 - Não vendemos dados.
 
@@ -20,7 +20,6 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 | Dado | Para quê | Onde fica | Base legal (LGPD) | Por quanto tempo |
 |---|---|---|---|---|
 | Nome, data de nascimento, forma de tratamento e respostas | Montar o seu resultado | No seu aparelho (armazenamento do navegador) e dentro do seu link de acesso, que é criptografado. Nossos servidores só usam no momento do cálculo | Execução do serviço que você pediu (art. 7º, V) | Até você apagar do aparelho; o link de acesso vale 12 meses |
-| E-mail | Exigência do Mercado Pago para gerar o Pix | Somente no Mercado Pago | Execução do contrato (art. 7º, V) | Conforme a política do Mercado Pago |
 | Código técnico derivado do nome e da data (irreversível) | Localizar o seu pagamento se você perder o link e refizer o quiz | No registro do pagamento, no Mercado Pago | Legítimo interesse (art. 7º, IX) | Conforme a política do Mercado Pago |
 | Dados do pagamento (valor, data, situação) | Liberar o resultado, reembolsos e obrigações fiscais | No Mercado Pago | Execução do contrato e obrigação legal (art. 7º, V e II) | Conforme o Mercado Pago e a lei |
 | Endereço IP, data e hora de acesso | Cumprir o Marco Civil da Internet e proteger o site | Nossos registros de acesso | Obrigação legal (art. 7º, II; Lei 12.965/2014, art. 15) | 6 meses |

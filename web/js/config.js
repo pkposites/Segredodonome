@@ -17,7 +17,7 @@ export const CONFIG = {
   },
   // Espelho do catálogo do servidor, só para o Pixel (o preço cobrado vem sempre do Worker).
   PRODUTO: { id: "nome_completo_v1", nome: "Segredo do Nome", valor: 11.9, moeda: "BRL" },
-  VERSAO_TERMOS: "2026-10-c",
+  VERSAO_TERMOS: "2026-10-d",
   VERSAO_COOKIES: "2026-10-a",
   // Versão da experiência, para comparar no painel (contadores anônimos por variante).
   VARIANTE: "jogo-v2",

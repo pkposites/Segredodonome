@@ -10,9 +10,14 @@ import { dadosUsuario, ipDe, type Servicos } from "../servicos";
 import { comprovante, exigirEntradas, montarResposta, passeParaPagamento, referenciaDe, urlDoSite } from "./comum";
 
 const esquemaCheckout = z.object({
-  email: z.string().trim().email().max(254),
   idempotency_key: z.string().uuid(),
 });
+
+/**
+ * O Mercado Pago exige um e-mail no Pix, mas o comprador não precisa ter conta lá.
+ * Para não pedir nada à pessoa, cada Pix leva um endereço técnico do próprio site.
+ */
+export const emailTecnico = (idempotencyKey: string) => `pix-${idempotencyKey.slice(0, 8)}@relatoriorda.com.br`;
 
 export const LIMITE_RECUPERAR_POR_HORA = 10;
 
@@ -26,7 +31,7 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
   const corpo = (await lerJson(req)) as Record<string, unknown>;
   const entradas = exigirEntradas(corpo?.entradas, s);
   const c = esquemaCheckout.safeParse(corpo);
-  if (!c.success) throw new ErroHttp(400, "email_invalido", "Confira o e-mail para o Pix.");
+  if (!c.success) throw new ErroHttp(400, "checkout_invalido", "Não foi possível gerar o Pix. Tente de novo.");
 
   const referencia = await referenciaDe(entradas, s);
   const eventId = crypto.randomUUID();
@@ -38,7 +43,7 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
   let pagamento;
   try {
     pagamento = await s.mp.criarPix({
-      email: c.data.email, // repassado ao Mercado Pago e descartado: nunca vai para log, banco ou Meta
+      email: emailTecnico(c.data.idempotency_key),
       externalReference: referencia,
       descricao: DESCRICAO_PIX,
       metadata: Object.fromEntries(
