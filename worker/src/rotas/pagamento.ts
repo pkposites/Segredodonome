@@ -18,7 +18,7 @@ export const LIMITE_RECUPERAR_POR_HORA = 10;
 
 function indisponivel(e?: unknown): never {
   // Só a mensagem técnica (status HTTP ou falha de rede); nunca o corpo da requisição.
-  console.warn("Mercado Pago indisponível:", e instanceof Error ? e.message.slice(0, 120) : "erro");
+  console.warn("Mercado Pago indisponível:", e instanceof Error ? e.message.slice(0, 340) : "erro");
   throw new ErroHttp(502, "pagamento_indisponivel", "O Mercado Pago não respondeu. Tente de novo em instantes.");
 }
 

@@ -124,3 +124,14 @@ describe("cliente HTTP", () => {
     expect(chamou).toBe(false);
   });
 });
+
+describe("motivo da recusa no log", () => {
+  it("junta códigos e mensagem do Mercado Pago e apaga e-mails", async () => {
+    const { motivoMP } = await import("../src/mercadopago");
+    const m = motivoMP({ error: "bad_request", message: "payer fulana@exemplo.com invalid", cause: [{ code: 13253, description: "Collector without key" }] });
+    expect(m).toContain("13253 Collector without key");
+    expect(m).toContain("[e-mail]");
+    expect(m).not.toContain("fulana@exemplo.com");
+    expect(motivoMP(null)).toBe("");
+  });
+});

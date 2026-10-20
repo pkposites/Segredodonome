@@ -40,9 +40,21 @@ export interface MercadoPago {
 }
 
 export class ErroMercadoPago extends Error {
-  constructor(readonly status: number) {
-    super(`Mercado Pago respondeu ${status}`);
+  constructor(readonly status: number, detalhe = "") {
+    super(`Mercado Pago respondeu ${status}${detalhe ? `: ${detalhe}` : ""}`);
   }
+}
+
+/** Motivo da recusa (códigos e mensagem do Mercado Pago), sem e-mails, para o log. */
+export function motivoMP(b: unknown): string {
+  if (!b || typeof b !== "object") return "";
+  const o = b as Record<string, any>;
+  const causas = Array.isArray(o.cause) ? o.cause.map((c: any) => `${c?.code ?? ""} ${c?.description ?? ""}`.trim()) : [];
+  return [o.error, o.message, ...causas]
+    .filter((x) => typeof x === "string" && x)
+    .join(" | ")
+    .replace(/[^\s@|]+@[^\s@|]+/g, "[e-mail]")
+    .slice(0, 300);
 }
 
 type Bruto = Record<string, any>;
@@ -85,7 +97,7 @@ export class MercadoPagoApi implements MercadoPago {
       headers: { authorization: `Bearer ${this.token}`, "content-type": "application/json", ...(init.headers ?? {}) },
     });
     if (resp.status === 404) return null;
-    if (!resp.ok) throw new ErroMercadoPago(resp.status);
+    if (!resp.ok) throw new ErroMercadoPago(resp.status, motivoMP(await resp.json().catch(() => null)));
     return (await resp.json()) as Bruto;
   }
 
