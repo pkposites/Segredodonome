@@ -53,8 +53,22 @@ export async function tratar(req: Request, s: Servicos, limite?: RateLimit): Pro
   return resp;
 }
 
+/** Conferência rápida da configuração, sem nenhum valor secreto: só "ok" ou "falta". */
+function saude(s: Servicos): Response {
+  const tem = (v: unknown) => (typeof v === "string" && v.length > 0 ? "ok" : "falta");
+  return json({
+    banco: s.env.DB ? "ligado" : "desligado",
+    segredo: tem(s.env.SEGREDO_PASSE),
+    mercado_pago: tem(s.env.MP_ACCESS_TOKEN),
+    webhook_mercado_pago: tem(s.env.MP_WEBHOOK_SECRET),
+    meta_capi: tem(s.env.META_CAPI_TOKEN),
+    painel_link: (s.env.PAINEL_CHAVE?.length ?? 0) >= 24 ? "ok" : "falta",
+  });
+}
+
 async function despachar(req: Request, s: Servicos, caminho: string, origem: string | null, limite?: RateLimit) {
   if (caminho === "/webhook/mercadopago" && req.method === "POST") return postWebhook(req, s);
+  if (caminho === "/saude" && req.method === "GET") return saude(s);
 
   if (caminho === "/painel" || caminho.startsWith("/admin/")) {
     const email = await autorizarAdmin(req, s.access);

@@ -26,6 +26,8 @@ export interface Env {
   /** Versão da Graph API (ex.: v26.0). Confirmar a vigente na documentação da Meta. */
   META_GRAPH_VERSION?: string;
 
+  /** Chave do link secreto do painel (24+ caracteres): /painel?k=CHAVE. */
+  PAINEL_CHAVE?: string;
   ADMIN_EMAILS: string;
   CF_ACCESS_AUD: string;
   /** https://<equipe>.cloudflareaccess.com */

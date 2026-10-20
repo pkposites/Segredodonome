@@ -353,6 +353,28 @@ describe("/admin e /painel", () => {
         .sign(privateKey);
   }
 
+  it("link secreto: ?k= abre o painel e o cabeçalho abre /admin; chave errada, curta ou ausente → 403", async () => {
+    const a = ambiente();
+    const chave = "chave-do-painel-com-mais-de-24-caracteres";
+    a.s.access.chaveLink = chave;
+    expect((await a.chamar(`/painel?k=${chave}`, undefined, { method: "GET" })).status).toBe(200);
+    expect((await a.chamar("/admin/config", undefined, { method: "GET", headers: { "x-painel-chave": chave } })).status).toBe(200);
+    expect((await a.chamar(`/painel?k=${chave}x`, undefined, { method: "GET" })).status).toBe(403);
+    expect((await a.chamar("/admin/config", undefined, { method: "GET" })).status).toBe(403);
+    a.s.access.chaveLink = "curta";
+    expect((await a.chamar("/painel?k=curta", undefined, { method: "GET" })).status).toBe(403);
+    // A chave não vai para o registro de acesso: a rota é gravada sem a query string.
+    expect(JSON.stringify(a.banco)).not.toContain(chave);
+  });
+
+  it("/saude diz só ligado/ok/falta, sem valor secreto", async () => {
+    const a = ambiente();
+    const r = await a.chamar("/saude", undefined, { method: "GET" });
+    expect(r.status).toBe(200);
+    expect(r.corpo).toMatchObject({ banco: "desligado", segredo: "ok", mercado_pago: "ok", painel_link: "falta" });
+    expect(r.texto).not.toContain("segredo-passe");
+  });
+
   it("sem JWT, com e-mail fora da lista ou AUD errado → 403", async () => {
     const a = ambiente();
     const token = await comAccess(a);

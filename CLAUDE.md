@@ -20,7 +20,7 @@ Instruções para o Claude Code neste repositório. Leia este arquivo e toda a p
 | Pagamento | Mercado Pago, Pix pela API (conta e credenciais do Rob; confirmar endpoints vigentes em mercadopago.com.br/developers) |
 | Medição | Meta Pixel + API de Conversões (no Worker), deduplicados por `event_id` |
 | Armazenamento mínimo | **Cloudflare D1** (banco da própria Cloudflare, ligado ao Worker) **só** para: registros de acesso do Marco Civil (6 meses), contadores do funil sem pessoa, gasto de mídia digitado no painel e configurações. Nenhum dado de cliente. Migrações em `worker/migrations/` |
-| Painel | `web/painel/` + endpoints `/admin/*`, protegidos pelo **Cloudflare Access** (login por e-mail do Rob com código). Sem Supabase |
+| Painel | `web/painel/` + endpoints `/admin/*`, abertos por **link secreto** (`/painel?k=` + Secret `PAINEL_CHAVE`, decisão de 20/10/2026 em `docs/DECISOES.md`); Cloudflare Access continua aceito. Sem Supabase |
 
 Não troque a stack nem adicione framework/serviço pago sem aprovação.
 

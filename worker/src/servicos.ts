@@ -41,7 +41,7 @@ export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
     meta: new MetaCapi(env.META_PIXEL_ID, env.META_CAPI_TOKEN, env.META_GRAPH_VERSION || GRAPH_PADRAO, env.META_TEST_EVENT_CODE),
     banco: env.DB ? new BancoD1(env.DB) : new BancoNulo(),
     chavesPasse: chavesDoEnv(env),
-    access: { equipe: env.CF_ACCESS_TEAM_DOMAIN, aud: env.CF_ACCESS_AUD, emails: env.ADMIN_EMAILS },
+    access: { equipe: env.CF_ACCESS_TEAM_DOMAIN, aud: env.CF_ACCESS_AUD, emails: env.ADMIN_EMAILS, chaveLink: env.PAINEL_CHAVE },
     agora: () => new Date(),
     depois: (p) => ctx.waitUntil(p.catch((e) => console.warn("tarefa em segundo plano falhou:", String(e)))),
   };

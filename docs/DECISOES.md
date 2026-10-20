@@ -73,3 +73,10 @@ Travam o lançamento com dinheiro real:
 Podem esperar:
 - [x] Sem e-mail enviado e sem dados de clientes no servidor (decisão do Rob)
 - [ ] Ordem das fases pós-MVP (Casal, card, indicação)
+
+## 20/10/2026 — Painel por link secreto (decisão do Rob)
+- O painel abre por link: `https://segredodonome.robson-oc96.workers.dev/painel?k=CHAVE`, com `CHAVE` = Secret `PAINEL_CHAVE` (24+ caracteres). Sem tela de senha.
+- Motivo: o Cloudflare Access não protege bem um endereço `.workers.dev` só em `/painel`, e o domínio está no DNS do Netlify. O Access continua aceito no código, se um dia for ligado.
+- O painel só tem números agregados (nenhum dado de cliente). Quem tiver o link vê e pode editar gasto e taxas: não compartilhe. Para trocar, mude o Secret.
+- A chave não é gravada no registro de acesso (a rota é salva sem a query string) e as chamadas do painel a enviam em cabeçalho.
+- `/saude` mostra só "ligado/ok/falta" de banco e segredos, para conferir a configuração sem o painel da Cloudflare.
