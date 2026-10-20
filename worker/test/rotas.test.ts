@@ -381,6 +381,11 @@ describe("/admin e /painel", () => {
     expect((await a.chamar("/admin/config", undefined, { method: "GET", headers: { "x-painel-chave": chave } })).status).toBe(200);
     expect((await a.chamar(`/painel?k=${chave}x`, undefined, { method: "GET" })).status).toBe(403);
     expect((await a.chamar("/admin/config", undefined, { method: "GET" })).status).toBe(403);
+    // Sem a chave, /painel mostra a página que gera uma e explica onde cadastrar; nenhum dado do painel.
+    const semChave = await a.chamar("/painel", undefined, { method: "GET" });
+    expect(semChave.status).toBe(403);
+    expect(semChave.texto).toContain("PAINEL_CHAVE");
+    expect(semChave.texto).not.toContain(chave);
     a.s.access.chaveLink = "curta";
     expect((await a.chamar("/painel?k=curta", undefined, { method: "GET" })).status).toBe(403);
     // A chave não vai para o registro de acesso: a rota é gravada sem a query string.

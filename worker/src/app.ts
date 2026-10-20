@@ -3,6 +3,7 @@
 import { autorizarAdmin } from "./admin/access";
 import { rotaAdmin } from "./admin/rotas";
 import PAINEL_HTML from "./painel/gerado";
+import { PAGINA_ACESSO } from "./painel/acesso";
 import { comCors, ErroHttp, json, origemPermitida, preflight, respostaErro } from "./http";
 import { postEvento } from "./rotas/evento";
 import { postCheckout, postRecuperar, postStatus } from "./rotas/pagamento";
@@ -72,6 +73,13 @@ async function despachar(req: Request, s: Servicos, caminho: string, origem: str
 
   if (caminho === "/painel" || caminho.startsWith("/admin/")) {
     const email = await autorizarAdmin(req, s.access);
+    if (!email && caminho === "/painel" && req.method === "GET") {
+      // Sem a chave: página que gera uma no navegador e explica onde cadastrar.
+      return new Response(PAGINA_ACESSO, {
+        status: 403,
+        headers: { "content-type": "text/html; charset=utf-8", "content-security-policy": CSP_PAINEL, "cache-control": "no-store" },
+      });
+    }
     if (!email) throw new ErroHttp(403, "proibido", "Acesso restrito.");
     if (caminho === "/painel" && req.method === "GET") {
       return new Response(PAINEL_HTML, {
