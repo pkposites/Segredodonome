@@ -51,7 +51,7 @@ function rodape() {
   );
 }
 
-/** Aviso de cookies (legal/TEXTOS_DE_CONSENTIMENTO.md, 1): informa o Pixel; Aceitar e Recusar valem só para o Clarity. */
+/** Aviso de cookies (legal/TEXTOS_DE_CONSENTIMENTO.md, 1): Aceitar liga o Clarity; Recusar desliga o Clarity e a medição da Meta. */
 export function bannerCookies(forcar = false) {
   if (!forcar && escolhaCookies()) return;
   document.querySelector(".cookies")?.remove();
@@ -62,7 +62,7 @@ export function bannerCookies(forcar = false) {
   const caixa = h(
     "div",
     { class: "cookies", role: "dialog", "aria-label": "Aviso de cookies" },
-    h("p", {}, "Medimos de onde vêm as visitas com o Pixel da Meta. Se você aceitar, também usamos o Microsoft Clarity para ver cliques e rolagem, com todo o texto da tela escondido. ", h("a", { href: "/privacidade" }, "Saiba mais")),
+    h("p", {}, "Medimos de onde vêm as visitas com o Pixel da Meta. Se você aceitar, também usamos o Microsoft Clarity para ver cliques e rolagem, com todo o texto da tela escondido. Se recusar, paramos as duas medições. ", h("a", { href: "/privacidade" }, "Saiba mais")),
     h(
       "div",
       { class: "linha" },

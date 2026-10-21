@@ -43,10 +43,19 @@ export function escolhaCookies() {
 }
 
 export const cookiesAceitos = () => escolhaCookies() === "aceito";
+/** "Recusar" = oposição à medição: nada mais vai à Meta, nem pelo navegador nem pelo Worker. */
+export const recusouMedicao = () => escolhaCookies() === "recusado";
 
 export function definirCookies(valor) {
   local.gravar("cookies", { valor, versao: CONFIG.VERSAO_COOKIES, em: new Date().toISOString() });
   if (valor === "aceito") carregarClarity();
+  if (valor === "recusado") {
+    if (pixelAtivo()) window.fbq("consent", "revoke");
+    for (const nome of ["_fbp", "_fbc"]) {
+      document.cookie = `${nome}=; max-age=0; path=/; domain=.relatoriorda.com.br`;
+      document.cookie = `${nome}=; max-age=0; path=/`;
+    }
+  }
 }
 
 // ---------- chegada: UTMs e fbclid ----------
@@ -83,6 +92,7 @@ function fbcDoClique() {
 
 /** fbp, fbc e sessão para o Worker (API de Conversões). fbc do cookie, ou montado do clique guardado. */
 export function identificadores() {
+  if (recusouMedicao()) return { medir: false };
   return { fbp: lerCookie("_fbp"), fbc: lerCookie("_fbc") ?? fbcDoClique(), sessao_id: sessao.ler("id") ?? undefined };
 }
 
@@ -107,7 +117,7 @@ export function carregarClarity() {
 }
 
 function pixel(nome, eventId, extra) {
-  if (!pixelAtivo()) return;
+  if (!pixelAtivo() || recusouMedicao()) return;
   const dados = extra ?? CUSTOM[nome];
   window.fbq("track", nome, dados ?? {}, { eventID: eventId });
 }

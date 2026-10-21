@@ -50,12 +50,16 @@ export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
 export const ipDe = (req: Request) => req.headers.get("cf-connecting-ip") ?? "0.0.0.0";
 
 export interface Rastreio {
+  /** false = a pessoa tocou em "Recusar" no aviso de cookies: nada vai à Meta (oposição, LGPD art. 18, § 2º). */
+  medir?: unknown;
   fbp?: unknown;
   fbc?: unknown;
   sessao_id?: unknown;
 }
 
 const texto = (v: unknown, max = 255) => (typeof v === "string" && v.length > 0 && v.length <= max ? v : undefined);
+
+export const recusouMedicao = (r: Rastreio | null | undefined) => r?.medir === false;
 
 /** user_data da API de Conversões: IP, navegador, fbp, fbc e sessão (com hash). Nunca nome, data ou respostas. */
 export async function dadosUsuario(req: Request, r: Rastreio): Promise<DadosUsuario> {

@@ -2,7 +2,7 @@
 import { diaSaoPaulo, normalizarCampanha, normalizarVariante, type Etapa } from "../banco";
 import { ErroHttp, json, lerJson } from "../http";
 import { customDataProduto, ehRoboDePreVisualizacao, type NomeEventoMeta } from "../meta";
-import { dadosUsuario, type Servicos } from "../servicos";
+import { dadosUsuario, recusouMedicao, type Servicos } from "../servicos";
 import { urlDoSite } from "./comum";
 
 /** Etapas que o navegador pode informar (pix_gerado e pix_pago só o servidor conta). */
@@ -34,7 +34,7 @@ export async function postEvento(req: Request, s: Servicos): Promise<Response> {
 
   const agora = s.agora();
   await s.banco.incrementar(diaSaoPaulo(agora), def.etapa, normalizarCampanha(corpo.utm_campaign), normalizarVariante(corpo.variante));
-  if (def.meta) {
+  if (def.meta && !recusouMedicao(corpo)) {
     s.depois(
       s.meta.enviar({
         event_name: def.meta,

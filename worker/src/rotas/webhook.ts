@@ -48,17 +48,19 @@ export async function postWebhook(req: Request, s: Servicos): Promise<Response> 
       normalizarVariante(p.metadata.variante),
     );
   }
-  // Reenvio do webhook gera o mesmo event_id; a Meta deduplica.
-  s.depois(
-    s.meta.enviar({
-      event_name: "Purchase",
-      event_id: `compra-${p.id}`,
-      event_time: Math.floor(aprovado.getTime() / 1000),
-      event_source_url: urlDoSite(s, "/r"),
-      action_source: "website",
-      user_data: { fbp: texto(p.metadata.fbp), fbc: texto(p.metadata.fbc) },
-      custom_data: customDataProduto("Purchase", p.id),
-    }),
-  );
+  // Reenvio do webhook gera o mesmo event_id; a Meta deduplica. Quem recusou no aviso de cookies não é medido.
+  if (p.metadata.medir !== "nao") {
+    s.depois(
+      s.meta.enviar({
+        event_name: "Purchase",
+        event_id: `compra-${p.id}`,
+        event_time: Math.floor(aprovado.getTime() / 1000),
+        event_source_url: urlDoSite(s, "/r"),
+        action_source: "website",
+        user_data: { fbp: texto(p.metadata.fbp), fbc: texto(p.metadata.fbc) },
+        custom_data: customDataProduto("Purchase", p.id),
+      }),
+    );
+  }
   return json({ ok: true });
 }

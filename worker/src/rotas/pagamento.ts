@@ -6,7 +6,7 @@ import { erroGenerico404, ErroHttp, json, lerJson } from "../http";
 import { centavos, PRODUTO_NOME } from "../catalogo";
 import { pagamentoLibera, statusPublico } from "../mercadopago";
 import { customDataProduto } from "../meta";
-import { dadosUsuario, ipDe, type Servicos } from "../servicos";
+import { dadosUsuario, ipDe, recusouMedicao, type Servicos } from "../servicos";
 import { comprovante, exigirEntradas, montarResposta, passeParaPagamento, referenciaDe, urlDoSite } from "./comum";
 
 const esquemaCheckout = z.object({
@@ -35,7 +35,8 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
 
   const referencia = await referenciaDe(entradas, s);
   const eventId = crypto.randomUUID();
-  const usuario = await dadosUsuario(req, corpo);
+  const medir = !recusouMedicao(corpo);
+  const usuario = medir ? await dadosUsuario(req, corpo) : {};
   const utm = normalizarCampanha(corpo.utm_campaign);
   const variante = normalizarVariante(corpo.variante);
   const validadeMin = Number(s.env.PIX_VALIDADE_MINUTOS ?? "30");
@@ -47,7 +48,7 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
       externalReference: referencia,
       descricao: DESCRICAO_PIX,
       metadata: Object.fromEntries(
-        Object.entries({ fbp: usuario.fbp, fbc: usuario.fbc, event_id: eventId, utm_campaign: utm, variante }).filter(
+        Object.entries({ fbp: usuario.fbp, fbc: usuario.fbc, event_id: eventId, utm_campaign: utm, variante, medir: medir ? undefined : "nao" }).filter(
           ([, v]) => typeof v === "string",
         ),
       ) as Record<string, string>,
@@ -61,17 +62,19 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
 
   const agora = s.agora();
   s.depois(s.banco.incrementar(diaSaoPaulo(agora), "pix_gerado", utm, variante));
-  s.depois(
-    s.meta.enviar({
-      event_name: "InitiateCheckout",
-      event_id: eventId,
-      event_time: Math.floor(agora.getTime() / 1000),
-      event_source_url: urlDoSite(s, "/r"),
-      action_source: "website",
-      user_data: usuario,
-      custom_data: customDataProduto("InitiateCheckout"),
-    }),
-  );
+  if (medir) {
+    s.depois(
+      s.meta.enviar({
+        event_name: "InitiateCheckout",
+        event_id: eventId,
+        event_time: Math.floor(agora.getTime() / 1000),
+        event_source_url: urlDoSite(s, "/r"),
+        action_source: "website",
+        user_data: usuario,
+        custom_data: customDataProduto("InitiateCheckout"),
+      }),
+    );
+  }
 
   return json(
     {
@@ -107,17 +110,19 @@ export async function postStatus(req: Request, s: Servicos): Promise<Response> {
   // Purchase também daqui: esta requisição vem do navegador (IP, navegador, fbp e fbc),
   // que a Meta exige em eventos de site. Mesmo event_id do webhook e do Pixel: a Meta deduplica.
   const aprovado = new Date(p.aprovado_em ?? p.criado_em);
-  s.depois(
-    s.meta.enviar({
-      event_name: "Purchase",
-      event_id: `compra-${p.id}`,
-      event_time: Math.floor(aprovado.getTime() / 1000),
-      event_source_url: urlDoSite(s, "/r"),
-      action_source: "website",
-      user_data: await dadosUsuario(req, corpo),
-      custom_data: customDataProduto("Purchase", p.id),
-    }),
-  );
+  if (!recusouMedicao(corpo) && p.metadata.medir !== "nao") {
+    s.depois(
+      s.meta.enviar({
+        event_name: "Purchase",
+        event_id: `compra-${p.id}`,
+        event_time: Math.floor(aprovado.getTime() / 1000),
+        event_source_url: urlDoSite(s, "/r"),
+        action_source: "website",
+        user_data: await dadosUsuario(req, corpo),
+        custom_data: customDataProduto("Purchase", p.id),
+      }),
+    );
+  }
 
   const resposta = await montarResposta(entradas, s, { completo: true });
   return json({

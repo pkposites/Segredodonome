@@ -41,7 +41,7 @@ Alguns desses fornecedores processam dados fora do Brasil, para a execução do 
 ## 5. Anúncios e medição
 - O Pixel da Meta é carregado quando a página abre, para medir de onde vêm as visitas e as compras. Ele usa os cookies `_fbp` e `_fbc` (até 90 dias) e recebe o seu IP e o tipo de navegador.
 - Enviamos à Meta, pelo navegador e pelo nosso servidor, apenas o tipo de ação (ex.: "compra"), o valor, o IP, o navegador e esses identificadores técnicos de anúncio.
-- Você pode se opor a essa medição escrevendo para qvnads@gmail.com ou bloqueando cookies de terceiros no seu navegador.
+- Você pode se opor a essa medição a qualquer momento tocando em **Recusar** no aviso de cookies (ou em "Preferências de cookies", no rodapé): o Pixel para, os cookies `_fbp` e `_fbc` são apagados e nada mais é enviado à Meta sobre você. Também pode escrever para qvnads@gmail.com.
 - O Microsoft Clarity também só é carregado se você **aceitar os cookies**. Ele registra cliques, rolagem e movimentos na página com **todo o texto da tela mascarado**: seu nome, sua data e o seu resultado não aparecem nas gravações. O seu link de acesso também não, porque ele sai da barra de endereço assim que a página abre.
 - **Nunca enviamos** nome, data de nascimento, respostas, resultado ou e-mail.
 

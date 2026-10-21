@@ -4,11 +4,19 @@
 (function () {
   var PIXEL_ID = "2132885950950048";
   var OFICIAL = "segredo.relatoriorda.com.br";
+  var VERSAO_COOKIES = "2026-10-b"; // igual a CONFIG.VERSAO_COOKIES (js/config.js)
   if (location.hostname !== OFICIAL) return; // prévia e localhost: nenhum evento vai à Meta
+
+  // Quem tocou em "Recusar" no aviso de cookies não é medido (oposição, LGPD art. 18, § 2º).
+  var recusou = false;
+  try {
+    var escolha = JSON.parse(localStorage.getItem("sdn_cookies") || "null");
+    recusou = !!escolha && escolha.valor === "recusado" && escolha.versao === VERSAO_COOKIES;
+  } catch (e) {}
 
   // 1) _fbc no formato fb.1.<timestamp_ms>.<fbclid>, 90 dias, para todo o relatoriorda.com.br.
   var fbclid = new URLSearchParams(location.search).get("fbclid");
-  if (fbclid && /^[\w-]{1,500}$/.test(fbclid)) {
+  if (!recusou && fbclid && /^[\w-]{1,500}$/.test(fbclid)) {
     var atual = (document.cookie.match(/(?:^|; )_fbc=([^;]*)/) || [])[1];
     if (!atual || atual.split(".").slice(3).join(".") !== fbclid) {
       document.cookie = "_fbc=fb.1." + Date.now() + "." + fbclid + "; domain=.relatoriorda.com.br; path=/; max-age=" + 90 * 86400 + "; SameSite=Lax; Secure";
@@ -17,7 +25,7 @@
 
   // _fbp no formato da Meta (fb.1.<timestamp_ms>.<aleatório>), criado já aqui para o primeiro envio ao
   // Worker sair com ele; o Pixel reaproveita o cookie existente em vez de criar outro.
-  if (!/(?:^|; )_fbp=/.test(document.cookie)) {
+  if (!recusou && !/(?:^|; )_fbp=/.test(document.cookie)) {
     var aleatorio = crypto.getRandomValues(new Uint32Array(1))[0];
     document.cookie = "_fbp=fb.1." + Date.now() + "." + aleatorio + "; domain=.relatoriorda.com.br; path=/; max-age=" + 90 * 86400 + "; SameSite=Lax; Secure";
   }
@@ -28,6 +36,8 @@
     try { localStorage.setItem("sdn_passe", JSON.stringify(passe[1])); } catch (e) {}
     history.replaceState(history.state, "", "/r" + location.search);
   }
+
+  if (recusou) return;
 
   // 3) Código base da Meta, eventos automáticos desligados, PageView com event_id.
   !function (f, b, e, v, n, t, s) {

@@ -3,11 +3,12 @@
 Cada texto tem um identificador e uma versão; a escolha da pessoa fica registrada só no navegador dela.
 
 ## 1. Aviso de cookies (`cookies`) — primeira visita, rodapé
-> Medimos de onde vêm as visitas com o Pixel da Meta. Se você aceitar, também usamos o Microsoft Clarity para ver cliques e rolagem, com todo o texto da tela escondido. [Saiba mais](/privacidade)
+> Medimos de onde vêm as visitas com o Pixel da Meta. Se você aceitar, também usamos o Microsoft Clarity para ver cliques e rolagem, com todo o texto da tela escondido. Se recusar, paramos as duas medições. [Saiba mais](/privacidade)
 > **[Recusar]**  **[Aceitar]**
 
-- Aviso informativo para o Pixel da Meta, que carrega na abertura da página (legítimo interesse).
-- Aceitar e Recusar valem só para o Microsoft Clarity, com o mesmo destaque.
+- O Pixel da Meta carrega na abertura da página (legítimo interesse); o aviso informa.
+- Aceitar liga o Microsoft Clarity. Recusar desliga o Clarity e é a oposição à medição da Meta: o Pixel para na hora, os cookies `_fbp`/`_fbc` são apagados e nada mais é enviado à Meta, nem pelo servidor.
+- Os dois botões com o mesmo destaque.
 - Recusar não impede nada: o site funciona normalmente.
 - Link "Preferências de cookies" fixo no rodapé para mudar a escolha.
 

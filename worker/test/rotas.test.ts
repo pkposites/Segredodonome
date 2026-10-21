@@ -296,6 +296,23 @@ describe("POST /webhook/mercadopago", () => {
   });
 });
 
+describe("Recusar no aviso de cookies (oposição à medição)", () => {
+  it("nenhum evento vai à Meta: nem etapa, nem checkout, nem compra (status e webhook), mas o painel conta", async () => {
+    const a = ambiente();
+    await a.chamar("/evento", { tipo: "visita", event_id: "evt-12345678", medir: false, fbp: "fb.1.2.3" });
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, medir: false, fbp: "fb.1.2.3" });
+    const meta = a.mp.pagamentos.get(c.corpo.pagamento_id)!.metadata;
+    expect(meta.medir).toBe("nao");
+    expect(meta.fbp).toBeUndefined();
+    a.mp.aprovar(c.corpo.pagamento_id);
+    await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS, medir: false });
+    expect((await webhook(a, c.corpo.pagamento_id)).status).toBe(200);
+    expect(a.meta.eventos).toEqual([]);
+    expect(a.banco.total("visita")).toBe(1);
+    expect(a.banco.total("pix_pago")).toBe(1);
+  });
+});
+
 describe("POST /evento", () => {
   it("soma no contador e envia o evento padrão com o mesmo event_id", async () => {
     const a = ambiente();
