@@ -205,9 +205,25 @@ function gratis(tela, r, { ir, entradas }) {
             h("li", {}, "Não enviamos e-mail: guarde o seu link de acesso ou salve o PDF."),
             h("li", {}, "Conteúdo de entretenimento, sem valor científico ou de previsão."),
           ),
+          h("span", { class: "seta-cta", "aria-hidden": "true" }, svg(ICONES.baixo)),
           h("button", { class: `botao botao-principal${movimentoReduzido() ? "" : " tremer"}`, type: "button", onclick: comprar }, ctaTexto),
           h("p", { class: "mini" }, `Vendido por ${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}.`),
         ),
+      )
+    : null;
+
+  // Chamariz logo depois do resultado grátis: seta que se mexe e leva até a oferta.
+  const chamariz = oferta
+    ? h(
+        "button",
+        {
+          class: "chamariz nao-imprimir",
+          type: "button",
+          onclick: () => oferta.scrollIntoView({ behavior: movimentoReduzido() ? "auto" : "smooth", block: "start" }),
+        },
+        h("span", { class: "chamariz-rotulo" }, "Sua carta continua"),
+        h("span", { class: "chamariz-texto" }, `Mais ${total} capítulos esperando por você`),
+        h("span", { class: "chamariz-seta", "aria-hidden": "true" }, svg(ICONES.baixo)),
       )
     : null;
 
@@ -225,6 +241,7 @@ function gratis(tela, r, { ir, entradas }) {
       "div",
       { class: `depois-da-carta${animar ? " chegando" : ""}` },
       partesGratis(g),
+      chamariz,
       sentinela,
       r.oferta
         ? h(
@@ -247,6 +264,16 @@ function gratis(tela, r, { ir, entradas }) {
       }
     }, { threshold: 0.25 });
     obs.observe(oferta);
+    // Capítulos entram um a um quando a oferta aparece na tela.
+    const capitulos = oferta.querySelector(".capitulos");
+    capitulos.classList.add("revelar");
+    const obsCap = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        capitulos.classList.add("visivel");
+        obsCap.disconnect();
+      }
+    }, { threshold: 0.15 });
+    obsCap.observe(capitulos);
   }
   if (r.oferta) {
     document.body.append(barra);
