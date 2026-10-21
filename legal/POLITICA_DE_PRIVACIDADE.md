@@ -1,6 +1,6 @@
 # Política de Privacidade — Segredo do Nome
 
-Versão 2026-10-e · Vigente desde 21/10/2026
+Versão 2026-10-f · Vigente desde 21/10/2026
 
 Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
 
@@ -23,7 +23,7 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 | Código técnico derivado do nome e da data (irreversível) | Localizar o seu pagamento se você perder o link e refizer o quiz | No registro do pagamento, no Mercado Pago | Legítimo interesse (art. 7º, IX) | Conforme a política do Mercado Pago |
 | Dados do pagamento (valor, data, situação) | Liberar o resultado, reembolsos e obrigações fiscais | No Mercado Pago | Execução do contrato e obrigação legal (art. 7º, V e II) | Conforme o Mercado Pago e a lei |
 | Endereço IP, data e hora de acesso | Cumprir o Marco Civil da Internet e proteger o site | Nossos registros de acesso | Obrigação legal (art. 7º, II; Lei 12.965/2014, art. 15) | 6 meses |
-| Cookies e identificadores de anúncio (`_fbp`, `_fbc`), IP e navegador | Medir de onde vêm as visitas e as compras | Seu navegador e a Meta | **Consentimento** pelo aviso de cookies (art. 7º, I) | Até 90 dias no navegador |
+| Cookies e identificadores de anúncio (`_fbp`, `_fbc`), IP e navegador | Medir de onde vêm as visitas e as compras e avaliar os anúncios | Seu navegador e a Meta | Legítimo interesse (art. 7º, IX), informado no aviso de cookies | Até 90 dias no navegador |
 | Cliques, rolagem e movimentos na página, com todo o texto da tela mascarado; cookies do Clarity (`_clck`, `_clsk`) | Entender onde o site confunde ou trava e melhorar a experiência | Seu navegador e a Microsoft (Clarity) | **Consentimento** pelo aviso de cookies (art. 7º, I) | Na Microsoft: gravações por 30 dias e dados de cliques por até 9 meses (uma pequena amostra das gravações também por até 9 meses), conforme a política do Clarity |
 
 ## 4. Com quem compartilhamos
@@ -39,8 +39,9 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 Alguns desses fornecedores processam dados fora do Brasil, para a execução do serviço e com medidas de proteção contratuais (art. 33 da LGPD). Podemos compartilhar dados quando a lei ou uma autoridade exigir.
 
 ## 5. Anúncios e medição
-- O Pixel da Meta só é carregado se você **aceitar os cookies**.
-- Enviamos à Meta apenas o tipo de ação (ex.: "compra"), o valor e identificadores técnicos de navegação e de anúncio; IP e navegador só com cookies aceitos.
+- O Pixel da Meta é carregado quando a página abre, para medir de onde vêm as visitas e as compras. Ele usa os cookies `_fbp` e `_fbc` (até 90 dias) e recebe o seu IP e o tipo de navegador.
+- Enviamos à Meta, pelo navegador e pelo nosso servidor, apenas o tipo de ação (ex.: "compra"), o valor, o IP, o navegador e esses identificadores técnicos de anúncio.
+- Você pode se opor a essa medição escrevendo para qvnads@gmail.com ou bloqueando cookies de terceiros no seu navegador.
 - O Microsoft Clarity também só é carregado se você **aceitar os cookies**. Ele registra cliques, rolagem e movimentos na página com **todo o texto da tela mascarado**: seu nome, sua data e o seu resultado não aparecem nas gravações. O seu link de acesso também não, porque ele sai da barra de endereço assim que a página abre.
 - **Nunca enviamos** nome, data de nascimento, respostas, resultado ou e-mail.
 

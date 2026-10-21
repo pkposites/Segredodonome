@@ -104,7 +104,7 @@ export async function postStatus(req: Request, s: Servicos): Promise<Response> {
   const status = statusPublico(p, s.agora());
   if (status !== "approved" || !pagamentoLibera(p, referencia)) return json({ status });
 
-  // Purchase também daqui: esta requisição vem do navegador (IP e navegador, com cookies aceitos),
+  // Purchase também daqui: esta requisição vem do navegador (IP, navegador, fbp e fbc),
   // que a Meta exige em eventos de site. Mesmo event_id do webhook e do Pixel: a Meta deduplica.
   const aprovado = new Date(p.aprovado_em ?? p.criado_em);
   s.depois(

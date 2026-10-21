@@ -3,7 +3,7 @@
 import { CONFIG } from "./config.js";
 import { h, trocar } from "./dom.js";
 import { MODO_DEMO } from "./api.js";
-import { capturarChegada, carregarClarity, carregarPixel, definirCookies, escolhaCookies, evento } from "./rastreio.js";
+import { capturarChegada, carregarClarity, definirCookies, escolhaCookies, evento } from "./rastreio.js";
 import { montarFundo, botaoEfeitos, limparRevelacao } from "./fundo.js";
 import { telaInicio } from "./telas/inicio.js";
 import { telaQuiz } from "./telas/quiz.js";
@@ -51,7 +51,7 @@ function rodape() {
   );
 }
 
-/** Aviso de cookies (legal/TEXTOS_DE_CONSENTIMENTO.md, 1): Aceitar e Recusar com o mesmo destaque. */
+/** Aviso de cookies (legal/TEXTOS_DE_CONSENTIMENTO.md, 1): informa o Pixel; Aceitar e Recusar valem só para o Clarity. */
 export function bannerCookies(forcar = false) {
   if (!forcar && escolhaCookies()) return;
   document.querySelector(".cookies")?.remove();
@@ -62,7 +62,7 @@ export function bannerCookies(forcar = false) {
   const caixa = h(
     "div",
     { class: "cookies", role: "dialog", "aria-label": "Aviso de cookies" },
-    h("p", {}, "Usamos cookies para medir de onde vêm as visitas e melhorar o site. ", h("a", { href: "/privacidade" }, "Saiba mais")),
+    h("p", {}, "Medimos de onde vêm as visitas com o Pixel da Meta. Se você aceitar, também usamos o Microsoft Clarity para ver cliques e rolagem, com todo o texto da tela escondido. ", h("a", { href: "/privacidade" }, "Saiba mais")),
     h(
       "div",
       { class: "linha" },
@@ -95,7 +95,6 @@ if (MODO_DEMO) {
 montarFundo();
 document.getElementById("topo-acoes").prepend(botaoEfeitos());
 capturarChegada();
-carregarPixel();
 carregarClarity();
 rodape();
 renderizar();

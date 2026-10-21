@@ -1,14 +1,14 @@
-# Textos de consentimento e avisos (versão 2026-10-a)
+# Textos de consentimento e avisos (versão 2026-10-b)
 
 Cada texto tem um identificador e uma versão; a escolha da pessoa fica registrada só no navegador dela.
 
 ## 1. Aviso de cookies (`cookies`) — primeira visita, rodapé
-> Usamos cookies para medir de onde vêm as visitas e melhorar o site. [Saiba mais](/privacidade)
-> **[Aceitar]**  **[Recusar]**
+> Medimos de onde vêm as visitas com o Pixel da Meta. Se você aceitar, também usamos o Microsoft Clarity para ver cliques e rolagem, com todo o texto da tela escondido. [Saiba mais](/privacidade)
+> **[Recusar]**  **[Aceitar]**
 
-- Os dois botões com o mesmo destaque.
+- Aviso informativo para o Pixel da Meta, que carrega na abertura da página (legítimo interesse).
+- Aceitar e Recusar valem só para o Microsoft Clarity, com o mesmo destaque.
 - Recusar não impede nada: o site funciona normalmente.
-- Sem aceite, o Pixel não carrega.
 - Link "Preferências de cookies" fixo no rodapé para mudar a escolha.
 
 ## 2. Antes de calcular o resultado (`termos`) — última tela do quiz

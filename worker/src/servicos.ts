@@ -50,7 +50,6 @@ export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
 export const ipDe = (req: Request) => req.headers.get("cf-connecting-ip") ?? "0.0.0.0";
 
 export interface Rastreio {
-  cookies_aceitos?: unknown;
   fbp?: unknown;
   fbc?: unknown;
   sessao_id?: unknown;
@@ -58,9 +57,8 @@ export interface Rastreio {
 
 const texto = (v: unknown, max = 255) => (typeof v === "string" && v.length > 0 && v.length <= max ? v : undefined);
 
-/** user_data da API de Conversões: IP, navegador e identificadores só com cookies aceitos. */
+/** user_data da API de Conversões: IP, navegador, fbp, fbc e sessão (com hash). Nunca nome, data ou respostas. */
 export async function dadosUsuario(req: Request, r: Rastreio): Promise<DadosUsuario> {
-  if (r.cookies_aceitos !== true) return {};
   const sessao = texto(r.sessao_id, 64);
   return {
     client_ip_address: req.headers.get("cf-connecting-ip") ?? undefined,

@@ -9,7 +9,7 @@ const EMAIL = "pessoa.compradora@exemplo.com";
 const UUID = "6f1c2c1e-6c43-4c3a-9a55-2f0f6a0d9e11";
 
 async function comprar(a: ReturnType<typeof ambiente>, entradas = ENTRADAS) {
-  const c = await a.chamar("/checkout", { entradas, email: EMAIL, idempotency_key: crypto.randomUUID(), cookies_aceitos: true, fbp: "fb.1.1.1" });
+  const c = await a.chamar("/checkout", { entradas, email: EMAIL, idempotency_key: crypto.randomUUID(), fbp: "fb.1.1.1" });
   a.mp.aprovar(c.corpo.pagamento_id);
   const st = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas });
   return { pagamentoId: c.corpo.pagamento_id as string, passe: st.corpo.passe as string, status: st };
@@ -83,27 +83,27 @@ describe("POST /resultado", () => {
 });
 
 describe("compra completa", () => {
-  it("status aprovado manda Purchase do servidor com navegador e IP (cookies aceitos), mesmo event_id do Pixel", async () => {
+  it("status aprovado manda Purchase do servidor com navegador, IP e fbp, mesmo event_id do Pixel", async () => {
     const a = ambiente();
-    const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, cookies_aceitos: true, fbp: "fb.1.1.1" });
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbp: "fb.1.1.1" });
     a.mp.aprovar(c.corpo.pagamento_id);
-    const ok = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS, cookies_aceitos: true, fbp: "fb.1.1.1" });
+    const ok = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS, fbp: "fb.1.1.1" });
     const compra = a.meta.eventos.find((e) => e.event_name === "Purchase")!;
     expect(compra.event_id).toBe(ok.corpo.event_id_purchase);
     expect(compra.action_source).toBe("website");
     expect(compra.user_data).toMatchObject({ client_user_agent: expect.any(String), client_ip_address: "203.0.113.7", fbp: "fb.1.1.1" });
     expect(compra.custom_data).toMatchObject({ value: 11.9, currency: "BRL" });
-    // Sem cookies aceitos: o evento sai sem identificadores do navegador.
+    // fbc do checkout vai junto na compra (dados do anúncio clicado).
     const b = ambiente();
-    const c2 = await b.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID });
+    const c2 = await b.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbc: "fb.1.1700000000000.AbC" });
     b.mp.aprovar(c2.corpo.pagamento_id);
-    await b.chamar("/pagamento/status", { pagamento_id: c2.corpo.pagamento_id, entradas: ENTRADAS });
-    expect(b.meta.eventos.find((e) => e.event_name === "Purchase")!.user_data).toEqual({});
+    await b.chamar("/pagamento/status", { pagamento_id: c2.corpo.pagamento_id, entradas: ENTRADAS, fbc: "fb.1.1700000000000.AbC" });
+    expect(b.meta.eventos.find((e) => e.event_name === "Purchase")!.user_data).toMatchObject({ fbc: "fb.1.1700000000000.AbC", client_ip_address: "203.0.113.7" });
   });
 
   it("checkout → pendente → aprovado com passe, comprovante e completo", async () => {
     const a = ambiente();
-    const c = await a.chamar("/checkout", { entradas: ENTRADAS, email: EMAIL, idempotency_key: UUID, cookies_aceitos: true, fbp: "fb.1.1.1", utm_campaign: "120210" });
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, email: EMAIL, idempotency_key: UUID, fbp: "fb.1.1.1", utm_campaign: "120210" });
     expect(c.status).toBe(201);
     expect(c.corpo).toMatchObject({ copia_e_cola: expect.any(String), qr_code_base64: expect.any(String), event_id_checkout: expect.any(String) });
     expect(a.mp.criados[0]!.externalReference).toMatch(/^sdn1-[0-9a-f]{32}$/);
@@ -299,7 +299,7 @@ describe("POST /webhook/mercadopago", () => {
 describe("POST /evento", () => {
   it("soma no contador e envia o evento padrão com o mesmo event_id", async () => {
     const a = ambiente();
-    const r = await a.chamar("/evento", { tipo: "resultado_visto", event_id: "evt-12345678", utm_campaign: "120210", cookies_aceitos: true, fbp: "fb.1.2.3" });
+    const r = await a.chamar("/evento", { tipo: "resultado_visto", event_id: "evt-12345678", utm_campaign: "120210", fbp: "fb.1.2.3" });
     expect(r.status).toBe(204);
     expect(a.banco.total("resultado_visto")).toBe(1);
     expect(a.meta.eventos[0]).toMatchObject({
@@ -310,10 +310,14 @@ describe("POST /evento", () => {
     });
   });
 
-  it("sem aceite de cookies: sem IP, user agent e fbp", async () => {
+  it("PageView da chegada vai com IP, navegador, fbp e fbc, sem depender do aviso de cookies", async () => {
     const a = ambiente();
-    await a.chamar("/evento", { tipo: "visita", event_id: "evt-12345678", fbp: "fb.1.2.3" });
-    expect(a.meta.eventos[0]!.user_data).toEqual({});
+    await a.chamar("/evento", { tipo: "visita", event_id: "evt-12345678", fbp: "fb.1.2.3", fbc: "fb.1.1700000000000.AbC" });
+    expect(a.meta.eventos[0]).toMatchObject({
+      event_name: "PageView",
+      event_id: "evt-12345678",
+      user_data: { client_ip_address: "203.0.113.7", client_user_agent: expect.any(String), fbp: "fb.1.2.3", fbc: "fb.1.1700000000000.AbC" },
+    });
   });
 
   it("robô de pré-visualização é ignorado; etapa do servidor não pode vir do navegador", async () => {

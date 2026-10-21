@@ -95,3 +95,9 @@ Podem esperar:
 - Depois da compra ou da recuperação, o endereço fica `/r` (antes voltava a `/r#p=...` com o Pixel e o Clarity ligados).
 - Fontes servidas pelo próprio site (`web/fontes/`, licença OFL), sem Google Fonts; biblioteca do QR Code só baixa quando o QR aparece.
 - Pendente de decisão do Rob com revisão jurídica: carregar o Pixel antes do aceite (contradiz `legal/POLITICA_DE_PRIVACIDADE.md` e `legal/TEXTOS_DE_CONSENTIMENTO.md`).
+
+## 21/10/2026 — Pixel na chegada, sem depender do aceite (decisão do Rob)
+- Motivo: só quem tocava em "Aceitar" era medido (32 cliques → 6 visualizações da página), o que derruba a otimização da campanha de Compras.
+- `web/js/chegada.js` (no `<head>`, antes do app): `_fbc` do `fbclid` (domínio `.relatoriorda.com.br`, 90 dias), `_fbp`, passe fora do endereço, Pixel + PageView com `event_id`. O Worker recebe o mesmo `event_id` (deduplicação).
+- O aviso de cookies passa a ser informativo para o Pixel; Aceitar/Recusar valem só para o Clarity. Termos e 18+ continuam obrigatórios na última tela do quiz.
+- Política de Privacidade 2026-10-f e Textos de Consentimento 2026-10-b: base legal da medição da Meta passa a ser legítimo interesse. **Risco jurídico assumido pelo Rob; revisão de advogado recomendada.**

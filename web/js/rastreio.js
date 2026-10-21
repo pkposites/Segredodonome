@@ -35,7 +35,8 @@ const TIPO_PARA_META = {
   casal_interesse: "AddToWishlist",
 };
 
-// ---------- consentimento ----------
+// ---------- aviso de cookies ----------
+// O Pixel não depende mais do aviso (js/chegada.js carrega na abertura). "Aceitar" só libera o Clarity.
 export function escolhaCookies() {
   const c = local.ler("cookies");
   return c && c.versao === CONFIG.VERSAO_COOKIES ? c.valor : null; // "aceito" | "recusado" | null
@@ -45,10 +46,7 @@ export const cookiesAceitos = () => escolhaCookies() === "aceito";
 
 export function definirCookies(valor) {
   local.gravar("cookies", { valor, versao: CONFIG.VERSAO_COOKIES, em: new Date().toISOString() });
-  if (valor === "aceito") {
-    carregarPixel();
-    carregarClarity();
-  }
+  if (valor === "aceito") carregarClarity();
 }
 
 // ---------- chegada: UTMs e fbclid ----------
@@ -75,51 +73,24 @@ function lerCookie(nome) {
   return m ? decodeURIComponent(m[1]) : undefined;
 }
 
-/** fbp, fbc e sessão, só com cookies aceitos. fbc montado do fbclid quando o _fbc não existe. */
-// Mesmo prazo do cookie _fbc informado na política de privacidade: 90 dias.
-const PRAZO_FBC = 90 * 86400;
+// Mesmo prazo do cookie _fbc: 90 dias.
+const PRAZO_FBC = 90 * 86400_000;
 
 function fbcDoClique() {
   const guardado = local.ler("fbclid");
-  return guardado && Date.now() - guardado.em < PRAZO_FBC * 1000 ? `fb.1.${guardado.em}.${guardado.valor}` : undefined;
+  return guardado && Date.now() - guardado.em < PRAZO_FBC ? `fb.1.${guardado.em}.${guardado.valor}` : undefined;
 }
 
+/** fbp, fbc e sessão para o Worker (API de Conversões). fbc do cookie, ou montado do clique guardado. */
 export function identificadores() {
-  if (!cookiesAceitos()) return { cookies_aceitos: false };
-  const fbc = lerCookie("_fbc") ?? fbcDoClique();
-  return { cookies_aceitos: true, fbp: lerCookie("_fbp"), fbc, sessao_id: sessao.ler("id") ?? undefined };
+  return { fbp: lerCookie("_fbp"), fbc: lerCookie("_fbc") ?? fbcDoClique(), sessao_id: sessao.ler("id") ?? undefined };
 }
 
 export const utmCampaign = () => local.ler("utm")?.utm_campaign;
 
 // ---------- Pixel ----------
-let pixelCarregado = false;
-
-export function carregarPixel() {
-  if (pixelCarregado || !CONFIG.META_PIXEL_ID || !CONFIG.DOMINIOS_OFICIAIS.includes(location.hostname)) return;
-  if (CONFIG.PIXEL_EXIGE_CONSENTIMENTO && !cookiesAceitos()) return;
-  pixelCarregado = true;
-  // O fbclid já saiu do endereço na chegada, então o Pixel não consegue criar o _fbc sozinho:
-  // criamos com o clique guardado, para a Meta ligar a visita ao anúncio.
-  const fbc = fbcDoClique();
-  if (fbc && !lerCookie("_fbc")) document.cookie = `_fbc=${fbc}; max-age=${PRAZO_FBC}; path=/; SameSite=Lax; Secure`;
-  /* eslint-disable */
-  !(function (f, b, e, v, n, t, s) {
-    if (f.fbq) return;
-    n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
-    if (!f._fbq) f._fbq = n;
-    n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = [];
-    t = b.createElement(e); t.async = !0; t.src = v;
-    s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
-  })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-  /* eslint-enable */
-  // Eventos automáticos desligados ANTES do init (RASTREAMENTO_META.md, 2.1).
-  window.fbq("set", "autoConfig", false, CONFIG.META_PIXEL_ID);
-  window.fbq("init", CONFIG.META_PIXEL_ID);
-  // Eventos desta página que saíram antes do aceite (ex.: o PageView da chegada) vão agora,
-  // com o mesmo event_id que o Worker recebeu.
-  for (const [nome, eventId] of pendentes.splice(0)) pixel(nome, eventId);
-}
+// Carregado por js/chegada.js no <head> (init e PageView da chegada). Aqui só os eventos seguintes.
+const pixelAtivo = () => typeof window.fbq === "function";
 
 let clarityCarregado = false;
 export function carregarClarity() {
@@ -135,14 +106,8 @@ export function carregarClarity() {
   /* eslint-enable */
 }
 
-/** Eventos desta página aguardando o Pixel (só em memória: recarregar a página zera). */
-const pendentes = [];
-
 function pixel(nome, eventId, extra) {
-  if (!pixelCarregado || !window.fbq) {
-    if (!extra) pendentes.push([nome, eventId]);
-    return;
-  }
+  if (!pixelAtivo()) return;
   const dados = extra ?? CUSTOM[nome];
   window.fbq("track", nome, dados ?? {}, { eventID: eventId });
 }
@@ -158,9 +123,17 @@ export function evento(tipo) {
   marcados[tipo] = true;
   sessao.gravar("eventos", marcados);
 
-  const eventId = uuid();
   const meta = TIPO_PARA_META[tipo];
-  if (meta) pixel(meta, eventId);
+  // PageView da chegada: o Pixel já mandou no <head> (js/chegada.js); o Worker recebe o mesmo event_id.
+  const chegada = window.__sdnChegada;
+  let eventId;
+  if (meta === "PageView" && chegada && chegada.caminho === location.pathname) {
+    eventId = chegada.eventId;
+    window.__sdnChegada = null;
+  } else {
+    eventId = uuid();
+    if (meta) pixel(meta, eventId);
+  }
   post("/evento", { tipo, event_id: eventId, utm_campaign: utmCampaign(), variante: CONFIG.VARIANTE, ...identificadores() }, { keepalive: true }).catch(() => {});
 }
 

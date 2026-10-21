@@ -111,7 +111,7 @@ utm_source=meta&utm_medium=paid_social&utm_campaign={{campaign.id}}&utm_term={{a
 - `fbq('set', 'autoConfig', false, PIXEL_ID)` e depois `fbq('init', PIXEL_ID)`, sem correspondência avançada automática (ela poderia ler campos do formulário).
 - Eventos com `fbq('track', nome, dados, { eventID })` usando o mesmo `event_id` do servidor.
 - Tela de liberação: quando `POST /pagamento/status` devolve `approved`, a resposta traz `event_id_purchase` e o valor; o front dispara `fbq('track','Purchase', …, {eventID})` **uma vez** (marcador em `sessionStorage`).
-- **Consentimento de cookies:** banner simples (aceitar/recusar). Com recusa, o Pixel não carrega e só a API de Conversões envia eventos, sem `fbp`. Formato final do banner: validar com o advogado (`PIXEL_EXIGE_CONSENTIMENTO`, padrão `true`).
+- **Pixel na chegada (decisão do Rob, 21/10/2026):** `web/js/chegada.js`, no `<head>`, grava `_fbc` (do `fbclid`) e `_fbp`, tira o passe (`#p=`) do endereço e dispara `init` + `PageView` com `event_id`; o `rastreio.js` manda esse mesmo `event_id` ao Worker. O aviso de cookies é informativo para o Pixel; Aceitar/Recusar valem só para o Clarity. A API de Conversões envia IP, navegador, `fbp` e `fbc` em todos os eventos.
 
 ## 8. Configuração na Meta (checklist do Rob)
 
