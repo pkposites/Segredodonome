@@ -66,7 +66,6 @@ function pagina(titulo, corpo) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(titulo)} · Segredo do Nome</title>
 <meta name="theme-color" content="#0D0D10">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Figtree:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>

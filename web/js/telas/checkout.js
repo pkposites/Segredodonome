@@ -6,7 +6,6 @@ import { post } from "../api.js";
 import { CONFIG } from "../config.js";
 import { emblema } from "../emblemas.js";
 import { evento, identificadores, pixelCheckout, utmCampaign } from "../rastreio.js";
-import qrcode from "../vendor/qrcode.js";
 
 const INTERVALO_MS = 4000;
 const hora = (iso) => new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
@@ -104,10 +103,14 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
       img = h("img", { alt: "QR Code do Pix", width: "188", height: "188", src: `data:image/png;base64,${pix.qr_code_base64}` });
     } else {
       // Sem imagem do Mercado Pago: desenha o QR a partir do copia e cola.
-      const q = qrcode(0, "M");
-      q.addData(pix.copia_e_cola ?? "");
-      q.make();
-      img = svg(q.createSvgTag({ cellSize: 4, margin: 2, scalable: true }));
+      img = h("span", { class: "qr-lugar" });
+      const lugar = img;
+      import("../vendor/qrcode.js").then(({ default: qrcode }) => {
+        const q = qrcode(0, "M");
+        q.addData(pix.copia_e_cola ?? "");
+        q.make();
+        lugar.replaceWith(svg(q.createSvgTag({ cellSize: 4, margin: 2, scalable: true })));
+      });
     }
     trocar(
       folha,

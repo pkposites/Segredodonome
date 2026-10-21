@@ -82,8 +82,11 @@ export class MetaCapi implements Meta {
 
   async enviar(evento: EventoMeta): Promise<void> {
     if (!this.pixelId || !this.token) return; // desligado (ex.: desenvolvimento sem Pixel)
+    const usuario = limparUsuario(evento.user_data);
+    // Sem nenhum dado de usuário (cookies não aceitos) a Meta recusa o evento: nem envia.
+    if (Object.keys(usuario).length === 0) return;
     const corpo: Record<string, unknown> = {
-      data: [{ ...evento, user_data: limparUsuario(evento.user_data), custom_data: soParametrosPadrao(evento.custom_data) }],
+      data: [{ ...evento, user_data: usuario, custom_data: soParametrosPadrao(evento.custom_data) }],
     };
     if (this.testEventCode) corpo.test_event_code = this.testEventCode;
     const url = `https://graph.facebook.com/${this.versao}/${this.pixelId}/events?access_token=${encodeURIComponent(this.token)}`;
@@ -92,7 +95,7 @@ export class MetaCapi implements Meta {
         const r = await this.fetcher(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(corpo) });
         if (r.ok) return;
         if (r.status >= 400 && r.status < 500 && r.status !== 429) {
-          console.warn(`CAPI ${evento.event_name} recusado: HTTP ${r.status}`);
+          console.warn(`CAPI ${evento.event_name} recusado: HTTP ${r.status} ${motivoMeta(await r.json().catch(() => null))}`);
           return;
         }
       } catch {
@@ -102,6 +105,16 @@ export class MetaCapi implements Meta {
     }
     console.warn(`CAPI ${evento.event_name} falhou depois de 4 tentativas`);
   }
+}
+
+/** Só os códigos e o título do erro da Graph API (sem o corpo enviado nem dado de usuário). */
+export function motivoMeta(corpo: unknown): string {
+  const e = (corpo as { error?: Record<string, unknown> } | null)?.error;
+  if (!e || typeof e !== "object") return "(sem detalhe)";
+  const partes = [e.code, e.error_subcode, e.error_user_title ?? e.message, e.fbtrace_id]
+    .filter((v) => typeof v === "string" || typeof v === "number")
+    .map((v) => String(v).replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, "[email]"));
+  return partes.join(" · ").slice(0, 300);
 }
 
 const ROBOS = /facebookexternalhit|facebot|whatsapp|telegrambot|twitterbot|slackbot|discordbot|linkedinbot|googlebot|bingbot|embedly|pinterest|skypeuripreview|bot\b|crawler|spider|preview/i;

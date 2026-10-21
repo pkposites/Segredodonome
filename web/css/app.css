@@ -1,5 +1,8 @@
 /* Segredo do Nome — v2 "misticismo lúdico" (docs/REDESIGN_V2.md). Mobile primeiro (360–430px).
    Cores sobre o fundo com contraste AA conferido; brilhos só decorativos, atrás do conteúdo. */
+/* Fontes servidas pelo próprio site (SIL Open Font License): sem ida ao Google antes de a página aparecer. */
+@font-face { font-family: "Figtree"; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/fontes/figtree-latin.woff2) format("woff2"); }
+@font-face { font-family: "Newsreader"; font-style: normal; font-weight: 400 500; font-display: swap; src: url(/fontes/newsreader-latin.woff2) format("woff2"); }
 :root {
   --bg: #0b0710;
   --bg-2: #140b1c;

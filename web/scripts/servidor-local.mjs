@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 const PORTA = Number(process.env.PORTA ?? 8788);
 // RAIZ=/outra/pasta serve outra cópia (ex.: a prévia montada por worker/scripts/gerar-previa.mjs).
 const RAIZ = process.env.RAIZ ?? fileURLToPath(new URL("..", import.meta.url));
-const TIPOS = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".json": "application/json" };
+const TIPOS = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".json": "application/json", ".woff2": "font/woff2" };
 const REESCRITAS = { "/": "/index.html", "/quiz": "/index.html", "/r": "/index.html", "/termos": "/termos.html", "/privacidade": "/privacidade.html", "/reembolso": "/reembolso.html", "/contato": "/contato.html" };
 // Mesma CSP do _headers, com a API local no lugar do domínio do Worker.
 const CSP = (await readFile(join(RAIZ, "_headers"), "utf8"))

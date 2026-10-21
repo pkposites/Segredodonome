@@ -87,3 +87,11 @@ Podem esperar:
 - O link de acesso (`/r#p=...`) é guardado no aparelho e sai da barra de endereço na chegada, antes de o Pixel e o Clarity carregarem: o passe não chega a nenhuma ferramenta. Para levar a outro aparelho, use o botão/QR do link de acesso.
 - Política de Privacidade 2026-10-e: Clarity incluído (dados, finalidade, consentimento, retenção conforme learn.microsoft.com/clarity/setup-and-installation/data-retention).
 - Painel: resumo em frase no topo, cartões principais, alerta de "onde mais se perde gente", funil e quiz; ajustes recolhidos. Dados a partir de 21/10/2026 (primeiro dia inteiro de tráfego; 20/10 mistura testes).
+
+## 21/10/2026 — Correções de medição (diagnóstico 26 cliques × 5 visualizações)
+- Causa: o Pixel só carrega com cookies aceitos (regra mantida), e o PageView da chegada saía antes do aceite e se perdia. Agora os eventos da página atual ficam guardados em memória e vão ao Pixel logo depois do "Aceitar", com o mesmo `event_id` que o Worker já recebeu (sem contagem dupla).
+- O `fbclid` sai do endereço na chegada, então o Pixel não criava o `_fbc`. Agora o site cria o `_fbc` (90 dias, como na Política) a partir do clique guardado, só depois do aceite.
+- API de Conversões: eventos sem nenhum dado de usuário (cookies não aceitos) não são mais enviados, porque a Meta os recusa; recusas passam a registrar o código e o título do erro da Graph API.
+- Depois da compra ou da recuperação, o endereço fica `/r` (antes voltava a `/r#p=...` com o Pixel e o Clarity ligados).
+- Fontes servidas pelo próprio site (`web/fontes/`, licença OFL), sem Google Fonts; biblioteca do QR Code só baixa quando o QR aparece.
+- Pendente de decisão do Rob com revisão jurídica: carregar o Pixel antes do aceite (contradiz `legal/POLITICA_DE_PRIVACIDADE.md` e `legal/TEXTOS_DE_CONSENTIMENTO.md`).

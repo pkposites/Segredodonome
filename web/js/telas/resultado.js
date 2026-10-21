@@ -10,7 +10,6 @@ import { revelarNoFundo } from "../fundo.js";
 import { mostrarPista } from "../pistas.js";
 import { evento, pixelCompra } from "../rastreio.js";
 import { abrirCheckout } from "./checkout.js";
-import qrcode from "../vendor/qrcode.js";
 
 const ENCHIMENTO =
   "Este trecho continua com exemplos do dia a dia, um ponto forte e um cuidado, escritos para a combinação do seu nome, da sua data e do seu jeito.";
@@ -73,7 +72,7 @@ async function recuperarEmSegundoPlano(tela, entradas) {
     const r = await post("/recuperar", { entradas });
     local.gravar("passe", r.passe);
     local.gravar("comprovante", r.comprovante);
-    history.replaceState(null, "", `/r#p=${r.passe}`);
+    history.replaceState(null, "", "/r"); // o passe fica no aparelho, nunca no endereço
     liberado(tela, r, { passe: r.passe, comprovante: r.comprovante, mensagem: "Encontramos sua compra" });
   } catch {
     // 404 = sem compra; é o caso comum. Nada a mostrar.
@@ -261,15 +260,20 @@ function aoAprovar(tela, r) {
   local.gravar("passe", r.passe);
   local.gravar("comprovante", r.comprovante);
   pixelCompra(r.event_id_purchase, r.comprovante.pagamento_id);
-  history.replaceState(null, "", `/r#p=${r.passe}`);
+  history.replaceState(null, "", "/r"); // o passe fica no aparelho, nunca no endereço
   liberado(tela, r, { passe: r.passe, comprovante: r.comprovante, mensagem: "Pagamento confirmado. Tudo liberado.", animar: true });
 }
 
+/** QR do link. A biblioteca (56 KB) só é baixada aqui, não na página inicial. */
 function qrSvg(texto) {
-  const q = qrcode(0, "M");
-  q.addData(texto);
-  q.make();
-  return svg(q.createSvgTag({ cellSize: 4, margin: 2, scalable: true }));
+  const lugar = h("span", { class: "qr-lugar" });
+  import("../vendor/qrcode.js").then(({ default: qrcode }) => {
+    const q = qrcode(0, "M");
+    q.addData(texto);
+    q.make();
+    lugar.replaceWith(svg(q.createSvgTag({ cellSize: 4, margin: 2, scalable: true })));
+  });
+  return lugar;
 }
 
 async function liberado(tela, r, { passe, comprovante, mensagem, animar = false }) {

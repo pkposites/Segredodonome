@@ -76,12 +76,17 @@ function lerCookie(nome) {
 }
 
 /** fbp, fbc e sessão, só com cookies aceitos. fbc montado do fbclid quando o _fbc não existe. */
+// Mesmo prazo do cookie _fbc informado na política de privacidade: 90 dias.
+const PRAZO_FBC = 90 * 86400;
+
+function fbcDoClique() {
+  const guardado = local.ler("fbclid");
+  return guardado && Date.now() - guardado.em < PRAZO_FBC * 1000 ? `fb.1.${guardado.em}.${guardado.valor}` : undefined;
+}
+
 export function identificadores() {
   if (!cookiesAceitos()) return { cookies_aceitos: false };
-  const guardado = local.ler("fbclid");
-  // Mesmo prazo do cookie _fbc informado na política de privacidade: 90 dias.
-  const clique = guardado && Date.now() - guardado.em < 90 * 86400_000 ? guardado : null;
-  const fbc = lerCookie("_fbc") ?? (clique ? `fb.1.${clique.em}.${clique.valor}` : undefined);
+  const fbc = lerCookie("_fbc") ?? fbcDoClique();
   return { cookies_aceitos: true, fbp: lerCookie("_fbp"), fbc, sessao_id: sessao.ler("id") ?? undefined };
 }
 
@@ -94,6 +99,10 @@ export function carregarPixel() {
   if (pixelCarregado || !CONFIG.META_PIXEL_ID || !CONFIG.DOMINIOS_OFICIAIS.includes(location.hostname)) return;
   if (CONFIG.PIXEL_EXIGE_CONSENTIMENTO && !cookiesAceitos()) return;
   pixelCarregado = true;
+  // O fbclid já saiu do endereço na chegada, então o Pixel não consegue criar o _fbc sozinho:
+  // criamos com o clique guardado, para a Meta ligar a visita ao anúncio.
+  const fbc = fbcDoClique();
+  if (fbc && !lerCookie("_fbc")) document.cookie = `_fbc=${fbc}; max-age=${PRAZO_FBC}; path=/; SameSite=Lax; Secure`;
   /* eslint-disable */
   !(function (f, b, e, v, n, t, s) {
     if (f.fbq) return;
@@ -107,6 +116,9 @@ export function carregarPixel() {
   // Eventos automáticos desligados ANTES do init (RASTREAMENTO_META.md, 2.1).
   window.fbq("set", "autoConfig", false, CONFIG.META_PIXEL_ID);
   window.fbq("init", CONFIG.META_PIXEL_ID);
+  // Eventos desta página que saíram antes do aceite (ex.: o PageView da chegada) vão agora,
+  // com o mesmo event_id que o Worker recebeu.
+  for (const [nome, eventId] of pendentes.splice(0)) pixel(nome, eventId);
 }
 
 let clarityCarregado = false;
@@ -123,8 +135,14 @@ export function carregarClarity() {
   /* eslint-enable */
 }
 
+/** Eventos desta página aguardando o Pixel (só em memória: recarregar a página zera). */
+const pendentes = [];
+
 function pixel(nome, eventId, extra) {
-  if (!pixelCarregado || !window.fbq) return;
+  if (!pixelCarregado || !window.fbq) {
+    if (!extra) pendentes.push([nome, eventId]);
+    return;
+  }
   const dados = extra ?? CUSTOM[nome];
   window.fbq("track", nome, dados ?? {}, { eventID: eventId });
 }
