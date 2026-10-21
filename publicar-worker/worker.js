@@ -201,8 +201,9 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text
 </main>
 <script>
 "use strict";
-// Primeiro dia inteiro de tr\xE1fego pago. O dia 20/10 ficou de fora: os testes de compra se misturam com o in\xEDcio dos an\xFAncios.
-const INICIO_TRAFEGO = "2026-10-21";
+// Dia em que os an\xFAncios come\xE7aram a rodar (20/10, por volta das 18h). A compra de teste do Rob, j\xE1 devolvida,
+// tamb\xE9m \xE9 desse dia: os n\xFAmeros de 20/10 podem inclu\xED-la.
+const INICIO_TRAFEGO = "2026-10-20";
 const $ = (id) => document.getElementById(id);
 const reais = (c) => (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 const pct = (x) => (x === null || x === undefined ? "\u2014" : (x * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "%");
