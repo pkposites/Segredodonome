@@ -68,109 +68,146 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Painel \xB7 Segredo do Nome</title>
-<!-- Servido pelo Worker em /painel, atr\xE1s do Cloudflare Access. Sem Pixel, sem fontes externas.
+<!-- Servido pelo Worker em /painel (link secreto ou Cloudflare Access). Sem Pixel, sem fontes externas.
      Depois de editar: cd worker && npm run gerar-painel -->
 <style>
-:root { --bg:#0D0D10; --sup:#17171B; --sup2:#1F1F24; --borda:#2B2B31; --texto:#F4F1EC; --texto2:#CFCAC2; --apoio:#A39F98; --nome:#FF7A45; --nomefundo:#2A1810; --ok:#9EE6B8; --erro:#FFB4A6; color-scheme: dark; }
+:root { --bg:#0D0D10; --sup:#17171B; --sup2:#1F1F24; --borda:#2B2B31; --texto:#F4F1EC; --texto2:#CFCAC2; --apoio:#A39F98; --nome:#FF7A45; --nomefundo:#2A1810; --ok:#9EE6B8; --erro:#FFB4A6; --alerta:#FFD8A8; color-scheme: dark; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--texto); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
-main { max-width: 1040px; margin: 0 auto; padding: 20px 16px 60px; display: flex; flex-direction: column; gap: 20px; }
-h1 { font-size: 22px; margin: 0; } h2 { font-size: 13px; letter-spacing: .8px; text-transform: uppercase; color: var(--apoio); margin: 0 0 10px; }
-.cabeca { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
-.mini { font-size: 12px; color: var(--apoio); }
+main { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; display: flex; flex-direction: column; gap: 16px; }
+h1 { font-size: 20px; margin: 0; } h2 { font-size: 13px; letter-spacing: .8px; text-transform: uppercase; color: var(--apoio); margin: 0 0 12px; }
+.cabeca { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.mini { font-size: 12px; color: var(--apoio); margin: 0; }
 .caixa { background: var(--sup); border: 1px solid var(--borda); border-radius: 16px; padding: 16px; }
-.filtros { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
-.filtros label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--apoio); }
-input, select, button { font: inherit; color: var(--texto); background: var(--sup2); border: 1px solid var(--borda); border-radius: 10px; min-height: 40px; padding: 0 10px; }
+input, select, button { font: inherit; color: var(--texto); background: var(--sup2); border: 1px solid var(--borda); border-radius: 10px; min-height: 38px; padding: 0 10px; }
 button { cursor: pointer; } button.principal { background: var(--nome); color: #1A0D06; border: 0; font-weight: 700; }
-button[aria-pressed="true"] { border-color: var(--nome); color: var(--nome); }
+button[aria-pressed="true"] { border-color: var(--nome); color: var(--nome); font-weight: 600; }
 :focus-visible { outline: 3px solid #FFB58F; outline-offset: 2px; }
-.cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-.cartao { background: var(--sup); border: 1px solid var(--borda); border-radius: 14px; padding: 12px 14px; }
-.cartao span { display: block; font-size: 12px; color: var(--apoio); } .cartao strong { font-size: 22px; }
-.negativo { color: var(--erro); } .positivo { color: var(--ok); }
-.funil { display: flex; flex-direction: column; gap: 10px; }
-.etapa { display: grid; grid-template-columns: 170px 1fr; gap: 10px; align-items: center; }
-.barra { position: relative; height: 34px; background: var(--sup2); border-radius: 8px; overflow: hidden; }
-.barra i { position: absolute; inset: 0 auto 0 0; background: var(--nomefundo); border-right: 3px solid var(--nome); }
-.barra b { position: relative; display: flex; gap: 14px; align-items: center; height: 100%; padding: 0 10px; font-weight: 500; font-size: 13px; white-space: nowrap; overflow: hidden; }
-.barra b em { font-style: normal; color: var(--apoio); }
+.periodos { display: flex; gap: 6px; flex-wrap: wrap; }
+details > summary { cursor: pointer; color: var(--apoio); font-size: 13px; }
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; margin-top: 10px; }
+.filtros label, .linha label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--apoio); }
+
+/* Resumo */
+.frase { font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.frase b { color: var(--nome); }
+.cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.cartao { background: var(--sup2); border: 1px solid var(--borda); border-radius: 12px; padding: 10px 12px; }
+.cartao span { display: block; font-size: 12px; color: var(--apoio); } .cartao strong { font-size: 24px; font-variant-numeric: tabular-nums; }
+.cartao small { display: block; font-size: 11px; color: var(--apoio); }
+.negativo { color: var(--erro); } .positivo { color: var(--ok); } .pendente { color: var(--alerta); font-size: 15px !important; }
+.alerta { margin: 14px 0 0; padding: 10px 12px; border-radius: 10px; background: #2A2010; border: 1px solid #5A4520; color: var(--alerta); font-size: 14px; }
+.gasto-rapido { display: flex; gap: 8px; flex-wrap: wrap; align-items: end; margin-top: 14px; }
+
+/* Funil */
+.passos { display: flex; flex-direction: column; gap: 4px; }
+.passo { display: grid; grid-template-columns: 150px 1fr 96px; gap: 10px; align-items: center; }
+.passo .nome { font-size: 14px; }
+.passo .total { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.barra { height: 26px; background: var(--sup2); border-radius: 7px; overflow: hidden; }
+.barra i { display: block; height: 100%; background: var(--nomefundo); border-right: 3px solid var(--nome); }
+.perda { font-size: 12px; color: var(--apoio); padding-left: 160px; }
+.perda.maior { color: var(--erro); font-weight: 600; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--borda); }
-.grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
 .linha { display: flex; gap: 8px; flex-wrap: wrap; align-items: end; }
-.aviso { color: #FFD8A8; font-size: 13px; }
-@media (max-width: 560px) { .etapa { grid-template-columns: 1fr; gap: 4px; } }
+.erro { color: var(--erro); font-size: 14px; margin: 0; }
+@media (max-width: 560px) {
+  .passo { grid-template-columns: 1fr 60px; } .passo .barra { grid-column: 1 / -1; grid-row: 2; }
+  .perda { padding-left: 0; } .frase { font-size: 17px; }
+}
 </style>
 </head>
 <body>
 <main>
-  <div class="cabeca"><h1>Painel \xB7 Segredo do Nome</h1><span class="mini" id="atualizado"></span></div>
+  <div class="cabeca">
+    <h1>Segredo do Nome \xB7 Painel</h1>
+    <span class="mini" id="atualizado"></span>
+  </div>
 
-  <section class="caixa" aria-label="Filtros">
-    <div class="filtros" id="filtros">
-      <div class="linha" role="group" aria-label="Per\xEDodo">
-        <button type="button" data-periodo="hoje">Hoje</button>
-        <button type="button" data-periodo="ontem">Ontem</button>
-        <button type="button" data-periodo="7">7 dias</button>
-        <button type="button" data-periodo="30">30 dias</button>
+  <div class="caixa">
+    <div class="periodos" role="group" aria-label="Per\xEDodo">
+      <button type="button" data-periodo="inicio">Desde o in\xEDcio do tr\xE1fego</button>
+      <button type="button" data-periodo="hoje">Hoje</button>
+      <button type="button" data-periodo="ontem">Ontem</button>
+      <button type="button" data-periodo="7">7 dias</button>
+      <button type="button" id="atualizar">Atualizar</button>
+    </div>
+    <details>
+      <summary>Mais filtros</summary>
+      <div class="filtros">
+        <label>De <input type="date" id="de"></label>
+        <label>At\xE9 <input type="date" id="ate"></label>
+        <label>Campanha (utm_campaign) <input id="campanha" placeholder="todas" maxlength="100"></label>
+        <label>Vers\xE3o da experi\xEAncia <select id="variante"><option value="">todas</option></select></label>
+        <button class="principal" type="button" id="aplicar">Aplicar</button>
       </div>
-      <label>De <input type="date" id="de"></label>
-      <label>At\xE9 <input type="date" id="ate"></label>
-      <label>Campanha (utm_campaign) <input id="campanha" placeholder="todas" maxlength="100"></label>
-      <label>Vers\xE3o da experi\xEAncia <select id="variante"><option value="">todas</option></select></label>
-      <button class="principal" type="button" id="aplicar">Atualizar</button>
+    </details>
+  </div>
+
+  <p class="erro" id="erro" role="alert"></p>
+
+  <section class="caixa" aria-labelledby="t-resumo">
+    <h2 id="t-resumo">Resumo</h2>
+    <p class="frase" id="frase">Carregando\u2026</p>
+    <div class="cartoes" id="cartoes"></div>
+    <p class="alerta" id="alerta" hidden></p>
+    <div class="gasto-rapido" id="gasto-rapido">
+      <label class="mini">Gasto da Meta no dia (R$) <input id="g-valor" inputmode="decimal" placeholder="0,00" size="10"></label>
+      <label class="mini">Dia <input type="date" id="g-dia"></label>
+      <button type="button" id="g-salvar">Salvar gasto</button>
+      <span class="mini">Copie do Gerenciador de An\xFAncios (coluna "Valor usado") para o lucro e o custo por venda ficarem certos.</span>
     </div>
   </section>
 
-  <p class="aviso" id="erro" role="alert"></p>
-  <section class="cartoes" id="cartoes" aria-label="Resumo"></section>
-
-  <section class="caixa"><h2>Funil</h2><div class="funil" id="funil"></div><p class="mini" id="nota-funil"></p></section>
-
-  <section class="caixa">
-    <h2>Etapas do quiz (onde as pessoas desistem)</h2>
-    <p class="mini">Quantas pessoas conclu\xEDram cada etapa, em % de quem iniciou o quiz.</p>
-    <div class="funil" id="etapas"></div>
+  <section class="caixa" aria-labelledby="t-funil">
+    <h2 id="t-funil">Caminho das pessoas</h2>
+    <div class="passos" id="funil"></div>
+    <p class="mini" id="nota-funil" style="margin-top:10px"></p>
   </section>
 
-  <section class="caixa">
-    <h2>Comparar vers\xF5es da experi\xEAncia</h2>
-    <p class="mini">Conclus\xE3o = terminaram o quiz \xF7 iniciaram \xB7 Oferta = viram a oferta \xF7 viram o resultado \xB7 Compra = pagaram \xF7 viram o resultado. * menos de 30 vendas: leia com cuidado.</p>
-    <table><thead><tr><th>Vers\xE3o</th><th>Iniciaram</th><th>Conclus\xE3o</th><th>Oferta</th><th>Compra</th><th>Pagaram</th></tr></thead><tbody id="variantes"></tbody></table>
+  <section class="caixa" aria-labelledby="t-quiz">
+    <h2 id="t-quiz">Dentro do quiz</h2>
+    <p class="mini" style="margin-bottom:10px">Quantas pessoas passaram por cada etapa, e a % de quem come\xE7ou o quiz.</p>
+    <div class="passos" id="etapas"></div>
   </section>
 
-  <div class="grade">
-    <section class="caixa">
-      <h2>Gasto da Meta</h2>
-      <div class="linha">
-        <label class="mini">Dia <input type="date" id="g-dia"></label>
-        <label class="mini">Campanha (vazio = total) <input id="g-campanha" maxlength="100"></label>
-        <label class="mini">Gasto (R$) <input id="g-valor" inputmode="decimal" placeholder="0,00"></label>
-        <button type="button" id="g-salvar">Salvar</button>
+  <details class="caixa">
+    <summary>Ajustes, gastos lan\xE7ados e confer\xEAncia com o Mercado Pago</summary>
+    <div style="display:grid;gap:18px;margin-top:14px">
+      <div>
+        <h2>Gastos lan\xE7ados</h2>
+        <table><thead><tr><th>Dia</th><th>Campanha</th><th>Gasto</th></tr></thead><tbody id="gastos"></tbody></table>
       </div>
-      <table><thead><tr><th>Dia</th><th>Campanha</th><th>Gasto</th></tr></thead><tbody id="gastos"></tbody></table>
-    </section>
-
-    <section class="caixa">
-      <h2>Confer\xEAncia com o Mercado Pago</h2>
-      <p class="mini">Vendas aprovadas lidas da API do Mercado Pago no mesmo per\xEDodo, para comparar com "Pagaram".</p>
-      <button type="button" id="conferir">Conferir agora</button>
-      <p id="conferencia"></p>
-      <h2>Configura\xE7\xF5es</h2>
-      <div class="linha">
-        <label class="mini">Taxa do Pix (%) <input id="c-taxa" inputmode="decimal"></label>
-        <label class="mini">Imposto estimado (%) <input id="c-imposto" inputmode="decimal"></label>
-        <button type="button" id="c-salvar">Salvar</button>
+      <div>
+        <h2>Confer\xEAncia com o Mercado Pago</h2>
+        <p class="mini">Vendas aprovadas lidas direto do Mercado Pago no per\xEDodo (inclui as devolvidas, informadas \xE0 parte).</p>
+        <button type="button" id="conferir">Conferir agora</button>
+        <p id="conferencia"></p>
       </div>
-    </section>
-  </div>
+      <div>
+        <h2>Taxas</h2>
+        <div class="linha">
+          <label>Taxa do Pix (%) <input id="c-taxa" inputmode="decimal" size="6"></label>
+          <label>Imposto estimado (%) <input id="c-imposto" inputmode="decimal" size="6"></label>
+          <button type="button" id="c-salvar">Salvar</button>
+        </div>
+      </div>
+      <div>
+        <h2>Comparar vers\xF5es da experi\xEAncia</h2>
+        <table><thead><tr><th>Vers\xE3o</th><th>Iniciaram</th><th>Conclu\xEDram</th><th>Viram oferta</th><th>Compraram</th><th>Pagaram</th></tr></thead><tbody id="variantes"></tbody></table>
+      </div>
+    </div>
+  </details>
 </main>
 <script>
 "use strict";
+// Primeiro dia inteiro de tr\xE1fego pago. O dia 20/10 ficou de fora: os testes de compra se misturam com o in\xEDcio dos an\xFAncios.
+const INICIO_TRAFEGO = "2026-10-21";
 const $ = (id) => document.getElementById(id);
 const reais = (c) => (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 const pct = (x) => (x === null || x === undefined ? "\u2014" : (x * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "%");
 const num = (s) => Number(String(s).replace(/\\./g, "").replace(",", "."));
+const dataBR = (iso) => iso.split("-").reverse().slice(0, 2).join("/");
 const hojeSP = (desloc = 0) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date(Date.now() - desloc * 86400000));
 function el(tag, props, ...filhos) {
   const e = document.createElement(tag);
@@ -188,9 +225,11 @@ async function api(caminho, init) {
   return d;
 }
 function definirPeriodo(p) {
-  const fim = p === "ontem" ? hojeSP(1) : hojeSP();
-  const ini = p === "hoje" ? hojeSP() : p === "ontem" ? hojeSP(1) : hojeSP(Number(p) - 1);
-  $("de").value = ini; $("ate").value = fim;
+  const hoje = hojeSP();
+  const ini = p === "inicio" ? INICIO_TRAFEGO : p === "hoje" ? hoje : p === "ontem" ? hojeSP(1) : hojeSP(Number(p) - 1);
+  $("de").value = ini < INICIO_TRAFEGO ? INICIO_TRAFEGO : ini;
+  $("ate").value = p === "ontem" ? hojeSP(1) : hoje;
+  if ($("ate").value < $("de").value) $("ate").value = $("de").value;
   document.querySelectorAll("[data-periodo]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.periodo === p)));
   carregar();
 }
@@ -200,39 +239,81 @@ function qs() {
   if ($("variante").value) q.set("variante", $("variante").value);
   return q;
 }
+const plural = (n, um, varios) => \`\${n.toLocaleString("pt-BR")} \${n === 1 ? um : varios}\`;
+
+function resumo(p) {
+  const f = Object.fromEntries(p.funil.map((x) => [x.rotulo, x.total]));
+  const visitas = f["Visitas"] ?? 0, pix = f["Geraram Pix"] ?? 0;
+  const periodo = $("de").value === $("ate").value ? \`Em \${dataBR($("de").value)}\` : \`De \${dataBR($("de").value)} a \${dataBR($("ate").value)}\`;
+  const frase = $("frase");
+  frase.replaceChildren(
+    \`\${periodo}: \`, el("b", {}, plural(visitas, "visita", "visitas")), ", ",
+    el("b", {}, plural(pix, "Pix gerado", "Pix gerados")), " e ",
+    el("b", {}, plural(p.vendas, "venda", "vendas")), \` (\${reais(p.receita_liquida_cents)} l\xEDquidos).\`,
+    p.vendas > 0 && visitas > 0 ? \` Uma venda a cada \${Math.round(visitas / p.vendas).toLocaleString("pt-BR")} visitas.\` : "",
+  );
+  const semGasto = p.gasto_cents === 0;
+  const cartoes = [
+    ["Vendas", String(p.vendas), null, \`\${reais(p.receita_liquida_cents)} l\xEDquidos\`],
+    ["Gasto da Meta", semGasto ? "n\xE3o lan\xE7ado" : reais(p.gasto_cents), semGasto ? "pendente" : null, semGasto ? "lance abaixo" : null],
+    ["Lucro estimado", semGasto ? "\u2014" : reais(p.lucro_cents), semGasto ? null : p.lucro_cents < 0 ? "negativo" : "positivo", null],
+    ["Custo por venda", p.custo_por_venda_cents === null || semGasto ? "\u2014" : reais(p.custo_por_venda_cents), null, "meta: abaixo de R$ 11,90"],
+    ["ROAS", p.roas === null || semGasto ? "\u2014" : p.roas.toLocaleString("pt-BR", { maximumFractionDigits: 2 }), null, "acima de 1 = lucro"],
+  ];
+  $("cartoes").replaceChildren(...cartoes.map(([t, v, c, s]) => el("div", { class: "cartao" }, el("span", {}, t), el("strong", { class: c }, v), s ? el("small", {}, s) : null)));
+
+  // Maior perda entre etapas seguidas do funil (a partir de quem iniciou o quiz).
+  let pior = null;
+  for (let i = 2; i < p.funil.length; i++) {
+    const antes = p.funil[i - 1], agora = p.funil[i];
+    if (antes.total >= 5 && agora.pct_anterior !== null) {
+      const saiu = 1 - agora.pct_anterior;
+      if (!pior || saiu > pior.saiu) pior = { saiu, de: antes.rotulo, para: agora.rotulo, i };
+    }
+  }
+  const alerta = $("alerta");
+  if (pior && pior.saiu > 0) {
+    alerta.hidden = false;
+    alerta.textContent = \`Onde mais se perde gente: entre "\${pior.de}" e "\${pior.para}" (\${pct(pior.saiu)} n\xE3o seguiram).\` +
+      (p.dados_insuficientes ? " Ainda s\xE3o poucas vendas: leia os n\xFAmeros como tend\xEAncia." : "");
+  } else alerta.hidden = true;
+  return pior;
+}
+
+function barras(alvo, linhas, maior) {
+  const max = Math.max(1, ...linhas.map((l) => l.total));
+  const itens = [];
+  linhas.forEach((l, i) => {
+    if (i > 0 && l.perda !== undefined) {
+      itens.push(el("div", { class: "perda" + (maior === i ? " maior" : "") }, l.perda === null ? "" : \`\u2193 \${pct(l.perda)} n\xE3o seguiram\`));
+    }
+    const barra = el("div", { class: "barra" }, el("i"));
+    barra.firstChild.style.width = \`\${(l.total / max) * 100}%\`;
+    itens.push(el("div", { class: "passo" }, el("span", { class: "nome" }, l.nome), barra,
+      el("span", { class: "total" }, l.total.toLocaleString("pt-BR"), l.extra ? el("small", { class: "mini" }, " " + l.extra) : null)));
+  });
+  alvo.replaceChildren(...itens);
+}
+
 async function carregar() {
   $("erro").textContent = "";
   try {
     const periodoQs = new URLSearchParams({ de: $("de").value, ate: $("ate").value });
     const [p, g, v] = await Promise.all([api("/admin/painel?" + qs()), api("/admin/gasto?" + periodoQs), api("/admin/variantes?" + periodoQs)]);
+    const pior = resumo(p);
+
+    const nomes = { "Visitas": "Entraram no site", "Iniciaram o quiz": "Come\xE7aram o quiz", "Chegaram na metade": "Chegaram na metade", "Viram o resultado": "Viram o resultado", "Tocaram em comprar": "Tocaram em comprar", "Geraram Pix": "Geraram o Pix", "Pagaram": "Pagaram" };
+    barras($("funil"), p.funil.map((f, i) => ({ nome: nomes[f.rotulo] ?? f.rotulo, total: f.total, perda: i === 0 ? undefined : f.pct_anterior === null ? null : 1 - f.pct_anterior })), pior?.i);
+    $("nota-funil").textContent = \`Tamb\xE9m no per\xEDodo: \${p.extras.pix_copiado} copiaram o c\xF3digo Pix, \${p.extras.pdf_salvo} salvaram o PDF, \${p.extras.casal_interesse} querem a trilha Casal.\`;
+
+    const rotulosEtapa = ["Nome", "Data de nascimento", "Ela / ele", "Pergunta 1", "Pergunta 2", "Pergunta 3", "Pergunta 4", "Pergunta 5", "Aceite e revelar"];
+    barras($("etapas"), p.quiz_etapas.map((e) => ({ nome: \`\${e.passo}. \${rotulosEtapa[e.passo - 1]}\`, total: e.total, extra: pct(e.pct_inicio) })));
+
     const escolhida = $("variante").value;
     $("variante").replaceChildren(el("option", { value: "" }, "todas"), ...v.variantes.map((x) => el("option", { value: x.variante }, x.variante)));
     $("variante").value = escolhida;
     $("variantes").replaceChildren(...v.variantes.map((x) => el("tr", {}, el("td", {}, x.variante), el("td", {}, x.iniciaram), el("td", {}, pct(x.taxa_conclusao)), el("td", {}, pct(x.taxa_oferta)), el("td", {}, pct(x.taxa_compra) + (x.dados_insuficientes ? " *" : "")), el("td", {}, x.pagaram))));
-    const rotulosEtapa = ["Nome", "Data", "Tratamento", "Escolha 1", "Escolha 2", "Escolha 3", "Escolha 4", "Escolha 5", "Aceite e revelar"];
-    $("etapas").replaceChildren(...p.quiz_etapas.map((e) => {
-      const barra = el("div", { class: "barra" }, el("i"), el("b", {}, String(e.total), el("em", {}, \`\${pct(e.pct_inicio)} de quem iniciou\`)));
-      barra.firstChild.style.width = \`\${(e.pct_inicio ?? 0) * 100}%\`;
-      return el("div", { class: "etapa" }, el("span", {}, \`\${e.passo}. \${rotulosEtapa[e.passo - 1]}\`), barra);
-    }));
-    const cartoes = [
-      ["Gasto", reais(p.gasto_cents)],
-      ["Vendas", p.vendas],
-      ["Receita l\xEDquida", reais(p.receita_liquida_cents)],
-      ["Lucro estimado", reais(p.lucro_cents), p.lucro_cents < 0 ? "negativo" : "positivo"],
-      ["ROAS", p.roas === null ? "\u2014" : p.roas.toLocaleString("pt-BR", { maximumFractionDigits: 2 })],
-      ["Custo por venda", p.custo_por_venda_cents === null ? "\u2014" : reais(p.custo_por_venda_cents)],
-    ];
-    $("cartoes").replaceChildren(...cartoes.map(([t, v, c]) => el("div", { class: "cartao" }, el("span", {}, t), el("strong", { class: c }, v))));
-    const max = Math.max(1, ...p.funil.map((f) => f.total));
-    $("funil").replaceChildren(...p.funil.map((f) => {
-      const barra = el("div", { class: "barra" }, el("i"), el("b", {}, String(f.total), el("em", {}, \`\${pct(f.pct_anterior)} da etapa anterior\`), el("em", {}, \`\${pct(f.pct_visitas)} das visitas\`), el("em", {}, f.custo_cents === null ? "custo \u2014" : \`custo \${reais(f.custo_cents)}\`)));
-      barra.firstChild.style.width = \`\${(f.total / max) * 100}%\`;
-      return el("div", { class: "etapa" }, el("span", {}, f.rotulo), barra);
-    }));
-    $("nota-funil").textContent = (p.dados_insuficientes ? "Dados insuficientes: menos de 30 vendas no recorte; leia os percentuais com cuidado. " : "") +
-      \`Tamb\xE9m no per\xEDodo: \${p.extras.pix_copiado} copiaram o c\xF3digo Pix, \${p.extras.pdf_salvo} salvaram o PDF, \${p.extras.casal_interesse} querem a trilha Casal.\`;
-    $("gastos").replaceChildren(...g.gastos.map((x) => el("tr", {}, el("td", {}, x.dia), el("td", {}, x.campanha), el("td", {}, reais(x.gasto_cents)))));
+    $("gastos").replaceChildren(...g.gastos.map((x) => el("tr", {}, el("td", {}, dataBR(x.dia)), el("td", {}, x.campanha), el("td", {}, reais(x.gasto_cents)))));
     $("c-taxa").value = String(p.config.taxa_pix_pct).replace(".", ",");
     $("c-imposto").value = String(p.config.imposto_pct).replace(".", ",");
     $("atualizado").textContent = "Atualizado \xE0s " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
@@ -241,13 +322,18 @@ async function carregar() {
   }
 }
 document.querySelectorAll("[data-periodo]").forEach((b) => b.addEventListener("click", () => definirPeriodo(b.dataset.periodo)));
-$("aplicar").addEventListener("click", carregar);
+$("atualizar").addEventListener("click", carregar);
+$("aplicar").addEventListener("click", () => {
+  if ($("de").value < INICIO_TRAFEGO) $("de").value = INICIO_TRAFEGO;
+  document.querySelectorAll("[data-periodo]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+  carregar();
+});
 $("variante").addEventListener("change", carregar);
 $("g-salvar").addEventListener("click", async () => {
   const valor = num($("g-valor").value);
   if (!$("g-dia").value || !(valor >= 0)) return ($("erro").textContent = "Informe o dia e o gasto.");
   try {
-    await api("/admin/gasto", { method: "PUT", body: JSON.stringify({ dia: $("g-dia").value, campanha: $("g-campanha").value.trim() || undefined, gasto_cents: Math.round(valor * 100) }) });
+    await api("/admin/gasto", { method: "PUT", body: JSON.stringify({ dia: $("g-dia").value, gasto_cents: Math.round(valor * 100) }) });
     $("g-valor").value = "";
     carregar();
   } catch (e) { $("erro").textContent = e.message; }
@@ -262,11 +348,13 @@ $("conferir").addEventListener("click", async () => {
   $("conferencia").textContent = "Consultando\u2026";
   try {
     const r = await api("/admin/vendas-mp?" + new URLSearchParams({ de: $("de").value, ate: $("ate").value }));
-    $("conferencia").textContent = \`Mercado Pago: \${r.vendas} vendas aprovadas (\${reais(r.receita_bruta_cents)}), das quais \${r.reembolsadas} com reembolso.\`;
+    $("conferencia").textContent = \`Mercado Pago: \${r.vendas} vendas aprovadas (\${reais(r.receita_bruta_cents)}), das quais \${r.reembolsadas} devolvidas.\`;
   } catch (e) { $("conferencia").textContent = e.message; }
 });
+for (const id of ["de", "ate"]) $(id).min = INICIO_TRAFEGO;
+$("g-dia").min = INICIO_TRAFEGO;
 $("g-dia").value = hojeSP();
-definirPeriodo("7");
+definirPeriodo("inicio");
 <\/script>
 </body>
 </html>

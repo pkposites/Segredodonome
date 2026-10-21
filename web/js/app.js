@@ -3,7 +3,7 @@
 import { CONFIG } from "./config.js";
 import { h, trocar } from "./dom.js";
 import { MODO_DEMO } from "./api.js";
-import { capturarChegada, carregarPixel, definirCookies, escolhaCookies, evento } from "./rastreio.js";
+import { capturarChegada, carregarClarity, carregarPixel, definirCookies, escolhaCookies, evento } from "./rastreio.js";
 import { montarFundo, botaoEfeitos, limparRevelacao } from "./fundo.js";
 import { telaInicio } from "./telas/inicio.js";
 import { telaQuiz } from "./telas/quiz.js";
@@ -96,6 +96,7 @@ montarFundo();
 document.getElementById("topo-acoes").prepend(botaoEfeitos());
 capturarChegada();
 carregarPixel();
+carregarClarity();
 rodape();
 renderizar();
 bannerCookies();

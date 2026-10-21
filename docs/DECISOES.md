@@ -80,3 +80,10 @@ Podem esperar:
 - O painel só tem números agregados (nenhum dado de cliente). Quem tiver o link vê e pode editar gasto e taxas: não compartilhe. Para trocar, mude o Secret.
 - A chave não é gravada no registro de acesso (a rota é salva sem a query string) e as chamadas do painel a enviam em cabeçalho.
 - `/saude` mostra só "ligado/ok/falta" de banco e segredos, para conferir a configuração sem o painel da Cloudflare.
+
+## 21/10/2026 — Microsoft Clarity e painel mais direto (pedido do Rob)
+- Clarity (projeto `z0xdcweqrj`) só carrega no domínio oficial e com cookies aceitos, como o Pixel.
+- Todo o texto da página é mascarado nas gravações (`data-clarity-mask` no `<body>`): nome, data e resultado não aparecem. Recomendado também ligar "Masking: Strict" nas configurações do Clarity.
+- O link de acesso (`/r#p=...`) é guardado no aparelho e sai da barra de endereço na chegada, antes de o Pixel e o Clarity carregarem: o passe não chega a nenhuma ferramenta. Para levar a outro aparelho, use o botão/QR do link de acesso.
+- Política de Privacidade 2026-10-e: Clarity incluído (dados, finalidade, consentimento, retenção conforme learn.microsoft.com/clarity/setup-and-installation/data-retention).
+- Painel: resumo em frase no topo, cartões principais, alerta de "onde mais se perde gente", funil e quiz; ajustes recolhidos. Dados a partir de 21/10/2026 (primeiro dia inteiro de tráfego; 20/10 mistura testes).

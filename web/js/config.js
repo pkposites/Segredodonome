@@ -8,6 +8,9 @@ export const CONFIG = {
   DOMINIOS_OFICIAIS: ["segredo.relatoriorda.com.br"],
   // Mesmo valor da variável PIXEL_EXIGE_CONSENTIMENTO do Worker: o Pixel só carrega com aceite.
   PIXEL_EXIGE_CONSENTIMENTO: true,
+  // Microsoft Clarity (mapas de calor e gravações). Mesmas regras do Pixel: domínio oficial e cookies aceitos.
+  // Todo texto da página é mascarado (data-clarity-mask no <body>): nome e resultado nunca aparecem.
+  CLARITY_ID: "z0xdcweqrj",
   VENDEDOR: {
     razao_social: "QVN ADS",
     cnpj: "31.535.502/0001-40",
@@ -17,7 +20,7 @@ export const CONFIG = {
   },
   // Espelho do catálogo do servidor, só para o Pixel (o preço cobrado vem sempre do Worker).
   PRODUTO: { id: "nome_completo_v1", nome: "Segredo do Nome", valor: 11.9, moeda: "BRL" },
-  VERSAO_TERMOS: "2026-10-d",
+  VERSAO_TERMOS: "2026-10-e",
   VERSAO_COOKIES: "2026-10-a",
   // Versão da experiência, para comparar no painel (contadores anônimos por variante).
   VARIANTE: "jogo-v2",

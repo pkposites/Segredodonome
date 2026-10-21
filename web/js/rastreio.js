@@ -45,7 +45,10 @@ export const cookiesAceitos = () => escolhaCookies() === "aceito";
 
 export function definirCookies(valor) {
   local.gravar("cookies", { valor, versao: CONFIG.VERSAO_COOKIES, em: new Date().toISOString() });
-  if (valor === "aceito") carregarPixel();
+  if (valor === "aceito") {
+    carregarPixel();
+    carregarClarity();
+  }
 }
 
 // ---------- chegada: UTMs e fbclid ----------
@@ -56,6 +59,13 @@ export function capturarChegada() {
   const fbclid = q.get("fbclid");
   if (fbclid) local.gravar("fbclid", { valor: fbclid.slice(0, 500), em: Date.now() });
   if (!sessao.ler("id")) sessao.gravar("id", uuid());
+  // Link de acesso (#p=...): o passe vai para o aparelho e sai da barra de endereço na hora,
+  // antes de o Pixel ou o Clarity carregarem, para nenhuma ferramenta registrar o endereço com ele.
+  const passe = location.hash.match(/^#p=([A-Za-z0-9_-]{20,4096})$/);
+  if (passe) {
+    local.gravar("passe", passe[1]);
+    history.replaceState(history.state, "", "/r");
+  }
   // Tira UTMs e fbclid da barra de endereço depois de guardar (não ficam no link compartilhado).
   if (utm || fbclid || q.has("utm_source")) history.replaceState(history.state, "", location.pathname + location.hash);
 }
@@ -97,6 +107,20 @@ export function carregarPixel() {
   // Eventos automáticos desligados ANTES do init (RASTREAMENTO_META.md, 2.1).
   window.fbq("set", "autoConfig", false, CONFIG.META_PIXEL_ID);
   window.fbq("init", CONFIG.META_PIXEL_ID);
+}
+
+let clarityCarregado = false;
+export function carregarClarity() {
+  if (clarityCarregado || !CONFIG.CLARITY_ID || !CONFIG.DOMINIOS_OFICIAIS.includes(location.hostname)) return;
+  if (!cookiesAceitos()) return;
+  clarityCarregado = true;
+  /* eslint-disable */
+  (function (c, l, a, r, i, t, y) {
+    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+    t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+    y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+  })(window, document, "clarity", "script", CONFIG.CLARITY_ID);
+  /* eslint-enable */
 }
 
 function pixel(nome, eventId, extra) {

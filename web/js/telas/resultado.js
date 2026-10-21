@@ -1,5 +1,6 @@
 // Resultado (/r): grátis + oferta, ou completo liberado (web/TELAS.md, 5, 6, 8, 9 e 10).
-// O passe vem do fragmento (#p=...), que nunca vai ao servidor nos acessos, nem a logs nem ao Pixel.
+// O passe vem do fragmento (#p=...), que nunca vai ao servidor nos acessos, nem a logs, Pixel ou Clarity:
+// na chegada ele é guardado no aparelho e sai da barra de endereço.
 import { h, svg, trocar, ICONES, movimentoReduzido, esperar } from "../dom.js";
 import { apagarTudo, local, sessao } from "../armazenamento.js";
 import { post } from "../api.js";
@@ -23,17 +24,11 @@ const AVISOS = {
 const dataHora = (iso) =>
   new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", dateStyle: "short", timeStyle: "short" }).format(new Date(iso));
 
-function passeDoFragmento() {
-  const m = location.hash.match(/^#p=([A-Za-z0-9_-]{20,4096})$/);
-  return m ? m[1] : null;
-}
-
 const linkDeAcesso = (passe) => `${location.origin}/r#p=${passe}`;
 
 export async function telaResultado(tela, { ir }) {
-  const doLink = passeDoFragmento();
-  if (doLink) local.gravar("passe", doLink);
-  const passe = doLink ?? local.ler("passe");
+  // O passe do link (#p=) já foi guardado e tirado do endereço na chegada (rastreio.js).
+  const passe = local.ler("passe");
   const entradas = local.ler("entradas");
 
   trocar(tela, h("div", { class: "processando" }, h("span", { class: "girador", "aria-hidden": "true" }), h("p", { class: "apoio" }, "Abrindo o seu resultado…")));
@@ -42,7 +37,6 @@ export async function telaResultado(tela, { ir }) {
     try {
       const r = await post("/resultado", { passe });
       if (r.completo) {
-        if (!doLink) history.replaceState(null, "", `/r#p=${passe}`);
         return liberado(tela, r, { passe, comprovante: local.ler("comprovante") });
       }
       return gratis(tela, r, { ir, entradas: entradas ?? null });

@@ -1,6 +1,6 @@
 # Política de Privacidade — Segredo do Nome
 
-Versão 2026-10-d · Vigente desde 20/10/2026
+Versão 2026-10-e · Vigente desde 21/10/2026
 
 Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
 
@@ -24,6 +24,7 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 | Dados do pagamento (valor, data, situação) | Liberar o resultado, reembolsos e obrigações fiscais | No Mercado Pago | Execução do contrato e obrigação legal (art. 7º, V e II) | Conforme o Mercado Pago e a lei |
 | Endereço IP, data e hora de acesso | Cumprir o Marco Civil da Internet e proteger o site | Nossos registros de acesso | Obrigação legal (art. 7º, II; Lei 12.965/2014, art. 15) | 6 meses |
 | Cookies e identificadores de anúncio (`_fbp`, `_fbc`), IP e navegador | Medir de onde vêm as visitas e as compras | Seu navegador e a Meta | **Consentimento** pelo aviso de cookies (art. 7º, I) | Até 90 dias no navegador |
+| Cliques, rolagem e movimentos na página, com todo o texto da tela mascarado; cookies do Clarity (`_clck`, `_clsk`) | Entender onde o site confunde ou trava e melhorar a experiência | Seu navegador e a Microsoft (Clarity) | **Consentimento** pelo aviso de cookies (art. 7º, I) | Na Microsoft: gravações por 30 dias e dados de cliques por até 9 meses (uma pequena amostra das gravações também por até 9 meses), conforme a política do Clarity |
 
 ## 4. Com quem compartilhamos
 
@@ -33,12 +34,14 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 | Netlify e Cloudflare | Hospedagem e processamento do site |
 | Cloudflare (D1) | Guarda dos registros de acesso |
 | Meta Platforms (Facebook/Instagram) | Medição de anúncios, conforme item 5 |
+| Microsoft (Clarity) | Mapas de calor e gravações de uso da página, conforme item 5 |
 
 Alguns desses fornecedores processam dados fora do Brasil, para a execução do serviço e com medidas de proteção contratuais (art. 33 da LGPD). Podemos compartilhar dados quando a lei ou uma autoridade exigir.
 
 ## 5. Anúncios e medição
 - O Pixel da Meta só é carregado se você **aceitar os cookies**.
 - Enviamos à Meta apenas o tipo de ação (ex.: "compra"), o valor e identificadores técnicos de navegação e de anúncio; IP e navegador só com cookies aceitos.
+- O Microsoft Clarity também só é carregado se você **aceitar os cookies**. Ele registra cliques, rolagem e movimentos na página com **todo o texto da tela mascarado**: seu nome, sua data e o seu resultado não aparecem nas gravações. O seu link de acesso também não, porque ele sai da barra de endereço assim que a página abre.
 - **Nunca enviamos** nome, data de nascimento, respostas, resultado ou e-mail.
 
 ## 6. Seu link de acesso
