@@ -155,6 +155,57 @@ function botaoApagar() {
   );
 }
 
+/**
+ * Pop-up da oferta: uma vez por visita, quando a pessoa termina de ler o resultado grátis
+ * (ou depois de 25 s lendo). Preço real, sem preço riscado nem contagem regressiva.
+ */
+function agendarPopupOferta({ alvo, r, comprar }) {
+  if (sessao.ler("popup_oferta") || local.ler("pix")) return;
+  let feito = false;
+  const abrir = () => {
+    if (feito) return;
+    feito = true;
+    obs.disconnect();
+    clearTimeout(timer);
+    // Não atrapalha quem já abriu o pagamento ou saiu da tela de resultado.
+    if (document.querySelector(".veu") || !document.body.contains(alvo)) return;
+    sessao.gravar("popup_oferta", true);
+    mostrarPopupOferta(r, comprar);
+  };
+  const obs = new IntersectionObserver(([e]) => e.isIntersecting && abrir(), { threshold: 0.6 });
+  obs.observe(alvo);
+  const timer = setTimeout(abrir, 25000);
+}
+
+function mostrarPopupOferta(r, comprar) {
+  const total = r.oferta.secoes.length;
+  const anterior = document.activeElement;
+  const fechar = () => {
+    document.removeEventListener("keydown", aoTeclar);
+    veu.remove();
+    anterior?.focus?.({ preventScroll: true });
+  };
+  const aoTeclar = (e) => e.key === "Escape" && fechar();
+  const cta = h("button", { class: "botao botao-principal", type: "button", onclick: () => (fechar(), comprar()) }, `Quero ver os ${total} capítulos`);
+  const caixa = h(
+    "div",
+    { class: "popup-oferta", role: "dialog", "aria-modal": "true", "aria-labelledby": "popup-titulo", "aria-describedby": "popup-texto" },
+    h("button", { class: "icone-botao popup-fechar", type: "button", "aria-label": "Fechar", onclick: fechar }, svg(ICONES.fechar)),
+    h("span", { class: "popup-selo", "aria-hidden": "true" }, svg(ICONES.cadeado)),
+    h("span", { class: "rotulo" }, "Calma, ainda não acabou"),
+    h("h2", { class: "titulo", id: "popup-titulo" }, `Você não vai acreditar em tudo que a sua carta ainda guarda, ${r.gratis.primeiro_nome}`),
+    h("p", { class: "apoio", id: "popup-texto" }, `São mais ${total} capítulos escritos para a combinação do seu nome, da sua data e do seu jeito, com a frase do seu nome e o PDF para guardar.`),
+    h("p", { class: "popup-proximo" }, h("span", { class: "mini" }, "Próximo capítulo"), h("strong", {}, r.oferta.secoes[0].titulo)),
+    h("p", { class: "popup-preco" }, h("strong", {}, "R$ 11,90"), h("span", { class: "mini" }, "Pix · pagamento único · 7 dias para desistir")),
+    cta,
+    h("button", { class: "botao-texto", type: "button", onclick: fechar }, "Agora não"),
+  );
+  const veu = h("div", { class: "veu veu-centro nao-imprimir", onclick: (e) => e.target === veu && fechar() }, caixa);
+  document.addEventListener("keydown", aoTeclar);
+  document.body.append(veu);
+  cta.focus({ preventScroll: true });
+}
+
 function gratis(tela, r, { ir, entradas }) {
   const g = r.gratis;
   evento("resultado_visto");
@@ -274,6 +325,7 @@ function gratis(tela, r, { ir, entradas }) {
       }
     }, { threshold: 0.15 });
     obsCap.observe(capitulos);
+    agendarPopupOferta({ alvo: chamariz, r, comprar });
   }
   if (r.oferta) {
     document.body.append(barra);

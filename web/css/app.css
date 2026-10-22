@@ -397,6 +397,17 @@ details p { padding-bottom: 14px; color: var(--texto-2); font-size: 14px; }
 /* ---------- checkout ---------- */
 .veu { position: fixed; inset: 0; z-index: 30; background: rgba(5, 2, 8, .7); backdrop-filter: blur(3px); display: flex; align-items: flex-end; justify-content: center; }
 .folha { width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; background: linear-gradient(#1a1124, #140b1c); border-radius: 26px 26px 0 0; border: 1px solid var(--borda-forte); border-bottom: 0; padding: 12px 20px calc(24px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 16px; animation: folha-sobe .35s var(--entrada); }
+.veu-centro { align-items: center; padding: 16px; }
+.popup-oferta { position: relative; width: 100%; max-width: 400px; max-height: 92vh; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; text-align: center; align-items: center; padding: 28px 20px 18px; border-radius: var(--raio-card); background: radial-gradient(120% 70% at 50% 0%, rgba(255, 122, 89, .22), transparent 65%) padding-box, linear-gradient(#1a1124, #140b1c) padding-box, var(--gradiente-borda) border-box; border: 1.5px solid transparent; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .8); animation: popup-entra .45s var(--entrada); }
+.popup-oferta .titulo { font-size: 26px; }
+.popup-oferta .botao { width: 100%; }
+.popup-fechar { position: absolute; top: 10px; right: 10px; }
+.popup-selo { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--dourado); background: linear-gradient(160deg, #3a1a4a, #1c0f26); border: 1px solid rgba(242, 200, 121, .5); animation: pulso 2s ease-in-out infinite; }
+.popup-selo svg { width: 24px; height: 24px; }
+.popup-proximo { display: flex; flex-direction: column; gap: 2px; width: 100%; padding: 10px 12px; border-radius: 14px; background: rgba(242, 200, 121, .07); border: 1px solid rgba(242, 200, 121, .25); margin: 0; }
+.popup-preco { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 0; }
+.popup-preco strong { font-family: var(--serifa); font-size: 34px; font-weight: 400; }
+@keyframes popup-entra { from { opacity: 0; transform: translateY(24px) scale(.94); } }
 @keyframes folha-sobe { from { transform: translateY(40px); opacity: 0; } }
 .folha-alca { width: 40px; height: 4px; border-radius: 2px; background: var(--borda-forte); margin: 0 auto; }
 .resumo { display: flex; gap: 12px; align-items: center; border-radius: 16px; background: var(--superficie-2); padding: 12px; }
