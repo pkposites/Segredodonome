@@ -1,5 +1,5 @@
 // Roteador da página única: /, /quiz, /quiz/parte-2 e /r são URLs reais (cada troca é um
-// PageView, RASTREAMENTO_META.md, 2). Páginas legais são arquivos HTML separados.
+// etapa do painel; o PageView da Meta sai só na chegada, RASTREAMENTO_META.md, 2). Páginas legais são arquivos HTML separados.
 import { CONFIG } from "./config.js";
 import { h, trocar } from "./dom.js";
 import { MODO_DEMO } from "./api.js";

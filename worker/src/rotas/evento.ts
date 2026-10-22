@@ -8,8 +8,9 @@ import { urlDoSite } from "./comum";
 /** Etapas que o navegador pode informar (pix_gerado e pix_pago só o servidor conta). */
 const MAPA: Record<string, { etapa: Etapa; meta?: NomeEventoMeta; caminho: string }> = {
   visita: { etapa: "visita", meta: "PageView", caminho: "/" },
-  quiz_inicio: { etapa: "quiz_inicio", meta: "PageView", caminho: "/quiz" },
-  quiz_metade: { etapa: "quiz_metade", meta: "PageView", caminho: "/quiz/parte-2" },
+  // Um PageView por visita (o da chegada): as telas do quiz contam só no painel.
+  quiz_inicio: { etapa: "quiz_inicio", caminho: "/quiz" },
+  quiz_metade: { etapa: "quiz_metade", caminho: "/quiz/parte-2" },
   resultado_visto: { etapa: "resultado_visto", meta: "ViewContent", caminho: "/r" },
   comprar_toque: { etapa: "comprar_toque", meta: "AddToCart", caminho: "/r" },
   pix_copiado: { etapa: "pix_copiado", meta: "AddPaymentInfo", caminho: "/r" },

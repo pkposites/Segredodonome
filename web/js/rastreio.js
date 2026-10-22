@@ -21,8 +21,9 @@ const CUSTOM = {
 
 const TIPO_PARA_META = {
   visita: "PageView",
-  quiz_inicio: "PageView",
-  quiz_metade: "PageView",
+  // PageView só na chegada (js/chegada.js), uma vez por visita: as telas do quiz contam só no painel.
+  quiz_inicio: null,
+  quiz_metade: null,
   resultado_visto: "ViewContent",
   comprar_toque: "AddToCart",
   pix_copiado: "AddPaymentInfo",

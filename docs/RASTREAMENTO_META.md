@@ -26,8 +26,8 @@ Mercado Pago ─webhook─┘  (Purchase nasce no servidor, mesmo sem o navegado
 | Etapa do funil | Evento Meta | URL da página | Disparo exato | `custom_data` (só parâmetros padrão) |
 |---|---|---|---|---|
 | 1. Chegou no site | `PageView` | `/` | Landing carregou | — |
-| 2. Começou o quiz | `PageView` | `/quiz` | Primeira tela do quiz abriu | — |
-| 3. Fez metade do quiz | `PageView` | `/quiz/parte-2` | Respondeu a 2ª pergunta de comportamento (o site muda a URL com `history.pushState`) | — |
+| 2. Começou o quiz | — (só painel) | `/quiz` | Primeira tela do quiz abriu | — |
+| 3. Fez metade do quiz | — (só painel) | `/quiz/parte-2` | Respondeu a 2ª pergunta de comportamento (o site muda a URL com `history.pushState`) | — |
 | 4. Terminou e viu o resultado grátis | `ViewContent` | `/r` | Resultado grátis apareceu | `content_ids: ["nome_completo_v1"]`, `content_type: "product"`, `content_name: "Segredo do Nome"`, `value: 11.90`, `currency: "BRL"` |
 | 5. Quis comprar | `AddToCart` | `/r` | Tocou em "Liberar resultado completo" (abriu o checkout) | mesmos de `ViewContent` |
 | 6. Quer a trilha Casal | `AddToWishlist` | `/` | Tocou em "Quero quando lançar" no card Casal | `content_ids: ["casal_completo_v1"]`, `content_name: "Compatibilidade do Casal"` |
@@ -38,7 +38,7 @@ Mercado Pago ─webhook─┘  (Purchase nasce no servidor, mesmo sem o navegado
 Regras:
 - Todos os eventos vão por **Pixel e servidor**, com o mesmo `event_name` e o mesmo `event_id`.
 - Cada evento das etapas 4 a 9 dispara **no máximo uma vez por sessão** (marcador em `sessionStorage` + `unique(event_name, event_id)` no banco). Recarregar o resultado não duplica `ViewContent`; tocar duas vezes no botão não duplica `AddToCart`.
-- `PageView` dispara em cada troca de URL real (comportamento normal de site de página única), nunca em rolagem, clique ou mudança de tela sem troca de URL.
+- `PageView` dispara **uma vez por visita** (sessão da aba), na chegada: recarregar a página ou trocar de tela do quiz não dispara outro (decisão do Rob, 22/10/2026). As etapas do quiz contam só no painel.
 - `value` e `currency` sempre presentes e coerentes em todo evento com valor; `value` número com ponto (11.90).
 - **Só parâmetros padrão** em `custom_data`: `value`, `currency`, `content_ids`, `content_type`, `content_name`, `content_category`, `contents`, `num_items`, `order_id`. Nada de parâmetros inventados (trilha, arquétipo, temperamento etc.).
 

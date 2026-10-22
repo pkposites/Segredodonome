@@ -40,6 +40,9 @@
   if (recusou) return;
 
   // 3) Código base da Meta, eventos automáticos desligados, PageView com event_id.
+  // Um PageView por visita (sessão da aba): recarregar ou voltar ao site na mesma aba não conta de novo.
+  var contado = false;
+  try { contado = sessionStorage.getItem("sdn_pageview") === "1"; sessionStorage.setItem("sdn_pageview", "1"); } catch (e) {}
   !function (f, b, e, v, n, t, s) {
     if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
     if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = [];
@@ -48,6 +51,7 @@
   var id = crypto.randomUUID ? crypto.randomUUID() : Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(16)), function (x) { return (x + 256).toString(16).slice(1); }).join("");
   window.fbq("set", "autoConfig", false, PIXEL_ID);
   window.fbq("init", PIXEL_ID);
+  if (contado) return;
   window.fbq("track", "PageView", {}, { eventID: id });
   // O rastreio.js usa este id no envio ao Worker do PageView da chegada (deduplicação).
   window.__sdnChegada = { eventId: id, caminho: location.pathname };

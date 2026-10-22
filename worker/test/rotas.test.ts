@@ -327,6 +327,15 @@ describe("POST /evento", () => {
     });
   });
 
+  it("telas do quiz contam no painel mas não mandam PageView (um por visita, o da chegada)", async () => {
+    const a = ambiente();
+    await a.chamar("/evento", { tipo: "quiz_inicio", event_id: "evt-12345678" });
+    await a.chamar("/evento", { tipo: "quiz_metade", event_id: "evt-87654321" });
+    expect(a.banco.total("quiz_inicio")).toBe(1);
+    expect(a.banco.total("quiz_metade")).toBe(1);
+    expect(a.meta.eventos).toEqual([]);
+  });
+
   it("PageView da chegada vai com IP, navegador, fbp e fbc, sem depender do aviso de cookies", async () => {
     const a = ambiente();
     await a.chamar("/evento", { tipo: "visita", event_id: "evt-12345678", fbp: "fb.1.2.3", fbc: "fb.1.1700000000000.AbC" });
