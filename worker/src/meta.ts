@@ -93,7 +93,14 @@ export class MetaCapi implements Meta {
     for (let tentativa = 0; tentativa < 4; tentativa++) {
       try {
         const r = await this.fetcher(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(corpo) });
-        if (r.ok) return;
+        if (r.ok) {
+          // Compra aceita: registra quantos eventos a Meta recebeu (só números, nenhum dado da pessoa).
+          if (evento.event_name === "Purchase") {
+            const resp = (await r.json().catch(() => null)) as { events_received?: unknown } | null;
+            console.log(`CAPI Purchase aceito: events_received ${String(resp?.events_received ?? "?")}`);
+          }
+          return;
+        }
         if (r.status >= 400 && r.status < 500 && r.status !== 429) {
           console.warn(`CAPI ${evento.event_name} recusado: HTTP ${r.status} ${motivoMeta(await r.json().catch(() => null))}`);
           return;

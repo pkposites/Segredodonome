@@ -48,7 +48,18 @@ export async function postCheckout(req: Request, s: Servicos): Promise<Response>
       externalReference: referencia,
       descricao: DESCRICAO_PIX,
       metadata: Object.fromEntries(
-        Object.entries({ fbp: usuario.fbp, fbc: usuario.fbc, event_id: eventId, utm_campaign: utm, variante, medir: medir ? undefined : "nao" }).filter(
+        // Navegador e sessão (com hash) vão junto: o Purchase do webhook não vem do navegador, e a Meta
+        // exige client_user_agent em eventos de site. O IP não é guardado.
+        Object.entries({
+          fbp: usuario.fbp,
+          fbc: usuario.fbc,
+          client_user_agent: usuario.client_user_agent?.slice(0, 250),
+          external_id: usuario.external_id,
+          event_id: eventId,
+          utm_campaign: utm,
+          variante,
+          medir: medir ? undefined : "nao",
+        }).filter(
           ([, v]) => typeof v === "string",
         ),
       ) as Record<string, string>,

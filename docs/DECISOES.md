@@ -101,3 +101,9 @@ Podem esperar:
 - `web/js/chegada.js` (no `<head>`, antes do app): `_fbc` do `fbclid` (domínio `.relatoriorda.com.br`, 90 dias), `_fbp`, passe fora do endereço, Pixel + PageView com `event_id`. O Worker recebe o mesmo `event_id` (deduplicação).
 - O aviso de cookies informa o Pixel. Aceitar liga o Clarity; Recusar é a oposição à medição (exigida no legítimo interesse): o Pixel para, `_fbp`/`_fbc` são apagados e o Worker não envia nada à Meta sobre essa pessoa, nem a compra. Termos e 18+ continuam obrigatórios na última tela do quiz.
 - Política de Privacidade 2026-10-f e Textos de Consentimento 2026-10-b: base legal da medição da Meta passa a ser legítimo interesse. **Risco jurídico assumido pelo Rob; revisão de advogado recomendada.**
+
+## 22/10/2026 — Purchase do webhook completo (aprovado pelo Rob)
+- Causa da venda real sem Purchase na Meta: o Purchase do webhook ia sem `client_user_agent`, que a Meta exige em eventos de site, e era recusado. Os Purchases com navegador só saem se a pessoa volta à página depois de pagar no banco.
+- Ao gerar o Pix, o navegador e a sessão (com hash) ficam no registro do pagamento no Mercado Pago, junto com `fbp`/`fbc`; o IP não. O webhook usa esses dados no Purchase.
+- O Worker registra `CAPI Purchase aceito: events_received N`. Política de Privacidade 2026-10-g.
+- A venda de 21/10 não foi reenviada (decisão do Rob).

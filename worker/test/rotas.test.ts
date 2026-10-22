@@ -280,8 +280,26 @@ describe("POST /webhook/mercadopago", () => {
     expect(compras).toHaveLength(2);
     expect(new Set(compras.map((e) => e.event_id))).toEqual(new Set([`compra-${pagamentoId}`]));
     expect(compras[0]!.custom_data).toMatchObject({ value: 11.9, currency: "BRL", order_id: pagamentoId, content_ids: ["nome_completo_v1"] });
-    expect(compras[0]!.user_data).toEqual({ fbp: "fb.1.1.1" });
+    // O webhook não vem do navegador: navegador e fbp foram guardados no pagamento ao gerar o Pix (sem IP).
+    expect(compras[0]!.user_data).toEqual({ client_user_agent: "Mozilla/5.0 (iPhone) Safari", fbp: "fb.1.1.1" });
     expect(a.banco.total("pix_pago")).toBe(1);
+  });
+
+  it("Purchase do webhook leva a sessão com hash guardada no Pix, nunca o IP", async () => {
+    const a = ambiente();
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbc: "fb.1.1700000000000.AbC", sessao_id: "sessao-123" });
+    const meta = a.mp.pagamentos.get(c.corpo.pagamento_id)!.metadata;
+    expect(meta.client_ip_address).toBeUndefined();
+    expect(meta.external_id).toMatch(/^[0-9a-f]{64}$/);
+    a.mp.aprovar(c.corpo.pagamento_id);
+    a.meta.eventos.length = 0;
+    await webhook(a, c.corpo.pagamento_id);
+    const compra = a.meta.eventos.find((e) => e.event_name === "Purchase")!;
+    expect(compra.user_data).toEqual({
+      client_user_agent: "Mozilla/5.0 (iPhone) Safari",
+      external_id: meta.external_id,
+      fbc: "fb.1.1700000000000.AbC",
+    });
   });
 
   it("pendente ou de outro produto → não envia Purchase", async () => {

@@ -34,6 +34,14 @@ describe("MetaCapi", () => {
     expect(JSON.parse(chamadas[0]!).data[0].user_data).toEqual({ client_ip_address: "1.2.3.4", client_user_agent: "Mozilla/5.0" });
   });
 
+  it("compra aceita registra events_received", async () => {
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    const { meta } = capi(() => new Response(JSON.stringify({ events_received: 1, fbtrace_id: "x" })));
+    await meta.enviar({ ...evento({ client_user_agent: "Mozilla/5.0" }), event_name: "Purchase" });
+    expect(log).toHaveBeenCalledWith("CAPI Purchase aceito: events_received 1");
+    log.mockRestore();
+  });
+
   it("registra o motivo da recusa sem tentar de novo", async () => {
     const aviso = vi.spyOn(console, "warn").mockImplementation(() => {});
     const { meta, chamadas } = capi(

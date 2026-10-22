@@ -57,7 +57,12 @@ export async function postWebhook(req: Request, s: Servicos): Promise<Response> 
         event_time: Math.floor(aprovado.getTime() / 1000),
         event_source_url: urlDoSite(s, "/r"),
         action_source: "website",
-        user_data: { fbp: texto(p.metadata.fbp), fbc: texto(p.metadata.fbc) },
+        user_data: {
+          client_user_agent: texto(p.metadata.client_user_agent),
+          external_id: texto(p.metadata.external_id),
+          fbp: texto(p.metadata.fbp),
+          fbc: texto(p.metadata.fbc),
+        },
         custom_data: customDataProduto("Purchase", p.id),
       }),
     );

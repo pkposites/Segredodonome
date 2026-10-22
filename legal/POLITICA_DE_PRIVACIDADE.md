@@ -1,6 +1,6 @@
 # Política de Privacidade — Segredo do Nome
 
-Versão 2026-10-f · Vigente desde 21/10/2026
+Versão 2026-10-g · Vigente desde 22/10/2026
 
 Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
 
@@ -22,6 +22,7 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 | Nome, data de nascimento, forma de tratamento e respostas | Montar o seu resultado | No seu aparelho (armazenamento do navegador) e dentro do seu link de acesso, que é criptografado. Nossos servidores só usam no momento do cálculo | Execução do serviço que você pediu (art. 7º, V) | Até você apagar do aparelho; o link de acesso vale 12 meses |
 | Código técnico derivado do nome e da data (irreversível) | Localizar o seu pagamento se você perder o link e refizer o quiz | No registro do pagamento, no Mercado Pago | Legítimo interesse (art. 7º, IX) | Conforme a política do Mercado Pago |
 | Dados do pagamento (valor, data, situação) | Liberar o resultado, reembolsos e obrigações fiscais | No Mercado Pago | Execução do contrato e obrigação legal (art. 7º, V e II) | Conforme o Mercado Pago e a lei |
+| Identificadores técnicos de navegação: tipo de navegador, `_fbp`, `_fbc` e um código de sessão irreversível (o IP não) | Informar a compra à Meta quando o Mercado Pago confirma o pagamento | No registro do pagamento, no Mercado Pago | Legítimo interesse (art. 7º, IX) | Conforme a política do Mercado Pago |
 | Endereço IP, data e hora de acesso | Cumprir o Marco Civil da Internet e proteger o site | Nossos registros de acesso | Obrigação legal (art. 7º, II; Lei 12.965/2014, art. 15) | 6 meses |
 | Cookies e identificadores de anúncio (`_fbp`, `_fbc`), IP e navegador | Medir de onde vêm as visitas e as compras e avaliar os anúncios | Seu navegador e a Meta | Legítimo interesse (art. 7º, IX), informado no aviso de cookies | Até 90 dias no navegador |
 | Cliques, rolagem e movimentos na página, com todo o texto da tela mascarado; cookies do Clarity (`_clck`, `_clsk`) | Entender onde o site confunde ou trava e melhorar a experiência | Seu navegador e a Microsoft (Clarity) | **Consentimento** pelo aviso de cookies (art. 7º, I) | Na Microsoft: gravações por 30 dias e dados de cliques por até 9 meses (uma pequena amostra das gravações também por até 9 meses), conforme a política do Clarity |
