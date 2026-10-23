@@ -107,3 +107,9 @@ Podem esperar:
 - Ao gerar o Pix, o navegador e a sessão (com hash) ficam no registro do pagamento no Mercado Pago, junto com `fbp`/`fbc`; o IP não. O webhook usa esses dados no Purchase.
 - O Worker registra `CAPI Purchase aceito: events_received N`. Política de Privacidade 2026-10-g.
 - A venda de 21/10 não foi reenviada (decisão do Rob).
+
+## 23/10/2026 — Avisos de venda no celular (pedido do Rob)
+- Web Push padrão dos navegadores (sem serviço pago), assinado com VAPID. Secret `VAPID_PRIVADA` (JWK P-256 gerado no próprio painel).
+- O painel vira app na tela de início (`/painel.webmanifest`, ícone, service worker `/painel-sw.js`). No iPhone, avisos só com o painel instalado na tela de início (iOS 16.4+).
+- A cada venda contada pela primeira vez no webhook, o Worker manda um push sem conteúdo; o service worker busca a mensagem em `/admin/push/mensagem` (com a chave do painel): só "R$ 11,90 · Nª venda de hoje", nada da compradora.
+- Guardados na tabela `config` (chave `push`): só os endereços de push dos aparelhos do Rob (até 5) e a última mensagem. Endereços que o serviço de push diz que sumiram (404/410) saem sozinhos.

@@ -4,6 +4,7 @@ import { autorizarAdmin } from "./admin/access";
 import { rotaAdmin } from "./admin/rotas";
 import PAINEL_HTML from "./painel/gerado";
 import { PAGINA_ACESSO } from "./painel/acesso";
+import { ICONE_192, ICONE_512, manifesto, SERVICE_WORKER } from "./painel/app";
 import { comCors, ErroHttp, json, origemPermitida, preflight, respostaErro } from "./http";
 import { postEvento } from "./rotas/evento";
 import { postCheckout, postRecuperar, postStatus } from "./rotas/pagamento";
@@ -22,7 +23,7 @@ const PUBLICAS: Record<string, Rota> = {
 };
 
 const CSP_PAINEL =
-  "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
+  "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
 
 const SEGURANCA = {
   "x-content-type-options": "nosniff",
@@ -64,12 +65,27 @@ function saude(s: Servicos): Response {
     webhook_mercado_pago: tem(s.env.MP_WEBHOOK_SECRET),
     meta_capi: tem(s.env.META_CAPI_TOKEN),
     painel_link: (s.env.PAINEL_CHAVE?.length ?? 0) >= 24 ? "ok" : "falta",
+    avisos_de_venda: s.push.ligado() ? "ok" : "falta",
   });
 }
 
 async function despachar(req: Request, s: Servicos, caminho: string, origem: string | null, limite?: RateLimit) {
   if (caminho === "/webhook/mercadopago" && req.method === "POST") return postWebhook(req, s);
   if (caminho === "/saude" && req.method === "GET") return saude(s);
+
+  // App do painel na tela de início: arquivos públicos, sem dados (a chave só volta se conferir).
+  if (req.method === "GET") {
+    if (caminho === "/painel-sw.js") {
+      return new Response(SERVICE_WORKER, { headers: { "content-type": "text/javascript; charset=utf-8", "cache-control": "no-cache" } });
+    }
+    if (caminho === "/painel.webmanifest") {
+      const valida = (await autorizarAdmin(req, s.access)) ? new URL(req.url).searchParams.get("k") : null;
+      return new Response(manifesto(valida), { headers: { "content-type": "application/manifest+json", "cache-control": "no-store" } });
+    }
+    if (caminho === "/painel-icone-192.png" || caminho === "/painel-icone-512.png") {
+      return new Response(caminho.includes("192") ? ICONE_192 : ICONE_512, { headers: { "content-type": "image/png", "cache-control": "public, max-age=604800" } });
+    }
+  }
 
   if (caminho === "/painel" || caminho.startsWith("/admin/")) {
     const email = await autorizarAdmin(req, s.access);

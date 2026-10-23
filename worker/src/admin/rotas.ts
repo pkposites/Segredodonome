@@ -5,6 +5,8 @@ import { centavos, PRODUTO_NOME } from "../catalogo";
 import { ErroHttp, json, lerJson } from "../http";
 import { PREFIXO_REFERENCIA } from "../motor/semente";
 import type { Servicos } from "../servicos";
+import { adicionarAparelho, lerEstado, notificar, removerAparelho } from "../notificacoes";
+import { endpointValido } from "../push";
 
 const dia = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 export const MINIMO_VENDAS_CONFIAVEL = 30;
@@ -164,6 +166,25 @@ export async function rotaAdmin(req: Request, s: Servicos, caminho: string): Pro
       await s.banco.salvarConfig(c.data);
       return json({ ok: true });
     }
+  }
+  if (caminho === "/admin/push") {
+    if (req.method === "GET") {
+      const e = await lerEstado(s.banco);
+      return json({ chave_publica: s.push.chavePublica(), aparelhos: e.aparelhos.length });
+    }
+    if (req.method === "POST" || req.method === "DELETE") {
+      const corpo = (await lerJson(req)) as { endpoint?: unknown } | null;
+      if (!endpointValido(corpo?.endpoint)) throw new ErroHttp(400, "aparelho_invalido", "Endereço de notificação inválido.");
+      const aparelhos = req.method === "POST" ? await adicionarAparelho(s.banco, corpo.endpoint) : await removerAparelho(s.banco, corpo.endpoint);
+      return json({ aparelhos });
+    }
+  }
+  if (caminho === "/admin/push/teste" && req.method === "POST") {
+    if (!s.push.ligado()) throw new ErroHttp(409, "sem_chave", "Cadastre a chave VAPID_PRIVADA na Cloudflare primeiro.");
+    return json(await notificar(s, "🔔 Teste do Segredo do Nome", "Os avisos de venda estão funcionando."));
+  }
+  if (caminho === "/admin/push/mensagem" && req.method === "GET") {
+    return json({ mensagem: (await lerEstado(s.banco)).mensagem ?? null });
   }
   throw new ErroHttp(404, "nao_encontrado", "Rota não encontrada.");
 }

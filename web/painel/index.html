@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Painel · Segredo do Nome</title>
+<meta name="theme-color" content="#0D0D10">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Painel SdN">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="/painel-icone-192.png">
+<link rel="icon" href="/painel-icone-192.png">
+<link rel="manifest" id="manifesto" href="/painel.webmanifest">
+<script>document.getElementById("manifesto").href = "/painel.webmanifest" + location.search;</script>
 <!-- Servido pelo Worker em /painel (link secreto ou Cloudflare Access). Sem Pixel, sem fontes externas.
      Depois de editar: cd worker && npm run gerar-painel -->
 <style>
@@ -15,6 +24,9 @@ main { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; display: flex;
 h1 { font-size: 20px; margin: 0; } h2 { font-size: 13px; letter-spacing: .8px; text-transform: uppercase; color: var(--apoio); margin: 0 0 12px; }
 .cabeca { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 .mini { font-size: 12px; color: var(--apoio); margin: 0; }
+.push-botoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.passos { margin: 8px 0 0; padding-left: 20px; color: var(--texto2); font-size: 14px; display: grid; gap: 6px; }
+.chave-vapid { display: block; margin: 8px 0; padding: 10px; border-radius: 10px; background: var(--sup2); border: 1px solid var(--borda); font: 12px ui-monospace, Menlo, monospace; overflow-wrap: anywhere; color: var(--alerta); }
 .caixa { background: var(--sup); border: 1px solid var(--borda); border-radius: 16px; padding: 16px; }
 input, select, button { font: inherit; color: var(--texto); background: var(--sup2); border: 1px solid var(--borda); border-radius: 10px; min-height: 38px; padding: 0 10px; }
 button { cursor: pointer; } button.principal { background: var(--nome); color: #1A0D06; border: 0; font-weight: 700; }
@@ -93,6 +105,29 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text
       <label class="mini">Dia <input type="date" id="g-dia"></label>
       <button type="button" id="g-salvar">Salvar gasto</button>
       <span class="mini">Copie do Gerenciador de Anúncios (coluna "Valor usado") para o lucro e o custo por venda ficarem certos.</span>
+    </div>
+  </section>
+
+  <section class="caixa" aria-labelledby="t-push">
+    <h2 id="t-push">Avisos de venda no celular</h2>
+    <p class="frase" id="push-status">Verificando…</p>
+    <div class="push-botoes">
+      <button class="principal" type="button" id="push-ativar" hidden>Ativar neste aparelho</button>
+      <button type="button" id="push-desativar" hidden>Desativar neste aparelho</button>
+      <button type="button" id="push-teste" hidden>Enviar teste</button>
+      <button type="button" id="push-gerar" hidden>Gerar a chave dos avisos</button>
+    </div>
+    <div id="push-instalar" hidden>
+      <ol class="passos">
+        <li>Abra este link do painel no <b>Safari</b> do iPhone (no Android, no Chrome).</li>
+        <li>Toque em <b>Compartilhar</b> (quadrado com seta) → <b>Adicionar à Tela de Início</b>.</li>
+        <li>Abra o painel <b>pelo ícone novo</b> e toque em <b>Ativar neste aparelho</b>.</li>
+      </ol>
+    </div>
+    <div id="push-chave" hidden>
+      <p class="mini">Copie a chave abaixo e cadastre na Cloudflare: Workers &amp; Pages → segredodonome → Settings → Variables and Secrets → Add → tipo <b>Secret</b>, nome <b>VAPID_PRIVADA</b> → cole → Deploy. Depois recarregue o painel.</p>
+      <code class="chave-vapid" id="push-chave-texto"></code>
+      <button type="button" id="push-copiar">Copiar chave</button>
     </div>
   </section>
 
@@ -289,6 +324,74 @@ $("conferir").addEventListener("click", async () => {
     $("conferencia").textContent = `Mercado Pago: ${r.vendas} vendas aprovadas (${reais(r.receita_bruta_cents)}), das quais ${r.reembolsadas} devolvidas.`;
   } catch (e) { $("conferencia").textContent = e.message; }
 });
+// ---------- avisos de venda (Web Push) ----------
+const CHAVE_LINK = new URLSearchParams(location.search).get("k") || "";
+const instalado = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const suportaPush = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+const deB64 = (s) => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4)), (c) => c.charCodeAt(0));
+let pushInfo = null;
+function mostrarPush({ status, ativar = false, desativar = false, teste = false, gerar = false, instalar = false }) {
+  $("push-status").textContent = status;
+  $("push-ativar").hidden = !ativar; $("push-desativar").hidden = !desativar; $("push-teste").hidden = !teste;
+  $("push-gerar").hidden = !gerar; $("push-instalar").hidden = !instalar;
+}
+async function inscricaoAtual() {
+  const reg = await navigator.serviceWorker.getRegistration("/painel");
+  return reg ? reg.pushManager.getSubscription() : null;
+}
+async function prepararPush() {
+  try { pushInfo = await api("/admin/push"); } catch (e) { return mostrarPush({ status: e.message }); }
+  if (!pushInfo.chave_publica) return mostrarPush({ status: "Falta um passo: gerar a chave dos avisos e cadastrar na Cloudflare (1 minuto).", gerar: true });
+  if (!suportaPush) {
+    return mostrarPush({ status: instalado ? "Este navegador não recebe avisos. No iPhone, use o iOS 16.4 ou mais novo." : "Para receber avisos, instale o painel na tela de início:", instalar: !instalado });
+  }
+  const sub = await inscricaoAtual();
+  const outros = pushInfo.aparelhos ? ` Aparelhos ativados: ${pushInfo.aparelhos}.` : "";
+  if (sub) mostrarPush({ status: "✅ Avisos ligados neste aparelho." + outros, desativar: true, teste: true });
+  else mostrarPush({ status: "Avisos desligados neste aparelho." + outros, ativar: true, teste: pushInfo.aparelhos > 0, instalar: !instalado });
+}
+$("push-ativar").addEventListener("click", async () => {
+  try {
+    if ((await Notification.requestPermission()) !== "granted") {
+      return mostrarPush({ status: "Permissão negada. No iPhone: Ajustes → Notificações → Painel SdN → Permitir. Depois toque em Ativar de novo.", ativar: true });
+    }
+    const reg = await navigator.serviceWorker.register("/painel-sw.js?k=" + encodeURIComponent(CHAVE_LINK), { scope: "/painel" });
+    await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: deB64(pushInfo.chave_publica) });
+    await api("/admin/push", { method: "POST", body: JSON.stringify({ endpoint: sub.endpoint }) });
+    prepararPush();
+  } catch (e) { $("push-status").textContent = "Não deu para ativar: " + e.message; }
+});
+$("push-desativar").addEventListener("click", async () => {
+  try {
+    const sub = await inscricaoAtual();
+    if (sub) {
+      await api("/admin/push", { method: "DELETE", body: JSON.stringify({ endpoint: sub.endpoint }) });
+      await sub.unsubscribe();
+    }
+    prepararPush();
+  } catch (e) { $("push-status").textContent = e.message; }
+});
+$("push-teste").addEventListener("click", async () => {
+  try {
+    const r = await api("/admin/push/teste", { method: "POST", body: "{}" });
+    $("push-status").textContent = r.enviados ? `Teste enviado para ${r.enviados} aparelho(s). Deve chegar em alguns segundos.` : "Nenhum aparelho recebeu. Desative e ative de novo neste aparelho.";
+  } catch (e) { $("push-status").textContent = e.message; }
+});
+$("push-gerar").addEventListener("click", async () => {
+  // Chave gerada aqui no navegador; só vai para a Cloudflare pelas suas mãos.
+  const par = await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]);
+  const j = await crypto.subtle.exportKey("jwk", par.privateKey);
+  $("push-chave-texto").textContent = JSON.stringify({ kty: j.kty, crv: j.crv, x: j.x, y: j.y, d: j.d });
+  $("push-chave").hidden = false;
+  $("push-gerar").hidden = true;
+});
+$("push-copiar").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText($("push-chave-texto").textContent); $("push-copiar").textContent = "Copiada"; }
+  catch { getSelection().selectAllChildren($("push-chave-texto")); $("push-copiar").textContent = "Selecionada: Ctrl+C"; }
+});
+prepararPush();
+
 for (const id of ["de", "ate"]) $(id).min = INICIO_TRAFEGO;
 $("g-dia").min = INICIO_TRAFEGO;
 $("g-dia").value = hojeSP();

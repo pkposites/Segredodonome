@@ -8,6 +8,7 @@ import { customDataProduto } from "../meta";
 import { PREFIXO_REFERENCIA } from "../motor/semente";
 import type { Servicos } from "../servicos";
 import { urlDoSite } from "./comum";
+import { avisarVenda } from "../notificacoes";
 
 const texto = (v: unknown) => (typeof v === "string" && v.length > 0 && v.length < 256 ? v : undefined);
 
@@ -47,6 +48,8 @@ export async function postWebhook(req: Request, s: Servicos): Promise<Response> 
       normalizarCampanha(p.metadata.utm_campaign),
       normalizarVariante(p.metadata.variante),
     );
+    // Aviso no celular do Rob: só na primeira vez que a venda é contada.
+    s.depois(avisarVenda(s, aprovado));
   }
   // Reenvio do webhook gera o mesmo event_id; a Meta deduplica. Quem recusou no aviso de cookies não é medido.
   if (p.metadata.medir !== "nao") {

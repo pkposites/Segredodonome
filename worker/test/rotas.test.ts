@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { createLocalJWKSet, exportJWK, generateKeyPair, SignJWT } from "jose";
-import { ambiente, ENTRADAS, ORIGEM } from "./dubles";
+import { ambiente, CHAVE_PAINEL_TESTE, ENTRADAS, ORIGEM } from "./dubles";
 import { hmacSha256, paraHex } from "../src/cripto/hmac";
 import { emitirPasse } from "../src/cripto/passe";
 import { LIMITE_RECUPERAR_POR_HORA } from "../src/rotas/pagamento";
@@ -497,5 +497,57 @@ describe("/admin e /painel", () => {
     expect(html.status).toBe(200);
     expect(html.headers.get("content-type")).toContain("text/html");
     expect(html.headers.get("content-security-policy")).toContain("frame-ancestors 'none'");
+  });
+});
+
+describe("avisos de venda no celular", () => {
+  const APARELHO = "https://web.push.apple.com/QGuQyavXutnMH2r5LHxQrMzYXzJ1A3S3";
+  const comChave = (metodo: string) => ({ method: metodo, headers: { "x-painel-chave": CHAVE_PAINEL_TESTE, origin: "" } });
+
+  it("sem a chave do painel não ativa, não testa e não lê a mensagem", async () => {
+    const a = ambiente();
+    expect((await a.chamar("/admin/push", { endpoint: APARELHO })).status).toBe(403);
+    expect((await a.chamar("/admin/push/teste", {})).status).toBe(403);
+    expect((await a.chamar("/admin/push/mensagem", undefined, { method: "GET" })).status).toBe(403);
+  });
+
+  it("ativa o aparelho, recusa endereço estranho e desativa", async () => {
+    const a = ambiente();
+    expect((await a.chamar("/admin/push", { endpoint: "https://exemplo.com/x" }, comChave("POST"))).status).toBe(400);
+    expect((await a.chamar("/admin/push", { endpoint: APARELHO }, comChave("POST"))).corpo).toEqual({ aparelhos: 1 });
+    expect((await a.chamar("/admin/push", undefined, comChave("GET"))).corpo).toEqual({ chave_publica: "BPublica", aparelhos: 1 });
+    expect((await a.chamar("/admin/push", { endpoint: APARELHO }, comChave("DELETE"))).corpo).toEqual({ aparelhos: 0 });
+  });
+
+  it("venda nova avisa uma vez, com valor e total do dia, sem dados da compradora", async () => {
+    const a = ambiente();
+    await a.chamar("/admin/push", { endpoint: APARELHO }, comChave("POST"));
+    const { pagamentoId } = await comprar(a);
+    await webhook(a, pagamentoId);
+    await webhook(a, pagamentoId); // reenvio do Mercado Pago: não avisa de novo
+    expect(a.push.enviados).toEqual([APARELHO]);
+    const m = (await a.chamar("/admin/push/mensagem", undefined, comChave("GET"))).corpo.mensagem;
+    expect(m).toMatchObject({ titulo: "💰 Nova venda no Segredo do Nome!", corpo: "R$ 11,90 · primeira venda de hoje" });
+    expect(JSON.stringify(m)).not.toMatch(/Juliana|Robson|@/);
+  });
+
+  it("aparelho que sumiu (410) sai da lista; teste informa quantos receberam", async () => {
+    const a = ambiente();
+    await a.chamar("/admin/push", { endpoint: APARELHO }, comChave("POST"));
+    a.push.respostas.set(APARELHO, 410);
+    expect((await a.chamar("/admin/push/teste", {}, comChave("POST"))).corpo).toEqual({ enviados: 0, falhas: 1 });
+    expect((await a.chamar("/admin/push", undefined, comChave("GET"))).corpo.aparelhos).toBe(0);
+  });
+
+  it("manifesto só leva a chave quando ela confere; service worker e ícone são públicos", async () => {
+    const a = ambiente();
+    const certo = await a.chamar(`/painel.webmanifest?k=${CHAVE_PAINEL_TESTE}`, undefined, { method: "GET" });
+    expect(JSON.parse(certo.texto).start_url).toBe(`/painel?k=${CHAVE_PAINEL_TESTE}`);
+    const errado = await a.chamar("/painel.webmanifest?k=chave-errada-chave-errada-123", undefined, { method: "GET" });
+    expect(JSON.parse(errado.texto).start_url).toBe("/painel");
+    const sw = await a.chamar("/painel-sw.js", undefined, { method: "GET" });
+    expect(sw.status).toBe(200);
+    expect(sw.texto).toContain("showNotification");
+    expect((await a.chamar("/painel-icone-192.png", undefined, { method: "GET" })).headers.get("content-type")).toBe("image/png");
   });
 });

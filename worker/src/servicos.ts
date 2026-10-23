@@ -6,6 +6,7 @@ import { MetaCapi, type DadosUsuario, type Meta } from "./meta";
 import type { ChavesPasse } from "./cripto/passe";
 import { sha256Hex } from "./cripto/hmac";
 import type { ConfigAccess } from "./admin/access";
+import { WebPush, type Notificador } from "./push";
 
 export interface Servicos {
   env: Env;
@@ -14,6 +15,7 @@ export interface Servicos {
   banco: Banco;
   chavesPasse: ChavesPasse;
   access: ConfigAccess;
+  push: Notificador;
   agora: () => Date;
   /** Trabalho fora do caminho crítico (ctx.waitUntil). */
   depois: (p: Promise<unknown>) => void;
@@ -42,6 +44,7 @@ export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
     banco: env.DB ? new BancoD1(env.DB) : new BancoNulo(),
     chavesPasse: chavesDoEnv(env),
     access: { equipe: env.CF_ACCESS_TEAM_DOMAIN, aud: env.CF_ACCESS_AUD, emails: env.ADMIN_EMAILS, chaveLink: env.PAINEL_CHAVE },
+    push: new WebPush(env.VAPID_PRIVADA, "mailto:qvnads@gmail.com"),
     agora: () => new Date(),
     depois: (p) => ctx.waitUntil(p.catch((e) => console.warn("tarefa em segundo plano falhou:", String(e)))),
   };

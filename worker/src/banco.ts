@@ -29,6 +29,9 @@ export interface Banco {
   salvarGasto(dia: string, campanha: string, gastoCents: number, quando: Date): Promise<void>;
   lerConfig(): Promise<Config>;
   salvarConfig(c: Config): Promise<void>;
+  /** Valor livre da tabela config (ex.: aparelhos que recebem aviso de venda). Nunca dado de cliente. */
+  lerValor(chave: string): Promise<string | null>;
+  gravarValor(chave: string, valor: string): Promise<void>;
   limpar(agora: Date): Promise<void>;
 }
 
@@ -140,6 +143,18 @@ export class BancoD1 implements Banco {
       .run();
   }
 
+  async lerValor(chave: string) {
+    const r = await this.db.prepare("SELECT valor FROM config WHERE chave = ?").bind(chave).first<{ valor: string }>();
+    return r?.valor ?? null;
+  }
+
+  async gravarValor(chave: string, valor: string) {
+    await this.db
+      .prepare("INSERT INTO config (chave, valor) VALUES (?, ?) ON CONFLICT (chave) DO UPDATE SET valor = excluded.valor")
+      .bind(chave, valor)
+      .run();
+  }
+
   async limpar(agora: Date) {
     const seisMeses = new Date(agora.getTime());
     seisMeses.setUTCMonth(seisMeses.getUTCMonth() - 6);
@@ -176,5 +191,9 @@ export class BancoNulo implements Banco {
     return { ...CONFIG_PADRAO };
   }
   async salvarConfig() {}
+  async lerValor() {
+    return null;
+  }
+  async gravarValor() {}
   async limpar() {}
 }

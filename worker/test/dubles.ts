@@ -1,4 +1,5 @@
 // Dublês em memória de D1, Mercado Pago e Meta, para testar as rotas sem rede.
+import type { Notificador } from "../src/push";
 import { ETAPAS, CONFIG_PADRAO, type Banco, type Config, type Etapa } from "../src/banco";
 import type { MercadoPago, NovoPix, Pagamento } from "../src/mercadopago";
 import type { EventoMeta, Meta } from "../src/meta";
@@ -58,6 +59,13 @@ export class BancoMemoria implements Banco {
   }
   async salvarGasto(dia: string, campanha: string, gasto: number) {
     this.gastosSalvos.set(`${dia}|${campanha}`, gasto);
+  }
+  valores = new Map<string, string>();
+  async lerValor(chave: string) {
+    return this.valores.get(chave) ?? null;
+  }
+  async gravarValor(chave: string, valor: string) {
+    this.valores.set(chave, valor);
   }
   async lerConfig() {
     return this.config;
@@ -151,11 +159,30 @@ export function envTeste(): Env {
   };
 }
 
+export const CHAVE_PAINEL_TESTE = "chave-do-painel-de-teste-123456";
+
+export class PushFalso implements Notificador {
+  chave: string | null = "BPublica";
+  enviados: string[] = [];
+  respostas = new Map<string, number>();
+  ligado() {
+    return this.chave !== null;
+  }
+  chavePublica() {
+    return this.chave;
+  }
+  async enviar(endpoint: string) {
+    this.enviados.push(endpoint);
+    return this.respostas.get(endpoint) ?? 201;
+  }
+}
+
 export function ambiente(agora = new Date("2026-10-18T15:00:00Z")) {
   const env = envTeste();
   const banco = new BancoMemoria();
   const mp = new MercadoPagoFalso();
   const meta = new MetaFalsa();
+  const push = new PushFalso();
   const pendentes: Promise<unknown>[] = [];
   const relogio = { agora };
   const s: Servicos = {
@@ -164,7 +191,8 @@ export function ambiente(agora = new Date("2026-10-18T15:00:00Z")) {
     meta,
     banco,
     chavesPasse: chavesDoEnv(env),
-    access: { equipe: env.CF_ACCESS_TEAM_DOMAIN, aud: env.CF_ACCESS_AUD, emails: env.ADMIN_EMAILS },
+    access: { equipe: env.CF_ACCESS_TEAM_DOMAIN, aud: env.CF_ACCESS_AUD, emails: env.ADMIN_EMAILS, chaveLink: CHAVE_PAINEL_TESTE },
+    push,
     agora: () => relogio.agora,
     depois: (p) => void pendentes.push(p),
   };
@@ -185,7 +213,7 @@ export function ambiente(agora = new Date("2026-10-18T15:00:00Z")) {
     const ehJson = resp.headers.get("content-type")?.includes("json");
     return { status: resp.status, headers: resp.headers, corpo: texto && ehJson ? JSON.parse(texto) : null, texto };
   }
-  return { s, env, banco, mp, meta, chamar, relogio };
+  return { s, env, banco, mp, meta, push, chamar, relogio };
 }
 
 export const ENTRADAS = {
