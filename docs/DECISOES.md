@@ -120,3 +120,7 @@ Podem esperar:
 - Tabela `receita` (migração 0004, criada sozinha pelo `esquema.ts`): soma por dia o valor pago, sem pessoa. O painel usa essa soma; vendas sem registro (até 23/10) contam a R$ 11,90.
 - Termos 2026-10-d, Reembolso 2026-10-c e Textos de Consentimento 2026-10-c: só o valor.
 - Antes de virar: conferir que nenhum anúncio cita "R$ 11,90".
+
+## 23/10/2026 — Taxa do Pix no painel (informado pelo Rob)
+- Uma venda de R$ 11,90 deixa R$ 11,78 líquidos no Mercado Pago (R$ 0,12 de taxa) → taxa do Pix = 0,99%.
+- Gravado em `config` (chave `painel`): `taxa_pix_pct` 0,99 e `imposto_pct` 0. A R$ 13,90, a mesma taxa dá cerca de R$ 0,14 por venda (R$ 13,76 líquidos); conferir no extrato do MP na primeira venda ao preço novo.
