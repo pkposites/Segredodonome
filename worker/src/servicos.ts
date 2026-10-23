@@ -7,6 +7,7 @@ import type { ChavesPasse } from "./cripto/passe";
 import { sha256Hex } from "./cripto/hmac";
 import type { ConfigAccess } from "./admin/access";
 import { WebPush, type Notificador } from "./push";
+import { chaveVapidDoBanco } from "./notificacoes";
 
 export interface Servicos {
   env: Env;
@@ -33,6 +34,7 @@ export function chavesDoEnv(env: Env): ChavesPasse {
 }
 
 export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
+  const banco: Banco = env.DB ? new BancoD1(env.DB) : new BancoNulo();
   return {
     env,
     mp: new MercadoPagoApi(
@@ -41,10 +43,10 @@ export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
       env.AMBIENTE !== "production" && env.MP_API_BASE ? env.MP_API_BASE : API_MERCADO_PAGO,
     ),
     meta: new MetaCapi(env.META_PIXEL_ID, env.META_CAPI_TOKEN, env.META_GRAPH_VERSION || GRAPH_PADRAO, env.META_TEST_EVENT_CODE),
-    banco: env.DB ? new BancoD1(env.DB) : new BancoNulo(),
+    banco,
     chavesPasse: chavesDoEnv(env),
     access: { equipe: env.CF_ACCESS_TEAM_DOMAIN, aud: env.CF_ACCESS_AUD, emails: env.ADMIN_EMAILS, chaveLink: env.PAINEL_CHAVE },
-    push: new WebPush(env.VAPID_PRIVADA, "mailto:qvnads@gmail.com"),
+    push: new WebPush(env.VAPID_PRIVADA ? env.VAPID_PRIVADA : () => chaveVapidDoBanco(banco), "mailto:qvnads@gmail.com"),
     agora: () => new Date(),
     depois: (p) => ctx.waitUntil(p.catch((e) => console.warn("tarefa em segundo plano falhou:", String(e)))),
   };

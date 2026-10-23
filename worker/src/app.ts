@@ -56,7 +56,7 @@ export async function tratar(req: Request, s: Servicos, limite?: RateLimit): Pro
 }
 
 /** Conferência rápida da configuração, sem nenhum valor secreto: só "ok" ou "falta". */
-function saude(s: Servicos): Response {
+async function saude(s: Servicos): Promise<Response> {
   const tem = (v: unknown) => (typeof v === "string" && v.length > 0 ? "ok" : "falta");
   return json({
     banco: s.env.DB ? "ligado" : "desligado",
@@ -65,7 +65,7 @@ function saude(s: Servicos): Response {
     webhook_mercado_pago: tem(s.env.MP_WEBHOOK_SECRET),
     meta_capi: tem(s.env.META_CAPI_TOKEN),
     painel_link: (s.env.PAINEL_CHAVE?.length ?? 0) >= 24 ? "ok" : "falta",
-    avisos_de_venda: s.push.ligado() ? "ok" : "falta",
+    avisos_de_venda: (await s.push.ligado()) ? "ok" : "falta",
   });
 }
 

@@ -173,10 +173,10 @@ export class PushFalso implements Notificador {
   chave: string | null = "BPublica";
   enviados: string[] = [];
   respostas = new Map<string, number>();
-  ligado() {
+  async ligado() {
     return this.chave !== null;
   }
-  chavePublica() {
+  async chavePublica() {
     return this.chave;
   }
   async enviar(endpoint: string) {

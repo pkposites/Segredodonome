@@ -1,7 +1,7 @@
 // Avisos de venda no celular do Rob. Guarda só os endereços de push dos aparelhos dele e a
 // última mensagem (sem nenhum dado de cliente), na tabela config.
 import { diaSaoPaulo, type Banco } from "./banco";
-import { endpointValido } from "./push";
+import { endpointValido, gerarJwk } from "./push";
 import type { Servicos } from "./servicos";
 
 const CHAVE = "push";
@@ -16,6 +16,15 @@ export interface Mensagem {
 interface Estado {
   aparelhos: string[];
   mensagem?: Mensagem;
+}
+
+/** Chave dos avisos guardada no banco; criada na primeira vez (sem passo manual na Cloudflare). */
+export async function chaveVapidDoBanco(banco: Banco): Promise<string | undefined> {
+  const atual = await banco.lerValor("vapid");
+  if (atual) return atual;
+  await banco.gravarValor("vapid", await gerarJwk());
+  // Relê: sem banco (BancoNulo) não há chave estável, e os avisos ficam desligados.
+  return (await banco.lerValor("vapid")) ?? undefined;
 }
 
 export async function lerEstado(banco: Banco): Promise<Estado> {
@@ -45,9 +54,8 @@ export async function removerAparelho(banco: Banco, endpoint: string) {
 
 /** Guarda a mensagem e avisa todos os aparelhos; remove os que o serviço de push diz que sumiram. */
 export async function notificar(s: Servicos, titulo: string, corpo: string): Promise<{ enviados: number; falhas: number }> {
-  if (!s.push.ligado()) return { enviados: 0, falhas: 0 };
   const e = await lerEstado(s.banco);
-  if (e.aparelhos.length === 0) return { enviados: 0, falhas: 0 };
+  if (e.aparelhos.length === 0 || !(await s.push.ligado())) return { enviados: 0, falhas: 0 };
   e.mensagem = { titulo, corpo, em: s.agora().toISOString() };
   await gravar(s.banco, e);
 

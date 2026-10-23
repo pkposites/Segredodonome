@@ -172,7 +172,7 @@ export async function rotaAdmin(req: Request, s: Servicos, caminho: string): Pro
   if (caminho === "/admin/push") {
     if (req.method === "GET") {
       const e = await lerEstado(s.banco);
-      return json({ chave_publica: s.push.chavePublica(), aparelhos: e.aparelhos.length });
+      return json({ chave_publica: await s.push.chavePublica(), aparelhos: e.aparelhos.length });
     }
     if (req.method === "POST" || req.method === "DELETE") {
       const corpo = (await lerJson(req)) as { endpoint?: unknown } | null;
@@ -182,7 +182,7 @@ export async function rotaAdmin(req: Request, s: Servicos, caminho: string): Pro
     }
   }
   if (caminho === "/admin/push/teste" && req.method === "POST") {
-    if (!s.push.ligado()) throw new ErroHttp(409, "sem_chave", "Cadastre a chave VAPID_PRIVADA na Cloudflare primeiro.");
+    if (!(await s.push.ligado())) throw new ErroHttp(409, "sem_chave", "Avisos indisponíveis: o banco do painel não está ligado.");
     return json(await notificar(s, "🔔 Teste do Segredo do Nome", "Os avisos de venda estão funcionando."));
   }
   if (caminho === "/admin/push/mensagem" && req.method === "GET") {

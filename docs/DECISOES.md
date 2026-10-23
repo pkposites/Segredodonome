@@ -124,3 +124,6 @@ Podem esperar:
 ## 23/10/2026 — Taxa do Pix no painel (informado pelo Rob)
 - Uma venda de R$ 11,90 deixa R$ 11,78 líquidos no Mercado Pago (R$ 0,12 de taxa) → taxa do Pix = 0,99%.
 - Gravado em `config` (chave `painel`): `taxa_pix_pct` 0,99 e `imposto_pct` 0. A R$ 13,90, a mesma taxa dá cerca de R$ 0,14 por venda (R$ 13,76 líquidos); conferir no extrato do MP na primeira venda ao preço novo.
+
+## 23/10/2026 — Avisos de venda sem passo manual (pedido do Rob)
+- A chave VAPID não precisa mais ser cadastrada: se não houver o Secret `VAPID_PRIVADA`, o Worker gera uma na primeira vez e guarda na tabela `config` (chave `vapid`). Exceção consciente à regra "segredos só como Secret", aceita pela simplicidade: essa chave só permite enviar avisos aos aparelhos que o Rob ativou no painel. Para trocar, apagar a linha `vapid` do `config` (os aparelhos precisam ser ativados de novo).

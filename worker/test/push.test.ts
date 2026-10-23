@@ -1,5 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 import { b64url, deB64url, endpointValido, jwtVapid, lerJwk, WebPush } from "../src/push";
+import { chaveVapidDoBanco } from "../src/notificacoes";
+import { BancoMemoria } from "./dubles";
+import { BancoNulo } from "../src/banco";
 
 async function novaChave() {
   const par = (await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"])) as CryptoKeyPair;
@@ -32,14 +35,14 @@ describe("Web Push (VAPID)", () => {
     const { texto, publica } = await novaChave();
     const fetcher = vi.fn(async () => new Response(null, { status: 201 }));
     const push = new WebPush(texto, "mailto:a@b.c", fetcher as unknown as typeof fetch);
-    expect(push.ligado()).toBe(true);
+    expect(await push.ligado()).toBe(true);
     const crua = new Uint8Array((await crypto.subtle.exportKey("raw", publica)) as ArrayBuffer);
-    expect(push.chavePublica()).toBe(b64url(crua));
+    expect(await push.chavePublica()).toBe(b64url(crua));
     expect(await push.enviar(APPLE)).toBe(201);
     const [url, init] = fetcher.mock.calls[0] as unknown as [string, RequestInit];
     const cab = init.headers as Record<string, string>;
     expect(url).toBe(APPLE);
-    expect(cab.authorization).toMatch(new RegExp(`^vapid t=[\\w-]+\\.[\\w-]+\\.[\\w-]+, k=${push.chavePublica()}$`));
+    expect(cab.authorization).toMatch(new RegExp(`^vapid t=[\\w-]+\\.[\\w-]+\\.[\\w-]+, k=${await push.chavePublica()}$`));
     expect(cab.ttl).toBe("86400");
     expect(init.body).toBeUndefined();
   });
@@ -47,9 +50,26 @@ describe("Web Push (VAPID)", () => {
   it("sem chave ou com endereço estranho não envia nada", async () => {
     const fetcher = vi.fn();
     expect(await new WebPush(undefined, "mailto:a@b.c", fetcher).enviar(APPLE)).toBe(0);
-    expect(new WebPush("{lixo", "mailto:a@b.c", fetcher).ligado()).toBe(false);
+    expect(await new WebPush("{lixo", "mailto:a@b.c", fetcher).ligado()).toBe(false);
     const { texto } = await novaChave();
     expect(await new WebPush(texto, "mailto:a@b.c", fetcher).enviar("https://exemplo.com/x")).toBe(0);
     expect(fetcher).not.toHaveBeenCalled();
+  });
+});
+
+describe("chave dos avisos sem passo manual", () => {
+  it("é criada uma vez no banco e reaproveitada; o push fica ligado sem Secret", async () => {
+    const banco = new BancoMemoria();
+    const a = await chaveVapidDoBanco(banco);
+    expect(lerJwk(a)).not.toBeNull();
+    expect(await chaveVapidDoBanco(banco)).toBe(a);
+    const push = new WebPush(() => chaveVapidDoBanco(banco), "mailto:a@b.c");
+    expect(await push.ligado()).toBe(true);
+    expect(await push.chavePublica()).toMatch(/^[\w-]{87}$/);
+  });
+
+  it("sem banco ligado não inventa chave: avisos desligados", async () => {
+    expect(await chaveVapidDoBanco(new BancoNulo())).toBeUndefined();
+    expect(await new WebPush(() => chaveVapidDoBanco(new BancoNulo()), "mailto:a@b.c").ligado()).toBe(false);
   });
 });

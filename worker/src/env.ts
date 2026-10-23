@@ -26,7 +26,7 @@ export interface Env {
   /** Versão da Graph API (ex.: v26.0). Confirmar a vigente na documentação da Meta. */
   META_GRAPH_VERSION?: string;
 
-  /** Avisos de venda no celular (Web Push): JWK P-256 privado, gerado no painel. Sem ele, avisos desligados. */
+  /** Opcional. Avisos de venda (Web Push): JWK P-256 privado. Sem ele, o Worker gera um e guarda no banco. */
   VAPID_PRIVADA?: string;
   /** Chave do link secreto do painel (24+ caracteres): /painel?k=CHAVE. */
   PAINEL_CHAVE?: string;

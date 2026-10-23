@@ -26,7 +26,6 @@ h1 { font-size: 20px; margin: 0; } h2 { font-size: 13px; letter-spacing: .8px; t
 .mini { font-size: 12px; color: var(--apoio); margin: 0; }
 .push-botoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .passos { margin: 8px 0 0; padding-left: 20px; color: var(--texto2); font-size: 14px; display: grid; gap: 6px; }
-.chave-vapid { display: block; margin: 8px 0; padding: 10px; border-radius: 10px; background: var(--sup2); border: 1px solid var(--borda); font: 12px ui-monospace, Menlo, monospace; overflow-wrap: anywhere; color: var(--alerta); }
 .caixa { background: var(--sup); border: 1px solid var(--borda); border-radius: 16px; padding: 16px; }
 input, select, button { font: inherit; color: var(--texto); background: var(--sup2); border: 1px solid var(--borda); border-radius: 10px; min-height: 38px; padding: 0 10px; }
 button { cursor: pointer; } button.principal { background: var(--nome); color: #1A0D06; border: 0; font-weight: 700; }
@@ -115,7 +114,6 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text
       <button class="principal" type="button" id="push-ativar" hidden>Ativar neste aparelho</button>
       <button type="button" id="push-desativar" hidden>Desativar neste aparelho</button>
       <button type="button" id="push-teste" hidden>Enviar teste</button>
-      <button type="button" id="push-gerar" hidden>Gerar a chave dos avisos</button>
     </div>
     <div id="push-instalar" hidden>
       <ol class="passos">
@@ -123,11 +121,6 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text
         <li>Toque em <b>Compartilhar</b> (quadrado com seta) → <b>Adicionar à Tela de Início</b>.</li>
         <li>Abra o painel <b>pelo ícone novo</b> e toque em <b>Ativar neste aparelho</b>.</li>
       </ol>
-    </div>
-    <div id="push-chave" hidden>
-      <p class="mini">Copie a chave abaixo e cadastre na Cloudflare: Workers &amp; Pages → segredodonome → Settings → Variables and Secrets → Add → tipo <b>Secret</b>, nome <b>VAPID_PRIVADA</b> → cole → Deploy. Depois recarregue o painel.</p>
-      <code class="chave-vapid" id="push-chave-texto"></code>
-      <button type="button" id="push-copiar">Copiar chave</button>
     </div>
   </section>
 
@@ -330,10 +323,10 @@ const instalado = matchMedia("(display-mode: standalone)").matches || navigator.
 const suportaPush = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
 const deB64 = (s) => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4)), (c) => c.charCodeAt(0));
 let pushInfo = null;
-function mostrarPush({ status, ativar = false, desativar = false, teste = false, gerar = false, instalar = false }) {
+function mostrarPush({ status, ativar = false, desativar = false, teste = false, instalar = false }) {
   $("push-status").textContent = status;
   $("push-ativar").hidden = !ativar; $("push-desativar").hidden = !desativar; $("push-teste").hidden = !teste;
-  $("push-gerar").hidden = !gerar; $("push-instalar").hidden = !instalar;
+  $("push-instalar").hidden = !instalar;
 }
 async function inscricaoAtual() {
   const reg = await navigator.serviceWorker.getRegistration("/painel");
@@ -341,7 +334,7 @@ async function inscricaoAtual() {
 }
 async function prepararPush() {
   try { pushInfo = await api("/admin/push"); } catch (e) { return mostrarPush({ status: e.message }); }
-  if (!pushInfo.chave_publica) return mostrarPush({ status: "Falta um passo: gerar a chave dos avisos e cadastrar na Cloudflare (1 minuto).", gerar: true });
+  if (!pushInfo.chave_publica) return mostrarPush({ status: "Avisos indisponíveis: o banco do painel não está ligado." });
   if (!suportaPush) {
     return mostrarPush({ status: instalado ? "Este navegador não recebe avisos. No iPhone, use o iOS 16.4 ou mais novo." : "Para receber avisos, instale o painel na tela de início:", instalar: !instalado });
   }
@@ -377,18 +370,6 @@ $("push-teste").addEventListener("click", async () => {
     const r = await api("/admin/push/teste", { method: "POST", body: "{}" });
     $("push-status").textContent = r.enviados ? `Teste enviado para ${r.enviados} aparelho(s). Deve chegar em alguns segundos.` : "Nenhum aparelho recebeu. Desative e ative de novo neste aparelho.";
   } catch (e) { $("push-status").textContent = e.message; }
-});
-$("push-gerar").addEventListener("click", async () => {
-  // Chave gerada aqui no navegador; só vai para a Cloudflare pelas suas mãos.
-  const par = await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]);
-  const j = await crypto.subtle.exportKey("jwk", par.privateKey);
-  $("push-chave-texto").textContent = JSON.stringify({ kty: j.kty, crv: j.crv, x: j.x, y: j.y, d: j.d });
-  $("push-chave").hidden = false;
-  $("push-gerar").hidden = true;
-});
-$("push-copiar").addEventListener("click", async () => {
-  try { await navigator.clipboard.writeText($("push-chave-texto").textContent); $("push-copiar").textContent = "Copiada"; }
-  catch { getSelection().selectAllChildren($("push-chave-texto")); $("push-copiar").textContent = "Selecionada: Ctrl+C"; }
 });
 prepararPush();
 

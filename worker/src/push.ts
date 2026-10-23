@@ -1,12 +1,13 @@
 // Web Push (padrão dos navegadores, sem serviço pago) para avisar o Rob de cada venda.
 // Push sem conteúdo: o service worker do painel busca a mensagem em /admin/push/mensagem.
-// Assinatura VAPID (RFC 8292) com a chave do Secret VAPID_PRIVADA (JWK P-256 gerado no painel).
+// Assinatura VAPID (RFC 8292). Chave: Secret VAPID_PRIVADA, se existir; senão o Worker gera uma
+// sozinho na primeira vez e guarda na tabela config (só serve para avisar os aparelhos do Rob).
 
 export interface Notificador {
-  /** true se há chave VAPID cadastrada. */
-  ligado(): boolean;
+  /** true se há chave VAPID disponível. */
+  ligado(): Promise<boolean>;
   /** Chave pública (base64url) para o navegador assinar a inscrição; null sem chave. */
-  chavePublica(): string | null;
+  chavePublica(): Promise<string | null>;
   /** Envia um aviso ao endereço do aparelho. Devolve o status HTTP do serviço de push. */
   enviar(endpoint: string): Promise<number>;
 }
@@ -62,34 +63,46 @@ export async function jwtVapid(jwk: JwkPrivada, endpoint: string, contato: strin
   return `${corpo}.${b64url(assinatura)}`;
 }
 
+/** Gera um par P-256 e devolve o JWK privado (com x e y) em texto. */
+export async function gerarJwk(): Promise<string> {
+  const par = (await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"])) as CryptoKeyPair;
+  const j = (await crypto.subtle.exportKey("jwk", par.privateKey)) as JsonWebKey;
+  return JSON.stringify({ kty: j.kty, crv: j.crv, x: j.x, y: j.y, d: j.d });
+}
+
+const publicaDe = (jwk: JwkPrivada) => b64url(Uint8Array.from([4, ...deB64url(jwk.x), ...deB64url(jwk.y)]));
+
 export class WebPush implements Notificador {
-  private readonly jwk: JwkPrivada | null;
+  private carregada: Promise<JwkPrivada | null> | null = null;
   constructor(
-    jwkTexto: string | undefined,
+    /** Texto do JWK ou função que o busca (Secret ou banco). */
+    private readonly origem: string | undefined | (() => Promise<string | undefined>),
     private readonly contato: string,
     private readonly fetcher: typeof fetch = (i, init) => fetch(i, init),
     private readonly agora: () => Date = () => new Date(),
-  ) {
-    this.jwk = lerJwk(jwkTexto);
+  ) {}
+
+  private jwk() {
+    this.carregada ??= (typeof this.origem === "function" ? this.origem() : Promise.resolve(this.origem)).then(lerJwk, () => null);
+    return this.carregada;
   }
 
-  ligado() {
-    return this.jwk !== null;
+  async ligado() {
+    return (await this.jwk()) !== null;
   }
 
-  chavePublica() {
-    if (!this.jwk) return null;
-    const x = deB64url(this.jwk.x);
-    const y = deB64url(this.jwk.y);
-    return b64url(Uint8Array.from([4, ...x, ...y]));
+  async chavePublica() {
+    const jwk = await this.jwk();
+    return jwk ? publicaDe(jwk) : null;
   }
 
   async enviar(endpoint: string): Promise<number> {
-    if (!this.jwk || !endpointValido(endpoint)) return 0;
-    const jwt = await jwtVapid(this.jwk, endpoint, this.contato, this.agora());
+    const jwk = await this.jwk();
+    if (!jwk || !endpointValido(endpoint)) return 0;
+    const jwt = await jwtVapid(jwk, endpoint, this.contato, this.agora());
     const r = await this.fetcher(endpoint, {
       method: "POST",
-      headers: { authorization: `vapid t=${jwt}, k=${this.chavePublica()}`, ttl: "86400", urgency: "high", "content-length": "0" },
+      headers: { authorization: `vapid t=${jwt}, k=${publicaDe(jwk)}`, ttl: "86400", urgency: "high", "content-length": "0" },
     });
     return r.status;
   }
