@@ -21,8 +21,10 @@ const base: Pagamento = normalizarPagamento({
 });
 
 describe("pagamentoLibera", () => {
-  it("só libera aprovado, 11,90 BRL, referência certa e sem reembolso", () => {
+  it("só libera aprovado, 13,90 ou 11,90 BRL (preço anterior), referência certa e sem reembolso", () => {
     expect(pagamentoLibera(base, "sdn1-abc")).toBe(true);
+    expect(pagamentoLibera({ ...base, valor: 13.9 }, "sdn1-abc")).toBe(true);
+    expect(pagamentoLibera({ ...base, valor: 12.9 }, "sdn1-abc")).toBe(false);
     expect(pagamentoLibera(base, "sdn1-outra")).toBe(false);
     expect(pagamentoLibera({ ...base, valor: 1.19 }, "sdn1-abc")).toBe(false);
     expect(pagamentoLibera({ ...base, moeda: "USD" }, "sdn1-abc")).toBe(false);
@@ -106,7 +108,7 @@ describe("cliente HTTP", () => {
     expect(h["x-idempotency-key"]).toBe("11111111-1111-4111-8111-111111111111");
     expect(h.authorization).toBe("Bearer TEST-1");
     const corpo = JSON.parse(String(init.body));
-    expect(corpo).toMatchObject({ transaction_amount: 11.9, payment_method_id: "pix", payer: { email: "a@b.com" } });
+    expect(corpo).toMatchObject({ transaction_amount: 13.9, payment_method_id: "pix", payer: { email: "a@b.com" } });
     expect(corpo.date_of_expiration).toBe("2026-10-18T12:30:00.000-03:00");
   });
 

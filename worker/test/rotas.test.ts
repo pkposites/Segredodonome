@@ -4,6 +4,7 @@ import { ambiente, CHAVE_PAINEL_TESTE, ENTRADAS, ORIGEM } from "./dubles";
 import { hmacSha256, paraHex } from "../src/cripto/hmac";
 import { emitirPasse } from "../src/cripto/passe";
 import { LIMITE_RECUPERAR_POR_HORA } from "../src/rotas/pagamento";
+import { calcularPainel } from "../src/admin/rotas";
 
 const EMAIL = "pessoa.compradora@exemplo.com";
 const UUID = "6f1c2c1e-6c43-4c3a-9a55-2f0f6a0d9e11";
@@ -31,7 +32,7 @@ describe("POST /resultado", () => {
     expect(r.headers.get("access-control-allow-origin")).toBe(ORIGEM);
     expect(r.corpo.gratis.arquetipo.nome).toBe("O Farol");
     expect(r.corpo.completo).toBeNull();
-    expect(r.corpo.oferta.preco).toBe(11.9);
+    expect(r.corpo.oferta.preco).toBe(13.9);
     expect(r.corpo.versoes).toEqual({ algoritmo: "1.0.0", conteudo: "2026-10-a" });
     // O texto pago além da primeira frase não sai do Worker antes do pagamento.
     const pago = await comprar(ambiente());
@@ -92,7 +93,7 @@ describe("compra completa", () => {
     expect(compra.event_id).toBe(ok.corpo.event_id_purchase);
     expect(compra.action_source).toBe("website");
     expect(compra.user_data).toMatchObject({ client_user_agent: expect.any(String), client_ip_address: "203.0.113.7", fbp: "fb.1.1.1" });
-    expect(compra.custom_data).toMatchObject({ value: 11.9, currency: "BRL" });
+    expect(compra.custom_data).toMatchObject({ value: 13.9, currency: "BRL" });
     // fbc do checkout vai junto na compra (dados do anúncio clicado).
     const b = ambiente();
     const c2 = await b.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbc: "fb.1.1700000000000.AbC" });
@@ -119,7 +120,7 @@ describe("compra completa", () => {
     const ok = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS });
     expect(ok.corpo.status).toBe("approved");
     expect(ok.corpo.event_id_purchase).toBe(`compra-${c.corpo.pagamento_id}`);
-    expect(ok.corpo.comprovante).toMatchObject({ pagamento_id: c.corpo.pagamento_id, valor: 11.9, forma: "Pix" });
+    expect(ok.corpo.comprovante).toMatchObject({ pagamento_id: c.corpo.pagamento_id, valor: 13.9, forma: "Pix" });
     expect(ok.corpo.completo.secoes).toHaveLength(7);
     expect(ok.corpo.passe).toMatch(/^[A-Za-z0-9_-]+$/);
   });
@@ -279,7 +280,7 @@ describe("POST /webhook/mercadopago", () => {
     const compras = a.meta.eventos.filter((e) => e.event_name === "Purchase");
     expect(compras).toHaveLength(2);
     expect(new Set(compras.map((e) => e.event_id))).toEqual(new Set([`compra-${pagamentoId}`]));
-    expect(compras[0]!.custom_data).toMatchObject({ value: 11.9, currency: "BRL", order_id: pagamentoId, content_ids: ["nome_completo_v1"] });
+    expect(compras[0]!.custom_data).toMatchObject({ value: 13.9, currency: "BRL", order_id: pagamentoId, content_ids: ["nome_completo_v1"] });
     // O webhook não vem do navegador: navegador e fbp foram guardados no pagamento ao gerar o Pix (sem IP).
     expect(compras[0]!.user_data).toEqual({ client_user_agent: "Mozilla/5.0 (iPhone) Safari", fbp: "fb.1.1.1" });
     expect(a.banco.total("pix_pago")).toBe(1);
@@ -527,7 +528,7 @@ describe("avisos de venda no celular", () => {
     await webhook(a, pagamentoId); // reenvio do Mercado Pago: não avisa de novo
     expect(a.push.enviados).toEqual([APARELHO]);
     const m = (await a.chamar("/admin/push/mensagem", undefined, comChave("GET"))).corpo.mensagem;
-    expect(m).toMatchObject({ titulo: "💰 Nova venda no Segredo do Nome!", corpo: "R$ 11,90 · primeira venda de hoje" });
+    expect(m).toMatchObject({ titulo: "💰 Nova venda no Segredo do Nome!", corpo: "R$ 13,90 · primeira venda de hoje" });
     expect(JSON.stringify(m)).not.toMatch(/Juliana|Robson|@/);
   });
 
@@ -549,5 +550,32 @@ describe("avisos de venda no celular", () => {
     expect(sw.status).toBe(200);
     expect(sw.texto).toContain("showNotification");
     expect((await a.chamar("/painel-icone-192.png", undefined, { method: "GET" })).headers.get("content-type")).toBe("image/png");
+  });
+});
+
+describe("troca de preço (R$ 11,90 → R$ 13,90 em 23/10/2026)", () => {
+  it("Pix gerado antes da troca e pago depois libera, conta a receita real e manda Purchase com o valor pago", async () => {
+    const a = ambiente();
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbp: "fb.1.1.1" });
+    expect(c.status).toBe(201);
+    a.mp.pagamentos.get(c.corpo.pagamento_id)!.valor = 11.9; // criado com o preço antigo
+    a.mp.aprovar(c.corpo.pagamento_id);
+    a.meta.eventos.length = 0;
+    expect((await webhook(a, c.corpo.pagamento_id)).status).toBe(200);
+    expect(a.banco.total("pix_pago")).toBe(1);
+    expect(a.meta.eventos.find((e) => e.event_name === "Purchase")!.custom_data).toMatchObject({ value: 11.9 });
+    const st = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS });
+    expect(st.corpo.status).toBe("approved");
+    expect(st.corpo.comprovante.valor).toBe(11.9);
+  });
+
+  it("painel soma a receita pelo valor pago e conta vendas antigas (sem registro) a R$ 11,90", async () => {
+    const a = ambiente();
+    await a.banco.incrementar("2026-10-21", "pix_pago", "(sem)"); // venda antiga: só o contador
+    await a.banco.incrementar("2026-10-24", "pix_pago", "(sem)");
+    await a.banco.somarReceita("2026-10-24", "(sem)", "v1", 1390);
+    const p = await calcularPainel(a.banco, "2026-10-20", "2026-10-25", null);
+    expect(p.vendas).toBe(2);
+    expect(p.receita_bruta_cents).toBe(1190 + 1390);
   });
 });

@@ -154,10 +154,12 @@ export function pixelCheckout(eventId) {
 }
 
 /** Purchase: uma vez por pagamento (o do servidor sai no webhook com o mesmo event_id). */
-export function pixelCompra(eventIdPurchase, pagamentoId) {
+export function pixelCompra(eventIdPurchase, pagamentoId, valorPago) {
   const feitos = sessao.ler("compras") ?? {};
   if (feitos[eventIdPurchase]) return;
   feitos[eventIdPurchase] = true;
   sessao.gravar("compras", feitos);
-  pixel("Purchase", eventIdPurchase, { ...CUSTOM.Purchase, order_id: pagamentoId });
+  // Valor realmente pago (Pix gerado antes de uma troca de preço), igual ao do Worker.
+  const valor = typeof valorPago === "number" ? valorPago : P.valor;
+  pixel("Purchase", eventIdPurchase, { ...CUSTOM.Purchase, value: valor, contents: [{ id: P.id, quantity: 1, item_price: valor }], order_id: pagamentoId });
 }

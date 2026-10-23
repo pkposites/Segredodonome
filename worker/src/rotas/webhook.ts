@@ -1,7 +1,7 @@
 // POST /webhook/mercadopago (ARQUITETURA.md, 3.3). Não grava dado de cliente: só o ID do
 // pagamento em pagamentos_contados, para o painel não contar a mesma venda duas vezes.
 import { diaSaoPaulo, normalizarCampanha, normalizarVariante } from "../banco";
-import { centavos, PRODUTO_NOME } from "../catalogo";
+import { centavos, PRODUTO_NOME, precoAceito } from "../catalogo";
 import { json } from "../http";
 import { assinaturaWebhookValida } from "../mercadopago";
 import { customDataProduto } from "../meta";
@@ -34,7 +34,7 @@ export async function postWebhook(req: Request, s: Servicos): Promise<Response> 
     p !== null &&
     p.status === "approved" &&
     p.valor_reembolsado === 0 &&
-    centavos(p.valor) === PRODUTO_NOME.precoCentavos &&
+    precoAceito(centavos(p.valor)) &&
     p.moeda === PRODUTO_NOME.moeda &&
     (p.external_reference ?? "").startsWith(PREFIXO_REFERENCIA);
   if (!p || !vende) return json({ ok: true });
@@ -48,8 +48,10 @@ export async function postWebhook(req: Request, s: Servicos): Promise<Response> 
       normalizarCampanha(p.metadata.utm_campaign),
       normalizarVariante(p.metadata.variante),
     );
+    // Receita pelo valor realmente pago (preços diferentes ao longo do tempo).
+    await s.banco.somarReceita(diaSaoPaulo(aprovado), normalizarCampanha(p.metadata.utm_campaign), normalizarVariante(p.metadata.variante), centavos(p.valor));
     // Aviso no celular do Rob: só na primeira vez que a venda é contada.
-    s.depois(avisarVenda(s, aprovado));
+    s.depois(avisarVenda(s, aprovado, centavos(p.valor)));
   }
   // Reenvio do webhook gera o mesmo event_id; a Meta deduplica. Quem recusou no aviso de cookies não é medido.
   if (p.metadata.medir !== "nao") {
@@ -66,7 +68,7 @@ export async function postWebhook(req: Request, s: Servicos): Promise<Response> 
           fbp: texto(p.metadata.fbp),
           fbc: texto(p.metadata.fbc),
         },
-        custom_data: customDataProduto("Purchase", p.id),
+        custom_data: customDataProduto("Purchase", p.id, centavos(p.valor)),
       }),
     );
   }

@@ -4,6 +4,7 @@ import { h, svg, trocar, movimentoReduzido, primeiroNomeDe, esperar, ICONES } fr
 import { emblema, ARTE_NOME, ARTE_CASAL } from "../emblemas.js";
 import { local, sessao } from "../armazenamento.js";
 import { evento } from "../rastreio.js";
+import { CONFIG } from "../config.js";
 import { definirLetras } from "../fundo.js";
 
 const EXEMPLOS = ["Ana", "Léo", "Bruna", "Carlos"];
@@ -156,7 +157,7 @@ export function telaInicio(tela, { ir }) {
       "section",
       { class: "pilha-8", "aria-labelledby": "faq-titulo" },
       h("h2", { class: "secao", id: "faq-titulo" }, "Perguntas frequentes"),
-      faq("É pago?", "A sua carta, com o arquétipo e a interpretação, é grátis e completa. Se quiser, você pode liberar os capítulos extras, com PDF, por R$ 11,90 no Pix, pagamento único."),
+      faq("É pago?", `A sua carta, com o arquétipo e a interpretação, é grátis e completa. Se quiser, você pode liberar os capítulos extras, com PDF, por ${CONFIG.PRECO_TEXTO} no Pix, pagamento único.`),
       faq("Quanto tempo leva?", "Cerca de 2 minutos: nome, data de nascimento e 5 escolhas rápidas."),
       faq("Meus dados ficam salvos?", "Não no nosso servidor. Seu nome, sua data e suas respostas ficam neste aparelho e dentro do seu link de acesso, que é criptografado. Nosso sistema usa esses dados só no momento de montar o resultado. Você pode apagar tudo do aparelho quando quiser."),
       faq("Posso refazer?", "Pode. Com o mesmo nome e a mesma data, o seu nome continua dizendo a mesma coisa. Se você já comprou, refazer com os mesmos dados recupera a sua compra."),

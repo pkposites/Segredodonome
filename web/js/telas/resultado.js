@@ -196,7 +196,7 @@ function mostrarPopupOferta(r, comprar) {
     h("h2", { class: "titulo", id: "popup-titulo" }, `Você não vai acreditar em tudo que a sua carta ainda guarda, ${r.gratis.primeiro_nome}`),
     h("p", { class: "apoio", id: "popup-texto" }, `São mais ${total} capítulos escritos para a combinação do seu nome, da sua data e do seu jeito, com a frase do seu nome e o PDF para guardar.`),
     h("p", { class: "popup-proximo" }, h("span", { class: "mini" }, "Próximo capítulo"), h("strong", {}, r.oferta.secoes[0].titulo)),
-    h("p", { class: "popup-preco" }, h("strong", {}, "R$ 11,90"), h("span", { class: "mini" }, "Pix · pagamento único · 7 dias para desistir")),
+    h("p", { class: "popup-preco" }, h("strong", {}, CONFIG.PRECO_TEXTO), h("span", { class: "mini" }, "Pix · pagamento único · 7 dias para desistir")),
     cta,
     h("button", { class: "botao-texto", type: "button", onclick: fechar }, "Agora não"),
   );
@@ -218,7 +218,7 @@ function gratis(tela, r, { ir, entradas }) {
   };
 
   const total = r.oferta ? r.oferta.secoes.length : 0;
-  const ctaTexto = `Revelar os ${total} capítulos — R$ 11,90`;
+  const ctaTexto = `Revelar os ${total} capítulos — ${CONFIG.PRECO_TEXTO}`;
   const oferta = r.oferta
     ? h(
         "section",
@@ -247,7 +247,7 @@ function gratis(tela, r, { ir, entradas }) {
           "div",
           { class: "preco" },
           // Texto de legal/TEXTOS_DE_CONSENTIMENTO.md, 3 (informação pré-contratual).
-          h("div", { class: "preco-linha" }, h("strong", {}, "Resultado completo do Segredo do Nome"), h("span", { class: "preco-valor" }, "R$ 11,90")),
+          h("div", { class: "preco-linha" }, h("strong", {}, "Resultado completo do Segredo do Nome"), h("span", { class: "preco-valor" }, CONFIG.PRECO_TEXTO)),
           h(
             "ul",
             {},
@@ -335,10 +335,16 @@ function gratis(tela, r, { ir, entradas }) {
   if (local.ler("pix") && entradas) comprar(); // voltou com Pix pendente: checkout pronto
 }
 
+/** Valor que a pessoa pagou (o preço mudou em 23/10/2026; comprovantes antigos guardados não têm o campo). */
+function valorPago(comprovante) {
+  const v = typeof comprovante.valor === "number" ? comprovante.valor : 11.9;
+  return `R$ ${v.toFixed(2).replace(".", ",")}`;
+}
+
 function aoAprovar(tela, r) {
   local.gravar("passe", r.passe);
   local.gravar("comprovante", r.comprovante);
-  pixelCompra(r.event_id_purchase, r.comprovante.pagamento_id);
+  pixelCompra(r.event_id_purchase, r.comprovante.pagamento_id, r.comprovante.valor);
   history.replaceState(null, "", "/r"); // o passe fica no aparelho, nunca no endereço
   liberado(tela, r, { passe: r.passe, comprovante: r.comprovante, mensagem: "Pagamento confirmado. Tudo liberado.", animar: true });
 }
@@ -386,7 +392,7 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
           {},
           h("dt", {}, "Pagamento nº"), h("dd", {}, comprovante.pagamento_id),
           h("dt", {}, "Data e hora"), h("dd", {}, dataHora(comprovante.data_hora)),
-          h("dt", {}, "Valor"), h("dd", {}, "R$ 11,90 via Pix"),
+          h("dt", {}, "Valor"), h("dd", {}, `${valorPago(comprovante)} via Pix`),
           h("dt", {}, "Vendido por"), h("dd", {}, `${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}`),
         ),
         h("p", { class: "mini" }, `Pagamento processado pelo Mercado Pago. Desistência em até 7 dias: ${CONFIG.VENDEDOR.email} ou WhatsApp ${CONFIG.VENDEDOR.whatsapp}.`),
@@ -456,7 +462,7 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
       h("h2", { class: "serifa" }, "Seu link de acesso"),
       h("p", { class: "link-acesso" }, link),
       h("div", { class: "qr" }, qrSvg(link)),
-      comprovante ? h("p", {}, `Pagamento nº ${comprovante.pagamento_id} · ${dataHora(comprovante.data_hora)} · R$ 11,90 via Pix · ${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}`) : null,
+      comprovante ? h("p", {}, `Pagamento nº ${comprovante.pagamento_id} · ${dataHora(comprovante.data_hora)} · ${valorPago(comprovante)} via Pix · ${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}`) : null,
       h("p", { class: "mini" }, `${location.host} · Conteúdo de entretenimento, sem valor científico ou de previsão.`),
     ),
     botaoApagar(),

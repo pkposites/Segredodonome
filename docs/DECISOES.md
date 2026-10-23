@@ -113,3 +113,10 @@ Podem esperar:
 - O painel vira app na tela de início (`/painel.webmanifest`, ícone, service worker `/painel-sw.js`). No iPhone, avisos só com o painel instalado na tela de início (iOS 16.4+).
 - A cada venda contada pela primeira vez no webhook, o Worker manda um push sem conteúdo; o service worker busca a mensagem em `/admin/push/mensagem` (com a chave do painel): só "R$ 11,90 · Nª venda de hoje", nada da compradora.
 - Guardados na tabela `config` (chave `push`): só os endereços de push dos aparelhos do Rob (até 5) e a última mensagem. Endereços que o serviço de push diz que sumiram (404/410) saem sozinhos.
+
+## 23/10/2026 — Preço R$ 13,90 (decisão do Rob, troca direta)
+- Preço de `nome_completo_v1`: R$ 11,90 → R$ 13,90 (+17%). Ponto de equilíbrio: a receita só cai se a taxa de compra cair mais de 14%.
+- O Worker continua aceitando R$ 11,90 (`PRECO_ANTERIOR_CENTAVOS`) para Pix gerados antes da troca e para recuperar compras antigas; Purchase, comprovante e aviso usam o valor realmente pago.
+- Tabela `receita` (migração 0004, criada sozinha pelo `esquema.ts`): soma por dia o valor pago, sem pessoa. O painel usa essa soma; vendas sem registro (até 23/10) contam a R$ 11,90.
+- Termos 2026-10-d, Reembolso 2026-10-c e Textos de Consentimento 2026-10-c: só o valor.
+- Antes de virar: conferir que nenhum anúncio cita "R$ 11,90".

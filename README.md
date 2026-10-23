@@ -1,6 +1,6 @@
 # Segredo do Nome — pacote de projeto (v0.4)
 
-Quiz interativo de entretenimento que revela o "arquétipo" de uma pessoa a partir das letras do nome, da data de nascimento e de algumas respostas. Resultado gratuito completo; resultado expandido por **R$ 11,90 no Pix**. Projeto próprio de low ticket do Rob (RDA).
+Quiz interativo de entretenimento que revela o "arquétipo" de uma pessoa a partir das letras do nome, da data de nascimento e de algumas respostas. Resultado gratuito completo; resultado expandido por **R$ 13,90 no Pix** (R$ 11,90 até 23/10/2026). Projeto próprio de low ticket do Rob (RDA).
 
 Este pacote é o ponto de partida para construir o produto com o **Claude Code**. Ainda não há código: há especificação, decisões, banco, contratos de API, conteúdo e critérios de aceite.
 

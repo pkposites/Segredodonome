@@ -23,6 +23,10 @@ export interface Banco {
   /** true se o pagamento ainda não tinha sido contado. */
   marcarPagamentoContado(pagamentoId: string, quando: Date): Promise<boolean>;
   contadores(de: string, ate: string, utmCampaign?: string, variante?: string): Promise<Record<Etapa, number>>;
+  /** Soma uma venda pelo valor pago (totais por dia, sem pessoa). */
+  somarReceita(dia: string, utmCampaign: string, variante: string, centavos: number): Promise<void>;
+  /** Vendas e receita registradas pelo valor pago (vendas anteriores a 23/10/2026 não estão aqui). */
+  receita(de: string, ate: string, utmCampaign?: string, variante?: string): Promise<{ vendas: number; centavos: number }>;
   /** Totais por variante da experiência, para comparar versões no painel. */
   porVariante(de: string, ate: string): Promise<Record<string, Record<Etapa, number>>>;
   gastos(de: string, ate: string): Promise<{ dia: string; campanha: string; gasto_cents: number }[]>;
@@ -103,6 +107,25 @@ export class BancoD1 implements Banco {
     return saida;
   }
 
+  async somarReceita(dia: string, utmCampaign: string, variante: string, centavos: number) {
+    await this.db
+      .prepare(
+        `INSERT INTO receita (dia, utm_campaign, variante, vendas, centavos) VALUES (?, ?, ?, 1, ?)
+         ON CONFLICT (dia, utm_campaign, variante) DO UPDATE SET vendas = vendas + 1, centavos = centavos + excluded.centavos`,
+      )
+      .bind(dia, utmCampaign, variante, centavos)
+      .run();
+  }
+
+  async receita(de: string, ate: string, utmCampaign?: string, variante?: string) {
+    let sql = "SELECT COALESCE(SUM(vendas), 0) AS vendas, COALESCE(SUM(centavos), 0) AS centavos FROM receita WHERE dia BETWEEN ? AND ?";
+    const args: string[] = [de, ate];
+    if (utmCampaign) (sql += " AND utm_campaign = ?"), args.push(utmCampaign);
+    if (variante) (sql += " AND variante = ?"), args.push(variante);
+    const r = await this.db.prepare(sql).bind(...args).first<{ vendas: number; centavos: number }>();
+    return { vendas: r?.vendas ?? 0, centavos: r?.centavos ?? 0 };
+  }
+
   async porVariante(de: string, ate: string) {
     const { results } = await this.db
       .prepare("SELECT variante, etapa, SUM(total) AS n FROM contadores WHERE dia BETWEEN ? AND ? GROUP BY variante, etapa")
@@ -179,6 +202,10 @@ export class BancoNulo implements Banco {
   }
   async contadores() {
     return zerado();
+  }
+  async somarReceita() {}
+  async receita() {
+    return { vendas: 0, centavos: 0 };
   }
   async porVariante() {
     return {};

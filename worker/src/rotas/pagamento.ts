@@ -3,7 +3,7 @@ import { z } from "zod";
 import { diaSaoPaulo, normalizarCampanha, normalizarVariante } from "../banco";
 import { DESCRICAO_PIX } from "../catalogo";
 import { erroGenerico404, ErroHttp, json, lerJson } from "../http";
-import { centavos, PRODUTO_NOME } from "../catalogo";
+import { centavos, PRODUTO_NOME, precoAceito } from "../catalogo";
 import { pagamentoLibera, statusPublico } from "../mercadopago";
 import { customDataProduto } from "../meta";
 import { dadosUsuario, ipDe, recusouMedicao, type Servicos } from "../servicos";
@@ -111,7 +111,7 @@ export async function postStatus(req: Request, s: Servicos): Promise<Response> {
     indisponivel(e);
   }
   const referencia = await referenciaDe(entradas, s);
-  if (!p || p.external_reference !== referencia || centavos(p.valor) !== PRODUTO_NOME.precoCentavos) {
+  if (!p || p.external_reference !== referencia || !precoAceito(centavos(p.valor))) {
     throw erroGenerico404();
   }
 
@@ -130,7 +130,7 @@ export async function postStatus(req: Request, s: Servicos): Promise<Response> {
         event_source_url: urlDoSite(s, "/r"),
         action_source: "website",
         user_data: await dadosUsuario(req, corpo),
-        custom_data: customDataProduto("Purchase", p.id),
+        custom_data: customDataProduto("Purchase", p.id, centavos(p.valor)),
       }),
     );
   }

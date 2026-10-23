@@ -4,7 +4,7 @@ Instruções para o Claude Code neste repositório. Leia este arquivo e toda a p
 
 ## Contexto em 6 linhas
 
-- Produto de entretenimento: quiz "Segredo do Nome" com resultado gratuito completo e resultado expandido pago (R$ 11,90 via Pix, Mercado Pago).
+- Produto de entretenimento: quiz "Segredo do Nome" com resultado gratuito completo e resultado expandido pago (R$ 13,90 via Pix desde 23/10/2026, antes R$ 11,90; Mercado Pago).
 - Dono: Rob, gestor de tráfego. Já integrou o Mercado Pago (Developers) em outros projetos. Não é desenvolvedor em tempo integral: prefira soluções simples, explicadas passo a passo.
 - MVP = só a trilha Nome. A trilha Casal aparece na landing como "em breve".
 - **Sem banco de dados de clientes.** O resultado é recalculado a cada abertura a partir de dados guardados no navegador da pessoa; o Mercado Pago é a fonte da verdade dos pagamentos. Ver `docs/ARQUITETURA.md`.

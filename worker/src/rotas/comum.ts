@@ -54,7 +54,7 @@ export function comprovante(p: Pagamento) {
   return {
     pagamento_id: p.id,
     data_hora: p.aprovado_em ?? p.criado_em,
-    valor: reais(PRODUTO_NOME.precoCentavos),
+    valor: p.valor, // o que foi pago (o preço mudou em 23/10/2026)
     forma: "Pix" as const,
   };
 }

@@ -1,4 +1,4 @@
-// Cria as tabelas sozinho na primeira requisição (equivale às migrações 0001–0003).
+// Cria as tabelas sozinho na primeira requisição (equivale às migrações 0001–0004).
 // Assim ninguém precisa rodar SQL no painel da Cloudflare. Tudo é "IF NOT EXISTS":
 // num banco já migrado pelo Wrangler, não muda nada.
 import { BancoD1 } from "./banco";
@@ -37,6 +37,14 @@ const TABELAS = [
     gasto_cents INTEGER NOT NULL CHECK (gasto_cents >= 0),
     atualizado_em TEXT NOT NULL,
     PRIMARY KEY (dia, campanha)
+  )`,
+  `CREATE TABLE IF NOT EXISTS receita (
+    dia TEXT NOT NULL,
+    utm_campaign TEXT NOT NULL DEFAULT '(sem)',
+    variante TEXT NOT NULL DEFAULT 'v1',
+    vendas INTEGER NOT NULL DEFAULT 0,
+    centavos INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (dia, utm_campaign, variante)
   )`,
   `CREATE TABLE IF NOT EXISTS config (
     chave TEXT PRIMARY KEY,

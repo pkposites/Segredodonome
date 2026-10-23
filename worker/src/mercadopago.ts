@@ -1,7 +1,7 @@
 // Cliente do Mercado Pago (API Payments, /v1/payments). Escolha e campos registrados em
 // docs/FASE_0_AUDITORIA.md; conferir na documentação vigente antes do modo de produção.
 import { hmacSha256, iguaisTempoConstante, paraHex } from "./cripto/hmac";
-import { centavos, PRODUTO_NOME } from "./catalogo";
+import { centavos, PRODUTO_NOME, precoAceito } from "./catalogo";
 
 export const API_MERCADO_PAGO = "https://api.mercadopago.com";
 
@@ -170,7 +170,7 @@ export class MercadoPagoApi implements MercadoPago {
 export function pagamentoLibera(p: Pagamento, referenciaEsperada: string): boolean {
   return (
     p.status === "approved" &&
-    centavos(p.valor) === PRODUTO_NOME.precoCentavos &&
+    precoAceito(centavos(p.valor)) &&
     p.moeda === PRODUTO_NOME.moeda &&
     p.external_reference === referenciaEsperada &&
     p.valor_reembolsado === 0

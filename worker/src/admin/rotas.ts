@@ -1,7 +1,7 @@
 // /admin/* (worker/API.md). Só depois de autorizarAdmin.
 import { z } from "zod";
 import { ETAPAS, normalizarCampanha, normalizarVariante, type Banco, type Config, type Etapa } from "../banco";
-import { centavos, PRODUTO_NOME } from "../catalogo";
+import { centavos, PRECO_ANTERIOR_CENTAVOS, precoAceito } from "../catalogo";
 import { ErroHttp, json, lerJson } from "../http";
 import { PREFIXO_REFERENCIA } from "../motor/semente";
 import type { Servicos } from "../servicos";
@@ -48,10 +48,11 @@ export interface Painel {
 }
 
 export async function calcularPainel(banco: Banco, de: string, ate: string, utm: string | null, variante: string | null = null): Promise<Painel> {
-  const [cont, gastos, config] = await Promise.all([
+  const [cont, gastos, config, rec] = await Promise.all([
     banco.contadores(de, ate, utm ?? undefined, variante ?? undefined),
     banco.gastos(de, ate),
     banco.lerConfig(),
+    banco.receita(de, ate, utm ?? undefined, variante ?? undefined),
   ]);
   // Com filtro de campanha, usa o gasto daquela campanha; sem filtro, soma tudo.
   const gasto = gastos.filter((g) => !utm || g.campanha === utm).reduce((s, g) => s + g.gasto_cents, 0);
@@ -68,7 +69,8 @@ export async function calcularPainel(banco: Banco, de: string, ate: string, utm:
     };
   });
   const vendas = cont.pix_pago;
-  const bruta = vendas * PRODUTO_NOME.precoCentavos;
+  // Receita pelo valor pago; vendas de antes do registro de receita (até 23/10/2026) eram a R$ 11,90.
+  const bruta = rec.centavos + Math.max(0, vendas - rec.vendas) * PRECO_ANTERIOR_CENTAVOS;
   const taxa = Math.round((bruta * config.taxa_pix_pct) / 100);
   const imposto = Math.round((bruta * config.imposto_pct) / 100);
   const liquida = bruta - taxa - imposto;
@@ -137,12 +139,12 @@ export async function rotaAdmin(req: Request, s: Servicos, caminho: string): Pro
     const fim = new Date(`${ate}T23:59:59-03:00`);
     const lista = await s.mp.buscarAprovadosNoPeriodo(inicio, fim);
     const nossas = lista.filter(
-      (p) => (p.external_reference ?? "").startsWith(PREFIXO_REFERENCIA) && centavos(p.valor) === PRODUTO_NOME.precoCentavos,
+      (p) => (p.external_reference ?? "").startsWith(PREFIXO_REFERENCIA) && precoAceito(centavos(p.valor)),
     );
     return json({
       vendas: nossas.length,
       reembolsadas: nossas.filter((p) => p.valor_reembolsado > 0).length,
-      receita_bruta_cents: nossas.length * PRODUTO_NOME.precoCentavos,
+      receita_bruta_cents: nossas.reduce((soma, p) => soma + centavos(p.valor), 0),
     });
   }
   if (caminho === "/admin/gasto") {

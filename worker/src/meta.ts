@@ -38,8 +38,9 @@ const PARAMETROS_PADRAO = new Set([
   "content_category", "contents", "num_items", "order_id",
 ]);
 
-export function customDataProduto(evento: NomeEventoMeta, orderId?: string): Record<string, unknown> | undefined {
-  const valor = reais(PRODUTO_NOME.precoCentavos);
+/** valorCentavos: o valor realmente pago (Purchase de Pix gerado antes de uma troca de preço). */
+export function customDataProduto(evento: NomeEventoMeta, orderId?: string, valorCentavos = PRODUTO_NOME.precoCentavos): Record<string, unknown> | undefined {
+  const valor = reais(valorCentavos);
   const base = { value: valor, currency: PRODUTO_NOME.moeda, content_ids: [PRODUTO_NOME.codigo] };
   const itens = [{ id: PRODUTO_NOME.codigo, quantity: 1, item_price: valor }];
   switch (evento) {

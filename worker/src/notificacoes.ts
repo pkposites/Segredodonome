@@ -63,9 +63,10 @@ export async function notificar(s: Servicos, titulo: string, corpo: string): Pro
 }
 
 /** Aviso de venda: só valor e o total do dia, nada da compradora. */
-export async function avisarVenda(s: Servicos, aprovado: Date) {
+export async function avisarVenda(s: Servicos, aprovado: Date, valorCentavos: number) {
   const hoje = diaSaoPaulo(aprovado);
   const vendasHoje = (await s.banco.contadores(hoje, hoje)).pix_pago;
-  const corpo = vendasHoje > 1 ? `R$ 11,90 · ${vendasHoje}ª venda de hoje` : "R$ 11,90 · primeira venda de hoje";
+  const valor = `R$ ${(valorCentavos / 100).toFixed(2).replace(".", ",")}`;
+  const corpo = vendasHoje > 1 ? `${valor} · ${vendasHoje}ª venda de hoje` : `${valor} · primeira venda de hoje`;
   return notificar(s, "💰 Nova venda no Segredo do Nome!", corpo);
 }

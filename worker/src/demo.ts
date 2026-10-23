@@ -4,6 +4,7 @@
 // ATENÇÃO: este pacote contém os textos pagos. Ele é gerado por scripts/gerar-demo.mjs
 // direto na pasta da prévia e não faz parte de web/.
 import { biblioteca } from "./conteudo/biblioteca";
+import { PRODUTO_NOME, reais } from "./catalogo";
 import { montarCompleto, montarGratis, montarOferta } from "./conteudo/montar";
 import { ALGORITHM_VERSION, calcularPerfil, type Entradas } from "./motor";
 import { validarEntradas } from "./entradas";
@@ -27,7 +28,7 @@ async function resposta(entradas: Entradas, completo: boolean) {
   const p = await calcularPerfil(entradas, SEGREDO_DEMO);
   return {
     gratis: montarGratis(b, p),
-    oferta: completo ? null : { preco: 11.9, moeda: "BRL", secoes: montarOferta(b, p).secoes },
+    oferta: completo ? null : { preco: reais(PRODUTO_NOME.precoCentavos), moeda: "BRL", secoes: montarOferta(b, p).secoes },
     completo: completo ? montarCompleto(b, p) : null,
     versoes: { algoritmo: ALGORITHM_VERSION, conteudo: b.versao },
   };
@@ -86,7 +87,7 @@ export async function post(caminho: string, corpo: any): Promise<unknown> {
       return {
         status: "approved",
         passe: passeDemo(e, corpo.pagamento_id),
-        comprovante: { pagamento_id: corpo.pagamento_id, data_hora: new Date().toISOString(), valor: 11.9, forma: "Pix" },
+        comprovante: { pagamento_id: corpo.pagamento_id, data_hora: new Date().toISOString(), valor: reais(PRODUTO_NOME.precoCentavos), forma: "Pix" },
         gratis: r.gratis,
         completo: r.completo,
         versoes: r.versoes,

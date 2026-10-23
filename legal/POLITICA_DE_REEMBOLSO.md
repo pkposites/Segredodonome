@@ -1,6 +1,6 @@
 # Política de Reembolso — Segredo do Nome
 
-Versão 2026-10-b · Vigente desde 19/10/2026
+Versão 2026-10-c · Vigente desde 23/10/2026
 
 ## Direito de arrependimento (7 dias)
 Você pode desistir da compra do resultado completo em até **7 (sete) dias corridos** contados da data do pagamento, **sem precisar justificar** (art. 49 do Código de Defesa do Consumidor e Decreto 7.962/2013).
@@ -10,7 +10,7 @@ Você pode desistir da compra do resultado completo em até **7 (sete) dias corr
 - Confirmamos o recebimento do pedido em até 2 dias úteis.
 
 ## Como o dinheiro volta
-- Devolvemos o **valor integral** pago (R$ 11,90) pelo Mercado Pago, para a conta de origem do Pix.
+- Devolvemos o **valor integral** pago pelo Mercado Pago, para a conta de origem do Pix.
 - O reembolso é solicitado em até 2 dias úteis após o pedido. O prazo para o valor aparecer na sua conta depende do Mercado Pago e do seu banco.
 
 ## O que acontece com o acesso

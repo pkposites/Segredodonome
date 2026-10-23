@@ -60,6 +60,14 @@ export class BancoMemoria implements Banco {
   async salvarGasto(dia: string, campanha: string, gasto: number) {
     this.gastosSalvos.set(`${dia}|${campanha}`, gasto);
   }
+  receitas: { dia: string; campanha: string; variante: string; centavos: number }[] = [];
+  async somarReceita(dia: string, campanha: string, variante: string, centavos: number) {
+    this.receitas.push({ dia, campanha, variante, centavos });
+  }
+  async receita(de: string, ate: string, campanha?: string, variante?: string) {
+    const r = this.receitas.filter((x) => x.dia >= de && x.dia <= ate && (!campanha || x.campanha === campanha) && (!variante || x.variante === variante));
+    return { vendas: r.length, centavos: r.reduce((s, x) => s + x.centavos, 0) };
+  }
   valores = new Map<string, string>();
   async lerValor(chave: string) {
     return this.valores.get(chave) ?? null;
@@ -98,7 +106,7 @@ export class MercadoPagoFalso implements MercadoPago {
       id,
       status: "pending",
       status_detail: "pending_waiting_transfer",
-      valor: 11.9,
+      valor: 13.9,
       valor_reembolsado: 0,
       moeda: "BRL",
       external_reference: p.externalReference,
