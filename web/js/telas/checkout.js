@@ -1,5 +1,5 @@
-// Checkout Pix em painel deslizante (web/TELAS.md, 7). Sem e-mail: um toque em "Gerar Pix"
-// e o Worker cria o Pix com um endereço técnico do site.
+// Checkout Pix em painel deslizante (web/TELAS.md, 7). Sem e-mail e sem segundo toque: ao abrir,
+// o Pix é gerado na hora (o Worker usa um endereço técnico do site) e o QR Code aparece direto.
 import { h, svg, trocar, ICONES } from "../dom.js";
 import { local, uuid } from "../armazenamento.js";
 import { post } from "../api.js";
@@ -46,42 +46,43 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
   const rodapeFolha = () =>
     h("p", { class: "mini" }, `Pagamento processado pelo Mercado Pago · 7 dias para desistir · ${CONFIG.VENDEDOR.razao_social}, CNPJ ${CONFIG.VENDEDOR.cnpj}`);
 
-  function telaGerar(mensagem) {
-    const erro = h("p", { class: "erro", role: "alert" }, mensagem ?? "");
-    const botao = h("button", { class: "botao botao-principal", type: "submit" }, "Gerar Pix");
-    let chave = uuid(); // mesma chave em toques repetidos = um único Pix
-    const enviar = async (ev) => {
-      ev.preventDefault();
-      botao.disabled = true;
-      botao.textContent = "Gerando…";
-      try {
-        // Endereço técnico só para Workers anteriores, que ainda exigem o campo; o atual o ignora.
-        const email = `pix-${chave.slice(0, 8)}@relatoriorda.com.br`;
-        const r = await post("/checkout", { entradas, email, idempotency_key: chave, utm_campaign: utmCampaign(), variante: CONFIG.VARIANTE, ...identificadores() });
-        pixelCheckout(r.event_id_checkout);
-        const pix = { pagamento_id: r.pagamento_id, copia_e_cola: r.copia_e_cola, qr_code_base64: r.qr_code_base64, expira_em: r.expira_em };
-        local.gravar("pix", pix);
-        telaPix(pix);
-      } catch (e) {
-        erro.textContent = e.message;
-        botao.disabled = false;
-        botao.textContent = "Gerar Pix";
-        if (e.status && e.status < 500) chave = uuid();
-      }
-    };
+  /**
+   * Gera o Pix assim que o painel abre (sem segundo toque). `chave` é a idempotency_key desta
+   * tentativa: repetir com a mesma chave devolve o mesmo Pix; erro 4xx troca a chave.
+   */
+  async function gerarPix(chave = uuid()) {
     trocar(
       folha,
       cabeca(),
-      h(
-        "form",
-        { class: "pilha", onsubmit: enviar, novalidate: true },
-        h("p", { class: "mini" }, "Pague com o app de qualquer banco. Não precisa ter conta no Mercado Pago."),
-        erro,
-        botao,
-      ),
+      h("div", { class: "qr qr-carregando", "aria-hidden": "true" }, h("span", { class: "girador girador-grande" })),
+      h("p", { class: "gerando", role: "status" }, "Gerando seu Pix…"),
+      h("p", { class: "mini centro" }, "Pague com o app de qualquer banco. Não precisa ter conta no Mercado Pago."),
       rodapeFolha(),
     );
-    botao.focus();
+    try {
+      // Endereço técnico só para Workers anteriores, que ainda exigem o campo; o atual o ignora.
+      const email = `pix-${chave.slice(0, 8)}@relatoriorda.com.br`;
+      const r = await post("/checkout", { entradas, email, idempotency_key: chave, utm_campaign: utmCampaign(), variante: CONFIG.VARIANTE, ...identificadores() });
+      pixelCheckout(r.event_id_checkout);
+      const pix = { pagamento_id: r.pagamento_id, copia_e_cola: r.copia_e_cola, qr_code_base64: r.qr_code_base64, expira_em: r.expira_em };
+      // Guardado mesmo se o painel já foi fechado: ao reabrir, retoma este Pix (nunca gera outro).
+      local.gravar("pix", pix);
+      if (ativo) telaPix(pix);
+    } catch (e) {
+      if (ativo) telaErro(e.message, e.status && e.status < 500 ? uuid() : chave);
+    }
+  }
+
+  function telaErro(mensagem, chave) {
+    const tentar = h("button", { class: "botao botao-principal", type: "button", onclick: () => gerarPix(chave) }, "Tentar de novo");
+    trocar(
+      folha,
+      cabeca(),
+      h("p", { class: "erro", role: "alert" }, mensagem || "Não foi possível gerar o Pix. Tente de novo."),
+      tentar,
+      rodapeFolha(),
+    );
+    tentar.focus();
   }
 
   function telaPix(pix) {
@@ -132,7 +133,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
       folha,
       cabeca(),
       h("p", { class: "aviso" }, "Este Pix expirou ou foi cancelado. Nenhum valor foi cobrado."),
-      h("button", { class: "botao botao-principal", type: "button", onclick: () => telaGerar() }, "Gerar novo Pix"),
+      h("button", { class: "botao botao-principal", type: "button", onclick: () => gerarPix() }, "Gerar novo Pix"),
       rodapeFolha(),
     );
   }
@@ -173,7 +174,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
   if (pendente && (!pendente.expira_em || Date.parse(pendente.expira_em) > Date.now())) telaPix(pendente);
   else {
     local.gravar("pix", null);
-    telaGerar();
+    gerarPix();
   }
   return { fechar };
 }

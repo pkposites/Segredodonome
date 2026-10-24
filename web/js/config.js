@@ -24,5 +24,5 @@ export const CONFIG = {
   VERSAO_TERMOS: "2026-10-h",
   VERSAO_COOKIES: "2026-10-b",
   // Versão da experiência, para comparar no painel (contadores anônimos por variante).
-  VARIANTE: "jogo-v2",
+  VARIANTE: "jogo-v3-pix-direto",
 };

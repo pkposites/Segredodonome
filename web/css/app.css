@@ -414,6 +414,11 @@ details p { padding-bottom: 14px; color: var(--texto-2); font-size: 14px; }
 .resumo .emblema-mini { width: 44px; height: 44px; border-radius: 12px; background: var(--nome-fundo); color: var(--nome); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .resumo .valor { margin-left: auto; font-weight: 700; white-space: nowrap; }
 .qr { align-self: center; background: #fbf6ef; padding: 12px; border-radius: 18px; width: 212px; height: 212px; box-shadow: 0 0 40px -10px rgba(242, 200, 121, .5); }
+.qr-carregando { display: flex; align-items: center; justify-content: center; background: linear-gradient(110deg, var(--superficie-2) 30%, rgba(242, 200, 121, .12) 50%, var(--superficie-2) 70%) 0 0 / 300% 100%; border: 1px solid var(--borda-forte); box-shadow: none; animation: brilho-qr 1.6s ease-in-out infinite; }
+@keyframes brilho-qr { from { background-position: 100% 0; } to { background-position: -50% 0; } }
+.girador-grande { width: 34px; height: 34px; border-width: 4px; }
+.gerando { text-align: center; font-weight: 600; margin: 0; }
+.centro { text-align: center; }
 .qr img, .qr svg { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
 .aguardando { display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 14px; color: var(--texto-2); }
 

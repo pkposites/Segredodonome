@@ -44,3 +44,12 @@ describe("configuração mínima", () => {
     expect(await b.contarAcessos()).toBeGreaterThan(1000); // recuperação bloqueada, não liberada
   });
 });
+
+describe("variantes da experiência", () => {
+  it("aceita os nomes das versões em teste e troca o resto por v1", async () => {
+    const { normalizarVariante } = await import("../src/banco");
+    for (const v of ["jogo-v2", "jogo-v3-pix-direto", "jogo-v4-oferta-cedo", "jogo-v5-bonus-casal"]) expect(normalizarVariante(v)).toBe(v);
+    expect(normalizarVariante("Jogo V3")).toBe("v1");
+    expect(normalizarVariante("x".repeat(40))).toBe("v1");
+  });
+});
