@@ -8,6 +8,10 @@ import { emblema } from "../emblemas.js";
 import { evento, identificadores, pixelCheckout, utmCampaign } from "../rastreio.js";
 
 const INTERVALO_MS = 4000;
+// Atendimento: a própria pessoa abre a conversa; o site não pede nem guarda o número dela.
+const WHATSAPP = `https://wa.me/55${CONFIG.VENDEDOR.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Olá! Tenho uma dúvida sobre o pagamento do Segredo do Nome.")}`;
+const ajudaWhatsapp = () =>
+  h("p", { class: "mini centro" }, "Dúvida com o pagamento? ", h("a", { href: WHATSAPP, target: "_blank", rel: "noopener" }, "Fale conosco pelo WhatsApp"));
 const hora = (iso) => new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
 
 /**
@@ -80,6 +84,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
       cabeca(),
       h("p", { class: "erro", role: "alert" }, mensagem || "Não foi possível gerar o Pix. Tente de novo."),
       tentar,
+      ajudaWhatsapp(),
       rodapeFolha(),
     );
     tentar.focus();
@@ -122,6 +127,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
       codigo,
       status,
       h("button", { class: "botao botao-contorno", type: "button", onclick: () => consultar(true) }, "Já paguei"),
+      ajudaWhatsapp(),
       rodapeFolha(),
     );
     agendar(pix);
