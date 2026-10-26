@@ -10,6 +10,7 @@ import { revelarNoFundo } from "../fundo.js";
 import { mostrarPista } from "../pistas.js";
 import { evento, pixelCompra } from "../rastreio.js";
 import { abrirCheckout } from "./checkout.js";
+import { blocoBonusCasal, vitrineBonusCasal } from "./casal.js";
 
 const ENCHIMENTO =
   "Este trecho continua com exemplos do dia a dia, um ponto forte e um cuidado, escritos para a combinação do seu nome, da sua data e do seu jeito.";
@@ -194,7 +195,7 @@ function mostrarPopupOferta(r, comprar) {
     h("span", { class: "popup-selo", "aria-hidden": "true" }, svg(ICONES.cadeado)),
     h("span", { class: "rotulo" }, "Calma, ainda não acabou"),
     h("h2", { class: "titulo", id: "popup-titulo" }, `Você não vai acreditar em tudo que a sua carta ainda guarda, ${r.gratis.primeiro_nome}`),
-    h("p", { class: "apoio", id: "popup-texto" }, `São mais ${total} capítulos escritos para a combinação do seu nome, da sua data e do seu jeito, com a frase do seu nome e o PDF para guardar.`),
+    h("p", { class: "apoio", id: "popup-texto" }, `São mais ${total} capítulos escritos para a combinação do seu nome, da sua data e do seu jeito, com a frase do seu nome, o PDF para guardar e o bônus Compatibilidade do casal.`),
     h("p", { class: "popup-proximo" }, h("span", { class: "mini" }, "Próximo capítulo"), h("strong", {}, r.oferta.secoes[0].titulo)),
     h("p", { class: "popup-preco" }, h("strong", {}, CONFIG.PRECO_TEXTO), h("span", { class: "mini" }, "Pix · pagamento único · 7 dias para desistir")),
     cta,
@@ -225,7 +226,7 @@ function gratis(tela, r, { ir, entradas }) {
         { class: "pilha", "aria-labelledby": "oferta-titulo" },
         h("span", { class: "rotulo" }, "Continue a sua descoberta"),
         h("h2", { class: "titulo", id: "oferta-titulo" }, `Sua carta tem mais ${total} capítulos, ${g.primeiro_nome}`),
-        h("p", { class: "apoio" }, "Escritos para a combinação do seu nome, da sua data e do seu jeito, além da frase do seu nome e do PDF. A primeira frase de cada um já está à vista:"),
+        h("p", { class: "apoio" }, "Escritos para a combinação do seu nome, da sua data e do seu jeito. A primeira frase de cada um já está à vista:"),
         h(
           "div",
           { class: "capitulos" },
@@ -241,6 +242,20 @@ function gratis(tela, r, { ir, entradas }) {
                 h("span", { class: "capitulo-texto" }, `${s.primeira_frase} `, h("span", { class: "desfocado", "aria-hidden": "true" }, ENCHIMENTO)),
               ),
             ),
+          ),
+        ),
+        vitrineBonusCasal(g),
+        h(
+          "div",
+          { class: "o-que-recebe" },
+          h("span", { class: "rotulo" }, "O que você recebe"),
+          h(
+            "ul",
+            {},
+            h("li", {}, svg(ICONES.ok), `Os ${total} capítulos da sua carta, escritos para você`),
+            h("li", {}, svg(ICONES.ok), "A frase do seu nome"),
+            h("li", {}, svg(ICONES.ok), "PDF para guardar e link de acesso por 12 meses"),
+            h("li", {}, svg(ICONES.ok), h("strong", {}, "Bônus: "), "Compatibilidade do casal"),
           ),
         ),
         h(
@@ -278,7 +293,31 @@ function gratis(tela, r, { ir, entradas }) {
       )
     : null;
 
-  const barra = h("div", { class: "barra-fixa nao-imprimir" }, h("button", { class: "botao botao-principal", type: "button", onclick: comprar }, ctaTexto));
+  // Barra fixa com o nome da pessoa: aparece logo depois da carta e some quando o preço está na tela.
+  const partes = partesGratis(g);
+  // Gancho dentro do resultado grátis: a primeira frase real de um capítulo pago (já é pública na oferta).
+  const capGancho = r.oferta?.secoes.find((s) => s.id === "como_ama") ?? r.oferta?.secoes[0];
+  const gancho = capGancho
+    ? h(
+        "aside",
+        { class: "gancho nao-imprimir", "aria-label": "Prévia de um capítulo trancado" },
+        h("span", { class: "rotulo" }, svg(ICONES.cadeado), `Capítulo trancado · ${capGancho.titulo}`),
+        h("p", { class: "gancho-texto" }, `${capGancho.primeira_frase} `, h("span", { class: "desfocado", "aria-hidden": "true" }, ENCHIMENTO)),
+        h(
+          "button",
+          { class: "botao-texto gancho-botao", type: "button", onclick: () => oferta?.scrollIntoView({ behavior: movimentoReduzido() ? "auto" : "smooth", block: "start" }) },
+          "Continuar lendo",
+          svg(ICONES.seta),
+        ),
+      )
+    : null;
+
+  const barra = h(
+    "div",
+    { class: "barra-fixa barra-oferta nao-imprimir" },
+    h("div", { class: "barra-texto" }, h("strong", {}, `${g.primeiro_nome}, sua carta continua`), h("span", { class: "mini" }, `${total} capítulos + bônus do casal`)),
+    h("button", { class: "botao botao-principal", type: "button", onclick: comprar }, `Ver tudo · ${CONFIG.PRECO_TEXTO}`),
+  );
   document.querySelector(".barra-fixa")?.remove();
 
   // A carta vira só na primeira revelação desta sessão (vinda do quiz).
@@ -291,7 +330,7 @@ function gratis(tela, r, { ir, entradas }) {
     h(
       "div",
       { class: `depois-da-carta${animar ? " chegando" : ""}` },
-      partesGratis(g),
+      gancho ? [...partes.slice(0, 2), gancho, ...partes.slice(2)] : partes,
       chamariz,
       sentinela,
       r.oferta
@@ -329,8 +368,21 @@ function gratis(tela, r, { ir, entradas }) {
   }
   if (r.oferta) {
     document.body.append(barra);
-    // Barra fixa só depois que a pessoa passa do resultado grátis.
-    new IntersectionObserver(([e]) => barra.classList.toggle("visivel", !e.isIntersecting && e.boundingClientRect.top < 0)).observe(sentinela);
+    // Barra fixa a partir do momento em que a carta sai da tela; some enquanto o preço está à vista.
+    const estado = { passouCarta: false, precoNaTela: false };
+    const atualizar = () => barra.classList.toggle("visivel", estado.passouCarta && !estado.precoNaTela);
+    const cena = tela.querySelector(".revelacao-cena");
+    new IntersectionObserver(([e]) => {
+      estado.passouCarta = !e.isIntersecting && e.boundingClientRect.top < 0;
+      atualizar();
+    }).observe(cena ?? sentinela);
+    const caixaPreco = oferta?.querySelector(".preco");
+    if (caixaPreco) {
+      new IntersectionObserver(([e]) => {
+        estado.precoNaTela = e.isIntersecting;
+        atualizar();
+      }).observe(caixaPreco);
+    }
   }
   if (local.ler("pix") && entradas) comprar(); // voltou com Pix pendente: checkout pronto
 }
@@ -446,6 +498,7 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
       h("blockquote", {}, `“${r.completo.frase_do_nome}”`),
       h("span", { class: "mini" }, `${g.primeiro_nome} · ${g.arquetipo.nome}`),
     ),
+    blocoBonusCasal({ passe }),
     h(
       "section",
       { class: "carta carta-suave nao-imprimir", "aria-labelledby": "link-titulo" },

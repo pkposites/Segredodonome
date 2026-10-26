@@ -47,10 +47,20 @@ Saída 201: `{ "pagamento_id": "...", "qr_code_base64": "...", "copia_e_cola": "
 
 ### `POST /pagamento/status`
 Entrada: `{ "pagamento_id": "...", "entradas": {...} }`
-- Consulta o Mercado Pago. Confere valor 11,90 BRL e `external_reference` = `sdn1-{chave das entradas}` (senão 404 genérico).
+- Consulta o Mercado Pago. Confere valor aceito pelo catálogo (17,90, 13,90 ou 11,90 BRL) e `external_reference` = `sdn1-{chave das entradas}` (senão 404 genérico).
 - `pending` → `{ "status": "pending" }`.
 - `approved` → `{ "status": "approved", "passe": "...", "comprovante": { "pagamento_id", "data_hora", "valor", "forma": "Pix" }, "completo": {...}, "event_id_purchase": "compra-{pagamento_id}" }`.
 - `expired`, `cancelled`, `rejected`, `refunded`, `charged_back` → status correspondente.
+
+### `POST /bonus/casal`
+Bônus "Compatibilidade do casal", só para quem comprou (decisão de 25/10/2026).
+
+Corpo: `{ "passe": "...", "parceria": { "nome": "Rafael Souza", "data_nascimento": "1991-07-02" } }`
+
+- Passe inválido → 400 `passe_invalido`; sem passe ou passe vencido → 403; pagamento não aprovado, estornado ou de outra pessoa → 403 `sem_acesso`; Mercado Pago fora do ar → 502 `verificacao_indisponivel`.
+- Outra pessoa: nome com 2+ letras, data válida, 18+ (menor → 403 `idade`).
+- 200: `{ "casal": { "combinacao": "O Farol + O Leme", "voce": {primeiro_nome, carta:{numero,nome}, traz, pede}, "parceria": {...}, "sintonia": {titulo, texto}, "frase": "...", "versao": "casal-2026-10-a" } }`
+- Nada da outra pessoa é guardado nem enviado à Meta.
 
 ### `POST /recuperar`
 Entrada: `{ "entradas": {...} }` (a pessoa refez o quiz).
@@ -59,7 +69,7 @@ Busca no Mercado Pago pagamentos aprovados com `external_reference = sdn1-{chave
 ### `POST /webhook/mercadopago`
 1. Valida a assinatura (`x-signature` + `x-request-id`, conforme a documentação vigente). Inválida → 401.
 2. Consulta o pagamento na API pelo ID recebido.
-3. Aprovado, 11,90 BRL, `external_reference` começando com `sdn1-` → envia `Purchase` à Meta (`event_id = compra-{pagamento_id}`, `fbp`/`fbc` do `metadata`, `order_id = pagamento_id`), soma no contador `pix_pago`.
+3. Aprovado, valor aceito pelo catálogo em BRL, `external_reference` começando com `sdn1-` → envia `Purchase` à Meta (`event_id = compra-{pagamento_id}`, `fbp`/`fbc` do `metadata`, `order_id = pagamento_id`), soma no contador `pix_pago`.
 4. Responde 200. Nada é gravado; reenvios geram o mesmo `event_id` e a Meta deduplica. O contador usa a tabela `pagamentos_contados` do D1 (só o ID do pagamento, apagado em 7 dias) para não contar duas vezes.
 
 ### `POST /evento`

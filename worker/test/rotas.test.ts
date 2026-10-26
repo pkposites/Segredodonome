@@ -32,7 +32,7 @@ describe("POST /resultado", () => {
     expect(r.headers.get("access-control-allow-origin")).toBe(ORIGEM);
     expect(r.corpo.gratis.arquetipo.nome).toBe("O Farol");
     expect(r.corpo.completo).toBeNull();
-    expect(r.corpo.oferta.preco).toBe(13.9);
+    expect(r.corpo.oferta.preco).toBe(17.9);
     expect(r.corpo.versoes).toEqual({ algoritmo: "1.0.0", conteudo: "2026-10-a" });
     // O texto pago além da primeira frase não sai do Worker antes do pagamento.
     const pago = await comprar(ambiente());
@@ -93,7 +93,7 @@ describe("compra completa", () => {
     expect(compra.event_id).toBe(ok.corpo.event_id_purchase);
     expect(compra.action_source).toBe("website");
     expect(compra.user_data).toMatchObject({ client_user_agent: expect.any(String), client_ip_address: "203.0.113.7", fbp: "fb.1.1.1" });
-    expect(compra.custom_data).toMatchObject({ value: 13.9, currency: "BRL" });
+    expect(compra.custom_data).toMatchObject({ value: 17.9, currency: "BRL" });
     // fbc do checkout vai junto na compra (dados do anúncio clicado).
     const b = ambiente();
     const c2 = await b.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbc: "fb.1.1700000000000.AbC" });
@@ -120,7 +120,7 @@ describe("compra completa", () => {
     const ok = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS });
     expect(ok.corpo.status).toBe("approved");
     expect(ok.corpo.event_id_purchase).toBe(`compra-${c.corpo.pagamento_id}`);
-    expect(ok.corpo.comprovante).toMatchObject({ pagamento_id: c.corpo.pagamento_id, valor: 13.9, forma: "Pix" });
+    expect(ok.corpo.comprovante).toMatchObject({ pagamento_id: c.corpo.pagamento_id, valor: 17.9, forma: "Pix" });
     expect(ok.corpo.completo.secoes).toHaveLength(7);
     expect(ok.corpo.passe).toMatch(/^[A-Za-z0-9_-]+$/);
   });
@@ -236,6 +236,75 @@ describe("abrir de novo com o passe", () => {
   });
 });
 
+describe("POST /bonus/casal (bônus de quem comprou)", () => {
+  const PARCERIA = { nome: "Rafael Souza", data_nascimento: "1991-07-02" };
+
+  it("passe pago → combinação das duas cartas, sem guardar nem medir nada da outra pessoa", async () => {
+    const a = ambiente();
+    const { passe } = await comprar(a);
+    const eventosAntes = a.meta.eventos.length;
+    const logs: string[] = [];
+    const espiões = (["log", "warn", "error", "info"] as const).map((m) =>
+      vi.spyOn(console, m).mockImplementation((...args) => void logs.push(args.map(String).join(" "))),
+    );
+    const r = await a.chamar("/bonus/casal", { passe, parceria: PARCERIA });
+    espiões.forEach((e) => e.mockRestore());
+    expect(r.status).toBe(200);
+    expect(r.corpo.casal.voce).toMatchObject({ primeiro_nome: "Camila", carta: { numero: 7, nome: "O Farol" } });
+    expect(r.corpo.casal.parceria.primeiro_nome).toBe("Rafael");
+    expect(r.corpo.casal.combinacao).toBe(`O Farol + ${r.corpo.casal.parceria.carta.nome}`);
+    expect(r.corpo.casal.sintonia.texto.length).toBeGreaterThan(50);
+    expect(r.corpo.casal.frase.length).toBeGreaterThan(10);
+    // Mesmas entradas = mesmo texto.
+    expect((await a.chamar("/bonus/casal", { passe, parceria: PARCERIA })).corpo).toEqual(r.corpo);
+    // Nenhum evento novo para a Meta e nada da outra pessoa em banco ou log.
+    expect(a.meta.eventos.length).toBe(eventosAntes);
+    const tudo = JSON.stringify({ banco: a.banco, meta: a.meta.eventos, logs });
+    expect(tudo).not.toContain("Rafael");
+    expect(tudo).not.toContain("1991-07-02");
+  });
+
+  it("sem passe, passe alterado, vencido, estornado ou Mercado Pago fora do ar → não libera", async () => {
+    const a = ambiente();
+    const { passe, pagamentoId } = await comprar(a);
+    expect((await a.chamar("/bonus/casal", { parceria: PARCERIA })).status).toBe(403);
+    const alterado = passe.slice(0, -2) + (passe.endsWith("AA") ? "BB" : "AA");
+    expect((await a.chamar("/bonus/casal", { passe: alterado, parceria: PARCERIA })).status).toBe(400);
+
+    a.mp.falhar = true;
+    const fora = await a.chamar("/bonus/casal", { passe, parceria: PARCERIA });
+    expect(fora.status).toBe(502);
+    expect(fora.corpo.casal).toBeUndefined();
+    a.mp.falhar = false;
+
+    a.mp.reembolsar(pagamentoId);
+    const estornado = await a.chamar("/bonus/casal", { passe, parceria: PARCERIA });
+    expect(estornado.status).toBe(403);
+    expect(estornado.corpo.casal).toBeUndefined();
+
+    const b = ambiente();
+    const compra = await comprar(b);
+    b.relogio.agora = new Date("2027-10-19T15:00:00Z");
+    expect((await b.chamar("/bonus/casal", { passe: compra.passe, parceria: PARCERIA })).status).toBe(403);
+  });
+
+  it("valida a outra pessoa: nome, data e maioridade, sem ecoar o que foi enviado", async () => {
+    const a = ambiente();
+    const { passe } = await comprar(a);
+    for (const [parceria, status] of [
+      [{ ...PARCERIA, nome: "1" }, 400],
+      [{ ...PARCERIA, data_nascimento: "1991-02-30" }, 400],
+      [{ ...PARCERIA, data_nascimento: "02/07/1991" }, 400],
+      [{ ...PARCERIA, data_nascimento: "2012-01-01" }, 403],
+      [undefined, 400],
+    ] as const) {
+      const r = await a.chamar("/bonus/casal", { passe, parceria });
+      expect(r.status).toBe(status);
+      expect(r.texto).not.toContain("Rafael");
+    }
+  });
+});
+
 describe("POST /recuperar", () => {
   it("refazer o quiz com mesmo nome e data encontra a compra", async () => {
     const a = ambiente();
@@ -280,7 +349,7 @@ describe("POST /webhook/mercadopago", () => {
     const compras = a.meta.eventos.filter((e) => e.event_name === "Purchase");
     expect(compras).toHaveLength(2);
     expect(new Set(compras.map((e) => e.event_id))).toEqual(new Set([`compra-${pagamentoId}`]));
-    expect(compras[0]!.custom_data).toMatchObject({ value: 13.9, currency: "BRL", order_id: pagamentoId, content_ids: ["nome_completo_v1"] });
+    expect(compras[0]!.custom_data).toMatchObject({ value: 17.9, currency: "BRL", order_id: pagamentoId, content_ids: ["nome_completo_v1"] });
     // O webhook não vem do navegador: navegador e fbp foram guardados no pagamento ao gerar o Pix (sem IP).
     expect(compras[0]!.user_data).toEqual({ client_user_agent: "Mozilla/5.0 (iPhone) Safari", fbp: "fb.1.1.1" });
     expect(a.banco.total("pix_pago")).toBe(1);
@@ -528,7 +597,7 @@ describe("avisos de venda no celular", () => {
     await webhook(a, pagamentoId); // reenvio do Mercado Pago: não avisa de novo
     expect(a.push.enviados).toEqual([APARELHO]);
     const m = (await a.chamar("/admin/push/mensagem", undefined, comChave("GET"))).corpo.mensagem;
-    expect(m).toMatchObject({ titulo: "💰 Nova venda no Segredo do Nome!", corpo: "R$ 13,90 · primeira venda de hoje" });
+    expect(m).toMatchObject({ titulo: "💰 Nova venda no Segredo do Nome!", corpo: "R$ 17,90 · primeira venda de hoje" });
     expect(JSON.stringify(m)).not.toMatch(/Juliana|Robson|@/);
   });
 
@@ -553,7 +622,21 @@ describe("avisos de venda no celular", () => {
   });
 });
 
-describe("troca de preço (R$ 11,90 → R$ 13,90 em 23/10/2026)", () => {
+describe("trocas de preço (R$ 11,90 → R$ 13,90 em 23/10/2026 → R$ 17,90 em 25/10/2026)", () => {
+  it("Pix de R$ 13,90 gerado antes da troca para R$ 17,90 e pago depois libera com o valor pago", async () => {
+    const a = ambiente();
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbp: "fb.1.1.1" });
+    a.mp.pagamentos.get(c.corpo.pagamento_id)!.valor = 13.9;
+    a.mp.aprovar(c.corpo.pagamento_id);
+    a.meta.eventos.length = 0;
+    expect((await webhook(a, c.corpo.pagamento_id)).status).toBe(200);
+    expect(a.meta.eventos.find((e) => e.event_name === "Purchase")!.custom_data).toMatchObject({ value: 13.9 });
+    const st = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS });
+    expect(st.corpo.status).toBe("approved");
+    expect(st.corpo.comprovante.valor).toBe(13.9);
+    expect(st.corpo.completo.secoes).toHaveLength(7);
+  });
+
   it("Pix gerado antes da troca e pago depois libera, conta a receita real e manda Purchase com o valor pago", async () => {
     const a = ambiente();
     const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbp: "fb.1.1.1" });

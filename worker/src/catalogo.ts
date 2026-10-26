@@ -10,15 +10,22 @@ export interface Produto {
 export const PRODUTO_NOME: Produto = {
   codigo: "nome_completo_v1",
   nome: "Segredo do Nome",
-  precoCentavos: 1390,
+  precoCentavos: 1790,
   moeda: "BRL",
 };
 
-/** Preço até 23/10/2026. Continua aceito para Pix gerados antes da troca e para recuperar compras antigas. */
-export const PRECO_ANTERIOR_CENTAVOS = 1190;
+/**
+ * Preços anteriores: R$ 11,90 até 23/10/2026 e R$ 13,90 até a troca para R$ 17,90 (decisão de 25/10/2026).
+ * Continuam aceitos para Pix gerados antes da troca e para recuperar compras antigas.
+ */
+export const PRECOS_ANTERIORES_CENTAVOS = [1390, 1190] as const;
 
-/** Valor de um pagamento nosso: o preço atual ou o anterior. */
-export const precoAceito = (cents: number) => cents === PRODUTO_NOME.precoCentavos || cents === PRECO_ANTERIOR_CENTAVOS;
+/** Vendas de antes do registro de receita (até 23/10/2026) eram todas a R$ 11,90. */
+export const PRECO_SEM_REGISTRO_CENTAVOS = 1190;
+
+/** Valor de um pagamento nosso: o preço atual ou um anterior. */
+export const precoAceito = (cents: number) =>
+  cents === PRODUTO_NOME.precoCentavos || (PRECOS_ANTERIORES_CENTAVOS as readonly number[]).includes(cents);
 
 export const PRODUTO_CASAL_ID = "casal_completo_v1";
 

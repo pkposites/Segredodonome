@@ -127,3 +127,12 @@ Podem esperar:
 
 ## 23/10/2026 — Avisos de venda sem passo manual (pedido do Rob)
 - A chave VAPID não precisa mais ser cadastrada: se não houver o Secret `VAPID_PRIVADA`, o Worker gera uma na primeira vez e guarda na tabela `config` (chave `vapid`). Exceção consciente à regra "segredos só como Secret", aceita pela simplicidade: essa chave só permite enviar avisos aos aparelhos que o Rob ativou no painel. Para trocar, apagar a linha `vapid` do `config` (os aparelhos precisam ser ativados de novo).
+
+## 25/10/2026 — Nova oferta: R$ 17,90 + bônus Compatibilidade do casal (decisão do Rob)
+- Preço de `nome_completo_v1`: R$ 13,90 → R$ 17,90. O Worker continua aceitando R$ 13,90 e R$ 11,90 (`PRECOS_ANTERIORES_CENTAVOS`) para Pix gerados antes da troca e compras antigas; Purchase, comprovante e aviso usam o valor pago.
+- Oferta mais cedo: um capítulo trancado (primeira frase real de "Como ama", que já era pública na oferta) dentro do resultado grátis, logo depois da essência; barra fixa com o primeiro nome assim que a carta sai da tela (some quando o preço está à vista); lista "O que você recebe" e vitrine do bônus antes da caixa de preço. Sem escassez, cronômetro ou preço riscado.
+- Bônus "Compatibilidade do casal", só depois do pagamento: `POST /bonus/casal` com o passe (pagamento conferido no Mercado Pago a cada pedido, como o completo). Carta da outra pessoa pelo nome, sintonia pela soma das duas cartas, frase pela soma dos caminhos das datas. Textos curtos, genéricos e neutros em `content/casal/casal.json`. Nome e data da outra pessoa só em memória no Worker; o resultado fica só no aparelho (`sdn_casal`), apagado em "Apagar meus dados". 18+ também para a outra pessoa.
+- **Meta e rastreamento sem mudança de estrutura** (pedido do Rob): nenhum evento ou parâmetro novo; só o `value` dos eventos passa a ser 17,90. O bônus não conta nada no painel.
+- Variante `jogo-v4-oferta-casal` para comparar no painel com `jogo-v3-pix-direto`.
+- **Conflito com a especificação, apontado:** `ESPECIFICACAO.md` deixa a trilha Casal fora do MVP e pede "uma variável por vez em teste". Esta decisão libera uma versão curta do casal como bônus (a trilha Casal completa continua "em breve" na landing) e muda preço e oferta juntos: a variante mede o pacote, não cada peça.
+- Pendente de aprovação antes de publicar: Termos (valor e bônus), Textos de Consentimento §3 (valor) e Política de Privacidade (dados da outra pessoa no bônus).

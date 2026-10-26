@@ -95,3 +95,27 @@ describe("primeiraFrase", () => {
     expect(primeiraFrase("Sem ponto")).toBe("Sem ponto");
   });
 });
+
+describe("bônus Compatibilidade do casal", () => {
+  it("nomes das cartas iguais aos da biblioteca e todas as 81 combinações com texto", async () => {
+    const { NOMES_CARTAS, montarCasal } = await import("../src/conteudo/casal");
+    const { normalizarNome } = await import("../src/motor/normalizar");
+    const b = biblioteca()!;
+    for (let n = 1; n <= 9; n++) expect(NOMES_CARTAS[n as 1]).toBe(b.arquetipos[n]!.arquetipo.nome);
+    // Um nome por carta (expressão 1–9): letras "a" repetidas somam 1 cada.
+    const porCarta = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => normalizarNome("a".repeat(n === 1 ? 10 : n))!);
+    const vistos = new Set<string>();
+    for (const x of porCarta) {
+      for (const y of porCarta) {
+        const c = montarCasal({ nome: x, data: "1990-05-12" }, { nome: y, data: "1988-11-30" });
+        vistos.add(c.combinacao);
+        for (const t of [c.voce.traz, c.voce.pede, c.parceria.traz, c.parceria.pede, c.sintonia.titulo, c.sintonia.texto, c.frase]) {
+          expect(typeof t).toBe("string");
+          expect(t.length).toBeGreaterThan(5);
+          expect(t.toLowerCase()).not.toContain("numerologia");
+        }
+      }
+    }
+    expect(vistos.size).toBe(81);
+  });
+});

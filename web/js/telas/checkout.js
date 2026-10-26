@@ -43,7 +43,7 @@ export function abrirCheckout({ entradas, gratis, aoAprovar }) {
       "div",
       { class: "resumo" },
       h("span", { class: "emblema-mini" }, svg(emblema(gratis.arquetipo.numero, 26, 6))),
-      h("div", { class: "pilha-8" }, h("strong", {}, `Resultado completo · ${gratis.arquetipo.nome}`), h("span", { class: "mini" }, `${gratis.primeiro_nome} · na tela, em PDF e por link (12 meses)`)),
+      h("div", { class: "pilha-8" }, h("strong", {}, `Resultado completo · ${gratis.arquetipo.nome}`), h("span", { class: "mini" }, `${gratis.primeiro_nome} · + bônus Compatibilidade do casal · na tela, em PDF e por link (12 meses)`)),
       h("span", { class: "valor" }, CONFIG.PRECO_TEXTO),
     ),
   ];

@@ -1,0 +1,95 @@
+{
+  "content_version": "casal-2026-10-a",
+  "_sobre": "Bônus Compatibilidade do casal (decisão de 25/10/2026 em docs/DECISOES.md). Textos curtos, genéricos e neutros de gênero. A carta de cada pessoa sai do nome; a sintonia, da soma das duas cartas; a frase final, da soma dos caminhos das duas datas.",
+  "cartas": {
+    "1": {
+      "traz": "A Chama traz a coragem de começar: é quem propõe a viagem, o restaurante novo e a conversa que ninguém queria puxar.",
+      "pede": "A Chama pede paciência: nem toda decisão a dois precisa sair na hora."
+    },
+    "2": {
+      "traz": "A Ponte traz escuta: percebe o clima antes de qualquer palavra e sabe quando a outra pessoa precisa de colo.",
+      "pede": "A Ponte pede espaço para dizer não sem culpa, em vez de concordar só para manter a paz."
+    },
+    "3": {
+      "traz": "A Voz traz leveza e riso: transforma um domingo comum em história boa para contar depois.",
+      "pede": "A Voz pede que os assuntos sérios também tenham vez, sem piada para fugir deles."
+    },
+    "4": {
+      "traz": "A Raiz traz chão: é quem lembra da conta, do aniversário e cumpre o que promete.",
+      "pede": "A Raiz pede abertura para o improviso: um plano que muda não é um plano que falhou."
+    },
+    "5": {
+      "traz": "O Vento traz novidade: tira a rotina do lugar com um passeio inesperado ou uma ideia fora da caixa.",
+      "pede": "O Vento pede liberdade, e precisa lembrar de avisar onde está quando sai voando."
+    },
+    "6": {
+      "traz": "O Abrigo traz cuidado: a casa fica mais quente, a comida sai do jeito certo e ninguém se sente só.",
+      "pede": "O Abrigo pede que o cuidado volte também, porque quem cuida de tudo cansa em silêncio."
+    },
+    "7": {
+      "traz": "O Farol traz profundidade: enxerga o que está por trás das palavras e faz as perguntas que importam.",
+      "pede": "O Farol pede que o silêncio não vire distância: dizer o que pensa evita muita suposição."
+    },
+    "8": {
+      "traz": "O Leme traz direção: transforma sonho em meta, com data, valor e o primeiro passo definido.",
+      "pede": "O Leme pede que nem tudo vire projeto: o casal também precisa de tempo sem objetivo."
+    },
+    "9": {
+      "traz": "O Horizonte traz generosidade: enxerga o melhor da outra pessoa e ajuda a fechar ciclos antigos.",
+      "pede": "O Horizonte pede atenção a si: não dá para cuidar do mundo e esquecer do próprio desejo."
+    }
+  },
+  "mesma_carta": {
+    "titulo": "Sintonia de espelho",
+    "texto": "Vocês tiraram a mesma carta. Isso costuma trazer entendimento rápido, porque cada pessoa reconhece na outra o próprio jeito. O cuidado é que os mesmos pontos fortes vêm com os mesmos exageros: combinem quem segura a onda quando vocês quiserem a mesma coisa ao mesmo tempo."
+  },
+  "sintonias": {
+    "1": {
+      "titulo": "Sintonia de começo",
+      "texto": "A combinação de vocês tem cheiro de primeira vez. Lado a lado, a vontade de começar coisas cresce: um projeto, uma mudança, uma viagem marcada no impulso. O segredo é escolher quais começos merecem chegar até o fim."
+    },
+    "2": {
+      "titulo": "Sintonia de parceria",
+      "texto": "A combinação de vocês funciona como dupla. Cada pessoa percebe o que a outra sente, e as decisões saem melhores quando são conversadas. O segredo é não deixar o cuidado com o clima calar o que precisa ser dito."
+    },
+    "3": {
+      "titulo": "Sintonia de festa",
+      "texto": "A combinação de vocês é alegre e cheia de assunto. Rende piadas internas, apelidos e noites que passam rápido. O segredo é guardar um espaço para a conversa séria, sem plateia e sem pressa."
+    },
+    "4": {
+      "titulo": "Sintonia de construção",
+      "texto": "A combinação de vocês é de quem constrói devagar e firme. Rotina, combinados e confiança contam muito aqui. O segredo é colocar surpresa na agenda, para a segurança não virar mesmice."
+    },
+    "5": {
+      "titulo": "Sintonia de estrada",
+      "texto": "A combinação de vocês pede movimento. Programas novos, lugares diferentes e mudança de planos fazem bem à relação. O segredo é ter um porto fixo para voltar quando a vida acelerar demais."
+    },
+    "6": {
+      "titulo": "Sintonia de lar",
+      "texto": "A combinação de vocês tem jeito de casa. Cuidado, família e pequenos gestos do dia a dia pesam mais que grandes declarações. O segredo é dividir as responsabilidades para ninguém carregar tudo por conta própria."
+    },
+    "7": {
+      "titulo": "Sintonia de profundidade",
+      "texto": "A combinação de vocês vai fundo. Conversas longas, silêncios confortáveis e uma conexão que não precisa de muita explicação. O segredo é dizer em voz alta o que cada pessoa já imagina que a outra sabe."
+    },
+    "8": {
+      "titulo": "Sintonia de conquista",
+      "texto": "A combinação de vocês é ambiciosa. Lado a lado, metas grandes parecem possíveis: a casa, o negócio, a virada de vida. O segredo é comemorar o caminho, e não só a chegada."
+    },
+    "9": {
+      "titulo": "Sintonia de horizonte",
+      "texto": "A combinação de vocês olha longe. Há generosidade, vontade de ajudar quem está perto e sonhos que envolvem mais gente. O segredo é lembrar que o casal também é prioridade, não só o mundo ao redor."
+    }
+  },
+  "frases": {
+    "1": "Quando vocês decidem em dupla, o primeiro passo fica leve.",
+    "2": "O melhor de vocês aparece quando vocês se escutam até o fim.",
+    "3": "Rir junto, de propósito, é onde vocês se reencontram.",
+    "4": "O que vocês combinam, vocês cumprem. Essa é a base de tudo.",
+    "5": "Mudem a rota quando quiserem, desde que seja de mãos dadas.",
+    "6": "Cuidar de quem se ama também é aceitar cuidado.",
+    "7": "O que vocês dizem em voz alta fica mais forte do que o que imaginam.",
+    "8": "Grandes planos cabem em vocês. Pequenos carinhos também.",
+    "9": "Vocês chegam mais longe quando ninguém esquece de si."
+  }
+}

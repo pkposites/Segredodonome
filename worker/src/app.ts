@@ -6,6 +6,7 @@ import PAINEL_HTML from "./painel/gerado";
 import { PAGINA_ACESSO } from "./painel/acesso";
 import { ICONE_192, ICONE_512, manifesto, SERVICE_WORKER } from "./painel/app";
 import { comCors, ErroHttp, json, origemPermitida, preflight, respostaErro } from "./http";
+import { postBonusCasal } from "./rotas/bonus";
 import { postEvento } from "./rotas/evento";
 import { postCheckout, postRecuperar, postStatus } from "./rotas/pagamento";
 import { postResultado } from "./rotas/resultado";
@@ -20,6 +21,7 @@ const PUBLICAS: Record<string, Rota> = {
   "/pagamento/status": postStatus,
   "/recuperar": postRecuperar,
   "/evento": postEvento,
+  "/bonus/casal": postBonusCasal,
 };
 
 const CSP_PAINEL =

@@ -1,7 +1,7 @@
 // /admin/* (worker/API.md). Só depois de autorizarAdmin.
 import { z } from "zod";
 import { ETAPAS, normalizarCampanha, normalizarVariante, type Banco, type Config, type Etapa } from "../banco";
-import { centavos, PRECO_ANTERIOR_CENTAVOS, precoAceito } from "../catalogo";
+import { centavos, PRECO_SEM_REGISTRO_CENTAVOS, precoAceito } from "../catalogo";
 import { ErroHttp, json, lerJson } from "../http";
 import { PREFIXO_REFERENCIA } from "../motor/semente";
 import type { Servicos } from "../servicos";
@@ -70,7 +70,7 @@ export async function calcularPainel(banco: Banco, de: string, ate: string, utm:
   });
   const vendas = cont.pix_pago;
   // Receita pelo valor pago; vendas de antes do registro de receita (até 23/10/2026) eram a R$ 11,90.
-  const bruta = rec.centavos + Math.max(0, vendas - rec.vendas) * PRECO_ANTERIOR_CENTAVOS;
+  const bruta = rec.centavos + Math.max(0, vendas - rec.vendas) * PRECO_SEM_REGISTRO_CENTAVOS;
   const taxa = Math.round((bruta * config.taxa_pix_pct) / 100);
   const imposto = Math.round((bruta * config.imposto_pct) / 100);
   const liquida = bruta - taxa - imposto;

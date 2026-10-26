@@ -223,7 +223,7 @@ function resumo(p) {
     ["Vendas", String(p.vendas), null, `${reais(p.receita_liquida_cents)} líquidos`],
     ["Gasto da Meta", semGasto ? "não lançado" : reais(p.gasto_cents), semGasto ? "pendente" : null, semGasto ? "lance abaixo" : null],
     ["Lucro estimado", semGasto ? "—" : reais(p.lucro_cents), semGasto ? null : p.lucro_cents < 0 ? "negativo" : "positivo", null],
-    ["Custo por venda", p.custo_por_venda_cents === null || semGasto ? "—" : reais(p.custo_por_venda_cents), null, "meta: abaixo de R$ 13,90"],
+    ["Custo por venda", p.custo_por_venda_cents === null || semGasto ? "—" : reais(p.custo_por_venda_cents), null, "meta: abaixo de R$ 17,90"],
     ["ROAS", p.roas === null || semGasto ? "—" : p.roas.toLocaleString("pt-BR", { maximumFractionDigits: 2 }), null, "acima de 1 = lucro"],
   ];
   $("cartoes").replaceChildren(...cartoes.map(([t, v, c, s]) => el("div", { class: "cartao" }, el("span", {}, t), el("strong", { class: c }, v), s ? el("small", {}, s) : null)));

@@ -1,4 +1,5 @@
 // Dublês em memória de D1, Mercado Pago e Meta, para testar as rotas sem rede.
+import { PRODUTO_NOME, reais } from "../src/catalogo";
 import type { Notificador } from "../src/push";
 import { ETAPAS, CONFIG_PADRAO, type Banco, type Config, type Etapa } from "../src/banco";
 import type { MercadoPago, NovoPix, Pagamento } from "../src/mercadopago";
@@ -106,7 +107,7 @@ export class MercadoPagoFalso implements MercadoPago {
       id,
       status: "pending",
       status_detail: "pending_waiting_transfer",
-      valor: 13.9,
+      valor: reais(PRODUTO_NOME.precoCentavos), // o preço vem do catálogo, como na API real
       valor_reembolsado: 0,
       moeda: "BRL",
       external_reference: p.externalReference,
