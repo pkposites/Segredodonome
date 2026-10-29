@@ -1,6 +1,6 @@
 # Termos de Uso — Segredo do Nome
 
-Versão 2026-10-e · Vigente desde 28/10/2026
+Versão 2026-10-f · Vigente desde 29/10/2026
 
 ## 1. Quem somos
 O site segredo.relatoriorda.com.br ("Site") é operado por QVN ADS, CNPJ 31.535.502/0001-40, com endereço em Rua Galeno de Castro, São Paulo/SP, e-mail qvnads@gmail.com e WhatsApp (11) 99191-2707 ("nós").
@@ -17,7 +17,7 @@ O serviço é destinado a pessoas com **18 anos ou mais**. Se a data de nascimen
 
 ## 4. Resultado gratuito e resultado completo
 - **Gratuito:** ao concluir o quiz, você recebe sem custo o seu arquétipo, a análise da sua essência, três características e a explicação de como o resultado é montado.
-- **Completo (pago):** por **R$ 17,90**, pagamento único via Pix, você libera as seções adicionais descritas na página antes da compra, um arquivo PDF e um link de acesso válido por **12 meses** a partir da compra.
+- **Completo (pago):** por **R$ 37,00**, pagamento único via Pix, você libera as seções adicionais descritas na página antes da compra, um arquivo PDF e um link de acesso válido por **12 meses** a partir da compra.
 - **Bônus Compatibilidade do casal (incluso no completo):** depois do pagamento, você pode informar o nome e a data de nascimento de outra pessoa maior de 18 anos e ver uma leitura curta da combinação das duas cartas, com o mesmo caráter de entretenimento. Informe dados de outra pessoa só com a permissão dela.
 - Não há assinatura, cobrança recorrente nem renovação automática.
 - O preço e o conteúdo exibidos no momento da compra são os que valem para aquela compra.

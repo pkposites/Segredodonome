@@ -136,3 +136,9 @@ Podem esperar:
 - Variante `jogo-v4-oferta-casal` para comparar no painel com `jogo-v3-pix-direto`.
 - **Conflito com a especificação, apontado:** `ESPECIFICACAO.md` deixa a trilha Casal fora do MVP e pede "uma variável por vez em teste". Esta decisão libera uma versão curta do casal como bônus (a trilha Casal completa continua "em breve" na landing) e muda preço e oferta juntos: a variante mede o pacote, não cada peça.
 - Textos jurídicos aprovados pelo Rob em 28/10/2026: Termos 2026-10-e (valor e bônus), Textos de Consentimento 2026-10-d (valor) e Política de Privacidade 2026-10-h (dados da outra pessoa no bônus, só no aparelho).
+
+## 29/10/2026 — Preço R$ 37,00 (decisão do Rob)
+- Preço de `nome_completo_v1`: R$ 17,90 → R$ 37,00, com o mesmo bônus. O Worker continua aceitando R$ 17,90, R$ 13,90 e R$ 11,90 (`PRECOS_ANTERIORES_CENTAVOS`) para Pix gerados antes da troca e compras antigas; Purchase, comprovante e aviso usam o valor pago.
+- Só o número do preço muda nos textos: Termos 2026-10-f e Textos de Consentimento 2026-10-e (§3). `VERSAO_TERMOS` 2026-10-j.
+- Variante `jogo-v5-preco-37` para comparar no painel com `jogo-v4-oferta-casal`. Nenhum evento novo; só o `value` passa a 37,00.
+- Ordem de publicação: site primeiro, Worker logo depois (com o Worker antes, a cobrança seria maior que o preço mostrado).

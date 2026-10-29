@@ -155,7 +155,7 @@ Variáveis usadas nos textos: `{primeiro_nome}`, `{inicial}`, `{qtd_letras}`, `{
 ## 6. Pagamento (Pix via Mercado Pago)
 
 Fluxo completo em `ARQUITETURA.md`. Regras:
-- Produto no catálogo do servidor: `nome_completo_v1`, R$ 17,90 (desde 25/10/2026; R$ 13,90 e R$ 11,90 continuam aceitos para Pix e compras anteriores), BRL. O front nunca envia preço.
+- Produto no catálogo do servidor: `nome_completo_v1`, R$ 37,00 (desde 29/10/2026; R$ 17,90, R$ 13,90 e R$ 11,90 continuam aceitos para Pix e compras anteriores), BRL. O front nunca envia preço.
 - Criação do Pix com `external_reference = sdn1-{chave}`, descrição genérica ("Segredo do Nome - resultado completo"), e-mail técnico do site no lugar do e-mail do pagador (exigência do Mercado Pago), `metadata` só com `fbp`, `fbc` e `event_id`, cabeçalho de idempotência com a `idempotency_key` do front. Nenhum nome, CPF ou data vai ao Mercado Pago.
 - Liberação só quando a API do Mercado Pago responde aprovado, com valor 11,90 BRL e `external_reference` igual à `chave` das entradas enviadas.
 - Webhook valida a assinatura, consulta o pagamento e envia o `Purchase` à Meta. Não grava nada.

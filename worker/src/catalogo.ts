@@ -10,15 +10,16 @@ export interface Produto {
 export const PRODUTO_NOME: Produto = {
   codigo: "nome_completo_v1",
   nome: "Segredo do Nome",
-  precoCentavos: 1790,
+  precoCentavos: 3700,
   moeda: "BRL",
 };
 
 /**
- * Preços anteriores: R$ 11,90 até 23/10/2026 e R$ 13,90 até a troca para R$ 17,90 (decisão de 25/10/2026).
+ * Preços anteriores: R$ 11,90 até 23/10/2026, R$ 13,90 até 25/10/2026 e R$ 17,90 até a troca para R$ 37,00
+ * (decisão de 29/10/2026).
  * Continuam aceitos para Pix gerados antes da troca e para recuperar compras antigas.
  */
-export const PRECOS_ANTERIORES_CENTAVOS = [1390, 1190] as const;
+export const PRECOS_ANTERIORES_CENTAVOS = [1790, 1390, 1190] as const;
 
 /** Vendas de antes do registro de receita (até 23/10/2026) eram todas a R$ 11,90. */
 export const PRECO_SEM_REGISTRO_CENTAVOS = 1190;
