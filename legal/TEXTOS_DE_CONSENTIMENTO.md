@@ -1,4 +1,4 @@
-# Textos de consentimento e avisos (versão 2026-10-c)
+# Textos de consentimento e avisos (versão 2026-10-d)
 
 Cada texto tem um identificador e uma versão; a escolha da pessoa fica registrada só no navegador dela.
 
@@ -18,7 +18,7 @@ Cada texto tem um identificador e uma versão; a escolha da pessoa fica registra
 > ☐ **Li e concordo** (obrigatório)
 
 ## 3. Resumo antes de pagar (informação pré-contratual) — caixa de preço
-> **Resultado completo do Segredo do Nome — R$ 13,90**
+> **Resultado completo do Segredo do Nome — R$ 17,90**
 > Pagamento único via Pix, sem assinatura. Acesso imediato após a confirmação, por 12 meses, com PDF para baixar.
 > Você pode desistir em até 7 dias e receber o valor de volta. [Política de reembolso](/reembolso)
 > Não enviamos e-mail: guarde o seu link de acesso ou salve o PDF.

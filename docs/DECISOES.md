@@ -135,4 +135,4 @@ Podem esperar:
 - **Meta e rastreamento sem mudança de estrutura** (pedido do Rob): nenhum evento ou parâmetro novo; só o `value` dos eventos passa a ser 17,90. O bônus não conta nada no painel.
 - Variante `jogo-v4-oferta-casal` para comparar no painel com `jogo-v3-pix-direto`.
 - **Conflito com a especificação, apontado:** `ESPECIFICACAO.md` deixa a trilha Casal fora do MVP e pede "uma variável por vez em teste". Esta decisão libera uma versão curta do casal como bônus (a trilha Casal completa continua "em breve" na landing) e muda preço e oferta juntos: a variante mede o pacote, não cada peça.
-- Pendente de aprovação antes de publicar: Termos (valor e bônus), Textos de Consentimento §3 (valor) e Política de Privacidade (dados da outra pessoa no bônus).
+- Textos jurídicos aprovados pelo Rob em 28/10/2026: Termos 2026-10-e (valor e bônus), Textos de Consentimento 2026-10-d (valor) e Política de Privacidade 2026-10-h (dados da outra pessoa no bônus, só no aparelho).

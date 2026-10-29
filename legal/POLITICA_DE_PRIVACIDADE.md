@@ -1,6 +1,6 @@
 # Política de Privacidade — Segredo do Nome
 
-Versão 2026-10-g · Vigente desde 22/10/2026
+Versão 2026-10-h · Vigente desde 28/10/2026
 
 Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
 
@@ -20,6 +20,7 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 | Dado | Para quê | Onde fica | Base legal (LGPD) | Por quanto tempo |
 |---|---|---|---|---|
 | Nome, data de nascimento, forma de tratamento e respostas | Montar o seu resultado | No seu aparelho (armazenamento do navegador) e dentro do seu link de acesso, que é criptografado. Nossos servidores só usam no momento do cálculo | Execução do serviço que você pediu (art. 7º, V) | Até você apagar do aparelho; o link de acesso vale 12 meses |
+| Nome e data de nascimento de outra pessoa, no bônus Compatibilidade do casal (só se você informar) | Montar a leitura da combinação das duas cartas | No seu aparelho. Nossos servidores só usam no momento do cálculo e não guardam | Execução do serviço que você pediu (art. 7º, V) | Até você apagar do aparelho |
 | Código técnico derivado do nome e da data (irreversível) | Localizar o seu pagamento se você perder o link e refizer o quiz | No registro do pagamento, no Mercado Pago | Legítimo interesse (art. 7º, IX) | Conforme a política do Mercado Pago |
 | Dados do pagamento (valor, data, situação) | Liberar o resultado, reembolsos e obrigações fiscais | No Mercado Pago | Execução do contrato e obrigação legal (art. 7º, V e II) | Conforme o Mercado Pago e a lei |
 | Identificadores técnicos de navegação: tipo de navegador, `_fbp`, `_fbc` e um código de sessão irreversível (o IP não) | Informar a compra à Meta quando o Mercado Pago confirma o pagamento | No registro do pagamento, no Mercado Pago | Legítimo interesse (art. 7º, IX) | Conforme a política do Mercado Pago |
@@ -44,7 +45,7 @@ Alguns desses fornecedores processam dados fora do Brasil, para a execução do 
 - Enviamos à Meta, pelo navegador e pelo nosso servidor, apenas o tipo de ação (ex.: "compra"), o valor, o IP, o navegador e esses identificadores técnicos de anúncio.
 - Você pode se opor a essa medição a qualquer momento tocando em **Recusar** no aviso de cookies (ou em "Preferências de cookies", no rodapé): o Pixel para, os cookies `_fbp` e `_fbc` são apagados e nada mais é enviado à Meta sobre você. Também pode escrever para qvnads@gmail.com.
 - O Microsoft Clarity também só é carregado se você **aceitar os cookies**. Ele registra cliques, rolagem e movimentos na página com **todo o texto da tela mascarado**: seu nome, sua data e o seu resultado não aparecem nas gravações. O seu link de acesso também não, porque ele sai da barra de endereço assim que a página abre.
-- **Nunca enviamos** nome, data de nascimento, respostas, resultado ou e-mail.
+- **Nunca enviamos** nome, data de nascimento, respostas, resultado ou e-mail, nem os dados da outra pessoa no bônus do casal.
 
 ## 6. Seu link de acesso
 O link de acesso guarda os dados do seu resultado de forma criptografada: só o nosso sistema consegue lê-lo. **Quem tiver o link consegue ver o seu resultado.** Compartilhe só com quem quiser.
