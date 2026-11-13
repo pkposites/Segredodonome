@@ -12,7 +12,7 @@ describe("configuração mínima", () => {
     expect(e.AMBIENTE).toBe("production");
     expect(e.PUBLIC_BASE_URL).toBe(PADROES.PUBLIC_BASE_URL);
     expect(e.META_PIXEL_ID).toBe(PADROES.META_PIXEL_ID);
-    expect(e.PIX_VALIDADE_MINUTOS).toBe("30");
+    expect(e.PIX_VALIDADE_MINUTOS).toBe("360");
   });
 
   it("variável cadastrada (não vazia) vence o padrão", () => {

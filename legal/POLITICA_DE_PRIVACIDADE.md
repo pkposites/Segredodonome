@@ -1,6 +1,6 @@
 # Política de Privacidade — Segredo do Nome
 
-Versão 2026-10-h · Vigente desde 28/10/2026
+Versão 2026-11-a · Vigente desde 13/11/2026
 
 Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, onde ficam e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018 — LGPD).
 
@@ -9,8 +9,8 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 - **Encarregado (contato de privacidade):** qvnads@gmail.com.
 
 ## 2. Resumo
-- **Não guardamos os seus dados nos nossos servidores.** Seu nome, sua data de nascimento e suas respostas ficam no seu próprio aparelho.
-- Nosso sistema usa esses dados só no instante de montar o resultado e depois os descarta.
+- **Não guardamos seu nome, sua data nem suas respostas**, com uma exceção: se você autorizar na tela do Pix, guardamos o WhatsApp e uma cópia criptografada desses dados por até 7 dias, só para o link daquele pagamento.
+- Fora isso, o sistema usa nome, data e respostas só no instante de montar o resultado e depois descarta.
 - O pagamento é feito pelo Mercado Pago, por Pix. Não pedimos seu e-mail nem o seu CPF: o Mercado Pago exige um e-mail no Pix, e usamos um endereço técnico do próprio site, sem nenhum dado seu.
 - Por obrigação legal, guardamos por 6 meses os registros de acesso ao site (endereço IP, data e hora).
 - Não vendemos dados.
@@ -24,6 +24,7 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 | Código técnico derivado do nome e da data (irreversível) | Localizar o seu pagamento se você perder o link e refizer o quiz | No registro do pagamento, no Mercado Pago | Legítimo interesse (art. 7º, IX) | Conforme a política do Mercado Pago |
 | Dados do pagamento (valor, data, situação) | Liberar o resultado, reembolsos e obrigações fiscais | No Mercado Pago | Execução do contrato e obrigação legal (art. 7º, V e II) | Conforme o Mercado Pago e a lei |
 | Identificadores técnicos de navegação: tipo de navegador, `_fbp`, `_fbc` e um código de sessão irreversível (o IP não) | Informar a compra à Meta quando o Mercado Pago confirma o pagamento | No registro do pagamento, no Mercado Pago | Legítimo interesse (art. 7º, IX) | Conforme a política do Mercado Pago |
+| WhatsApp e uma cópia criptografada do nome, da data e das respostas (só se você marcar a autorização na tela do Pix) | Montar o link de retomada daquele Pix e permitir que o atendimento te envie uma mensagem | Nosso armazenamento, junto do pedido | Consentimento (art. 7º, I) | Até 7 dias, ou na hora em que o pagamento é confirmado |
 | Endereço IP, data e hora de acesso | Cumprir o Marco Civil da Internet e proteger o site | Nossos registros de acesso | Obrigação legal (art. 7º, II; Lei 12.965/2014, art. 15) | 6 meses |
 | Cookies e identificadores de anúncio (`_fbp`, `_fbc`), IP e navegador | Medir de onde vêm as visitas e as compras e avaliar os anúncios | Seu navegador e a Meta | Legítimo interesse (art. 7º, IX), informado no aviso de cookies | Até 90 dias no navegador |
 | Cliques, rolagem e movimentos na página, com todo o texto da tela mascarado; cookies do Clarity (`_clck`, `_clsk`) | Entender onde o site confunde ou trava e melhorar a experiência | Seu navegador e a Microsoft (Clarity) | **Consentimento** pelo aviso de cookies (art. 7º, I) | Na Microsoft: gravações por 30 dias e dados de cliques por até 9 meses (uma pequena amostra das gravações também por até 9 meses), conforme a política do Clarity |
@@ -33,8 +34,7 @@ Esta política explica quais dados pessoais o Segredo do Nome trata, por quê, o
 | Empresa | Para quê |
 |---|---|
 | Mercado Pago | Processar o pagamento via Pix |
-| Netlify e Cloudflare | Hospedagem e processamento do site |
-| Cloudflare (D1) | Guarda dos registros de acesso |
+| Netlify | Hospedagem do site, funções da API e armazenamento dos registros de acesso e, se você autorizar, do WhatsApp do Pix pendente |
 | Meta Platforms (Facebook/Instagram) | Medição de anúncios, conforme item 5 |
 | Microsoft (Clarity) | Mapas de calor e gravações de uso da página, conforme item 5 |
 
@@ -51,7 +51,7 @@ Alguns desses fornecedores processam dados fora do Brasil, para a execução do 
 O link de acesso guarda os dados do seu resultado de forma criptografada: só o nosso sistema consegue lê-lo. **Quem tiver o link consegue ver o seu resultado.** Compartilhe só com quem quiser.
 
 ## 7. Segurança
-Conexão criptografada (HTTPS), link de acesso criptografado, nenhum dado de cliente em banco de dados, chaves guardadas em ambiente protegido e acesso administrativo restrito ao responsável, com login por código enviado ao e-mail dele. Se houver um incidente que possa trazer risco a você, comunicaremos conforme a lei.
+Conexão criptografada (HTTPS), link de acesso criptografado, chaves guardadas em ambiente protegido e acesso administrativo restrito ao responsável. O WhatsApp do Pix pendente só existe com a sua autorização, fica fora de anúncios e de registros de acesso, e é apagado em até 7 dias. Se houver um incidente que possa trazer risco a você, comunicaremos conforme a lei.
 
 ## 8. Seus direitos
 Você pode pedir confirmação de tratamento, acesso, correção, exclusão, portabilidade, informação sobre compartilhamento e revogação de consentimento (art. 18 da LGPD).

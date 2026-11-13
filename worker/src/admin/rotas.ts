@@ -6,6 +6,7 @@ import { ErroHttp, json, lerJson } from "../http";
 import { PREFIXO_REFERENCIA } from "../motor/semente";
 import type { Servicos } from "../servicos";
 import { adicionarAparelho, lerEstado, notificar, removerAparelho } from "../notificacoes";
+import { listarParaPainel } from "../rotas/recuperacao";
 import { endpointValido } from "../push";
 
 const dia = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
@@ -184,6 +185,9 @@ export async function rotaAdmin(req: Request, s: Servicos, caminho: string): Pro
   if (caminho === "/admin/push/teste" && req.method === "POST") {
     if (!(await s.push.ligado())) throw new ErroHttp(409, "sem_chave", "Avisos indisponíveis: o banco do painel não está ligado.");
     return json(await notificar(s, "🔔 Teste do Segredo do Nome", "Os avisos de venda estão funcionando."));
+  }
+  if (caminho === "/admin/pix-pendentes" && req.method === "GET") {
+    return json({ pendentes: await listarParaPainel(s) });
   }
   if (caminho === "/admin/push/mensagem" && req.method === "GET") {
     return json({ mensagem: (await lerEstado(s.banco)).mensagem ?? null });

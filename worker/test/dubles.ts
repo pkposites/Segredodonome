@@ -1,7 +1,7 @@
 // Dublês em memória de D1, Mercado Pago e Meta, para testar as rotas sem rede.
-import { PRODUTO_NOME, reais } from "../src/catalogo";
+import { reais } from "../src/catalogo";
 import type { Notificador } from "../src/push";
-import { ETAPAS, CONFIG_PADRAO, type Banco, type Config, type Etapa } from "../src/banco";
+import { ETAPAS, CONFIG_PADRAO, type Banco, type Config, type Etapa, type PixRecuperacao } from "../src/banco";
 import type { MercadoPago, NovoPix, Pagamento } from "../src/mercadopago";
 import type { EventoMeta, Meta } from "../src/meta";
 import type { Env } from "../src/env";
@@ -83,6 +83,20 @@ export class BancoMemoria implements Banco {
     this.config = c;
   }
   async limpar() {}
+  pixs: PixRecuperacao[] = [];
+  async salvarPixRecuperacao(p: PixRecuperacao) {
+    this.pixs = this.pixs.filter((x) => x.pagamento_id !== p.pagamento_id && x.token !== p.token);
+    this.pixs.push(p);
+  }
+  async listarPixPendentes() {
+    return this.pixs.filter((p) => p.status === "pendente");
+  }
+  async lerPixPorToken(token: string) {
+    return this.pixs.find((p) => p.token === token) ?? null;
+  }
+  async apagarPixRecuperacao(id: string) {
+    this.pixs = this.pixs.filter((p) => p.pagamento_id !== id);
+  }
   total(etapa: Etapa) {
     let n = 0;
     for (const [k, v] of this.cont) if (k.split("|")[1] === etapa) n += v;
@@ -107,7 +121,7 @@ export class MercadoPagoFalso implements MercadoPago {
       id,
       status: "pending",
       status_detail: "pending_waiting_transfer",
-      valor: reais(PRODUTO_NOME.precoCentavos), // o preço vem do catálogo, como na API real
+      valor: reais(p.valorCentavos),
       valor_reembolsado: 0,
       moeda: "BRL",
       external_reference: p.externalReference,
@@ -115,7 +129,7 @@ export class MercadoPagoFalso implements MercadoPago {
       aprovado_em: null,
       expira_em: p.expiraEm.toISOString(),
       metadata: p.metadata,
-      pix: { qr_code: "00020126...", qr_code_base64: "iVBORw0KGgo=", ticket_url: null },
+      pix: { qr_code: "00020126...", qr_code_base64: "iVBORw0KGgo=", ticket_url: `https://www.mercadopago.com.br/payments/${id}/ticket` },
     };
     this.pagamentos.set(id, pag);
     this.porIdempotencia.set(p.idempotencyKey, id);

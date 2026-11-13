@@ -1,6 +1,6 @@
 // API de Conversões da Meta (RASTREAMENTO_META.md). Só eventos e parâmetros padrão.
 // Nunca recebe nome, data, respostas, resultado ou e-mail.
-import { PRODUTO_CASAL_ID, PRODUTO_NOME, reais } from "./catalogo";
+import { PRODUTO_CASAL_ID, PRODUTO_NOME, itensDoValor, reais } from "./catalogo";
 
 export type NomeEventoMeta =
   | "PageView"
@@ -38,11 +38,17 @@ const PARAMETROS_PADRAO = new Set([
   "content_category", "contents", "num_items", "order_id",
 ]);
 
-/** valorCentavos: o valor realmente pago (Purchase de Pix gerado antes de uma troca de preço). */
+/**
+ * valorCentavos: o valor realmente cobrado neste evento.
+ * ViewContent e AddToCart usam o preço do nome (o bump ainda não foi escolhido).
+ * InitiateCheckout e Purchase usam o total do Pix (nome, nome+casal ou só o casal).
+ */
 export function customDataProduto(evento: NomeEventoMeta, orderId?: string, valorCentavos = PRODUTO_NOME.precoCentavos): Record<string, unknown> | undefined {
-  const valor = reais(valorCentavos);
-  const base = { value: valor, currency: PRODUTO_NOME.moeda, content_ids: [PRODUTO_NOME.codigo] };
-  const itens = [{ id: PRODUTO_NOME.codigo, quantity: 1, item_price: valor }];
+  const doNome = evento === "ViewContent" || evento === "AddToCart" || evento === "AddPaymentInfo";
+  const cents = doNome ? PRODUTO_NOME.precoCentavos : valorCentavos;
+  const itens = doNome ? itensDoValor(PRODUTO_NOME.precoCentavos) : itensDoValor(cents);
+  const valor = reais(doNome ? PRODUTO_NOME.precoCentavos : cents);
+  const base = { value: valor, currency: PRODUTO_NOME.moeda, content_ids: itens.map((i) => i.id) };
   switch (evento) {
     case "PageView":
       return undefined;
@@ -52,11 +58,11 @@ export function customDataProduto(evento: NomeEventoMeta, orderId?: string, valo
     case "AddToWishlist":
       return { content_ids: [PRODUTO_CASAL_ID], content_name: "Compatibilidade do Casal" };
     case "InitiateCheckout":
-      return { ...base, contents: itens, num_items: 1 };
+      return { ...base, contents: itens, num_items: itens.length };
     case "AddPaymentInfo":
       return base;
     case "Purchase":
-      return { ...base, contents: itens, num_items: 1, order_id: orderId, content_type: "product" };
+      return { ...base, contents: itens, num_items: itens.length, order_id: orderId, content_type: "product" };
   }
 }
 

@@ -9,7 +9,7 @@ import { ErroHttp, json, lerJson } from "../http";
 import { pagamentoLibera } from "../mercadopago";
 import { normalizarNome } from "../motor/normalizar";
 import type { Servicos } from "../servicos";
-import { referenciaDe, entradasDoPasse } from "./comum";
+import { referenciaDe, entradasDoPasse, temCasal } from "./comum";
 
 const esquemaParceria = z.object({
   nome: z.string().trim().min(2).max(80),
@@ -43,6 +43,9 @@ export async function postBonusCasal(req: Request, s: Servicos): Promise<Respons
   }
   if (!pagamento || !pagamentoLibera(pagamento, await referenciaDe(entradas, s))) {
     throw new ErroHttp(403, "sem_acesso", "Este acesso não está mais ativo.");
+  }
+  if (!(await temCasal(s, entradas, pagamento))) {
+    throw new ErroHttp(403, "sem_casal", "A compatibilidade do casal não está nesta compra. Você pode incluí-la na tela do resultado.");
   }
 
   const nomeVoce = normalizarNome(entradas.nome)!;

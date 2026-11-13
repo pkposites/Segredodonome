@@ -1,11 +1,9 @@
 // Entrada (/) e escolha da descoberta — v2 "jogo de descoberta" (docs/REDESIGN_V2.md).
 // Primeira dobra: headline → letras que acendem com o nome → campo → botão.
-import { h, svg, trocar, movimentoReduzido, primeiroNomeDe, esperar, ICONES } from "../dom.js";
-import { emblema, ARTE_NOME, ARTE_CASAL } from "../emblemas.js";
-import { local, sessao } from "../armazenamento.js";
-import { evento } from "../rastreio.js";
+import { h, svg, trocar, movimentoReduzido, ICONES } from "../dom.js";
+import { emblema } from "../emblemas.js";
+import { local } from "../armazenamento.js";
 import { CONFIG } from "../config.js";
-import { definirLetras } from "../fundo.js";
 
 const EXEMPLOS = ["Ana", "Léo", "Bruna", "Carlos"];
 
@@ -34,14 +32,7 @@ export function telaInicio(tela, { ir }) {
   const nomeSalvo = local.ler("primeiro_nome");
   const letras = h("div", { class: "letras letras-hero", "aria-hidden": "true" });
   const seloExemplo = h("span", { class: "selo selo-exemplo" }, "exemplo");
-  const campo = h("input", {
-    id: "primeiro-nome", class: "campo campo-hero", name: "primeiro-nome", placeholder: "Seu primeiro nome",
-    autocomplete: "given-name", autocapitalize: "words", maxlength: "40", enterkeyhint: "go",
-    value: sessao.ler("primeiro_nome") ?? "",
-  });
-  const erro = h("p", { class: "erro", role: "alert" });
-
-  // Exemplo em loop (≤ 6 s por volta, pausável); para quando a pessoa digita.
+  // Exemplo em loop (≤ 6 s por volta, pausável). O nome é pedido uma vez só, já no quiz.
   let i = 0;
   let pausado = movimentoReduzido();
   let timer = null;
@@ -58,59 +49,19 @@ export function telaInicio(tela, { ir }) {
     iniciar();
   });
 
-  let anterior = "";
-  function aoDigitar() {
-    erro.textContent = "";
-    const v = campo.value.trim();
-    if (v) {
-      clearInterval(timer);
-      seloExemplo.hidden = botaoPausa.hidden = true;
-      blocos(letras, v, { novaNoFim: v.length > anterior.length });
-      definirLetras(v);
-    } else {
-      seloExemplo.hidden = botaoPausa.hidden = false;
-      iniciar();
-    }
-    anterior = v;
-  }
-  campo.addEventListener("input", aoDigitar);
-  if (campo.value) aoDigitar();
-  else {
-    tick();
-    iniciar();
-  }
-
-  async function continuar(e) {
-    e.preventDefault();
-    const nome = primeiroNomeDe(campo.value);
-    if (letrasDe(nome).length < 2) {
-      erro.textContent = "Digite o seu primeiro nome para começar.";
-      campo.focus();
-      return;
-    }
-    clearInterval(timer);
-    sessao.gravar("primeiro_nome", nome);
-    // As letras se reorganizam rapidamente antes da escolha (curto, sem esperar a pessoa).
-    if (!movimentoReduzido()) {
-      blocos(letras, nome);
-      [...letras.children].forEach((l, k) => {
-        l.style.setProperty("--giro", `${(k % 2 ? -1 : 1) * (4 + k * 2)}deg`);
-        l.style.animationDelay = `${k * 40}ms`;
-      });
-      letras.classList.add("reorganizar");
-      await esperar(480);
-    }
-    telaEscolha(tela, { ir, nome });
-  }
+  tick();
+  iniciar();
 
   const form = h(
-    "form",
-    { class: "hero-form", onsubmit: continuar, novalidate: true },
-    h("label", { class: "hero-rotulo", for: "primeiro-nome" }, "Qual é o seu primeiro nome?"),
-    campo,
-    erro,
-    h("button", { class: "botao botao-principal botao-hero", type: "submit" }, "Começar minha descoberta", svg(ICONES.brilho)),
-    h("p", { class: "hero-confianca" }, "Grátis pra começar · Sem cadastro · Não guardamos seu nome nem sua data"),
+    "div",
+    { class: "hero-form" },
+    h(
+      "a",
+      { class: "botao botao-principal botao-hero", href: "/quiz", "data-link": true },
+      "Começar minha descoberta",
+      svg(ICONES.brilho),
+    ),
+    h("p", { class: "hero-confianca" }, "Grátis pra começar · Sem cadastro · O nome é pedido uma vez só"),
   );
 
   trocar(
@@ -157,9 +108,9 @@ export function telaInicio(tela, { ir }) {
       "section",
       { class: "pilha-8", "aria-labelledby": "faq-titulo" },
       h("h2", { class: "secao", id: "faq-titulo" }, "Perguntas frequentes"),
-      faq("É pago?", `A sua carta, com o arquétipo e a interpretação, é grátis e completa. Se quiser, você pode liberar os capítulos extras, com PDF, por ${CONFIG.PRECO_TEXTO} no Pix, pagamento único.`),
+      faq("É pago?", `A sua carta, com o arquétipo e a interpretação, é grátis. Se quiser, você libera os capítulos extras, com PDF, por ${CONFIG.PRECO_TEXTO} no Pix, pagamento único. A Compatibilidade do casal é um adicional opcional de ${CONFIG.PRECO_CASAL_TEXTO}.`),
       faq("Quanto tempo leva?", "Cerca de 2 minutos: nome, data de nascimento e 5 escolhas rápidas."),
-      faq("Meus dados ficam salvos?", "Não no nosso servidor. Seu nome, sua data e suas respostas ficam neste aparelho e dentro do seu link de acesso, que é criptografado. Nosso sistema usa esses dados só no momento de montar o resultado. Você pode apagar tudo do aparelho quando quiser."),
+      faq("Meus dados ficam salvos?", "Seu nome, sua data e suas respostas ficam neste aparelho. Na tela do Pix, se você autorizar, guardamos o WhatsApp por até 7 dias só para te enviar o link daquele pagamento, e apagamos quando você paga ou quando o prazo acaba."),
       faq("Posso refazer?", "Pode. Com o mesmo nome e a mesma data, o seu nome continua dizendo a mesma coisa. Se você já comprou, refazer com os mesmos dados recupera a sua compra."),
       faq("É só para maiores de 18?", "Sim. O quiz não é processado para menores de 18 anos."),
     ),
@@ -170,55 +121,3 @@ function faq(pergunta, resposta) {
   return h("details", {}, h("summary", {}, pergunta), h("p", {}, resposta));
 }
 
-function telaEscolha(tela, { ir, nome }) {
-  const avisoCasal = h("p", { class: "pequeno", role: "status" });
-  const botaoCasal = h(
-    "button",
-    {
-      class: "botao-casal",
-      type: "button",
-      onclick: () => {
-        evento("casal_interesse");
-        botaoCasal.disabled = true;
-        avisoCasal.textContent = "Anotado! Não pedimos contato; o lançamento será divulgado no site e nas redes.";
-      },
-    },
-    "Quero quando lançar",
-  );
-  const cartaNome = h(
-    "a",
-    { class: "carta-jogo", href: "/quiz" },
-    h("span", { class: "selo selo-gratis" }, "Grátis para começar"),
-    h("div", { class: "carta-arte dourado" }, h("span", { class: "brilho-giro", "aria-hidden": "true" }), svg(ARTE_NOME)),
-    h("h2", {}, "Segredo do nome"),
-    h("p", { class: "texto-2 pequeno" }, "Descubra a carta do seu arquétipo e o que as letras do seu nome contam sobre o seu jeito."),
-    h("div", { class: "chips" }, h("span", { class: "chip" }, "Seu arquétipo"), h("span", { class: "chip" }, "Amor e dinheiro"), h("span", { class: "chip" }, "Seu 2027")),
-    h("span", { class: "botao botao-principal" }, "Começar a descoberta", svg(ICONES.seta)),
-    h("span", { class: "mini" }, "2 minutos · 5 escolhas rápidas"),
-  );
-  cartaNome.addEventListener("click", async (e) => {
-    e.preventDefault();
-    evento("escolha_nome");
-    if (!movimentoReduzido()) {
-      cartaNome.classList.add("tocada");
-      await esperar(220);
-    }
-    ir("/quiz");
-  });
-  trocar(
-    tela,
-    h("h1", { class: "escolha-titulo" }, `${nome}, escolha a sua descoberta`),
-    cartaNome,
-    h(
-      "div",
-      { class: "carta-jogo carta-trancada", role: "group", "aria-label": "Compatibilidade do casal, em breve" },
-      h("div", { class: "card-cabeca" }, h("h2", {}, "Compatibilidade do casal"), h("span", { class: "selo selo-breve" }, "Em breve")),
-      h("div", { class: "carta-arte" }, svg(ARTE_CASAL)),
-      h("p", { class: "apoio pequeno" }, "Ainda não está disponível. Os dois nomes lado a lado: onde vocês se encontram e onde se desafiam."),
-      h("div", {}, botaoCasal),
-      avisoCasal,
-    ),
-    h("button", { class: "botao-texto", type: "button", onclick: () => telaInicio(tela, { ir }) }, "Voltar"),
-  );
-  window.scrollTo(0, 0);
-}

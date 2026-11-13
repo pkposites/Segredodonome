@@ -137,6 +137,17 @@ Podem esperar:
 - **Conflito com a especificação, apontado:** `ESPECIFICACAO.md` deixa a trilha Casal fora do MVP e pede "uma variável por vez em teste". Esta decisão libera uma versão curta do casal como bônus (a trilha Casal completa continua "em breve" na landing) e muda preço e oferta juntos: a variante mede o pacote, não cada peça.
 - Textos jurídicos aprovados pelo Rob em 28/10/2026: Termos 2026-10-e (valor e bônus), Textos de Consentimento 2026-10-d (valor) e Política de Privacidade 2026-10-h (dados da outra pessoa no bônus, só no aparelho).
 
+## 13/11/2026 — R$ 27 + adicional do casal, Pix no celular, recuperação por WhatsApp e API no Netlify (decisão do Rob)
+
+- Preço de `nome_completo_v1`: R$ 37,00 → **R$ 27,00**. O adicional **Compatibilidade do casal** deixa de ser bônus incluso e passa a **R$ 17,00**, marcado no checkout antes do Pix (total R$ 44,00) ou comprado depois, em um Pix separado. Quem não marca paga R$ 27,00 e vê o upsell depois. Há também a leitura de outro nome por R$ 27,00, com as 5 escolhas no perfil equilibrado, dito na tela.
+- Pix já gerados a R$ 37,00, R$ 17,90, R$ 13,90 e R$ 11,90 continuam aceitos e **incluem o casal**, porque na época ele ia no preço. Purchase, comprovante e aviso usam o valor realmente pago. Com o adicional, o Purchase leva os dois `content_ids` e o total.
+- O funil não pede mais a tela "escolha a sua descoberta" nem o nome na home: o botão abre o quiz, e o nome é pedido uma vez. A oferta com preço aparece logo depois da carta. A barra fixa entra mais cedo. O pop-up de 25 s saiu. Capítulo trancado mostra a primeira frase e, ao toque, abre o checkout. Gatilhos: garantia de 7 dias, pagamento seguro via Mercado Pago e a lista do que a pessoa recebe. Sem prova social.
+- Pix: copia-e-cola sempre visível, instrução "App do banco → Pix → Copia e cola", QR secundário, `ticket_url` do Mercado Pago, aviso para abrir no navegador quando está no Instagram/Facebook, validade padrão de **6 horas**.
+- WhatsApp opcional na tela do Pix, com uma caixa de consentimento (versão `2026-11-a`). O número e um rascunho cifrado ficam no servidor por até 7 dias. O painel lista os pendentes com link `wa.me` para o Rob enviar. Nada é disparado sozinho. Isso é exceção explícita à regra de não guardar dado de cliente; nome em claro não entra no painel.
+- A API passa para Netlify Functions (`netlify/functions/api.ts`), com segredos nas variáveis do Netlify e dados operacionais no Netlify Blobs. O Worker permanece no repositório e não deve ser publicado de novo. Webhook novo: `https://segredo.relatoriorda.com.br/webhook/mercadopago`.
+- Textos jurídicos atualizados para bater com o preço, o adicional e o WhatsApp (Termos, Privacidade e Consentimento `2026-11-a`). O Rob confirma o texto antes de publicar.
+- Variante `jogo-v6-preco-27-bump`.
+
 ## 29/10/2026 — Preço R$ 37,00 (decisão do Rob)
 - Preço de `nome_completo_v1`: R$ 17,90 → R$ 37,00, com o mesmo bônus. O Worker continua aceitando R$ 17,90, R$ 13,90 e R$ 11,90 (`PRECOS_ANTERIORES_CENTAVOS`) para Pix gerados antes da troca e compras antigas; Purchase, comprovante e aviso usam o valor pago.
 - Só o número do preço muda nos textos: Termos 2026-10-f e Textos de Consentimento 2026-10-e (§3). `VERSAO_TERMOS` 2026-10-j.

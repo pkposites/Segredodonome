@@ -124,6 +124,12 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text
     </div>
   </section>
 
+  <section class="caixa" aria-labelledby="t-pix">
+    <h2 id="t-pix">Pix em aberto com WhatsApp</h2>
+    <p class="mini">Quem deixou o número e autorizou. A mensagem não sai sozinha: o botão abre o WhatsApp para você enviar.</p>
+    <div id="pix-pendentes"></div>
+  </section>
+
   <section class="caixa" aria-labelledby="t-funil">
     <h2 id="t-funil">Caminho das pessoas</h2>
     <div class="passos" id="funil"></div>
@@ -223,7 +229,7 @@ function resumo(p) {
     ["Vendas", String(p.vendas), null, `${reais(p.receita_liquida_cents)} líquidos`],
     ["Gasto da Meta", semGasto ? "não lançado" : reais(p.gasto_cents), semGasto ? "pendente" : null, semGasto ? "lance abaixo" : null],
     ["Lucro estimado", semGasto ? "—" : reais(p.lucro_cents), semGasto ? null : p.lucro_cents < 0 ? "negativo" : "positivo", null],
-    ["Custo por venda", p.custo_por_venda_cents === null || semGasto ? "—" : reais(p.custo_por_venda_cents), null, "meta: abaixo de R$ 37,00"],
+    ["Custo por venda", p.custo_por_venda_cents === null || semGasto ? "—" : reais(p.custo_por_venda_cents), null, "ROAS alvo 1,8"],
     ["ROAS", p.roas === null || semGasto ? "—" : p.roas.toLocaleString("pt-BR", { maximumFractionDigits: 2 }), null, "acima de 1 = lucro"],
   ];
   $("cartoes").replaceChildren(...cartoes.map(([t, v, c, s]) => el("div", { class: "cartao" }, el("span", {}, t), el("strong", { class: c }, v), s ? el("small", {}, s) : null)));
@@ -265,12 +271,33 @@ async function carregar() {
   $("erro").textContent = "";
   try {
     const periodoQs = new URLSearchParams({ de: $("de").value, ate: $("ate").value });
-    const [p, g, v] = await Promise.all([api("/admin/painel?" + qs()), api("/admin/gasto?" + periodoQs), api("/admin/variantes?" + periodoQs)]);
+    const [p, g, v, pend] = await Promise.all([
+      api("/admin/painel?" + qs()),
+      api("/admin/gasto?" + periodoQs),
+      api("/admin/variantes?" + periodoQs),
+      api("/admin/pix-pendentes").catch(() => ({ pendentes: [] })),
+    ]);
     const pior = resumo(p);
+    const listaPix = $("pix-pendentes");
+    const itens = pend.pendentes ?? [];
+    listaPix.replaceChildren(
+      itens.length
+        ? el("ul", { class: "passos" }, ...itens.map((item) => el(
+            "li",
+            {},
+            el("strong", {}, reais(item.valor_centavos)),
+            ` · ${item.whatsapp} · `,
+            el("a", { href: item.whatsapp_link, target: "_blank", rel: "noopener" }, "Abrir conversa"),
+            " · ",
+            el("a", { href: item.link, target: "_blank", rel: "noopener" }, "Link de retomada"),
+          )))
+        : el("p", { class: "mini" }, "Nenhum Pix pendente com WhatsApp autorizado."),
+    );
 
     const nomes = { "Visitas": "Entraram no site", "Iniciaram o quiz": "Começaram o quiz", "Chegaram na metade": "Chegaram na metade", "Viram o resultado": "Viram o resultado", "Tocaram em comprar": "Tocaram em comprar", "Geraram Pix": "Geraram o Pix", "Pagaram": "Pagaram" };
     barras($("funil"), p.funil.map((f, i) => ({ nome: nomes[f.rotulo] ?? f.rotulo, total: f.total, perda: i === 0 ? undefined : f.pct_anterior === null ? null : 1 - f.pct_anterior })), pior?.i);
-    $("nota-funil").textContent = `Também no período: ${p.extras.pix_copiado} copiaram o código Pix, ${p.extras.pdf_salvo} salvaram o PDF, ${p.extras.casal_interesse} querem a trilha Casal.`;
+    const x = p.extras;
+    $("nota-funil").textContent = `Também no período: ${x.oferta_vista ?? 0} viram a oferta, ${x.checkout_clicado ?? 0} abriram o checkout, ${x.bump_aceito ?? 0} marcaram o adicional do casal, ${x.upsell_aceito ?? 0} geraram Pix de upsell, ${x.pix_copiado} copiaram o código, ${x.pdf_salvo} salvaram o PDF.`;
 
     const rotulosEtapa = ["Nome", "Data de nascimento", "Ela / ele", "Pergunta 1", "Pergunta 2", "Pergunta 3", "Pergunta 4", "Pergunta 5", "Aceite e revelar"];
     barras($("etapas"), p.quiz_etapas.map((e) => ({ nome: `${e.passo}. ${rotulosEtapa[e.passo - 1]}`, total: e.total, extra: pct(e.pct_inicio) })));

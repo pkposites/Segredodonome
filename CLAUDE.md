@@ -4,7 +4,7 @@ Instruções para o Claude Code neste repositório. Leia este arquivo e toda a p
 
 ## Contexto em 6 linhas
 
-- Produto de entretenimento: quiz "Segredo do Nome" com resultado gratuito completo e resultado expandido pago (R$ 37,00 via Pix desde 29/10/2026, antes R$ 17,90, R$ 13,90 e R$ 11,90; Mercado Pago), com o bônus "Compatibilidade do casal" para quem compra.
+- Produto de entretenimento: quiz "Segredo do Nome" com resultado gratuito completo e resultado expandido pago (R$ 27,00 via Pix desde 13/11/2026; adicional opcional Compatibilidade do casal R$ 17,00; antes R$ 37,00, R$ 17,90, R$ 13,90 e R$ 11,90, que continuam aceitos e incluem o casal; Mercado Pago).
 - Dono: Rob, gestor de tráfego. Já integrou o Mercado Pago (Developers) em outros projetos. Não é desenvolvedor em tempo integral: prefira soluções simples, explicadas passo a passo.
 - MVP = só a trilha Nome. A trilha Casal completa aparece na landing como "em breve"; uma versão curta é bônus da compra (DECISOES, 25/10/2026).
 - **Sem banco de dados de clientes.** O resultado é recalculado a cada abertura a partir de dados guardados no navegador da pessoa; o Mercado Pago é a fonte da verdade dos pagamentos. Ver `docs/ARQUITETURA.md`.
@@ -16,7 +16,7 @@ Instruções para o Claude Code neste repositório. Leia este arquivo e toda a p
 | Camada | Tecnologia |
 |---|---|
 | Front | HTML/CSS/JS sem framework, em `web/`, publicado no Netlify |
-| API | Cloudflare Worker em `worker/` (TypeScript, Wrangler), ambientes `dev` e `production` |
+| API | Netlify Functions em `netlify/functions/` (o Worker em `worker/` fica só como referência até a virada; a lógica de preço e pagamento continua nesses arquivos e é importada pela função) |
 | Pagamento | Mercado Pago, Pix pela API (conta e credenciais do Rob; confirmar endpoints vigentes em mercadopago.com.br/developers) |
 | Medição | Meta Pixel + API de Conversões (no Worker), deduplicados por `event_id` |
 | Armazenamento mínimo | **Cloudflare D1** (banco da própria Cloudflare, ligado ao Worker) **só** para: registros de acesso do Marco Civil (6 meses), contadores do funil sem pessoa, gasto de mídia digitado no painel e configurações. Nenhum dado de cliente. Migrações em `worker/migrations/` |
@@ -36,7 +36,7 @@ Não troque a stack nem adicione framework/serviço pago sem aprovação.
 
 ## Regras de produto que não podem ser quebradas
 
-- **Não guardar dados de clientes no servidor.** Nome, data de nascimento, respostas, e-mail e resultados só existem: no navegador da pessoa, dentro do passe criptografado (que só o Worker abre) e em memória durante uma requisição. Nenhuma tabela, log ou ferramenta de terceiros recebe esses dados.
+- **Não guardar dados de clientes no servidor**, com uma exceção decidida em 13/11/2026: WhatsApp opcional na tela do Pix, só com a caixa de consentimento, junto de um rascunho cifrado, por até 7 dias, para o Rob mandar o link na mão. Fora isso, nome, data, respostas, e-mail e resultados só existem no navegador, dentro do passe criptografado e em memória durante uma requisição.
 - O e-mail que o Mercado Pago exige para gerar o Pix é repassado direto ao Mercado Pago e descartado. Nunca vai para log, banco, Pixel ou API de Conversões.
 - Conteúdo pago nunca vai para o HTML, bundle ou JSON público. Só o Worker monta o conteúdo pago, e só depois de confirmar no Mercado Pago que o pagamento está aprovado (e não estornado).
 - Pagamento só é confirmado consultando a API do Mercado Pago no servidor. Nunca pelo front.

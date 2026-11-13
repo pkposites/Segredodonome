@@ -31,7 +31,10 @@ const TIPO_PARA_META = {
   // Só contadores do painel (nenhum evento novo para a Meta):
   escolha_nome: null,
   oferta_vista: null,
+  checkout_clicado: null,
   pago_entregue: null,
+  bump_aceito: null,
+  upsell_aceito: null,
   ...Object.fromEntries([1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => [`quiz_passo_${n}`, null])),
   casal_interesse: "AddToWishlist",
 };
@@ -69,6 +72,11 @@ export function capturarChegada() {
   if (!sessao.ler("id")) sessao.gravar("id", uuid());
   // Link de acesso (#p=...): o passe vai para o aparelho e sai da barra de endereço na hora,
   // antes de o Pixel ou o Clarity carregarem, para nenhuma ferramenta registrar o endereço com ele.
+  const retomada = location.hash.match(/^#w=([A-Za-z0-9_-]{16,80})$/);
+  if (retomada) {
+    sessao.gravar("retomada", retomada[1]);
+    history.replaceState(history.state, "", "/r");
+  }
   const passe = location.hash.match(/^#p=([A-Za-z0-9_-]{20,4096})$/);
   if (passe) {
     local.gravar("passe", passe[1]);
@@ -148,9 +156,14 @@ export function evento(tipo) {
   post("/evento", { tipo, event_id: eventId, utm_campaign: utmCampaign(), variante: CONFIG.VARIANTE, ...identificadores() }, { keepalive: true }).catch(() => {});
 }
 
-/** InitiateCheckout: o servidor já mandou; o Pixel repete com o mesmo event_id. */
-export function pixelCheckout(eventId) {
-  pixel("InitiateCheckout", eventId);
+/** InitiateCheckout: o servidor já mandou; o Pixel repete com o mesmo event_id e o valor real do Pix. */
+export function pixelCheckout(eventId, valorPago) {
+  const valor = typeof valorPago === "number" ? valorPago : P.valor;
+  const cents = Math.round(valor * 100);
+  const contents = cents === CONFIG.PRECO_CENTAVOS + CONFIG.PRECO_CASAL_CENTAVOS
+    ? [{ id: P.id, quantity: 1, item_price: P.valor }, { id: "casal_completo_v1", quantity: 1, item_price: CONFIG.PRECO_CASAL_CENTAVOS / 100 }]
+    : [{ id: cents === CONFIG.PRECO_CASAL_CENTAVOS ? "casal_completo_v1" : P.id, quantity: 1, item_price: valor }];
+  pixel("InitiateCheckout", eventId, { value: valor, currency: P.moeda, content_ids: contents.map((c) => c.id), contents, num_items: contents.length });
 }
 
 /** Purchase: uma vez por pagamento (o do servidor sai no webhook com o mesmo event_id). */
@@ -161,5 +174,9 @@ export function pixelCompra(eventIdPurchase, pagamentoId, valorPago) {
   sessao.gravar("compras", feitos);
   // Valor realmente pago (Pix gerado antes de uma troca de preço), igual ao do Worker.
   const valor = typeof valorPago === "number" ? valorPago : P.valor;
-  pixel("Purchase", eventIdPurchase, { ...CUSTOM.Purchase, value: valor, contents: [{ id: P.id, quantity: 1, item_price: valor }], order_id: pagamentoId });
+  const cents = Math.round(valor * 100);
+  const contents = cents === CONFIG.PRECO_CENTAVOS + CONFIG.PRECO_CASAL_CENTAVOS
+    ? [{ id: P.id, quantity: 1, item_price: P.valor }, { id: "casal_completo_v1", quantity: 1, item_price: CONFIG.PRECO_CASAL_CENTAVOS / 100 }]
+    : [{ id: cents === CONFIG.PRECO_CASAL_CENTAVOS ? "casal_completo_v1" : P.id, quantity: 1, item_price: valor }];
+  pixel("Purchase", eventIdPurchase, { ...CUSTOM.Purchase, value: valor, content_ids: contents.map((c) => c.id), contents, num_items: contents.length, order_id: pagamentoId });
 }

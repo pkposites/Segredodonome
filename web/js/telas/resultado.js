@@ -33,6 +33,28 @@ export async function telaResultado(tela, { ir }) {
 
   trocar(tela, h("div", { class: "processando" }, h("span", { class: "girador", "aria-hidden": "true" }), h("p", { class: "apoio" }, "Abrindo o seu resultado…")));
 
+  const retomada = sessao.ler("retomada");
+  if (retomada && !passe) {
+    sessao.gravar("retomada", null);
+    try {
+      const aberto = await post("/recuperacao/abrir", { token: retomada });
+      if (aberto?.entradas) local.gravar("entradas", aberto.entradas);
+      if (aberto?.pix && aberto.status === "pending") local.gravar("pix", aberto.pix);
+      if (aberto?.status === "pago" && aberto.entradas) {
+        try {
+          const rec = await post("/recuperar", { entradas: aberto.entradas });
+          local.gravar("passe", rec.passe);
+          local.gravar("comprovante", rec.comprovante);
+          return liberado(tela, rec, { passe: rec.passe, comprovante: rec.comprovante, mensagem: "Encontramos sua compra" });
+        } catch {
+          // Sem a compra localizada, segue com o resultado grátis.
+        }
+      }
+    } catch {
+      // Link vencido ou inválido: segue o caminho normal.
+    }
+  }
+
   if (passe) {
     try {
       const r = await post("/resultado", { passe });
@@ -156,55 +178,18 @@ function botaoApagar() {
   );
 }
 
-/**
- * Pop-up da oferta: uma vez por visita, quando a pessoa termina de ler o resultado grátis
- * (ou depois de 25 s lendo). Preço real, sem preço riscado nem contagem regressiva.
- */
-function agendarPopupOferta({ alvo, r, comprar }) {
-  if (sessao.ler("popup_oferta") || local.ler("pix")) return;
-  let feito = false;
-  const abrir = () => {
-    if (feito) return;
-    feito = true;
-    obs.disconnect();
-    clearTimeout(timer);
-    // Não atrapalha quem já abriu o pagamento ou saiu da tela de resultado.
-    if (document.querySelector(".veu") || !document.body.contains(alvo)) return;
-    sessao.gravar("popup_oferta", true);
-    mostrarPopupOferta(r, comprar);
-  };
-  const obs = new IntersectionObserver(([e]) => e.isIntersecting && abrir(), { threshold: 0.6 });
-  obs.observe(alvo);
-  const timer = setTimeout(abrir, 25000);
-}
-
-function mostrarPopupOferta(r, comprar) {
-  const total = r.oferta.secoes.length;
-  const anterior = document.activeElement;
-  const fechar = () => {
-    document.removeEventListener("keydown", aoTeclar);
-    veu.remove();
-    anterior?.focus?.({ preventScroll: true });
-  };
-  const aoTeclar = (e) => e.key === "Escape" && fechar();
-  const cta = h("button", { class: "botao botao-principal", type: "button", onclick: () => (fechar(), comprar()) }, `Quero ver os ${total} capítulos`);
-  const caixa = h(
-    "div",
-    { class: "popup-oferta", role: "dialog", "aria-modal": "true", "aria-labelledby": "popup-titulo", "aria-describedby": "popup-texto" },
-    h("button", { class: "icone-botao popup-fechar", type: "button", "aria-label": "Fechar", onclick: fechar }, svg(ICONES.fechar)),
-    h("span", { class: "popup-selo", "aria-hidden": "true" }, svg(ICONES.cadeado)),
-    h("span", { class: "rotulo" }, "Calma, ainda não acabou"),
-    h("h2", { class: "titulo", id: "popup-titulo" }, `Você não vai acreditar em tudo que a sua carta ainda guarda, ${r.gratis.primeiro_nome}`),
-    h("p", { class: "apoio", id: "popup-texto" }, `São mais ${total} capítulos escritos para a combinação do seu nome, da sua data e do seu jeito, com a frase do seu nome, o PDF para guardar e o bônus Compatibilidade do casal.`),
-    h("p", { class: "popup-proximo" }, h("span", { class: "mini" }, "Próximo capítulo"), h("strong", {}, r.oferta.secoes[0].titulo)),
-    h("p", { class: "popup-preco" }, h("strong", {}, CONFIG.PRECO_TEXTO), h("span", { class: "mini" }, "Pix · pagamento único · 7 dias para desistir")),
-    cta,
-    h("button", { class: "botao-texto", type: "button", onclick: fechar }, "Agora não"),
+function ofertaImediata(g, total, comprar) {
+  return h(
+    "section",
+    { class: "oferta-imediata nao-imprimir", "aria-labelledby": "oferta-imediata-titulo" },
+    h("span", { class: "rotulo" }, "Sua carta continua"),
+    h("h2", { class: "titulo", id: "oferta-imediata-titulo" }, `${g.primeiro_nome}, os próximos capítulos estão prontos`),
+    h("p", { class: "apoio" }, `Mais ${total} capítulos, a frase do seu nome, PDF e um link que abre em qualquer aparelho por 12 meses.`),
+    h("p", { class: "preco-valor" }, CONFIG.PRECO_TEXTO),
+    h("ul", { class: "lista-curta" }, h("li", {}, "Garantia de 7 dias"), h("li", {}, "Pagamento seguro via Mercado Pago"), h("li", {}, "Pagamento único, sem assinatura")),
+    h("button", { class: "botao botao-principal", type: "button", onclick: comprar }, `Revelar os ${total} capítulos — ${CONFIG.PRECO_TEXTO}`),
+    h("p", { class: "mini" }, `Na hora de pagar, você pode incluir a Compatibilidade do casal por +${CONFIG.PRECO_CASAL_TEXTO}.`),
   );
-  const veu = h("div", { class: "veu veu-centro nao-imprimir", onclick: (e) => e.target === veu && fechar() }, caixa);
-  document.addEventListener("keydown", aoTeclar);
-  document.body.append(veu);
-  cta.focus({ preventScroll: true });
 }
 
 function gratis(tela, r, { ir, entradas }) {
@@ -232,13 +217,13 @@ function gratis(tela, r, { ir, entradas }) {
           { class: "capitulos" },
           r.oferta.secoes.map((s, k) =>
             h(
-              "div",
-              { class: "capitulo" },
+              "button",
+              { class: "capitulo", type: "button", onclick: comprar },
               h("span", { class: "num", "aria-hidden": "true" }, String(k + 1), svg(ICONES.cadeado)),
               h(
-                "div",
+                "span",
                 { class: "pilha-8" },
-                h("span", { class: "capitulo-titulo" }, h("span", { class: "sr-only" }, `Capítulo ${k + 1}, trancado: `), s.titulo),
+                h("span", { class: "capitulo-titulo" }, h("span", { class: "sr-only" }, `Capítulo ${k + 1}, trancado. Toque para abrir o pagamento. `), s.titulo),
                 h("span", { class: "capitulo-texto" }, `${s.primeira_frase} `, h("span", { class: "desfocado", "aria-hidden": "true" }, ENCHIMENTO)),
               ),
             ),
@@ -255,7 +240,7 @@ function gratis(tela, r, { ir, entradas }) {
             h("li", {}, svg(ICONES.ok), `Os ${total} capítulos da sua carta, escritos para você`),
             h("li", {}, svg(ICONES.ok), "A frase do seu nome"),
             h("li", {}, svg(ICONES.ok), "PDF para guardar e link de acesso por 12 meses"),
-            h("li", {}, svg(ICONES.ok), h("strong", {}, "Bônus: "), "Compatibilidade do casal"),
+            h("li", {}, svg(ICONES.ok), h("strong", {}, "Opcional: "), `Compatibilidade do casal por +${CONFIG.PRECO_CASAL_TEXTO}`),
           ),
         ),
         h(
@@ -263,6 +248,7 @@ function gratis(tela, r, { ir, entradas }) {
           { class: "preco" },
           // Texto de legal/TEXTOS_DE_CONSENTIMENTO.md, 3 (informação pré-contratual).
           h("div", { class: "preco-linha" }, h("strong", {}, "Resultado completo do Segredo do Nome"), h("span", { class: "preco-valor" }, CONFIG.PRECO_TEXTO)),
+          h("p", { class: "selo-mp" }, svg(ICONES.ok), "Pagamento seguro via Mercado Pago · garantia de 7 dias"),
           h(
             "ul",
             {},
@@ -305,7 +291,7 @@ function gratis(tela, r, { ir, entradas }) {
         h("p", { class: "gancho-texto" }, `${capGancho.primeira_frase} `, h("span", { class: "desfocado", "aria-hidden": "true" }, ENCHIMENTO)),
         h(
           "button",
-          { class: "botao-texto gancho-botao", type: "button", onclick: () => oferta?.scrollIntoView({ behavior: movimentoReduzido() ? "auto" : "smooth", block: "start" }) },
+          { class: "botao-texto gancho-botao", type: "button", onclick: comprar },
           "Continuar lendo",
           svg(ICONES.seta),
         ),
@@ -315,7 +301,7 @@ function gratis(tela, r, { ir, entradas }) {
   const barra = h(
     "div",
     { class: "barra-fixa barra-oferta nao-imprimir" },
-    h("div", { class: "barra-texto" }, h("strong", {}, `${g.primeiro_nome}, sua carta continua`), h("span", { class: "mini" }, `${total} capítulos + bônus do casal`)),
+    h("div", { class: "barra-texto" }, h("strong", {}, `${g.primeiro_nome}, sua carta continua`), h("span", { class: "mini" }, `${total} capítulos · ${CONFIG.PRECO_TEXTO}`)),
     h("button", { class: "botao botao-principal", type: "button", onclick: comprar }, `Ver tudo · ${CONFIG.PRECO_TEXTO}`),
   );
   document.querySelector(".barra-fixa")?.remove();
@@ -326,7 +312,8 @@ function gratis(tela, r, { ir, entradas }) {
   trocar(
     tela,
     aviso,
-    cartaArquetipo(g, { animar }),
+      cartaArquetipo(g, { animar }),
+    r.oferta ? ofertaImediata(g, total, comprar) : null,
     h(
       "div",
       { class: `depois-da-carta${animar ? " chegando" : ""}` },
@@ -353,7 +340,7 @@ function gratis(tela, r, { ir, entradas }) {
         obs.disconnect();
       }
     }, { threshold: 0.25 });
-    obs.observe(oferta);
+    obs.observe(tela.querySelector(".oferta-imediata") ?? oferta);
     // Capítulos entram um a um quando a oferta aparece na tela.
     const capitulos = oferta.querySelector(".capitulos");
     capitulos.classList.add("revelar");
@@ -364,24 +351,29 @@ function gratis(tela, r, { ir, entradas }) {
       }
     }, { threshold: 0.15 });
     obsCap.observe(capitulos);
-    agendarPopupOferta({ alvo: chamariz, r, comprar });
   }
   if (r.oferta) {
     document.body.append(barra);
-    // Barra fixa a partir do momento em que a carta sai da tela; some enquanto o preço está à vista.
-    const estado = { passouCarta: false, precoNaTela: false };
-    const atualizar = () => barra.classList.toggle("visivel", estado.passouCarta && !estado.precoNaTela);
-    const cena = tela.querySelector(".revelacao-cena");
-    new IntersectionObserver(([e]) => {
-      estado.passouCarta = !e.isIntersecting && e.boundingClientRect.top < 0;
+    // Barra fixa cedo (depois da virada da carta) e some enquanto um preço está na tela.
+    const estado = { liberada: false, precoNaTela: false };
+    const atualizar = () => barra.classList.toggle("visivel", estado.liberada && !estado.precoNaTela);
+    setTimeout(() => {
+      estado.liberada = true;
       atualizar();
-    }).observe(cena ?? sentinela);
-    const caixaPreco = oferta?.querySelector(".preco");
-    if (caixaPreco) {
-      new IntersectionObserver(([e]) => {
-        estado.precoNaTela = e.isIntersecting;
+    }, movimentoReduzido() ? 0 : 1600);
+    const precos = [...tela.querySelectorAll(".oferta-imediata, .preco")];
+    if (precos.length) {
+      new IntersectionObserver((entries) => {
+        estado.precoNaTela = entries.some((e) => e.isIntersecting);
         atualizar();
-      }).observe(caixaPreco);
+      }).observe(precos[0]);
+      for (const el of precos.slice(1)) {
+        new IntersectionObserver(([e]) => {
+          if (e.isIntersecting) estado.precoNaTela = true;
+          else estado.precoNaTela = precos.some((p) => p.getBoundingClientRect().top < innerHeight && p.getBoundingClientRect().bottom > 0);
+          atualizar();
+        }).observe(el);
+      }
     }
   }
   if (local.ler("pix") && entradas) comprar(); // voltou com Pix pendente: checkout pronto
@@ -391,6 +383,75 @@ function gratis(tela, r, { ir, entradas }) {
 function valorPago(comprovante) {
   const v = typeof comprovante.valor === "number" ? comprovante.valor : 11.9;
   return `R$ ${v.toFixed(2).replace(".", ",")}`;
+}
+
+function blocoUpsell(tela, { passe, gratis, casalIncluso }) {
+  const entradas = local.ler("entradas");
+  if (!casalIncluso) {
+    const botao = h("button", { class: "botao botao-principal", type: "button" }, `Quero a compatibilidade do casal — ${CONFIG.PRECO_CASAL_TEXTO}`);
+    botao.addEventListener("click", () => {
+      abrirCheckout({
+        entradas,
+        gratis,
+        pedido: { produto: "casal", passe },
+        aoAprovar: async (resp) => {
+          pixelCompra(resp.event_id_purchase, resp.comprovante?.pagamento_id, resp.comprovante?.valor);
+          try {
+            const atual = await post("/resultado", { passe });
+            liberado(tela, atual, { passe, comprovante: local.ler("comprovante"), mensagem: "Compatibilidade do casal liberada." });
+          } catch {
+            mostrarPista("Pagamento confirmado. Abra o resultado de novo para ver o casal.");
+          }
+        },
+      });
+    });
+    return h(
+      "section",
+      { class: "carta carta-suave nao-imprimir", "aria-labelledby": "upsell-titulo" },
+      h("span", { class: "rotulo" }, "Um passo a mais, se você quiser"),
+      h("h2", { class: "titulo", id: "upsell-titulo" }, "Compatibilidade do casal"),
+      h("p", {}, `Por ${CONFIG.PRECO_CASAL_TEXTO} em um Pix separado, você informa o nome e a data de quem você ama e vê a combinação das duas cartas. A sua carta continua completa mesmo sem isso.`),
+      botao,
+      h("p", { class: "mini" }, "Pagamento seguro via Mercado Pago · garantia de 7 dias · sem assinatura"),
+    );
+  }
+  const nome = h("input", { class: "campo", placeholder: "Nome da outra pessoa", maxlength: "80", autocomplete: "name" });
+  const data = h("input", { class: "campo", type: "date", "aria-label": "Data de nascimento da outra pessoa" });
+  const erro = h("p", { class: "erro", role: "alert" });
+  const botao = h("button", { class: "botao botao-contorno", type: "button" }, `Gerar Pix da leitura extra — ${CONFIG.PRECO_TEXTO}`);
+  botao.addEventListener("click", () => {
+    erro.textContent = "";
+    if (nome.value.trim().length < 2 || !data.value) {
+      erro.textContent = "Informe o nome e a data de nascimento.";
+      return;
+    }
+    abrirCheckout({
+      entradas,
+      gratis,
+      pedido: { produto: "segundo_nome", passe, parceria: { nome: nome.value.trim(), data: data.value } },
+      aoAprovar: (resp) => {
+        pixelCompra(resp.event_id_purchase, resp.comprovante?.pagamento_id, resp.comprovante?.valor);
+        liberado(tela, resp, {
+          passe: resp.passe,
+          comprovante: resp.comprovante,
+          mensagem: "Leitura extra liberada. A sua carta continua neste aparelho.",
+          voltar: () => location.assign("/r"),
+        });
+      },
+    });
+  });
+  return h(
+    "section",
+    { class: "carta carta-suave nao-imprimir", "aria-labelledby": "upsell-nome-titulo" },
+    h("span", { class: "rotulo" }, "Para outra pessoa"),
+    h("h2", { class: "titulo", id: "upsell-nome-titulo" }, "Leitura de outro nome"),
+    h("p", {}, `Por ${CONFIG.PRECO_TEXTO}. Usa o nome e a data de nascimento. As 5 escolhas ficam no meio do caminho, porque esta leitura é só do nome e da data — não é a carta de quem respondeu o quiz.`),
+    nome,
+    data,
+    erro,
+    botao,
+    h("p", { class: "mini" }, "Pagamento seguro via Mercado Pago · garantia de 7 dias"),
+  );
 }
 
 function aoAprovar(tela, r) {
@@ -413,7 +474,7 @@ function qrSvg(texto) {
   return lugar;
 }
 
-async function liberado(tela, r, { passe, comprovante, mensagem, animar = false }) {
+async function liberado(tela, r, { passe, comprovante, mensagem, animar = false, voltar = null }) {
   const g = r.gratis;
   document.querySelector(".barra-fixa")?.remove();
   const link = linkDeAcesso(passe);
@@ -478,6 +539,7 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
 
   trocar(
     tela,
+    voltar ? h("button", { class: "botao botao-contorno nao-imprimir", type: "button", onclick: voltar }, "Voltar para a minha carta") : null,
     h(
       "div",
       { class: "capa so-impressao" },
@@ -498,7 +560,8 @@ async function liberado(tela, r, { passe, comprovante, mensagem, animar = false 
       h("blockquote", {}, `“${r.completo.frase_do_nome}”`),
       h("span", { class: "mini" }, `${g.primeiro_nome} · ${g.arquetipo.nome}`),
     ),
-    blocoBonusCasal({ passe }),
+    blocoUpsell(tela, { passe, gratis: g, casalIncluso: r.casal_incluso !== false }),
+    r.casal_incluso === false ? null : blocoBonusCasal({ passe }),
     h(
       "section",
       { class: "carta carta-suave nao-imprimir", "aria-labelledby": "link-titulo" },

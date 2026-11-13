@@ -1,4 +1,22 @@
-# Netlify. Rotas da página única (cada uma é uma URL real para o PageView e os públicos).
+# API no Netlify (a função trata o caminho depois de /.netlify/functions/api).
+/resultado              /.netlify/functions/api/resultado              200
+/checkout               /.netlify/functions/api/checkout               200
+/pagamento/status       /.netlify/functions/api/pagamento/status       200
+/recuperar              /.netlify/functions/api/recuperar              200
+/evento                 /.netlify/functions/api/evento                 200
+/bonus/casal            /.netlify/functions/api/bonus/casal            200
+/recuperacao/contato    /.netlify/functions/api/recuperacao/contato    200
+/recuperacao/abrir      /.netlify/functions/api/recuperacao/abrir      200
+/webhook/mercadopago    /.netlify/functions/api/webhook/mercadopago    200
+/saude                  /.netlify/functions/api/saude                  200
+/painel                 /.netlify/functions/api/painel                 200
+/admin/*                /.netlify/functions/api/admin/:splat           200
+/painel-sw.js           /.netlify/functions/api/painel-sw.js           200
+/painel.webmanifest     /.netlify/functions/api/painel.webmanifest     200
+/painel-icone-192.png   /.netlify/functions/api/painel-icone-192.png   200
+/painel-icone-512.png   /.netlify/functions/api/painel-icone-512.png   200
+
+# Rotas da página única (cada uma é uma URL real para o PageView e os públicos).
 /quiz            /index.html   200
 /quiz/*          /index.html   200
 /r               /index.html   200
