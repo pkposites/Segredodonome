@@ -5,3 +5,7 @@
 [build]
   command = "cd worker && npm ci && node scripts/montar-netlify.mjs"
   publish = "publicar"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

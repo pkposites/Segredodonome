@@ -47,7 +47,7 @@ Saída 201: `{ "pagamento_id": "...", "qr_code_base64": "...", "copia_e_cola": "
 
 ### `POST /pagamento/status`
 Entrada: `{ "pagamento_id": "...", "entradas": {...} }`
-- Consulta o Mercado Pago. Confere valor aceito pelo catálogo (37,00, 17,90, 13,90 ou 11,90 BRL) e `external_reference` = `sdn1-{chave das entradas}` (senão 404 genérico).
+- Consulta o Mercado Pago. Confere valor aceito pelo catálogo (27,00, 44,00 com o casal, 17,00 só do casal, ou 37,00, 17,90, 13,90 e 11,90) e `external_reference` (senão 404 genérico).
 - `pending` → `{ "status": "pending" }`.
 - `approved` → `{ "status": "approved", "passe": "...", "comprovante": { "pagamento_id", "data_hora", "valor", "forma": "Pix" }, "completo": {...}, "event_id_purchase": "compra-{pagamento_id}" }`.
 - `expired`, `cancelled`, `rejected`, `refunded`, `charged_back` → status correspondente.

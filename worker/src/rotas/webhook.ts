@@ -50,6 +50,7 @@ export async function postWebhook(req: Request, s: Servicos): Promise<Response> 
     );
     // Receita pelo valor realmente pago (preços diferentes ao longo do tempo).
     await s.banco.somarReceita(diaSaoPaulo(aprovado), normalizarCampanha(p.metadata.utm_campaign), normalizarVariante(p.metadata.variante), centavos(p.valor));
+    await s.banco.apagarPixRecuperacao(p.id);
     // Aviso no celular do Rob: só na primeira vez que a venda é contada.
     s.depois(avisarVenda(s, aprovado, centavos(p.valor)));
   }

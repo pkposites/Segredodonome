@@ -245,7 +245,7 @@ function desenhar(tela, e, ir, voltando) {
           h("a", { href: "/termos", target: "_blank" }, "Termos de Uso"),
           " e a ",
           h("a", { href: "/privacidade", target: "_blank" }, "Política de Privacidade"),
-          ". Usamos seu nome e sua data de nascimento só para montar o resultado e não guardamos esses dados depois. Este é um conteúdo de entretenimento. ",
+          ". Usamos seu nome e sua data de nascimento para montar o resultado e não guardamos esses dados, salvo se você autorizar, na tela do Pix, guardar o WhatsApp: aí fica uma cópia criptografada por até 7 dias, só para retomar aquele pagamento. Este é um conteúdo de entretenimento. ",
           h("strong", {}, "Li e concordo"),
           " (obrigatório)",
         ),

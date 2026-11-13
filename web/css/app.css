@@ -344,6 +344,8 @@ details p { padding-bottom: 14px; color: var(--texto-2); font-size: 14px; }
 /* oferta: capítulos */
 .capitulos { display: flex; flex-direction: column; gap: 10px; }
 .capitulo { display: flex; gap: 12px; align-items: flex-start; border-radius: 18px; padding: 14px; background: linear-gradient(rgba(30, 19, 40, .9), rgba(30, 19, 40, .9)) padding-box, linear-gradient(140deg, rgba(242, 200, 121, .35), rgba(255, 255, 255, .05)) border-box; border: 1px solid transparent; }
+button.capitulo { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+button.capitulo:focus-visible { outline: 2px solid var(--dourado); outline-offset: 2px; }
 .capitulo .num { width: 34px; height: 46px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serifa); font-size: 18px; color: var(--dourado); background: linear-gradient(160deg, #3a1a4a, #1c0f26); border: 1px solid rgba(242, 200, 121, .45); position: relative; }
 .capitulo .num svg { position: absolute; bottom: -6px; right: -6px; width: 18px; height: 18px; padding: 3px; border-radius: 50%; background: var(--bg); color: var(--dourado); }
 .capitulo-titulo { font-weight: 700; font-size: 15px; }
@@ -494,6 +496,21 @@ details p { padding-bottom: 14px; color: var(--texto-2); font-size: 14px; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .palco .letra-voa { display: none; }
 }
+
+/* ---------- oferta imediata, Pix no celular, adicional ---------- */
+.oferta-imediata { display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--raio-card); background: linear-gradient(180deg, rgba(255, 122, 89, .16), transparent 70%), var(--superficie); border: 1px solid var(--borda); }
+.oferta-imediata .preco-valor { font-family: var(--serifa); font-size: 32px; }
+.lista-curta, .lista-checkout { list-style: none; display: flex; flex-direction: column; gap: 6px; padding: 0; margin: 0; }
+.lista-curta li, .lista-checkout li { display: flex; gap: 8px; align-items: flex-start; }
+.selo-mp { display: flex; gap: 8px; align-items: center; justify-content: center; font-size: 13px; color: var(--texto-2); }
+.bump { display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 16px; border: 1px solid var(--borda); background: rgba(255, 255, 255, .03); }
+.bump span { display: flex; flex-direction: column; gap: 4px; }
+.instrucao-pix { font-weight: 700; text-align: center; margin: 4px 0; }
+.codigo-pix { width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.45; padding: 12px; border-radius: 12px; border: 1px solid var(--borda); background: #fff; color: #1a1020; resize: none; user-select: text; -webkit-user-select: text; }
+.qr-secundario { margin-top: 4px; }
+.qr-secundario summary { cursor: pointer; text-align: center; color: var(--texto-2); }
+.whatsapp-pix { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; border-top: 1px solid var(--borda); }
+.aviso-app { font-size: 14px; }
 
 /* ---------- PDF (impressão do navegador) ---------- */
 .so-impressao { display: none; }

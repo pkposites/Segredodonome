@@ -9,6 +9,7 @@ import { comCors, ErroHttp, json, origemPermitida, preflight, respostaErro } fro
 import { postBonusCasal } from "./rotas/bonus";
 import { postEvento } from "./rotas/evento";
 import { postCheckout, postRecuperar, postStatus } from "./rotas/pagamento";
+import { postAbrir, postContato } from "./rotas/recuperacao";
 import { postResultado } from "./rotas/resultado";
 import { postWebhook } from "./rotas/webhook";
 import { ipDe, type Servicos } from "./servicos";
@@ -22,6 +23,8 @@ const PUBLICAS: Record<string, Rota> = {
   "/recuperar": postRecuperar,
   "/evento": postEvento,
   "/bonus/casal": postBonusCasal,
+  "/recuperacao/contato": postContato,
+  "/recuperacao/abrir": postAbrir,
 };
 
 const CSP_PAINEL =
@@ -61,7 +64,7 @@ export async function tratar(req: Request, s: Servicos, limite?: RateLimit): Pro
 async function saude(s: Servicos): Promise<Response> {
   const tem = (v: unknown) => (typeof v === "string" && v.length > 0 ? "ok" : "falta");
   return json({
-    banco: s.env.DB ? "ligado" : "desligado",
+    banco: s.bancoLigado || s.env.DB ? "ligado" : "desligado",
     segredo: tem(s.env.SEGREDO_PASSE),
     mercado_pago: tem(s.env.MP_ACCESS_TOKEN),
     webhook_mercado_pago: tem(s.env.MP_WEBHOOK_SECRET),

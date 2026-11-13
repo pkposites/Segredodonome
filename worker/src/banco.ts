@@ -4,8 +4,9 @@ export const ETAPAS = [
   "visita", "escolha_nome", "quiz_inicio", "quiz_metade",
   "quiz_passo_1", "quiz_passo_2", "quiz_passo_3", "quiz_passo_4", "quiz_passo_5",
   "quiz_passo_6", "quiz_passo_7", "quiz_passo_8", "quiz_passo_9",
-  "resultado_visto", "oferta_vista", "comprar_toque",
+  "resultado_visto", "oferta_vista", "comprar_toque", "checkout_clicado",
   "pix_gerado", "pix_copiado", "pix_pago", "pago_entregue", "pdf_salvo", "casal_interesse",
+  "bump_aceito", "upsell_aceito",
 ] as const;
 export type Etapa = (typeof ETAPAS)[number];
 
@@ -37,6 +38,28 @@ export interface Banco {
   lerValor(chave: string): Promise<string | null>;
   gravarValor(chave: string, valor: string): Promise<void>;
   limpar(agora: Date): Promise<void>;
+  /**
+   * Pix pendente com WhatsApp autorizado (decisão de 13/11/2026).
+   * Guarda o número e um rascunho criptografado para o link de retomada. Sem nome em claro.
+   */
+  salvarPixRecuperacao(p: PixRecuperacao): Promise<void>;
+  listarPixPendentes(): Promise<PixRecuperacao[]>;
+  lerPixPorToken(token: string): Promise<PixRecuperacao | null>;
+  apagarPixRecuperacao(pagamentoId: string): Promise<void>;
+}
+
+/** Contato opcional da tela do Pix. O rascunho é o passe cifrado; o painel não o devolve. */
+export interface PixRecuperacao {
+  pagamento_id: string;
+  whatsapp: string;
+  consentimento_em: string;
+  versao_texto: string;
+  valor_centavos: number;
+  expira_em: string;
+  criado_em: string;
+  token: string;
+  rascunho: string;
+  status: "pendente" | "pago";
 }
 
 /** Dia (AAAA-MM-DD) no fuso de São Paulo. */
@@ -182,10 +205,57 @@ export class BancoD1 implements Banco {
     const seisMeses = new Date(agora.getTime());
     seisMeses.setUTCMonth(seisMeses.getUTCMonth() - 6);
     const seteDias = new Date(agora.getTime() - 7 * 86400_000);
-    await this.db.batch([
+    const lote = [
       this.db.prepare("DELETE FROM access_logs WHERE ocorrido_em < ?").bind(seisMeses.toISOString()),
       this.db.prepare("DELETE FROM pagamentos_contados WHERE contado_em < ?").bind(seteDias.toISOString()),
-    ]);
+    ];
+    try {
+      lote.push(this.db.prepare("DELETE FROM pix_recuperacao WHERE criado_em < ?").bind(seteDias.toISOString()));
+      await this.db.batch(lote);
+    } catch {
+      await this.db.batch(lote.slice(0, 2));
+    }
+  }
+
+  async salvarPixRecuperacao(p: PixRecuperacao) {
+    await this.db
+      .prepare(
+        `INSERT INTO pix_recuperacao (pagamento_id, whatsapp, consentimento_em, versao_texto, valor_centavos, expira_em, criado_em, token, rascunho, status)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT (pagamento_id) DO UPDATE SET
+           whatsapp = excluded.whatsapp, consentimento_em = excluded.consentimento_em, versao_texto = excluded.versao_texto,
+           valor_centavos = excluded.valor_centavos, expira_em = excluded.expira_em, token = excluded.token,
+           rascunho = excluded.rascunho, status = excluded.status`,
+      )
+      .bind(p.pagamento_id, p.whatsapp, p.consentimento_em, p.versao_texto, p.valor_centavos, p.expira_em, p.criado_em, p.token, p.rascunho, p.status)
+      .run();
+  }
+
+  async listarPixPendentes() {
+    try {
+      const { results } = await this.db
+        .prepare("SELECT * FROM pix_recuperacao WHERE status = 'pendente' ORDER BY criado_em DESC LIMIT 200")
+        .all<PixRecuperacao>();
+      return results;
+    } catch {
+      return [];
+    }
+  }
+
+  async lerPixPorToken(token: string) {
+    try {
+      return await this.db.prepare("SELECT * FROM pix_recuperacao WHERE token = ?").bind(token).first<PixRecuperacao>();
+    } catch {
+      return null;
+    }
+  }
+
+  async apagarPixRecuperacao(pagamentoId: string) {
+    try {
+      await this.db.prepare("DELETE FROM pix_recuperacao WHERE pagamento_id = ?").bind(pagamentoId).run();
+    } catch {
+      // tabela ainda não criada no D1 antigo
+    }
   }
 }
 
@@ -223,4 +293,12 @@ export class BancoNulo implements Banco {
   }
   async gravarValor() {}
   async limpar() {}
+  async salvarPixRecuperacao() {}
+  async listarPixPendentes() {
+    return [];
+  }
+  async lerPixPorToken() {
+    return null;
+  }
+  async apagarPixRecuperacao() {}
 }

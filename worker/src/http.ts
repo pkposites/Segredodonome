@@ -39,10 +39,14 @@ export function origemPermitida(req: Request, publicBaseUrl: string): string | n
   const origem = req.headers.get("origin");
   if (!origem) return null;
   try {
-    return new URL(publicBaseUrl).origin === origem ? origem : null;
+    if (new URL(publicBaseUrl).origin === origem) return origem;
+    // Mesmo site (preview do Netlify ou localhost): o Host é o da página, não o domínio de produção.
+    const host = (req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "").split(",")[0]?.trim();
+    if (host && new URL(origem).host === host) return origem;
   } catch {
     return null;
   }
+  return null;
 }
 
 export function comCors(resp: Response, origem: string | null): Response {

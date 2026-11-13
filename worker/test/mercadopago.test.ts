@@ -21,11 +21,14 @@ const base: Pagamento = normalizarPagamento({
 });
 
 describe("pagamentoLibera", () => {
-  it("só libera aprovado, 37,00 ou os preços anteriores (17,90, 13,90 e 11,90) em BRL, referência certa e sem reembolso", () => {
+  it("libera o resultado a R$ 27, R$ 44 (com o casal) ou nos preços anteriores, e não libera o Pix só do casal", () => {
     expect(pagamentoLibera(base, "sdn1-abc")).toBe(true);
     expect(pagamentoLibera({ ...base, valor: 13.9 }, "sdn1-abc")).toBe(true);
     expect(pagamentoLibera({ ...base, valor: 17.9 }, "sdn1-abc")).toBe(true);
     expect(pagamentoLibera({ ...base, valor: 37 }, "sdn1-abc")).toBe(true);
+    expect(pagamentoLibera({ ...base, valor: 27 }, "sdn1-abc")).toBe(true);
+    expect(pagamentoLibera({ ...base, valor: 44 }, "sdn1-abc")).toBe(true);
+    expect(pagamentoLibera({ ...base, valor: 17 }, "sdn1-abc")).toBe(false);
     expect(pagamentoLibera({ ...base, valor: 36.9 }, "sdn1-abc")).toBe(false);
     expect(pagamentoLibera({ ...base, valor: 15.9 }, "sdn1-abc")).toBe(false);
     expect(pagamentoLibera({ ...base, valor: 12.9 }, "sdn1-abc")).toBe(false);
@@ -104,6 +107,7 @@ describe("cliente HTTP", () => {
       idempotencyKey: "11111111-1111-4111-8111-111111111111",
       expiraEm: new Date("2026-10-18T15:30:00Z"),
       notificationUrl: "https://api.x/webhook/mercadopago",
+      valorCentavos: 2700,
     });
     expect(p.pix.qr_code).toBe("000201");
     const { url, init } = chamadas[0]!;
@@ -112,7 +116,7 @@ describe("cliente HTTP", () => {
     expect(h["x-idempotency-key"]).toBe("11111111-1111-4111-8111-111111111111");
     expect(h.authorization).toBe("Bearer TEST-1");
     const corpo = JSON.parse(String(init.body));
-    expect(corpo).toMatchObject({ transaction_amount: 37, payment_method_id: "pix", payer: { email: "a@b.com" } });
+    expect(corpo).toMatchObject({ transaction_amount: 27, payment_method_id: "pix", payer: { email: "a@b.com" } });
     expect(corpo.date_of_expiration).toBe("2026-10-18T12:30:00.000-03:00");
   });
 

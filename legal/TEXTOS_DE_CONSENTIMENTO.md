@@ -1,4 +1,4 @@
-# Textos de consentimento e avisos (versão 2026-10-e)
+# Textos de consentimento e avisos (versão 2026-11-a)
 
 Cada texto tem um identificador e uma versão; a escolha da pessoa fica registrada só no navegador dela.
 
@@ -13,13 +13,15 @@ Cada texto tem um identificador e uma versão; a escolha da pessoa fica registra
 - Link "Preferências de cookies" fixo no rodapé para mudar a escolha.
 
 ## 2. Antes de calcular o resultado (`termos`) — última tela do quiz
-> Ao continuar, você confirma que tem 18 anos ou mais e concorda com os [Termos de Uso](/termos) e a [Política de Privacidade](/privacidade). Usamos seu nome e sua data de nascimento só para montar o resultado e não guardamos esses dados depois. Este é um conteúdo de entretenimento.
+> Ao continuar, você confirma que tem 18 anos ou mais e concorda com os [Termos de Uso](/termos) e a [Política de Privacidade](/privacidade). Usamos seu nome e sua data de nascimento para montar o resultado e não guardamos esses dados, salvo se você autorizar, na tela do Pix, guardar o WhatsApp: aí fica uma cópia criptografada por até 7 dias, só para retomar aquele pagamento. Este é um conteúdo de entretenimento.
 >
 > ☐ **Li e concordo** (obrigatório)
 
 ## 3. Resumo antes de pagar (informação pré-contratual) — caixa de preço
-> **Resultado completo do Segredo do Nome — R$ 37,00**
+> **Resultado completo do Segredo do Nome — R$ 27,00**
 > Pagamento único via Pix, sem assinatura. Acesso imediato após a confirmação, por 12 meses, com PDF para baixar.
+> Na tela do Pix você pode incluir a Compatibilidade do casal por mais R$ 17,00. Sem essa escolha, o valor é R$ 27,00.
+> Pagamento seguro via Mercado Pago. Garantia de 7 dias.
 > Você pode desistir em até 7 dias e receber o valor de volta. [Política de reembolso](/reembolso)
 > Não enviamos e-mail: guarde o seu link de acesso ou salve o PDF.
 > Conteúdo de entretenimento, sem valor científico ou de previsão.
@@ -32,11 +34,11 @@ Cada texto tem um identificador e uma versão; a escolha da pessoa fica registra
 > **Seu link de acesso** [Copiar link] [QR Code]
 > Abre o seu resultado completo em qualquer aparelho por 12 meses. Guarde o link ou salve o PDF. Quem tiver este link vê o seu resultado.
 
-## 5. Contato para receber o link — FASE FUTURA (WhatsApp), não usar no MVP
-> **Quer guardar seu resultado?** Receba o link no seu WhatsApp.
-> ☐ Quero receber o link do meu resultado (obrigatório para salvar o número)
-> ☐ Quero receber novidades e ofertas (opcional)
-> Você pode sair a qualquer momento respondendo SAIR.
+## 5. WhatsApp opcional na tela do Pix
+> Opcional. Se quiser, guardamos seu WhatsApp para te enviar o link deste Pix, caso você não conclua agora.
+> ☐ Autorizo guardar este WhatsApp só para me enviar o link deste Pix se eu não pagar. Sem mensagens de propaganda. Posso pedir para parar respondendo SAIR.
+>
+> A caixa começa desmarcada. Sem ela, o número não é salvo. Não há segunda caixa de propaganda.
 
 ## 6. Interesse na trilha Casal
 > **Quero quando lançar** (botão). Não pedimos contato; o lançamento será divulgado no site e nas redes.

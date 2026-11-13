@@ -5,8 +5,8 @@ import { ALGORITHM_VERSION, calcularPerfil, type Entradas } from "../motor";
 import { normalizarNome } from "../motor/normalizar";
 import { gerarChave, referenciaExterna } from "../motor/semente";
 import { emitirPasse, expiraEm, type ConteudoPasse } from "../cripto/passe";
-import { PRODUTO_NOME, reais } from "../catalogo";
-import type { Pagamento } from "../mercadopago";
+import { PRODUTO_NOME, SUFIXO_REFERENCIA_CASAL, centavos, incluiCasalNoValor, reais } from "../catalogo";
+import { pagamentoLiberaCasal, type Pagamento } from "../mercadopago";
 import type { Servicos } from "../servicos";
 import { ErroHttp } from "../http";
 import { validarEntradas } from "../entradas";
@@ -28,6 +28,17 @@ export function exigirEntradas(bruto: unknown, s: Servicos): Entradas {
 export async function referenciaDe(entradas: Entradas, s: Servicos): Promise<string> {
   const nome = normalizarNome(entradas.nome)!;
   return referenciaExterna(await gerarChave(s.env.SEGREDO_CHAVE, nome.normalizado, entradas.data_nascimento));
+}
+
+export const referenciaCasalDe = async (entradas: Entradas, s: Servicos) =>
+  `${await referenciaDe(entradas, s)}${SUFIXO_REFERENCIA_CASAL}`;
+
+/** O pagamento do nome já inclui o casal, ou existe um Pix aprovado só do adicional. */
+export async function temCasal(s: Servicos, entradas: Entradas, pagamentoNome: Pagamento): Promise<boolean> {
+  if (incluiCasalNoValor(centavos(pagamentoNome.valor))) return true;
+  const ref = await referenciaCasalDe(entradas, s);
+  const lista = await s.mp.buscarAprovadosPorReferencia(ref, 365);
+  return lista.some((p) => pagamentoLiberaCasal(p, ref));
 }
 
 /** Monta grátis + (oferta ou completo). O completo só é pedido depois de o pagamento ser confirmado. */

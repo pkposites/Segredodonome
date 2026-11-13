@@ -18,7 +18,10 @@ const MAPA: Record<string, { etapa: Etapa; meta?: NomeEventoMeta; caminho: strin
   // Etapas só do painel (nenhum evento novo para a Meta):
   escolha_nome: { etapa: "escolha_nome", caminho: "/" },
   oferta_vista: { etapa: "oferta_vista", caminho: "/r" },
+  checkout_clicado: { etapa: "checkout_clicado", caminho: "/r" },
   pago_entregue: { etapa: "pago_entregue", caminho: "/r" },
+  bump_aceito: { etapa: "bump_aceito", caminho: "/r" },
+  upsell_aceito: { etapa: "upsell_aceito", caminho: "/r" },
   ...Object.fromEntries(
     [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => [`quiz_passo_${n}`, { etapa: `quiz_passo_${n}` as Etapa, caminho: "/quiz" }]),
   ),

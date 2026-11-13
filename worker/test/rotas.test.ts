@@ -9,8 +9,14 @@ import { calcularPainel } from "../src/admin/rotas";
 const EMAIL = "pessoa.compradora@exemplo.com";
 const UUID = "6f1c2c1e-6c43-4c3a-9a55-2f0f6a0d9e11";
 
-async function comprar(a: ReturnType<typeof ambiente>, entradas = ENTRADAS) {
-  const c = await a.chamar("/checkout", { entradas, email: EMAIL, idempotency_key: crypto.randomUUID(), fbp: "fb.1.1.1" });
+async function comprar(a: ReturnType<typeof ambiente>, entradas = ENTRADAS, opcoes: { incluirCasal?: boolean } = {}) {
+  const c = await a.chamar("/checkout", {
+    entradas,
+    email: EMAIL,
+    idempotency_key: crypto.randomUUID(),
+    fbp: "fb.1.1.1",
+    ...(opcoes.incluirCasal ? { incluir_casal: true } : {}),
+  });
   a.mp.aprovar(c.corpo.pagamento_id);
   const st = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas });
   return { pagamentoId: c.corpo.pagamento_id as string, passe: st.corpo.passe as string, status: st };
@@ -32,7 +38,7 @@ describe("POST /resultado", () => {
     expect(r.headers.get("access-control-allow-origin")).toBe(ORIGEM);
     expect(r.corpo.gratis.arquetipo.nome).toBe("O Farol");
     expect(r.corpo.completo).toBeNull();
-    expect(r.corpo.oferta.preco).toBe(37);
+    expect(r.corpo.oferta.preco).toBe(27);
     expect(r.corpo.versoes).toEqual({ algoritmo: "1.0.0", conteudo: "2026-10-a" });
     // O texto pago além da primeira frase não sai do Worker antes do pagamento.
     const pago = await comprar(ambiente());
@@ -93,7 +99,7 @@ describe("compra completa", () => {
     expect(compra.event_id).toBe(ok.corpo.event_id_purchase);
     expect(compra.action_source).toBe("website");
     expect(compra.user_data).toMatchObject({ client_user_agent: expect.any(String), client_ip_address: "203.0.113.7", fbp: "fb.1.1.1" });
-    expect(compra.custom_data).toMatchObject({ value: 37, currency: "BRL" });
+    expect(compra.custom_data).toMatchObject({ value: 27, currency: "BRL" });
     // fbc do checkout vai junto na compra (dados do anúncio clicado).
     const b = ambiente();
     const c2 = await b.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, fbc: "fb.1.1700000000000.AbC" });
@@ -120,7 +126,7 @@ describe("compra completa", () => {
     const ok = await a.chamar("/pagamento/status", { pagamento_id: c.corpo.pagamento_id, entradas: ENTRADAS });
     expect(ok.corpo.status).toBe("approved");
     expect(ok.corpo.event_id_purchase).toBe(`compra-${c.corpo.pagamento_id}`);
-    expect(ok.corpo.comprovante).toMatchObject({ pagamento_id: c.corpo.pagamento_id, valor: 37, forma: "Pix" });
+    expect(ok.corpo.comprovante).toMatchObject({ pagamento_id: c.corpo.pagamento_id, valor: 27, forma: "Pix" });
     expect(ok.corpo.completo.secoes).toHaveLength(7);
     expect(ok.corpo.passe).toMatch(/^[A-Za-z0-9_-]+$/);
   });
@@ -241,7 +247,7 @@ describe("POST /bonus/casal (bônus de quem comprou)", () => {
 
   it("passe pago → combinação das duas cartas, sem guardar nem medir nada da outra pessoa", async () => {
     const a = ambiente();
-    const { passe } = await comprar(a);
+    const { passe } = await comprar(a, ENTRADAS, { incluirCasal: true });
     const eventosAntes = a.meta.eventos.length;
     const logs: string[] = [];
     const espiões = (["log", "warn", "error", "info"] as const).map((m) =>
@@ -266,7 +272,7 @@ describe("POST /bonus/casal (bônus de quem comprou)", () => {
 
   it("sem passe, passe alterado, vencido, estornado ou Mercado Pago fora do ar → não libera", async () => {
     const a = ambiente();
-    const { passe, pagamentoId } = await comprar(a);
+    const { passe, pagamentoId } = await comprar(a, ENTRADAS, { incluirCasal: true });
     expect((await a.chamar("/bonus/casal", { parceria: PARCERIA })).status).toBe(403);
     const alterado = passe.slice(0, -2) + (passe.endsWith("AA") ? "BB" : "AA");
     expect((await a.chamar("/bonus/casal", { passe: alterado, parceria: PARCERIA })).status).toBe(400);
@@ -283,14 +289,14 @@ describe("POST /bonus/casal (bônus de quem comprou)", () => {
     expect(estornado.corpo.casal).toBeUndefined();
 
     const b = ambiente();
-    const compra = await comprar(b);
+    const compra = await comprar(b, ENTRADAS, { incluirCasal: true });
     b.relogio.agora = new Date("2027-10-19T15:00:00Z");
     expect((await b.chamar("/bonus/casal", { passe: compra.passe, parceria: PARCERIA })).status).toBe(403);
   });
 
   it("valida a outra pessoa: nome, data e maioridade, sem ecoar o que foi enviado", async () => {
     const a = ambiente();
-    const { passe } = await comprar(a);
+    const { passe } = await comprar(a, ENTRADAS, { incluirCasal: true });
     for (const [parceria, status] of [
       [{ ...PARCERIA, nome: "1" }, 400],
       [{ ...PARCERIA, data_nascimento: "1991-02-30" }, 400],
@@ -349,7 +355,7 @@ describe("POST /webhook/mercadopago", () => {
     const compras = a.meta.eventos.filter((e) => e.event_name === "Purchase");
     expect(compras).toHaveLength(2);
     expect(new Set(compras.map((e) => e.event_id))).toEqual(new Set([`compra-${pagamentoId}`]));
-    expect(compras[0]!.custom_data).toMatchObject({ value: 37, currency: "BRL", order_id: pagamentoId, content_ids: ["nome_completo_v1"] });
+    expect(compras[0]!.custom_data).toMatchObject({ value: 27, currency: "BRL", order_id: pagamentoId, content_ids: ["nome_completo_v1"] });
     // O webhook não vem do navegador: navegador e fbp foram guardados no pagamento ao gerar o Pix (sem IP).
     expect(compras[0]!.user_data).toEqual({ client_user_agent: "Mozilla/5.0 (iPhone) Safari", fbp: "fb.1.1.1" });
     expect(a.banco.total("pix_pago")).toBe(1);
@@ -597,7 +603,7 @@ describe("avisos de venda no celular", () => {
     await webhook(a, pagamentoId); // reenvio do Mercado Pago: não avisa de novo
     expect(a.push.enviados).toEqual([APARELHO]);
     const m = (await a.chamar("/admin/push/mensagem", undefined, comChave("GET"))).corpo.mensagem;
-    expect(m).toMatchObject({ titulo: "💰 Nova venda no Segredo do Nome!", corpo: "R$ 37,00 · primeira venda de hoje" });
+    expect(m).toMatchObject({ titulo: "💰 Nova venda no Segredo do Nome!", corpo: "R$ 27,00 · primeira venda de hoje" });
     expect(JSON.stringify(m)).not.toMatch(/Juliana|Robson|@/);
   });
 
@@ -673,5 +679,103 @@ describe("trocas de preço (R$ 11,90 → R$ 13,90 em 23/10 → R$ 17,90 em 25/10
     const p = await calcularPainel(a.banco, "2026-10-20", "2026-10-25", null);
     expect(p.vendas).toBe(2);
     expect(p.receita_bruta_cents).toBe(1190 + 1390);
+  });
+});
+
+describe("preço R$ 27 + adicional do casal R$ 17", () => {
+  it("sem o adicional cobra 27; com o adicional cobra 44 e o Purchase leva os dois itens", async () => {
+    const a = ambiente();
+    const so = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID });
+    expect(so.status).toBe(201);
+    expect(so.corpo.valor).toBe(27);
+    expect(so.corpo.ticket_url).toMatch(/^https:\/\//);
+    expect(a.mp.criados[0]!.valorCentavos).toBe(2700);
+    expect(a.banco.total("bump_aceito")).toBe(0);
+
+    const b = ambiente();
+    const com = await b.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID, incluir_casal: true, fbp: "fb.1.1.1" });
+    expect(com.corpo.valor).toBe(44);
+    expect(b.mp.criados[0]!.valorCentavos).toBe(4400);
+    expect(b.banco.total("bump_aceito")).toBe(1);
+    expect(b.meta.eventos[0]!.custom_data).toMatchObject({
+      value: 44,
+      content_ids: ["nome_completo_v1", "casal_completo_v1"],
+      num_items: 2,
+    });
+    b.mp.aprovar(com.corpo.pagamento_id);
+    const st = await b.chamar("/pagamento/status", { pagamento_id: com.corpo.pagamento_id, entradas: ENTRADAS, fbp: "fb.1.1.1" });
+    expect(st.corpo.casal_incluso).toBe(true);
+    expect(st.corpo.comprovante.valor).toBe(44);
+    expect(b.meta.eventos.find((e) => e.event_name === "Purchase")!.custom_data).toMatchObject({ value: 44, order_id: com.corpo.pagamento_id });
+  });
+
+  it("R$ 27 não libera o casal; o upsell de R$ 17 libera, e o Purchase do upsell vale 17", async () => {
+    const a = ambiente();
+    const { passe } = await comprar(a);
+    const negado = await a.chamar("/bonus/casal", { passe, parceria: { nome: "Rafael Souza", data_nascimento: "1991-07-02" } });
+    expect(negado.status).toBe(403);
+
+    const up = await a.chamar("/checkout", {
+      produto: "casal",
+      passe,
+      idempotency_key: "6f1c2c1e-6c43-4c3a-9a55-2f0f6a0d9e12",
+      fbp: "fb.1.1.1",
+    });
+    expect(up.status).toBe(201);
+    expect(up.corpo.valor).toBe(17);
+    expect(a.banco.total("upsell_aceito")).toBe(1);
+    expect(a.mp.criados.at(-1)!.externalReference).toMatch(/:c$/);
+    a.mp.aprovar(up.corpo.pagamento_id);
+    const st = await a.chamar("/pagamento/status", { pagamento_id: up.corpo.pagamento_id, entradas: ENTRADAS, fbp: "fb.1.1.1" });
+    expect(st.corpo).toMatchObject({ status: "approved", upsell: "casal", casal_incluso: true });
+    expect(st.corpo.passe).toBeUndefined();
+    expect(a.meta.eventos.filter((e) => e.event_name === "Purchase").at(-1)!.custom_data).toMatchObject({
+      value: 17,
+      content_ids: ["casal_completo_v1"],
+    });
+    const ok = await a.chamar("/bonus/casal", { passe, parceria: { nome: "Rafael Souza", data_nascimento: "1991-07-02" } });
+    expect(ok.status).toBe(200);
+  });
+
+  it("WhatsApp só entra com consentimento e o painel lista o número sem o nome", async () => {
+    const a = ambiente();
+    const c = await a.chamar("/checkout", { entradas: ENTRADAS, idempotency_key: UUID });
+    const sem = await a.chamar("/recuperacao/contato", {
+      pagamento_id: c.corpo.pagamento_id,
+      entradas: ENTRADAS,
+      whatsapp: "11999998888",
+      consentimento: false,
+      versao: "2026-11-a",
+    });
+    expect(sem.status).toBe(400);
+    expect(a.banco.pixs).toHaveLength(0);
+
+    const ok = await a.chamar("/recuperacao/contato", {
+      pagamento_id: c.corpo.pagamento_id,
+      entradas: ENTRADAS,
+      whatsapp: "(11) 99999-8888",
+      consentimento: true,
+      versao: "2026-11-a",
+    });
+    expect(ok.status).toBe(200);
+    expect(a.banco.pixs[0]!.whatsapp).toBe("5511999998888");
+    expect(JSON.stringify(a.banco.pixs[0])).not.toContain("Camila");
+
+    const painel = await a.chamar("/admin/pix-pendentes", undefined, {
+      method: "GET",
+      headers: { "x-painel-chave": CHAVE_PAINEL_TESTE, origin: ORIGEM },
+    });
+    expect(painel.status).toBe(200);
+    expect(painel.corpo.pendentes).toHaveLength(1);
+    expect(painel.corpo.pendentes[0].whatsapp).toBe("5511999998888");
+    expect(painel.corpo.pendentes[0].link).toContain("/r#w=");
+    expect(painel.texto).not.toContain("Camila");
+    expect(painel.texto).not.toContain("rascunho");
+
+    const token = painel.corpo.pendentes[0].link.split("#w=")[1];
+    const aberto = await a.chamar("/recuperacao/abrir", { token });
+    expect(aberto.corpo.entradas.nome).toBe("Camila Costa");
+    expect(aberto.corpo.status).toBe("pending");
+    expect(aberto.corpo.pix.copia_e_cola).toBeTruthy();
   });
 });

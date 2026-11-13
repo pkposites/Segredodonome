@@ -1,7 +1,7 @@
 // Cliente do Mercado Pago (API Payments, /v1/payments). Escolha e campos registrados em
 // docs/FASE_0_AUDITORIA.md; conferir na documentação vigente antes do modo de produção.
 import { hmacSha256, iguaisTempoConstante, paraHex } from "./cripto/hmac";
-import { centavos, PRODUTO_NOME, precoAceito } from "./catalogo";
+import { centavos, PRODUTO_CASAL, PRODUTO_NOME, precoDoResultado } from "./catalogo";
 
 export const API_MERCADO_PAGO = "https://api.mercadopago.com";
 
@@ -28,6 +28,8 @@ export interface NovoPix {
   idempotencyKey: string;
   expiraEm: Date;
   notificationUrl: string;
+  /** Valor em centavos, calculado no servidor. Nunca o que o navegador pedir. */
+  valorCentavos: number;
 }
 
 export interface MercadoPago {
@@ -103,7 +105,7 @@ export class MercadoPagoApi implements MercadoPago {
 
   async criarPix(p: NovoPix): Promise<Pagamento> {
     const corpo = {
-      transaction_amount: PRODUTO_NOME.precoCentavos / 100,
+      transaction_amount: p.valorCentavos / 100,
       description: p.descricao,
       payment_method_id: "pix",
       payer: { email: p.email },
@@ -166,12 +168,23 @@ export class MercadoPagoApi implements MercadoPago {
   }
 }
 
-/** Pagamento libera o pago? Aprovado, valor e moeda do catálogo, referência certa, sem reembolso. */
+/** Pagamento libera o resultado do nome? Aprovado, valor de resultado, referência certa, sem reembolso. */
 export function pagamentoLibera(p: Pagamento, referenciaEsperada: string): boolean {
   return (
     p.status === "approved" &&
-    precoAceito(centavos(p.valor)) &&
+    precoDoResultado(centavos(p.valor)) &&
     p.moeda === PRODUTO_NOME.moeda &&
+    p.external_reference === referenciaEsperada &&
+    p.valor_reembolsado === 0
+  );
+}
+
+/** Pix só da Compatibilidade do casal (upsell de R$ 17,00). */
+export function pagamentoLiberaCasal(p: Pagamento, referenciaEsperada: string): boolean {
+  return (
+    p.status === "approved" &&
+    centavos(p.valor) === PRODUTO_CASAL.precoCentavos &&
+    p.moeda === PRODUTO_CASAL.moeda &&
     p.external_reference === referenciaEsperada &&
     p.valor_reembolsado === 0
   );

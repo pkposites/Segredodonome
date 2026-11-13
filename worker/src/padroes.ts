@@ -5,7 +5,7 @@ import type { Env } from "./env";
 export const PADROES = {
   AMBIENTE: "production",
   PUBLIC_BASE_URL: "https://segredo.relatoriorda.com.br",
-  PIX_VALIDADE_MINUTOS: "30",
+  PIX_VALIDADE_MINUTOS: "360",
   META_GRAPH_VERSION: "v26.0",
   META_PIXEL_ID: "2132885950950048",
 } as const;

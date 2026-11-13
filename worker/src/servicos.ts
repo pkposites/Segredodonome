@@ -11,6 +11,8 @@ import { chaveVapidDoBanco } from "./notificacoes";
 
 export interface Servicos {
   env: Env;
+  /** true quando há D1 ou outro banco (Blobs, arquivo). Os testes deixam indefinido. */
+  bancoLigado?: boolean;
   mp: MercadoPago;
   meta: Meta;
   banco: Banco;
@@ -33,10 +35,11 @@ export function chavesDoEnv(env: Env): ChavesPasse {
   return { atual, segredos };
 }
 
-export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
-  const banco: Banco = env.DB ? new BancoD1(env.DB) : new BancoNulo();
+export function criarServicos(env: Env, ctx: { waitUntil(p: Promise<unknown>): void }, bancoInformado?: Banco): Servicos {
+  const banco: Banco = bancoInformado ?? (env.DB ? new BancoD1(env.DB) : new BancoNulo());
   return {
     env,
+    bancoLigado: Boolean(bancoInformado || env.DB),
     mp: new MercadoPagoApi(
       env.MP_ACCESS_TOKEN,
       undefined,
@@ -52,7 +55,12 @@ export function criarServicos(env: Env, ctx: ExecutionContext): Servicos {
   };
 }
 
-export const ipDe = (req: Request) => req.headers.get("cf-connecting-ip") ?? "0.0.0.0";
+/** IP do acesso: Cloudflare, Netlify ou o primeiro salto do proxy. */
+export const ipDe = (req: Request) =>
+  req.headers.get("cf-connecting-ip") ??
+  req.headers.get("x-nf-client-connection-ip") ??
+  req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+  "0.0.0.0";
 
 export interface Rastreio {
   /** false = a pessoa tocou em "Recusar" no aviso de cookies: nada vai à Meta (oposição, LGPD art. 18, § 2º). */
@@ -69,8 +77,9 @@ export const recusouMedicao = (r: Rastreio | null | undefined) => r?.medir === f
 /** user_data da API de Conversões: IP, navegador, fbp, fbc e sessão (com hash). Nunca nome, data ou respostas. */
 export async function dadosUsuario(req: Request, r: Rastreio): Promise<DadosUsuario> {
   const sessao = texto(r.sessao_id, 64);
+  const ip = ipDe(req);
   return {
-    client_ip_address: req.headers.get("cf-connecting-ip") ?? undefined,
+    client_ip_address: ip === "0.0.0.0" ? undefined : ip,
     client_user_agent: req.headers.get("user-agent") ?? undefined,
     fbp: texto(r.fbp),
     fbc: texto(r.fbc),

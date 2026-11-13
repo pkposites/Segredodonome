@@ -47,7 +47,7 @@ createServer(async (req, res) => {
           qr_code: `00020126580014br.gov.bcb.pix0136simulado-${id}5204000053039865406${b.transaction_amount}5802BR`,
           // PNG 1×1 cinza: o simulador não desenha um QR de verdade
           qr_code_base64: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNgAAAAAgABc3UBGAAAAABJRU5ErkJggg==",
-          ticket_url: null,
+          ticket_url: `http://localhost:${PORTA}/ticket/${id}`,
         },
       },
     };
@@ -81,6 +81,13 @@ createServer(async (req, res) => {
     if (sim[1] === "expirar") Object.assign(p, { status: "cancelled", status_detail: "expired" });
     console.log(`${sim[1]}: ${p.id} → ${p.status}`);
     return json(res, 200, p);
+  }
+
+  const ticket = url.pathname.match(/^\/ticket\/(\d+)$/);
+  if (req.method === "GET" && ticket) {
+    res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+    res.end(`<!doctype html><meta charset="utf-8"><title>Pix simulado</title><body style="font-family:sans-serif;padding:24px"><h1>Página de pagamento simulada</h1><p>Pedido ${ticket[1]}. Nenhum valor real é cobrado.</p></body>`);
+    return;
   }
 
   json(res, 404, { message: "rota não simulada" });

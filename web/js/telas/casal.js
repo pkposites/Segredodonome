@@ -22,7 +22,7 @@ export function vitrineBonusCasal(gratis) {
   return h(
     "div",
     { class: "bonus-vitrine" },
-    h("span", { class: "bonus-selo" }, svg(ICONES.brilho), "Bônus incluso"),
+    h("span", { class: "bonus-selo" }, svg(ICONES.brilho), `Adicional opcional · +${"R$ 17,00"}`),
     h(
       "div",
       { class: "bonus-par", "aria-hidden": "true" },
@@ -34,7 +34,7 @@ export function vitrineBonusCasal(gratis) {
     h(
       "p",
       { class: "pequeno texto-2" },
-      "Depois do pagamento, você digita o nome e a data de nascimento de quem você ama e descobre a combinação das duas cartas: a sintonia de vocês, o que cada pessoa traz para a relação e uma frase para o casal.",
+      "Se você incluir este adicional no Pix, depois do pagamento você digita o nome e a data de nascimento de quem você ama e vê a combinação das duas cartas: a sintonia, o que cada pessoa traz e uma frase para o casal.",
     ),
   );
 }
